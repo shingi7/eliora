@@ -29,3 +29,5 @@ Thumbs.db
 
 # Log files
 *.log
+
+/.quarto/
