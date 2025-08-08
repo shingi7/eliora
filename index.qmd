@@ -1,79 +1,153 @@
 ---
 title: "Eliora Tech Solutions"
 subtitle: "Innovative Technology Solutions for Your Business"
+page-layout: full
+toc: false
 ---
 
-::: {.hero .hero--neon}
-::: {.container}
-::: {.row}
-::: {.col-lg-6}
-# AI That Delivers Real Business Outcomes {.display-1}
+::: {.hero-banner}
+# AI That Transforms Businesses
 
-We design, deploy, and operate production-grade AI systems. From strategy to shipped models, Eliora turns data into revenue, efficiency, and remarkable customer experiences.
+We design and deploy intelligent systems that deliver measurable results for modern enterprises.
+
+::: {.btn-group .my-4}
+[Book a Consultation](contact.qmd){.btn .btn-gradient}
+[See Case Studies](services.qmd){.btn .btn-outline-gradient}
+:::
+:::
+::: {.row .align-items-center}
+::: {.col-lg-6}
+# AI That Transforms Businesses {.display-1}
+
+We don't just build AI—we architect intelligent systems that deliver measurable results. From concept to production, Eliora creates AI solutions that drive revenue, optimize operations, and unlock competitive advantages.
 
 ::: {.btn-group .btn-group-lg .my-4}
-[Talk to an AI Architect](contact.qmd){.btn .btn-primary}
-[See Our Work](services.qmd){.btn .btn-outline-primary}
+[Schedule Consultation](contact.qmd){.btn .btn-primary}
+[View Case Studies](services.qmd){.btn .btn-outline-primary}
 :::
 
 ::: {.hero-metrics}
-- 100+ enterprise launches
-- 10x faster model deployment
-- 99.9% uptime SLOs
+- 500+ AI models deployed
+- 40% average efficiency gains
+- 99.9% system reliability
 :::
 :::
 
 ::: {.col-lg-6}
-<canvas id="neural-canvas" width="900" height="520" aria-label="Interactive neural network" role="img"></canvas>
+<canvas id="neural-canvas" width="900" height="500" aria-label="Interactive AI neural network visualization" role="img"></canvas>
+:::
 :::
 :::
 :::
 
-::: {.container .my-5}
+::: {.section-spacing}
+<!-- Services Preview -->
+::: {.section-services .section}
+::: {.container .py-5}
+::: {.text-center .mb-5}
+## What We Build
+*Cutting-edge AI solutions for forward-thinking companies*
+:::
+
 ::: {.row .g-4}
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body}
-### 🚀 Custom AI & Software
-Purpose-built applications and intelligent agents that scale with your business.
+::: {.col-lg-4}
+::: {.card .service-card .h-100}
+::: {.card-body .text-center}
+::: {.service-icon}
+🧠
+:::
+### Intelligent Automation
+AI-powered workflows that eliminate manual processes and accelerate decision-making across your organization.
 :::
 :::
 :::
 
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body}
-### ☁️ Cloud & MLOps
-Secure, compliant platforms, CI/CD for models, feature stores, and observability.
+::: {.col-lg-4}
+::: {.card .service-card .h-100}
+::: {.card-body .text-center}
+::: {.service-icon}
+⚡
+:::
+### Predictive Analytics
+Machine learning models that forecast trends, optimize resources, and identify opportunities before your competition.
 :::
 :::
 :::
 
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body}
-### 🔄 Digital Transformation
-Workflow automation, decision intelligence, and end‑to‑end modernization.
+::: {.col-lg-4}
+::: {.card .service-card .h-100}
+::: {.card-body .text-center}
+::: {.service-icon}
+🎯
+:::
+### Custom AI Applications
+Bespoke AI solutions tailored to your unique challenges, from computer vision to natural language processing.
+:::
+:::
 :::
 :::
 :::
 :::
 
-::: {.container .my-5}
-::: {.row}
-::: {.col-md-6}
-## Our Approach
-1. Discovery and value mapping
-2. Data and platform readiness
-3. Iterative delivery with measurable ROI
-4. Secure deployment and governance
-5. Ongoing optimization
+<!-- Why Choose Us -->
+::: {.section-why .py-5}
+::: {.container}
+::: {.row .align-items-center}
+::: {.col-lg-6}
+## Why Industry Leaders Choose Eliora
+
+::: {.feature-list}
+::: {.feature-item}
+**Proven Expertise** — 50+ successful AI deployments across industries
 :::
-::: {.col-md-6}
-## Proof, Not Promises
-- Case studies and demos on request
-- Transparent delivery and pricing
-- Executive-ready reporting
+::: {.feature-item}
+**End-to-End Delivery** — From strategy to production support
+:::
+::: {.feature-item}
+**Enterprise-Grade Security** — SOC2 compliant with military-grade encryption
+:::
+::: {.feature-item}
+**Rapid Implementation** — 3x faster deployment than traditional approaches
+:::
+:::
+:::
+
+::: {.col-lg-6}
+::: {.stats-grid}
+::: {.stat-item}
+**95%**  
+Client retention rate
+:::
+::: {.stat-item}
+**$2.4M**  
+Average ROI per project
+:::
+::: {.stat-item}
+**6 weeks**  
+Average time to value
+:::
+::: {.stat-item}
+**24/7**  
+Monitoring & support
+:::
+:::
+:::
+:::
+:::
+:::
+
+:::
+
+<!-- CTA Section -->
+::: {.section-cta .py-5}
+::: {.container .text-center}
+## Ready to Transform Your Business?
+
+*Join the AI revolution. Let's build something extraordinary together.*
+
+::: {.mt-4}
+[Get Started Today](contact.qmd){.btn .btn-primary .btn-lg .me-3}
+[Download AI Readiness Guide](#){.btn .btn-outline-primary .btn-lg}
 :::
 :::
 :::

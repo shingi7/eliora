@@ -186,20 +186,27 @@
     "href": "index.html",
     "title": "Eliora Tech Solutions",
     "section": "",
-    "text": "We design, deploy, and operate production-grade AI systems. From strategy to shipped models, Eliora turns data into revenue, efficiency, and remarkable customer experiences.\n\nTalk to an AI Architect See Our Work\n\n\n\n100+ enterprise launches\n10x faster model deployment\n99.9% uptime SLOs\n\n\n\n\n\n\n\n\n\n::: {.container .my-5} ::: {.row .g-4} ::: {.col-md-4} ::: {.card .h-100} ::: {.card-body} ### 🚀 Custom AI & Software Purpose-built applications and intelligent agents that scale with your business.\n::: :::\n:::"
+    "text": "We design and deploy intelligent systems that deliver measurable results for modern enterprises.\n\nBook a Consultation See Case Studies\n::: :::"
   },
   {
-    "objectID": "index.html#our-approach",
-    "href": "index.html#our-approach",
+    "objectID": "index.html#what-we-build",
+    "href": "index.html#what-we-build",
     "title": "Eliora Tech Solutions",
-    "section": "Our Approach",
-    "text": "Our Approach\n\nDiscovery and value mapping\nData and platform readiness\nIterative delivery with measurable ROI\nSecure deployment and governance\nOngoing optimization"
+    "section": "What We Build",
+    "text": "What We Build\nCutting-edge AI solutions for forward-thinking companies"
   },
   {
-    "objectID": "index.html#proof-not-promises",
-    "href": "index.html#proof-not-promises",
+    "objectID": "index.html#why-industry-leaders-choose-eliora",
+    "href": "index.html#why-industry-leaders-choose-eliora",
     "title": "Eliora Tech Solutions",
-    "section": "Proof, Not Promises",
-    "text": "Proof, Not Promises\n\nCase studies and demos on request\nTransparent delivery and pricing\nExecutive-ready reporting"
+    "section": "Why Industry Leaders Choose Eliora",
+    "text": "Why Industry Leaders Choose Eliora\n\n\nProven Expertise — 50+ successful AI deployments across industries\n\n\nEnd-to-End Delivery — From strategy to production support\n\n\nEnterprise-Grade Security — SOC2 compliant with military-grade encryption\n\n\nRapid Implementation — 3x faster deployment than traditional approaches"
+  },
+  {
+    "objectID": "index.html#ready-to-transform-your-business",
+    "href": "index.html#ready-to-transform-your-business",
+    "title": "Eliora Tech Solutions",
+    "section": "Ready to Transform Your Business?",
+    "text": "Ready to Transform Your Business?\nJoin the AI revolution. Let’s build something extraordinary together.\n\nGet Started Today Download AI Readiness Guide"
   }
 ]

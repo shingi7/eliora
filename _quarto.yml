@@ -23,10 +23,10 @@ website:
 format:
   html:
     theme: cosmo
-    css: [styles.css, assets/brain.css]
-    toc: true
+    css: [styles.css, assets/site.css]
+
     lang: en
-    include-after-body: assets/after.html
+    
 
 
 

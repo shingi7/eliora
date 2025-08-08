@@ -1,0 +1,76 @@
+/* Simplified, elegant style refresh for Eliora Tech Solutions */
+
+:root {
+  --brand-primary:#4db6e8;
+  --brand-secondary:#7c3aed;
+  --brand-dark:#0a0e1a;
+}
+
+/* Hero Banner */
+.hero-banner {
+  width:100%;
+  background:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-secondary) 100%);
+  color:#ffffff;
+  padding:6rem 1rem;
+  text-align:center;
+  border-radius:0 0 1.5rem 1.5rem;
+}
+.hero-banner h1 {
+  font-size:clamp(2.5rem,5vw,4rem);
+  font-weight:800;
+  margin-bottom:1rem;
+}
+.hero-banner p {
+  font-size:1.2rem;
+  margin-bottom:2rem;
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.btn-gradient {
+  background:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-secondary) 100%);
+  color:#fff !important;
+  border:none;
+  padding:0.75rem 1.5rem;
+  border-radius:50rem;
+  font-weight:600;
+  transition:transform 0.25s ease,box-shadow 0.25s ease;
+}
+.btn-gradient:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.btn-outline-gradient{
+  color:#fff !important;
+  border:2px solid #fff;
+  padding:0.75rem 1.5rem;
+  border-radius:50rem;
+  font-weight:600;
+  transition:background 0.25s ease,color 0.25s ease;
+}
+.btn-outline-gradient:hover{
+  background:#fff;
+  color:var(--brand-secondary) !important;
+}
+
+/* Metrics */
+.hero-metrics{list-style:none;padding:0;margin:2rem auto;max-width:600px;text-align:left;}
+.hero-metrics li{margin-bottom:.5rem;font-size:1.1rem;font-weight:600;}
+.hero-metrics li::before{display:none;}
+
+/* Card polishing */
+.card{
+  border:none;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+  border-radius:1rem;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+
+/* Section spacing */
+.section-spacing{padding:4rem 0;}
+
+/* Footer */
+.page-footer{background:#11131a;color:#9ca3af;padding:2rem 0;font-size:.9rem;text-align:center;}
+
