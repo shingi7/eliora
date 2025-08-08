@@ -1,0 +1,82 @@
+---
+title: "About Eliora Tech Solutions"
+---
+
+# About Us
+
+Eliora Tech Solutions is a forward-thinking technology company dedicated to helping businesses thrive in the digital age. Founded with a vision to bridge the gap between complex technology and practical business solutions, we've been at the forefront of digital innovation for over a decade.
+
+## Our Mission
+
+To empower businesses with cutting-edge technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape.
+
+## Our Vision
+
+To be the trusted technology partner for businesses worldwide, known for delivering innovative, scalable, and sustainable solutions that transform how organizations operate and serve their customers.
+
+## Our Values
+
+::: {.row .g-4 .my-4}
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🎯 Excellence
+We strive for excellence in every project, delivering solutions that exceed expectations and drive measurable results.
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🤝 Partnership
+We build long-term partnerships with our clients, understanding their unique challenges and growing together.
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 💡 Innovation
+We stay ahead of technology trends, continuously learning and adopting new methodologies and tools.
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🔒 Trust
+We maintain the highest standards of security, confidentiality, and ethical business practices.
+:::
+:::
+:::
+:::
+
+## Our Expertise
+
+- **Custom Software Development**: Web applications, mobile apps, and enterprise software
+- **Cloud Infrastructure**: AWS, Azure, and Google Cloud solutions
+- **DevOps & CI/CD**: Automated deployment and infrastructure management
+- **Data Analytics**: Business intelligence and data-driven insights
+- **Digital Transformation**: Legacy system modernization and process optimization
+- **Cybersecurity**: Security audits, compliance, and threat protection
+
+## Our Team
+
+Our team consists of experienced professionals with diverse backgrounds in software engineering, cloud architecture, project management, and business consulting. We bring together technical expertise and business acumen to deliver comprehensive solutions that address both immediate needs and long-term strategic goals.
+
+## Client Success Stories
+
+We've successfully partnered with companies across various industries, from startups to Fortune 500 enterprises, helping them achieve their digital transformation goals. Our portfolio includes:
+
+- E-commerce platforms processing millions of transactions
+- Healthcare systems managing patient data securely
+- Financial services applications with real-time processing
+- Manufacturing automation and IoT solutions
+- Educational technology platforms
+
+## Get in Touch
+
+Ready to transform your business with innovative technology solutions? [Contact us](contact.qmd) today to discuss how Eliora Tech Solutions can help you achieve your goals.

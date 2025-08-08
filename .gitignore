@@ -1,0 +1,31 @@
+# Quarto build artifacts
+_site/
+_quarto.yml.bak
+
+# R temporary files
+.Rhistory
+.RData
+.Ruserdata
+
+# Python temporary files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# OS temporary files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log

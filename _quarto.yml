@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Eliora Tech Solutions"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: services.qmd
+        text: Services
+      - href: contact.qmd
+        text: Contact
+    right:
+      - icon: github
+        href: https://github.com/elioratechsolutions
+  page-footer: ""
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    lang: en
+
+
+

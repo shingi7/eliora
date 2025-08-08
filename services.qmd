@@ -1,0 +1,297 @@
+---
+title: "Our Services"
+---
+
+# Our Services
+
+Eliora Tech Solutions offers a comprehensive range of technology services designed to meet the diverse needs of modern businesses. From custom software development to cloud infrastructure management, we provide end-to-end solutions that drive growth and efficiency.
+
+## Custom Software Development
+
+::: {.row .g-4 .my-4}
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🌐 Web Applications
+- Responsive, modern web applications
+- Progressive Web Apps (PWA)
+- Single Page Applications (SPA)
+- E-commerce platforms
+- Content Management Systems
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 📱 Mobile Applications
+- Native iOS and Android apps
+- Cross-platform solutions (React Native, Flutter)
+- Enterprise mobile applications
+- App store optimization
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🏢 Enterprise Software
+- Custom ERP systems
+- CRM solutions
+- Workflow automation
+- Business process management
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🔌 API Development
+- RESTful API design
+- GraphQL implementations
+- Third-party integrations
+- API documentation and testing
+:::
+:::
+:::
+:::
+
+## Cloud Solutions
+
+::: {.row .g-4 .my-4}
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### ☁️ Cloud Migration
+- Legacy system migration
+- Data migration strategies
+- Performance optimization
+- Cost optimization
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🏗️ Infrastructure Setup
+- Multi-cloud architectures
+- Container orchestration (Kubernetes)
+- Serverless computing
+- Auto-scaling solutions
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🔧 Cloud Management
+- 24/7 monitoring
+- Performance optimization
+- Security management
+- Cost monitoring and optimization
+:::
+:::
+:::
+:::
+
+## DevOps & CI/CD
+
+::: {.row .g-4 .my-4}
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🔄 Continuous Integration/Deployment
+- Automated testing pipelines
+- Code quality checks
+- Automated deployment
+- Rollback strategies
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🛠️ Infrastructure as Code
+- Terraform configurations
+- Ansible automation
+- Docker containerization
+- Kubernetes orchestration
+:::
+:::
+:::
+:::
+
+## Data & Analytics
+
+::: {.row .g-4 .my-4}
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 📊 Business Intelligence
+- Data warehouse design
+- ETL pipeline development
+- Dashboard creation
+- KPI tracking
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🤖 Machine Learning
+- Predictive analytics
+- Recommendation systems
+- Natural language processing
+- Computer vision solutions
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 📈 Data Strategy
+- Data governance
+- Data quality management
+- Compliance (GDPR, HIPAA)
+- Data security
+:::
+:::
+:::
+:::
+
+## Digital Transformation
+
+::: {.row .g-4 .my-4}
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🔄 Process Modernization
+- Legacy system analysis
+- Process optimization
+- Workflow automation
+- Change management
+:::
+:::
+:::
+
+::: {.col-md-6}
+::: {.card .h-100}
+::: {.card-body}
+### 🎯 Digital Strategy
+- Technology roadmap planning
+- Digital maturity assessment
+- ROI analysis
+- Implementation planning
+:::
+:::
+:::
+:::
+
+## Cybersecurity
+
+::: {.row .g-4 .my-4}
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🔒 Security Audits
+- Vulnerability assessments
+- Penetration testing
+- Compliance audits
+- Security recommendations
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🛡️ Security Implementation
+- Identity and access management
+- Data encryption
+- Network security
+- Incident response
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 📋 Compliance
+- GDPR compliance
+- HIPAA compliance
+- SOC 2 certification
+- Industry-specific regulations
+:::
+:::
+:::
+:::
+
+## Our Development Process
+
+::: {.row .my-4}
+::: {.col-md-12}
+::: {.card}
+::: {.card-body}
+### 1. Discovery & Planning
+- Requirements gathering
+- Technical feasibility analysis
+- Project scope definition
+- Timeline and budget planning
+
+### 2. Design & Architecture
+- System architecture design
+- Database design
+- UI/UX design
+- Security architecture
+
+### 3. Development
+- Agile development methodology
+- Regular client communication
+- Code reviews and testing
+- Continuous integration
+
+### 4. Testing & Quality Assurance
+- Unit testing
+- Integration testing
+- User acceptance testing
+- Performance testing
+
+### 5. Deployment & Launch
+- Production deployment
+- Data migration
+- User training
+- Go-live support
+
+### 6. Support & Maintenance
+- 24/7 monitoring
+- Regular updates
+- Performance optimization
+- Ongoing support
+:::
+:::
+:::
+:::
+
+## Technology Stack
+
+We work with modern, proven technologies to deliver robust and scalable solutions:
+
+**Frontend**: React, Vue.js, Angular, Next.js, Nuxt.js
+**Backend**: Node.js, Python, Java, .NET, Go
+**Databases**: PostgreSQL, MySQL, MongoDB, Redis
+**Cloud**: AWS, Azure, Google Cloud Platform
+**DevOps**: Docker, Kubernetes, Jenkins, GitLab CI
+**Mobile**: React Native, Flutter, Swift, Kotlin
+
+## Ready to Get Started?
+
+[Contact us](contact.qmd) today to discuss your project requirements and get a free consultation on how Eliora Tech Solutions can help transform your business.

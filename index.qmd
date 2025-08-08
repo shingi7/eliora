@@ -1,0 +1,71 @@
+---
+title: "Eliora Tech Solutions"
+subtitle: "Innovative Technology Solutions for Your Business"
+---
+
+::: {.hero}
+# Welcome to Eliora Tech Solutions {.display-1}
+
+**Empowering businesses with cutting-edge technology solutions**
+
+We specialize in custom software development, cloud solutions, and digital transformation services that drive growth and efficiency for modern enterprises.
+
+::: {.row .g-4 .my-5}
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🚀 Custom Development
+Tailored software solutions designed to meet your unique business requirements and scale with your growth.
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### ☁️ Cloud Solutions
+Comprehensive cloud infrastructure and migration services to optimize your operations and reduce costs.
+:::
+:::
+:::
+
+::: {.col-md-4}
+::: {.card .h-100}
+::: {.card-body .text-center}
+### 🔄 Digital Transformation
+End-to-end digital transformation services to modernize your business processes and enhance customer experiences.
+:::
+:::
+:::
+:::
+
+::: {.row .my-5}
+::: {.col-md-6}
+## Why Choose Eliora Tech Solutions?
+
+- **Expert Team**: Seasoned developers and consultants with years of industry experience
+- **Proven Track Record**: Successfully delivered 100+ projects across various industries
+- **Modern Technologies**: Latest frameworks and tools for scalable, maintainable solutions
+- **24/7 Support**: Round-the-clock technical support and maintenance services
+- **Cost-Effective**: Competitive pricing without compromising on quality
+
+:::
+
+::: {.col-md-6}
+## Our Approach
+
+1. **Discovery & Planning**: Deep dive into your business needs and objectives
+2. **Design & Architecture**: Create robust, scalable technical solutions
+3. **Development & Testing**: Agile development with continuous quality assurance
+4. **Deployment & Launch**: Smooth deployment with minimal disruption
+5. **Support & Maintenance**: Ongoing support to ensure optimal performance
+
+:::
+:::
+
+::: {.text-center .my-5}
+::: {.btn-group .btn-group-lg}
+[Get Started](#contact){.btn .btn-primary}
+[Learn More](about.qmd){.btn .btn-outline-primary}
+:::
+:::
