@@ -3,69 +3,79 @@ title: "Eliora Tech Solutions"
 subtitle: "Innovative Technology Solutions for Your Business"
 ---
 
-::: {.hero}
-# Welcome to Eliora Tech Solutions {.display-1}
+::: {.hero .hero--neon}
+::: {.container}
+::: {.row}
+::: {.col-lg-6}
+# AI That Delivers Real Business Outcomes {.display-1}
 
-**Empowering businesses with cutting-edge technology solutions**
+We design, deploy, and operate production-grade AI systems. From strategy to shipped models, Eliora turns data into revenue, efficiency, and remarkable customer experiences.
 
-We specialize in custom software development, cloud solutions, and digital transformation services that drive growth and efficiency for modern enterprises.
+::: {.btn-group .btn-group-lg .my-4}
+[Talk to an AI Architect](contact.qmd){.btn .btn-primary}
+[See Our Work](services.qmd){.btn .btn-outline-primary}
+:::
 
-::: {.row .g-4 .my-5}
+::: {.hero-metrics}
+- 100+ enterprise launches
+- 10x faster model deployment
+- 99.9% uptime SLOs
+:::
+:::
+
+::: {.col-lg-6}
+<canvas id="neural-canvas" width="900" height="520" aria-label="Interactive neural network" role="img"></canvas>
+:::
+:::
+:::
+
+::: {.container .my-5}
+::: {.row .g-4}
 ::: {.col-md-4}
 ::: {.card .h-100}
-::: {.card-body .text-center}
-### 🚀 Custom Development
-Tailored software solutions designed to meet your unique business requirements and scale with your growth.
+::: {.card-body}
+### 🚀 Custom AI & Software
+Purpose-built applications and intelligent agents that scale with your business.
 :::
 :::
 :::
 
 ::: {.col-md-4}
 ::: {.card .h-100}
-::: {.card-body .text-center}
-### ☁️ Cloud Solutions
-Comprehensive cloud infrastructure and migration services to optimize your operations and reduce costs.
+::: {.card-body}
+### ☁️ Cloud & MLOps
+Secure, compliant platforms, CI/CD for models, feature stores, and observability.
 :::
 :::
 :::
 
 ::: {.col-md-4}
 ::: {.card .h-100}
-::: {.card-body .text-center}
+::: {.card-body}
 ### 🔄 Digital Transformation
-End-to-end digital transformation services to modernize your business processes and enhance customer experiences.
+Workflow automation, decision intelligence, and end‑to‑end modernization.
 :::
 :::
 :::
 :::
 
-::: {.row .my-5}
-::: {.col-md-6}
-## Why Choose Eliora Tech Solutions?
-
-- **Expert Team**: Seasoned developers and consultants with years of industry experience
-- **Proven Track Record**: Successfully delivered 100+ projects across various industries
-- **Modern Technologies**: Latest frameworks and tools for scalable, maintainable solutions
-- **24/7 Support**: Round-the-clock technical support and maintenance services
-- **Cost-Effective**: Competitive pricing without compromising on quality
-
-:::
-
+::: {.container .my-5}
+::: {.row}
 ::: {.col-md-6}
 ## Our Approach
+1. Discovery and value mapping
+2. Data and platform readiness
+3. Iterative delivery with measurable ROI
+4. Secure deployment and governance
+5. Ongoing optimization
+:::
+::: {.col-md-6}
+## Proof, Not Promises
+- Case studies and demos on request
+- Transparent delivery and pricing
+- Executive-ready reporting
+:::
+:::
+:::
 
-1. **Discovery & Planning**: Deep dive into your business needs and objectives
-2. **Design & Architecture**: Create robust, scalable technical solutions
-3. **Development & Testing**: Agile development with continuous quality assurance
-4. **Deployment & Launch**: Smooth deployment with minimal disruption
-5. **Support & Maintenance**: Ongoing support to ensure optimal performance
-
-:::
-:::
-
-::: {.text-center .my-5}
-::: {.btn-group .btn-group-lg}
-[Get Started](#contact){.btn .btn-primary}
-[Learn More](about.qmd){.btn .btn-outline-primary}
-:::
-:::
+<script src="assets/brain.js"></script>

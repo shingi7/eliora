@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - assets/**
 
 website:
   title: "Eliora Tech Solutions"
@@ -21,9 +23,10 @@ website:
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css: [styles.css, assets/brain.css]
     toc: true
     lang: en
+    include-after-body: assets/after.html
 
 
 
