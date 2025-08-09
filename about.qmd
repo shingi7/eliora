@@ -15,7 +15,10 @@ format: html
 <div id="vanta-bg"></div>
 
 <nav class="navbar">
-<div class="brand">EliOra Tech Solutions</div>
+<div class="brand">
+<img src="logo.png" alt="EliOra Tech Solutions Logo" class="navbar-logo">
+EliOra Tech Solutions
+</div>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="about.html">About</a></li>
@@ -27,23 +30,26 @@ format: html
 <main>
 
 <section class="section hero-section visible" style="min-height:40vh;">
-<h1>About Our Company</h1>
-<p>Discover what drives us: a bold vision, a multidisciplinary team and a commitment to AI‑powered innovation.</p>
+<div class="about-logo-container">
+<img src="logo.png" alt="EliOra Tech Solutions Logo" class="about-logo">
+</div>
+<h1>The Architects of Tomorrow</h1>
+<p>Dive into the heart of digital revolution where visionaries, engineers, and dreamers unite to forge the impossible. We are the storytellers of AI's greatest adventures, and every line of code we write is a chapter in humanity's next evolutionary leap.</p>
 </section>
 
 <section class="section">
 <div class="about-grid">
 <div class="about-card">
-<h3>Vision</h3>
-<p>We envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At EliOra Tech Solutions, innovation is at the core of everything we do.</p>
+<h3>Our Quest</h3>
+<p>We stand at the frontier where silicon dreams meet human ambition, crafting a future where AI doesn't replace humanity but elevates it to godlike heights. Every algorithm we birth, every neural network we nurture, brings us closer to solving mysteries that have puzzled civilizations for millennia.</p>
 </div>
 <div class="about-card">
-<h3>Who We Are</h3>
-<p>Founded in 2025, we are a team of scientists, engineers and dreamers building AI‑native solutions that help businesses work smarter – from startups to Fortune 500 enterprises.</p>
+<h3>The Fellowship</h3>
+<p>Born in 2025 from the minds of digital pioneers, we are more than a company—we are a brotherhood of AI alchemists. Scientists who speak in equations, engineers who dream in algorithms, and visionaries who see tomorrow's possibilities in today's data. From scrappy startups to Fortune 500 giants, we transform businesses into legends.</p>
 </div>
 <div class="about-card">
-<h3>What We Do</h3>
-<p>Our platform leverages neural networks and machine learning to automate decision‑making, uncover insights and drive growth for our clients. Every solution is customised from the ground up and delivered by our own engineers; we collaborate closely with our partners to ensure measurable results.</p>
+<h3>Our Innovation</h3>
+<p>We engineer neural networks that think at lightspeed and design algorithms that evolve faster than imagination. Our cutting-edge technology transforms raw data into crystal-clear insights, automated decisions into competitive advantages, and business challenges into triumphant victories. Each solution is precision-built with tomorrow's technology, delivered by visionary engineers who never compromise on excellence.</p>
 </div>
 </div>
 </section>

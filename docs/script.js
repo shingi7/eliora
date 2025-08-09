@@ -36,3 +36,40 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 });
+
+// ---- Contact form (Formspree) ----
+(function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const status = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Sending…';
+    status.className = 'form-status';
+
+    try {
+      const r = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (r.ok) {
+        form.reset();
+        status.textContent = 'Thanks! We’ll reach out within 1 business day.';
+        status.classList.add('success');
+      } else {
+        const data = await r.json().catch(() => ({}));
+        status.textContent = (data.errors && data.errors.length)
+          ? data.errors.map(e => e.message).join(', ')
+          : 'Oops! There was a problem submitting your form.';
+        status.classList.add('error');
+      }
+    } catch {
+      status.textContent = 'Network error. Please try again.';
+      status.classList.add('error');
+    }
+  });
+})();

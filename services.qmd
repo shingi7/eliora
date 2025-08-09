@@ -13,7 +13,10 @@ format: html
 <div id="vanta-bg"></div>
 
 <nav class="navbar">
-<div class="brand">EliOra Tech Solutions</div>
+<div class="brand">
+<img src="logo.png" alt="EliOra Tech Solutions Logo" class="navbar-logo">
+EliOra Tech Solutions
+</div>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="about.html">About</a></li>
@@ -25,34 +28,34 @@ format: html
 <main>
 
 <section class="section hero-section visible" style="min-height:40vh;">
-<h1>Our AI Solutions & Services</h1>
-<p>A comprehensive suite of AI offerings tailored to meet the needs of modern businesses. From strategic consulting to full‑scale implementation, we can help you accelerate your AI journey.</p>
+<h1>Your Launchpad to the Future</h1>
+<p>Discover the technologies of tomorrow's visionaries—a revolutionary collection of AI capabilities designed to transform ordinary businesses into unstoppable forces of innovation. From strategic acceleration plans to full-scale digital transformations, we equip you with everything needed to achieve your dreams at lightspeed.</p>
 </section>
 
 <section class="section">
 <div class="services-grid">
 <div class="service-card">
 <h3>AI Consulting & Strategy</h3>
-<p>Identify high‑impact opportunities, develop a clear, customised roadmap and ensure your AI investments deliver maximum ROI.</p>
+<p>Enter the innovation lab where legends are born. Our visionary strategists don't just identify opportunities—they uncover hidden goldmines in your data, craft precision roadmaps to success, and ensure every AI investment becomes a catalyst that accelerates your goals beyond your wildest dreams.</p>
 </div>
 <div class="service-card">
 <h3>Custom AI Development</h3>
-<p>From computer vision to natural language processing and recommendation engines, we build bespoke AI solutions from scratch – customised precisely to your unique challenges. Our engineers craft every model in‑house.</p>
+<p>Step into the lab where digital intelligence is born. Our visionary engineers don't just code—they breathe life into silicon dreams, sculpting AI minds that see through computer vision, speak with natural language mastery, and predict desires before they're even formed. Every creation is your exclusive digital accelerator.</p>
 </div>
 <div class="service-card">
 <h3>Enterprise Integration</h3>
-<p>Deploy and integrate AI into your existing infrastructure with minimal disruption. We customise each integration to your architecture, drawing on deep expertise across data pipelines, cloud and DevOps.</p>
+<p>Witness the seamless transformation as we integrate AI innovation into your digital ecosystem without disturbing a single workflow. Our integration specialists turn your existing infrastructure into an intelligent powerhouse, where data flows at lightspeed and every system thinks, learns, and evolves.</p>
 </div>
 <div class="service-card">
 <h3>Ongoing Support</h3>
-<p>AI is an evolving field. We provide continuous support, optimisation and model management, partnering with you long‑term to adapt and grow with your needs.</p>
+<p>Your AI companions never stop growing stronger. Like dedicated partners in your digital journey, we stand ready, constantly enhancing your AI's capabilities, teaching it new innovations, and ensuring it evolves at lightspeed to help you achieve your dreams faster than ever imagined.</p>
 </div>
 </div>
 </section>
 
 <section class="section cta-section">
-<h3>Discover How AI Can Transform Your Business</h3>
-<p>Contact our experts to explore which solution is right for you.</p>
+<h3>Ready to Accelerate Your Future?</h3>
+<p>The future awaits, and success belongs to those who act first. Connect with our AI visionaries and discover which technologies of tomorrow will accelerate your business toward your greatest dreams at lightspeed.</p>
 <a href="contact.html" class="cta-button">Talk to an AI Specialist</a>
 </section>
 

@@ -46,6 +46,13 @@ body {
   font-weight: 700;
   font-size: 1.4rem;
   color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.navbar-logo {
+  height: 40px;
+  width: auto;
 }
 .navbar ul {
   list-style: none;
@@ -261,6 +268,17 @@ main {
   color: var(--foreground);
 }
 
+/* About page logo */
+.about-logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.about-logo {
+  height: 200px;
+  width: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+}
+
 /* About page cards (reuse benefit styles) */
 .about-grid {
   display: grid;
@@ -397,4 +415,35 @@ footer {
   font-weight: 700;
   color: var(--primary);
   margin-bottom: 0.6rem;
+  text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+  animation: pulse-glow 2s ease-in-out infinite alternate;
 }
+
+@keyframes pulse-glow {
+  from {
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+    opacity: 0.8;
+  }
+  to {
+    text-shadow: 0 0 15px var(--primary), 0 0 25px var(--primary), 0 0 35px var(--primary), 0 0 45px var(--primary);
+    opacity: 1;
+  }
+}
+
+/* ===========================
+   Contact Form Status Message
+   =========================== */
+   .form-status {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  
+  .form-status.success {
+    color: #9be37a;
+  }
+  
+  .form-status.error {
+    color: #ff6b6b;
+  }
+  
