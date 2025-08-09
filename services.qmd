@@ -1,297 +1,63 @@
 ---
-title: "Our Services"
+title: "Services – Eliora Tech Solutions"
+format: html
 ---
 
-# Our Services
+<!--
+  Services page for Eliora Tech Solutions.
+  Outlines our comprehensive suite of AI offerings using a grid of cards
+  and finishes with a call‑to‑action inviting visitors to speak with an
+  AI specialist.
+-->
 
-Eliora Tech Solutions offers a comprehensive range of technology services designed to meet the diverse needs of modern businesses. From custom software development to cloud infrastructure management, we provide end-to-end solutions that drive growth and efficiency.
+<div id="vanta-bg"></div>
 
-## Custom Software Development
+<nav class="navbar">
+<div class="brand">Eliora Tech Solutions</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
 
-::: {.row .g-4 .my-4}
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🌐 Web Applications
-- Responsive, modern web applications
-- Progressive Web Apps (PWA)
-- Single Page Applications (SPA)
-- E-commerce platforms
-- Content Management Systems
-:::
-:::
-:::
+<main>
 
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 📱 Mobile Applications
-- Native iOS and Android apps
-- Cross-platform solutions (React Native, Flutter)
-- Enterprise mobile applications
-- App store optimization
-:::
-:::
-:::
+<section class="section hero-section visible" style="min-height:40vh;">
+<h1>Our AI Solutions & Services</h1>
+<p>A comprehensive suite of AI offerings tailored to meet the needs of modern businesses. From strategic consulting to full‑scale implementation, we can help you accelerate your AI journey.</p>
+</section>
 
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🏢 Enterprise Software
-- Custom ERP systems
-- CRM solutions
-- Workflow automation
-- Business process management
-:::
-:::
-:::
+<section class="section">
+<div class="services-grid">
+<div class="service-card">
+<h3>AI Consulting & Strategy</h3>
+<p>Identify high‑impact opportunities, develop a clear, customised roadmap and ensure your AI investments deliver maximum ROI.</p>
+</div>
+<div class="service-card">
+<h3>Custom AI Development</h3>
+<p>From computer vision to natural language processing and recommendation engines, we build bespoke AI solutions from scratch – customised precisely to your unique challenges. Our engineers craft every model in‑house.</p>
+</div>
+<div class="service-card">
+<h3>Enterprise Integration</h3>
+<p>Deploy and integrate AI into your existing infrastructure with minimal disruption. We customise each integration to your architecture, drawing on deep expertise across data pipelines, cloud and DevOps.</p>
+</div>
+<div class="service-card">
+<h3>Ongoing Support</h3>
+<p>AI is an evolving field. We provide continuous support, optimisation and model management, partnering with you long‑term to adapt and grow with your needs.</p>
+</div>
+</div>
+</section>
 
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🔌 API Development
-- RESTful API design
-- GraphQL implementations
-- Third-party integrations
-- API documentation and testing
-:::
-:::
-:::
-:::
+<section class="section cta-section">
+<h3>Discover How AI Can Transform Your Business</h3>
+<p>Contact our experts to explore which solution is right for you.</p>
+<a href="contact.html" class="cta-button">Talk to an AI Specialist</a>
+</section>
 
-## Cloud Solutions
+</main>
 
-::: {.row .g-4 .my-4}
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### ☁️ Cloud Migration
-- Legacy system migration
-- Data migration strategies
-- Performance optimization
-- Cost optimization
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 🏗️ Infrastructure Setup
-- Multi-cloud architectures
-- Container orchestration (Kubernetes)
-- Serverless computing
-- Auto-scaling solutions
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 🔧 Cloud Management
-- 24/7 monitoring
-- Performance optimization
-- Security management
-- Cost monitoring and optimization
-:::
-:::
-:::
-:::
-
-## DevOps & CI/CD
-
-::: {.row .g-4 .my-4}
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🔄 Continuous Integration/Deployment
-- Automated testing pipelines
-- Code quality checks
-- Automated deployment
-- Rollback strategies
-:::
-:::
-:::
-
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🛠️ Infrastructure as Code
-- Terraform configurations
-- Ansible automation
-- Docker containerization
-- Kubernetes orchestration
-:::
-:::
-:::
-:::
-
-## Data & Analytics
-
-::: {.row .g-4 .my-4}
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 📊 Business Intelligence
-- Data warehouse design
-- ETL pipeline development
-- Dashboard creation
-- KPI tracking
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 🤖 Machine Learning
-- Predictive analytics
-- Recommendation systems
-- Natural language processing
-- Computer vision solutions
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 📈 Data Strategy
-- Data governance
-- Data quality management
-- Compliance (GDPR, HIPAA)
-- Data security
-:::
-:::
-:::
-:::
-
-## Digital Transformation
-
-::: {.row .g-4 .my-4}
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🔄 Process Modernization
-- Legacy system analysis
-- Process optimization
-- Workflow automation
-- Change management
-:::
-:::
-:::
-
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🎯 Digital Strategy
-- Technology roadmap planning
-- Digital maturity assessment
-- ROI analysis
-- Implementation planning
-:::
-:::
-:::
-:::
-
-## Cybersecurity
-
-::: {.row .g-4 .my-4}
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 🔒 Security Audits
-- Vulnerability assessments
-- Penetration testing
-- Compliance audits
-- Security recommendations
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 🛡️ Security Implementation
-- Identity and access management
-- Data encryption
-- Network security
-- Incident response
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100}
-::: {.card-body .text-center}
-### 📋 Compliance
-- GDPR compliance
-- HIPAA compliance
-- SOC 2 certification
-- Industry-specific regulations
-:::
-:::
-:::
-:::
-
-## Our Development Process
-
-::: {.row .my-4}
-::: {.col-md-12}
-::: {.card}
-::: {.card-body}
-### 1. Discovery & Planning
-- Requirements gathering
-- Technical feasibility analysis
-- Project scope definition
-- Timeline and budget planning
-
-### 2. Design & Architecture
-- System architecture design
-- Database design
-- UI/UX design
-- Security architecture
-
-### 3. Development
-- Agile development methodology
-- Regular client communication
-- Code reviews and testing
-- Continuous integration
-
-### 4. Testing & Quality Assurance
-- Unit testing
-- Integration testing
-- User acceptance testing
-- Performance testing
-
-### 5. Deployment & Launch
-- Production deployment
-- Data migration
-- User training
-- Go-live support
-
-### 6. Support & Maintenance
-- 24/7 monitoring
-- Regular updates
-- Performance optimization
-- Ongoing support
-:::
-:::
-:::
-:::
-
-## Technology Stack
-
-We work with modern, proven technologies to deliver robust and scalable solutions:
-
-**Frontend**: React, Vue.js, Angular, Next.js, Nuxt.js
-**Backend**: Node.js, Python, Java, .NET, Go
-**Databases**: PostgreSQL, MySQL, MongoDB, Redis
-**Cloud**: AWS, Azure, Google Cloud Platform
-**DevOps**: Docker, Kubernetes, Jenkins, GitLab CI
-**Mobile**: React Native, Flutter, Swift, Kotlin
-
-## Ready to Get Started?
-
-[Contact us](contact.qmd) today to discuss your project requirements and get a free consultation on how Eliora Tech Solutions can help transform your business.
+<footer>
+© 2025 Eliora Tech Solutions. All rights reserved.
+</footer>

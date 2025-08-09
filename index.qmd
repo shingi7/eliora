@@ -1,155 +1,107 @@
 ---
-title: "Eliora Tech Solutions"
-subtitle: "Innovative Technology Solutions for Your Business"
-page-layout: full
-toc: false
+title: ""
+format: html
 ---
 
-::: {.hero-banner}
-# AI That Transforms Businesses
+<!--
+  Home page for the Eliora Tech Solutions website.
+  This page reproduces the look and feel of the polished HTML design.
+  It includes a custom navigation bar, a full‑page animated background,
+  and a series of sections presented as cards and grids.
+-->
 
-We design and deploy intelligent systems that deliver measurable results for modern enterprises.
+<!-- Background container for the animated neural network.  The Vanta.js
+     script targets this element to draw moving nodes and lines across
+     the entire viewport. The CSS positions it fixed behind all content. -->
+<div id="vanta-bg"></div>
 
-::: {.btn-group .my-4}
-[Book a Consultation](contact.qmd){.btn .btn-gradient}
-[See Case Studies](services.qmd){.btn .btn-outline-gradient}
-:::
-:::
-::: {.row .align-items-center}
-::: {.col-lg-6}
-# AI That Transforms Businesses {.display-1}
+<!-- Custom navigation bar with our brand and page links.  We avoid
+     Quarto's built‑in navigation so we have complete control over the
+     appearance and behaviour. -->
+<nav class="navbar">
+<div class="brand">Eliora Tech Solutions</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
 
-We don't just build AI—we architect intelligent systems that deliver measurable results. From concept to production, Eliora creates AI solutions that drive revenue, optimize operations, and unlock competitive advantages.
+<main>
 
-::: {.btn-group .btn-group-lg .my-4}
-[Schedule Consultation](contact.qmd){.btn .btn-primary}
-[View Case Studies](services.qmd){.btn .btn-outline-primary}
-:::
+<section class="hero-section section visible">
+<p class="hero-tagline">The light is here</p>
+<h1>AI That Transforms Business</h1>
+<p>Unlock the power of artificial intelligence and discover how our neural network solutions drive growth, efficiency, and innovation across industries.</p>
+<a href="contact.html" class="cta-button">Get in Touch</a>
+</section>
 
-::: {.hero-metrics}
-- 500+ AI models deployed
-- 40% average efficiency gains
-- 99.9% system reliability
-:::
-:::
+<section class="section">
+<h2>What We Deliver</h2>
+<div class="benefits-grid">
+<div class="benefit-card">
+<div class="number">01</div>
+<h3>AI Consulting & Strategy</h3>
+<p>We partner with you to identify high‑impact opportunities and craft a clear, tailored roadmap. Our AI consultants customise solutions around your unique goals to ensure your investments deliver maximum ROI.</p>
+</div>
+<div class="benefit-card">
+<div class="number">02</div>
+<h3>Custom AI Development</h3>
+<p>We design and build bespoke AI models – from computer vision to NLP – customised entirely to your requirements. We are extremely knowledgeable and build every system ourselves to deliver tangible results.</p>
+</div>
+<div class="benefit-card">
+<div class="number">03</div>
+<h3>Enterprise Integration</h3>
+<p>Deploy and integrate AI solutions seamlessly into your infrastructure. Our team customises each integration to fit your architecture, ensuring smooth adoption across data pipelines, cloud and DevOps.</p>
+</div>
+</div>
+</section>
 
-::: {.col-lg-6}
-<canvas id="neural-canvas" width="900" height="500" aria-label="Interactive AI neural network visualization" role="img"></canvas>
-:::
-:::
-:::
-:::
+<section class="section trusted-section">
+<h2>Trusted by Forward‑Thinking Companies</h2>
+<div class="trusted-logos">
+<div class="logo">Crypto Sector</div>
+<div class="logo">Sports Sector</div>
+<div class="logo">Healthcare Sector</div>
+</div>
+</section>
 
-::: {.section-spacing}
-<!-- Services Preview -->
-::: {.section-services .section}
-::: {.container .py-5}
-::: {.text-center .mb-5}
-## What We Build
-*Cutting-edge AI solutions for forward-thinking companies*
-:::
+<section class="section">
+<h2>How It Works</h2>
+<div class="steps-grid">
+<div class="step-card">
+<div class="icon">1</div>
+<h4>Discover & Plan</h4>
+<p>We explore your goals, audit data readiness and outline a strategy to ensure AI aligns with your business priorities.</p>
+</div>
+<div class="step-card">
+<div class="icon">2</div>
+<h4>Build & Integrate</h4>
+<p>Our team develops custom AI models and integrates them with your systems, ensuring minimal disruption to operations.</p>
+</div>
+<div class="step-card">
+<div class="icon">3</div>
+<h4>Optimize & Support</h4>
+<p>We provide ongoing monitoring, optimization and support to adapt to evolving needs and keep your AI performing at its best.</p>
+</div>
+</div>
+</section>
 
-::: {.row .g-4}
-::: {.col-lg-4}
-::: {.card .service-card .h-100}
-::: {.card-body .text-center}
-::: {.service-icon}
-🧠
-:::
-### Intelligent Automation
-AI-powered workflows that eliminate manual processes and accelerate decision-making across your organization.
-:::
-:::
-:::
+<section class="section">
+<h2>Why Choose Eliora</h2>
+<p>We don't just deploy off‑the‑shelf solutions – we craft AI tailored to your exact needs. Our team brings deep expertise across domains and builds everything in‑house, ensuring the highest quality and security.</p>
+<p>From ideation to deployment and continuous optimization, we partner closely with you to deliver solutions that illuminate new possibilities. The light is here – let us help you harness it.</p>
+</section>
 
-::: {.col-lg-4}
-::: {.card .service-card .h-100}
-::: {.card-body .text-center}
-::: {.service-icon}
-⚡
-:::
-### Predictive Analytics
-Machine learning models that forecast trends, optimize resources, and identify opportunities before your competition.
-:::
-:::
-:::
+<section class="section cta-section">
+<h3>Ready to Innovate with AI?</h3>
+<p>Partner with us to bring AI to life in your organization. Let's build the future together.</p>
+<a href="contact.html" class="cta-button">Schedule a Consultation</a>
+</section>
 
-::: {.col-lg-4}
-::: {.card .service-card .h-100}
-::: {.card-body .text-center}
-::: {.service-icon}
-🎯
-:::
-### Custom AI Applications
-Bespoke AI solutions tailored to your unique challenges, from computer vision to natural language processing.
-:::
-:::
-:::
-:::
-:::
-:::
+</main>
 
-<!-- Why Choose Us -->
-::: {.section-why .py-5}
-::: {.container}
-::: {.row .align-items-center}
-::: {.col-lg-6}
-## Why Industry Leaders Choose Eliora
-
-::: {.feature-list}
-::: {.feature-item}
-**Proven Expertise** — 50+ successful AI deployments across industries
-:::
-::: {.feature-item}
-**End-to-End Delivery** — From strategy to production support
-:::
-::: {.feature-item}
-**Enterprise-Grade Security** — SOC2 compliant with military-grade encryption
-:::
-::: {.feature-item}
-**Rapid Implementation** — 3x faster deployment than traditional approaches
-:::
-:::
-:::
-
-::: {.col-lg-6}
-::: {.stats-grid}
-::: {.stat-item}
-**95%**  
-Client retention rate
-:::
-::: {.stat-item}
-**$2.4M**  
-Average ROI per project
-:::
-::: {.stat-item}
-**6 weeks**  
-Average time to value
-:::
-::: {.stat-item}
-**24/7**  
-Monitoring & support
-:::
-:::
-:::
-:::
-:::
-:::
-
-:::
-
-<!-- CTA Section -->
-::: {.section-cta .py-5}
-::: {.container .text-center}
-## Ready to Transform Your Business?
-
-*Join the AI revolution. Let's build something extraordinary together.*
-
-::: {.mt-4}
-[Get Started Today](contact.qmd){.btn .btn-primary .btn-lg .me-3}
-[Download AI Readiness Guide](#){.btn .btn-outline-primary .btn-lg}
-:::
-:::
-:::
-
-<script src="assets/brain.js"></script>
+<footer>
+© 2025 Eliora Tech Solutions. All rights reserved.
+</footer>

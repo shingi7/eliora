@@ -1,82 +1,55 @@
 ---
-title: "About Eliora Tech Solutions"
+title: "About – Eliora Tech Solutions"
+format: html
 ---
 
-# About Us
+<!--
+  About page for Eliora Tech Solutions.
+  This page introduces visitors to our vision, our multidisciplinary team,
+  and the mission that drives us.  It reuses the same animated background
+  and navigation bar as the home page and presents the content in a grid
+  of cards.
+-->
 
-Eliora Tech Solutions is a forward-thinking technology company dedicated to helping businesses thrive in the digital age. Founded with a vision to bridge the gap between complex technology and practical business solutions, we've been at the forefront of digital innovation for over a decade.
+<!-- Animated neural network background -->
+<div id="vanta-bg"></div>
 
-## Our Mission
+<nav class="navbar">
+<div class="brand">Eliora Tech Solutions</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
 
-To empower businesses with cutting-edge technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape.
+<main>
 
-## Our Vision
+<section class="section hero-section visible" style="min-height:40vh;">
+<h1>About Our Company</h1>
+<p>Discover what drives us: a bold vision, a multidisciplinary team and a commitment to AI‑powered innovation.</p>
+</section>
 
-To be the trusted technology partner for businesses worldwide, known for delivering innovative, scalable, and sustainable solutions that transform how organizations operate and serve their customers.
+<section class="section">
+<div class="about-grid">
+<div class="about-card">
+<h3>Vision</h3>
+<p>We envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At Eliora Tech Solutions, innovation is at the core of everything we do.</p>
+</div>
+<div class="about-card">
+<h3>Who We Are</h3>
+<p>Founded in 2025, we are a team of scientists, engineers and dreamers building AI‑native solutions that help businesses work smarter – from startups to Fortune 500 enterprises.</p>
+</div>
+<div class="about-card">
+<h3>What We Do</h3>
+<p>Our platform leverages neural networks and machine learning to automate decision‑making, uncover insights and drive growth for our clients. Every solution is customised from the ground up and delivered by our own engineers; we collaborate closely with our partners to ensure measurable results.</p>
+</div>
+</div>
+</section>
 
-## Our Values
+</main>
 
-::: {.row .g-4 .my-4}
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🎯 Excellence
-We strive for excellence in every project, delivering solutions that exceed expectations and drive measurable results.
-:::
-:::
-:::
-
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🤝 Partnership
-We build long-term partnerships with our clients, understanding their unique challenges and growing together.
-:::
-:::
-:::
-
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 💡 Innovation
-We stay ahead of technology trends, continuously learning and adopting new methodologies and tools.
-:::
-:::
-:::
-
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-### 🔒 Trust
-We maintain the highest standards of security, confidentiality, and ethical business practices.
-:::
-:::
-:::
-:::
-
-## Our Expertise
-
-- **Custom Software Development**: Web applications, mobile apps, and enterprise software
-- **Cloud Infrastructure**: AWS, Azure, and Google Cloud solutions
-- **DevOps & CI/CD**: Automated deployment and infrastructure management
-- **Data Analytics**: Business intelligence and data-driven insights
-- **Digital Transformation**: Legacy system modernization and process optimization
-- **Cybersecurity**: Security audits, compliance, and threat protection
-
-## Our Team
-
-Our team consists of experienced professionals with diverse backgrounds in software engineering, cloud architecture, project management, and business consulting. We bring together technical expertise and business acumen to deliver comprehensive solutions that address both immediate needs and long-term strategic goals.
-
-## Client Success Stories
-
-We've successfully partnered with companies across various industries, from startups to Fortune 500 enterprises, helping them achieve their digital transformation goals. Our portfolio includes:
-
-- E-commerce platforms processing millions of transactions
-- Healthcare systems managing patient data securely
-- Financial services applications with real-time processing
-- Manufacturing automation and IoT solutions
-- Educational technology platforms
-
-## Get in Touch
-
-Ready to transform your business with innovative technology solutions? [Contact us](contact.qmd) today to discuss how Eliora Tech Solutions can help you achieve your goals.
+<footer>
+© 2025 Eliora Tech Solutions. All rights reserved.
+</footer>

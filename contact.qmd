@@ -1,204 +1,49 @@
 ---
-title: "Contact Us"
+title: "Contact – Eliora Tech Solutions"
+format: html
 ---
 
-# Get in Touch
+<!--
+  Contact page for Eliora Tech Solutions.
+  Provides contact information and a simple form for prospective
+  clients to get in touch.  Reuses the navigation bar and animated
+  background from the other pages.
+-->
 
-Ready to transform your business with innovative technology solutions? We're here to help you achieve your digital transformation goals. Contact us today for a free consultation.
+<div id="vanta-bg"></div>
 
-::: {.row .g-4 .my-4}
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-## 📞 Contact Information
+<nav class="navbar">
+<div class="brand">Eliora Tech Solutions</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
 
-**Phone**: +1 (555) 123-4567  
-**Email**: info@elioratechsolutions.com  
-**Support**: support@elioratechsolutions.com  
-**Website**: https://elioratechsolutions.com
+<main>
 
-**Business Hours**:  
-Monday - Friday: 9:00 AM - 6:00 PM EST  
-Saturday: 10:00 AM - 2:00 PM EST  
-Sunday: Closed
+<section class="section hero-section visible" style="min-height:40vh;">
+<h1>Get in Touch</h1>
+<p>Whether you're exploring ideas or ready to embark on your next AI project, our team is here to help.</p>
+</section>
 
-**Emergency Support**:  
-24/7 technical support available for existing clients
-:::
-:::
-:::
+<section class="section">
+<div class="contact-card">
+<p><strong>Email:</strong> <a href="mailto:shingai@elioratechsolutions.com">shingai@elioratechsolutions.com</a> / <a href="mailto:tevin@elioratechsolutions.com">tevin@elioratechsolutions.com</a><br />
+<strong>Phone:</strong> 240‑234‑5203 / 513‑320‑4779</p>
+<form id="contact-form" onsubmit="return false;">
+<input type="text" name="name" placeholder="Your Name" required />
+<input type="email" name="email" placeholder="Your Email" required />
+<textarea name="message" placeholder="Your Message" rows="5"></textarea>
+<button type="submit">Send Message</button>
+</form>
+</div>
+</section>
 
-::: {.col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-## 📍 Office Location
+</main>
 
-**Eliora Tech Solutions**  
-123 Innovation Drive  
-Tech Hub, CA 90210  
-United States
-
-**Directions**:  
-Located in the heart of the technology district, easily accessible by public transportation and major highways.
-:::
-:::
-:::
-:::
-
-## 💬 Send Us a Message
-
-::: {.row .my-4}
-::: {.col-md-8}
-::: {.card}
-::: {.card-body}
-::: {.row .g-3}
-::: {.col-md-6}
-**Name**  
-[Your full name]{.form-control}
-:::
-
-::: {.col-md-6}
-**Email**  
-[your.email@example.com]{.form-control}
-:::
-
-::: {.col-md-6}
-**Phone**  
-[+1 (555) 123-4567]{.form-control}
-:::
-
-::: {.col-md-6}
-**Company**  
-[Your company name]{.form-control}
-:::
-
-::: {.col-12}
-**Service Interest**  
-[Select a service]{.form-select}
-- Custom Software Development
-- Cloud Solutions
-- DevOps & CI/CD
-- Data & Analytics
-- Digital Transformation
-- Cybersecurity
-- Other
-
-::: {.col-12}
-**Project Details**  
-[Tell us about your project requirements, timeline, and budget...]{.form-control style="height: 120px;"}
-:::
-
-::: {.col-12}
-[Send Message]{.btn .btn-primary .btn-lg}
-:::
-:::
-:::
-:::
-:::
-:::
-:::
-:::
-
-## 🚀 Why Choose Eliora Tech Solutions?
-
-::: {.row .g-4 .my-4}
-::: {.col-md-4}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### ⚡ Fast Response
-We typically respond to all inquiries within 2-4 business hours during regular business hours.
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 💰 Free Consultation
-Get a free 30-minute consultation to discuss your project requirements and explore potential solutions.
-:::
-:::
-:::
-
-::: {.col-md-4}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 📋 Detailed Proposal
-Receive a comprehensive project proposal with timeline, deliverables, and transparent pricing.
-:::
-:::
-:::
-:::
-
-## 📧 Alternative Contact Methods
-
-### For Existing Clients
-- **Technical Support**: support@elioratechsolutions.com
-- **Project Management**: projects@elioratechsolutions.com
-- **Billing Inquiries**: billing@elioratechsolutions.com
-
-### For Partners & Vendors
-- **Partnership Inquiries**: partnerships@elioratechsolutions.com
-- **Vendor Relations**: vendors@elioratechsolutions.com
-
-### For Job Seekers
-- **Career Opportunities**: careers@elioratechsolutions.com
-- **Internship Program**: internships@elioratechsolutions.com
-
-### Website
-- **Main Site**: https://elioratechsolutions.com
-
-## 📱 Connect With Us
-
-::: {.row .g-4 .my-4}
-::: {.col-md-3}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 💼 LinkedIn
-Follow us for industry insights, company updates, and career opportunities.
-:::
-:::
-:::
-
-::: {.col-md-3}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 🐦 Twitter
-Stay updated with the latest technology trends and company news.
-:::
-:::
-:::
-
-::: {.col-md-3}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 📘 Facebook
-Connect with our community and see behind-the-scenes content.
-:::
-:::
-:::
-
-::: {.col-md-3}
-::: {.card .h-100 .text-center}
-::: {.card-body}
-### 📸 Instagram
-Visual content showcasing our projects and company culture.
-:::
-:::
-:::
-:::
-
-## 🗓️ Schedule a Meeting
-
-Prefer to meet in person or via video call? We offer flexible meeting options:
-
-- **In-Person Meetings**: Available at our office or your location
-- **Video Calls**: Zoom, Microsoft Teams, or Google Meet
-- **Phone Calls**: Traditional phone consultations
-- **Virtual Demos**: Product demonstrations and technical discussions
-
-[Schedule a Meeting](#){.btn .btn-outline-primary}
-
----
-
-**Ready to start your digital transformation journey?** Contact us today and let's discuss how Eliora Tech Solutions can help you achieve your technology goals.
+<footer>
+© 2025 Eliora Tech Solutions. All rights reserved.
+</footer>

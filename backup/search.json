@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "services.html",
+    "href": "services.html",
+    "title": "Services",
+    "section": "",
+    "text": "AI Solutions & Services\nWe provide a comprehensive suite of AI offerings tailored to meet the needs of modern businesses — from strategic consulting to full‑scale implementation. Whether you’re just beginning your AI journey or looking to scale an existing initiative, our team can help.\n\n\n&lt;h3&gt;AI Consulting &amp; Strategy&lt;/h3&gt;\n&lt;p&gt;We partner with you to identify high‑impact opportunities, develop a clear AI roadmap, and ensure that your investments deliver maximum ROI. From interactive workshops to full strategic assessments, we help you put AI to work in your organization.&lt;/p&gt;\n\n\n&lt;h3&gt;Custom AI Development&lt;/h3&gt;\n&lt;p&gt;Our engineers and data scientists build bespoke AI models and applications — ranging from computer vision and natural language processing to recommendation engines — that solve your unique business challenges.&lt;/p&gt;\n\n\n&lt;h3&gt;Enterprise Integration&lt;/h3&gt;\n&lt;p&gt;We deploy and integrate AI solutions into your existing infrastructure with minimal disruption. Our expertise spans data pipelines, cloud architecture, and DevOps, ensuring that our AI works seamlessly with your workflows and data.&lt;/p&gt;\n\n\n&lt;h3&gt;Ongoing Support&lt;/h3&gt;\n&lt;p&gt;AI is an evolving field. We offer continuous support and optimization services to keep your models performing at their best and aligned with your business objectives.&lt;/p&gt;"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "Get in Touch\nReady to innovate with AI? We’d love to hear from you. Whether you’re exploring ideas or looking for a partner to build and deploy your next AI project, our experts are here to help.\n\n\nEmail: info@elioratech.ai Phone: (555) 123‑4567\n\n\n \n\n\nSend Message"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About Our Company\nDiscover what drives us. Our story is anchored in a bold vision, a multidisciplinary team, and a commitment to creating AI solutions that make a tangible difference.\n\n\n&lt;h3&gt;Vision&lt;/h3&gt;\n&lt;p&gt;We envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At Eliora Tech Solutions, innovation is at the core of everything we do.&lt;/p&gt;\n\n\n&lt;h3&gt;Who We Are&lt;/h3&gt;\n&lt;p&gt;Founded in 2022, Eliora Tech Solutions is a team of scientists, engineers, and dreamers. We build &lt;strong&gt;AI‑native&lt;/strong&gt; solutions that help businesses work smarter – from startups to Fortune 500 enterprises.&lt;/p&gt;\n\n\n&lt;h3&gt;What We Do&lt;/h3&gt;\n&lt;p&gt;Our platform leverages neural networks and machine learning to automate decision‑making, uncover insights, and drive growth for our clients. We collaborate closely with our partners to ensure that every solution delivers measurable results.&lt;/p&gt;"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "&lt;h1&gt;AI‑Powered Innovations, Real‑World Impact&lt;/h1&gt;\n&lt;p&gt;Reinventing enterprise intelligence with neural networks and next‑gen AI solutions.&lt;/p&gt;\n&lt;a href=\"contact.qmd\" class=\"cta-button\"&gt;Get in Touch&lt;/a&gt;\n&lt;div class=\"hero-metrics\"&gt;\n  &lt;ul&gt;\n    &lt;li&gt;&lt;strong&gt;500+&lt;/strong&gt; AI models deployed&lt;/li&gt;\n    &lt;li&gt;&lt;strong&gt;40%&lt;/strong&gt; average efficiency gains&lt;/li&gt;\n    &lt;li&gt;&lt;strong&gt;99.9%&lt;/strong&gt; system reliability&lt;/li&gt;\n  &lt;/ul&gt;\n&lt;/div&gt;"
+  },
+  {
+    "objectID": "index.html#our-ai-solutions",
+    "href": "index.html#our-ai-solutions",
+    "title": "Home",
+    "section": "Our AI Solutions",
+    "text": "Our AI Solutions\nWe build cutting‑edge AI solutions for forward‑thinking companies. Here’s a preview of how we can help your organization harness the power of artificial intelligence.\n\n\n&lt;h3&gt;AI Consulting &amp; Strategy&lt;/h3&gt;\n&lt;p&gt;Expert guidance to identify high‑impact AI opportunities and craft a strategy to integrate AI seamlessly into your operations.&lt;/p&gt;\n\n\n&lt;h3&gt;Custom AI Development&lt;/h3&gt;\n&lt;p&gt;End‑to‑end development of AI models and applications – from computer vision systems to NLP chatbots – tailored to your unique needs.&lt;/p&gt;\n\n\n&lt;h3&gt;Enterprise Integration&lt;/h3&gt;\n&lt;p&gt;Deployment and integration of AI solutions into your existing infrastructure, ensuring our AI works in harmony with your workflows and data.&lt;/p&gt;\n\n\n\nSee All Services"
+  }
+]

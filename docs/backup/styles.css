@@ -390,11 +390,3 @@ footer {
     padding: 1.5rem;
   }
 }
-
-/* Styling for small hero taglines used on the home page */
-.hero-tagline {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 0.6rem;
-}

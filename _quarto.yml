@@ -1,32 +1,24 @@
 project:
   type: website
+  # Where the built site should be written
+  output-dir: docs
+  # Make sure our custom assets are copied into the output
   resources:
-    - assets/**
+    - styles.css
+    - script.js
+    - assets/after.html
 
 website:
   title: "Eliora Tech Solutions"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: services.qmd
-        text: Services
-      - href: contact.qmd
-        text: Contact
-    right:
-      - icon: github
-        href: https://github.com/elioratechsolutions
-  page-footer: ""
+  # Disable Quarto's default navigation bar so we can use our own
+  navbar: false
 
 format:
   html:
-    theme: cosmo
-    css: [styles.css, assets/site.css]
-
-    lang: en
-    
-
-
-
+    # Use our custom stylesheet for all pages
+    css: styles.css
+    toc: false
+    # Inject the after‑body HTML to load Three.js, Vanta.js, and our script
+    include-after-body: assets/after.html
+    # Render pages with a custom layout so Quarto doesn't add its own grid or header
+    page-layout: custom

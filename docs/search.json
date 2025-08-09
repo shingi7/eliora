@@ -2,211 +2,29 @@
   {
     "objectID": "services.html",
     "href": "services.html",
-    "title": "Our Services",
+    "title": "Services – Eliora Tech Solutions",
     "section": "",
-    "text": "Eliora Tech Solutions offers a comprehensive range of technology services designed to meet the diverse needs of modern businesses. From custom software development to cloud infrastructure management, we provide end-to-end solutions that drive growth and efficiency.\n\n\n\n\n\n\n\n\nResponsive, modern web applications\nProgressive Web Apps (PWA)\nSingle Page Applications (SPA)\nE-commerce platforms\nContent Management Systems\n\n\n\n\n\n\n\n\n\nNative iOS and Android apps\nCross-platform solutions (React Native, Flutter)\nEnterprise mobile applications\nApp store optimization\n\n\n\n\n\n\n\n\n\nCustom ERP systems\nCRM solutions\nWorkflow automation\nBusiness process management\n\n\n\n\n\n\n\n\n\nRESTful API design\nGraphQL implementations\nThird-party integrations\nAPI documentation and testing\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLegacy system migration\nData migration strategies\nPerformance optimization\nCost optimization\n\n\n\n\n\n\n\n\n\nMulti-cloud architectures\nContainer orchestration (Kubernetes)\nServerless computing\nAuto-scaling solutions\n\n\n\n\n\n\n\n\n\n24/7 monitoring\nPerformance optimization\nSecurity management\nCost monitoring and optimization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAutomated testing pipelines\nCode quality checks\nAutomated deployment\nRollback strategies\n\n\n\n\n\n\n\n\n\nTerraform configurations\nAnsible automation\nDocker containerization\nKubernetes orchestration\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData warehouse design\nETL pipeline development\nDashboard creation\nKPI tracking\n\n\n\n\n\n\n\n\n\nPredictive analytics\nRecommendation systems\nNatural language processing\nComputer vision solutions\n\n\n\n\n\n\n\n\n\nData governance\nData quality management\nCompliance (GDPR, HIPAA)\nData security\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLegacy system analysis\nProcess optimization\nWorkflow automation\nChange management\n\n\n\n\n\n\n\n\n\nTechnology roadmap planning\nDigital maturity assessment\nROI analysis\nImplementation planning\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVulnerability assessments\nPenetration testing\nCompliance audits\nSecurity recommendations\n\n\n\n\n\n\n\n\n\nIdentity and access management\nData encryption\nNetwork security\nIncident response\n\n\n\n\n\n\n\n\n\nGDPR compliance\nHIPAA compliance\nSOC 2 certification\nIndustry-specific regulations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRequirements gathering\nTechnical feasibility analysis\nProject scope definition\nTimeline and budget planning\n\n\n\n\n\nSystem architecture design\nDatabase design\nUI/UX design\nSecurity architecture\n\n\n\n\n\nAgile development methodology\nRegular client communication\nCode reviews and testing\nContinuous integration\n\n\n\n\n\nUnit testing\nIntegration testing\nUser acceptance testing\nPerformance testing\n\n\n\n\n\nProduction deployment\nData migration\nUser training\nGo-live support\n\n\n\n\n\n24/7 monitoring\nRegular updates\nPerformance optimization\nOngoing support\n\n\n\n\n\n\n\n\n\nWe work with modern, proven technologies to deliver robust and scalable solutions:\nFrontend: React, Vue.js, Angular, Next.js, Nuxt.js Backend: Node.js, Python, Java, .NET, Go Databases: PostgreSQL, MySQL, MongoDB, Redis Cloud: AWS, Azure, Google Cloud Platform DevOps: Docker, Kubernetes, Jenkins, GitLab CI Mobile: React Native, Flutter, Swift, Kotlin\n\n\n\nContact us today to discuss your project requirements and get a free consultation on how Eliora Tech Solutions can help transform your business."
-  },
-  {
-    "objectID": "services.html#custom-software-development",
-    "href": "services.html#custom-software-development",
-    "title": "Our Services",
-    "section": "",
-    "text": "Responsive, modern web applications\nProgressive Web Apps (PWA)\nSingle Page Applications (SPA)\nE-commerce platforms\nContent Management Systems\n\n\n\n\n\n\n\n\n\nNative iOS and Android apps\nCross-platform solutions (React Native, Flutter)\nEnterprise mobile applications\nApp store optimization\n\n\n\n\n\n\n\n\n\nCustom ERP systems\nCRM solutions\nWorkflow automation\nBusiness process management\n\n\n\n\n\n\n\n\n\nRESTful API design\nGraphQL implementations\nThird-party integrations\nAPI documentation and testing"
-  },
-  {
-    "objectID": "services.html#cloud-solutions",
-    "href": "services.html#cloud-solutions",
-    "title": "Our Services",
-    "section": "",
-    "text": "Legacy system migration\nData migration strategies\nPerformance optimization\nCost optimization\n\n\n\n\n\n\n\n\n\nMulti-cloud architectures\nContainer orchestration (Kubernetes)\nServerless computing\nAuto-scaling solutions\n\n\n\n\n\n\n\n\n\n24/7 monitoring\nPerformance optimization\nSecurity management\nCost monitoring and optimization"
-  },
-  {
-    "objectID": "services.html#devops-cicd",
-    "href": "services.html#devops-cicd",
-    "title": "Our Services",
-    "section": "",
-    "text": "Automated testing pipelines\nCode quality checks\nAutomated deployment\nRollback strategies\n\n\n\n\n\n\n\n\n\nTerraform configurations\nAnsible automation\nDocker containerization\nKubernetes orchestration"
-  },
-  {
-    "objectID": "services.html#data-analytics",
-    "href": "services.html#data-analytics",
-    "title": "Our Services",
-    "section": "",
-    "text": "Data warehouse design\nETL pipeline development\nDashboard creation\nKPI tracking\n\n\n\n\n\n\n\n\n\nPredictive analytics\nRecommendation systems\nNatural language processing\nComputer vision solutions\n\n\n\n\n\n\n\n\n\nData governance\nData quality management\nCompliance (GDPR, HIPAA)\nData security"
-  },
-  {
-    "objectID": "services.html#digital-transformation",
-    "href": "services.html#digital-transformation",
-    "title": "Our Services",
-    "section": "",
-    "text": "Legacy system analysis\nProcess optimization\nWorkflow automation\nChange management\n\n\n\n\n\n\n\n\n\nTechnology roadmap planning\nDigital maturity assessment\nROI analysis\nImplementation planning"
-  },
-  {
-    "objectID": "services.html#cybersecurity",
-    "href": "services.html#cybersecurity",
-    "title": "Our Services",
-    "section": "",
-    "text": "Vulnerability assessments\nPenetration testing\nCompliance audits\nSecurity recommendations\n\n\n\n\n\n\n\n\n\nIdentity and access management\nData encryption\nNetwork security\nIncident response\n\n\n\n\n\n\n\n\n\nGDPR compliance\nHIPAA compliance\nSOC 2 certification\nIndustry-specific regulations"
-  },
-  {
-    "objectID": "services.html#our-development-process",
-    "href": "services.html#our-development-process",
-    "title": "Our Services",
-    "section": "",
-    "text": "Requirements gathering\nTechnical feasibility analysis\nProject scope definition\nTimeline and budget planning\n\n\n\n\n\nSystem architecture design\nDatabase design\nUI/UX design\nSecurity architecture\n\n\n\n\n\nAgile development methodology\nRegular client communication\nCode reviews and testing\nContinuous integration\n\n\n\n\n\nUnit testing\nIntegration testing\nUser acceptance testing\nPerformance testing\n\n\n\n\n\nProduction deployment\nData migration\nUser training\nGo-live support\n\n\n\n\n\n24/7 monitoring\nRegular updates\nPerformance optimization\nOngoing support"
-  },
-  {
-    "objectID": "services.html#technology-stack",
-    "href": "services.html#technology-stack",
-    "title": "Our Services",
-    "section": "",
-    "text": "We work with modern, proven technologies to deliver robust and scalable solutions:\nFrontend: React, Vue.js, Angular, Next.js, Nuxt.js Backend: Node.js, Python, Java, .NET, Go Databases: PostgreSQL, MySQL, MongoDB, Redis Cloud: AWS, Azure, Google Cloud Platform DevOps: Docker, Kubernetes, Jenkins, GitLab CI Mobile: React Native, Flutter, Swift, Kotlin"
-  },
-  {
-    "objectID": "services.html#ready-to-get-started",
-    "href": "services.html#ready-to-get-started",
-    "title": "Our Services",
-    "section": "",
-    "text": "Contact us today to discuss your project requirements and get a free consultation on how Eliora Tech Solutions can help transform your business."
+    "text": "Our AI Solutions & Services\n\n\nA comprehensive suite of AI offerings tailored to meet the needs of modern businesses. From strategic consulting to full‑scale implementation, we can help you accelerate your AI journey.\n\n\n\n\n\n\nAI Consulting & Strategy\n\n\nIdentify high‑impact opportunities, develop a clear, customised roadmap and ensure your AI investments deliver maximum ROI.\n\n\n\n\nCustom AI Development\n\n\nFrom computer vision to natural language processing and recommendation engines, we build bespoke AI solutions from scratch – customised precisely to your unique challenges. Our engineers craft every model in‑house.\n\n\n\n\nEnterprise Integration\n\n\nDeploy and integrate AI into your existing infrastructure with minimal disruption. We customise each integration to your architecture, drawing on deep expertise across data pipelines, cloud and DevOps.\n\n\n\n\nOngoing Support\n\n\nAI is an evolving field. We provide continuous support, optimisation and model management, partnering with you long‑term to adapt and grow with your needs.\n\n\n\n\n\n\nDiscover How AI Can Transform Your Business\n\n\nContact our experts to explore which solution is right for you.\n\nTalk to an AI Specialist"
   },
   {
     "objectID": "contact.html",
     "href": "contact.html",
-    "title": "Contact Us",
+    "title": "Contact – Eliora Tech Solutions",
     "section": "",
-    "text": "Ready to transform your business with innovative technology solutions? We’re here to help you achieve your digital transformation goals. Contact us today for a free consultation.\n\n\n\n\n\nPhone: +1 (555) 123-4567\nEmail: info@elioratechsolutions.com\nSupport: support@elioratechsolutions.com\nWebsite: https://elioratechsolutions.com\nBusiness Hours:\nMonday - Friday: 9:00 AM - 6:00 PM EST\nSaturday: 10:00 AM - 2:00 PM EST\nSunday: Closed\nEmergency Support:\n24/7 technical support available for existing clients\n\n\n\n\n\n\n\nEliora Tech Solutions\n123 Innovation Drive\nTech Hub, CA 90210\nUnited States\nDirections:\nLocated in the heart of the technology district, easily accessible by public transportation and major highways.\n\n\n\n\n\n\n\n\n\n\n\n\nName\nYour full name\n\n\nEmail\nyour.email@example.com\n\n\nPhone\n+1 (555) 123-4567\n\n\nCompany\nYour company name\n\n\nService Interest\nSelect a service - Custom Software Development - Cloud Solutions - DevOps & CI/CD - Data & Analytics - Digital Transformation - Cybersecurity - Other\n\nProject Details\nTell us about your project requirements, timeline, and budget…\n\n\nSend Message\n\n\n\n\n\n\n\n:::\n\n\n\n\n\n\n\n\nWe typically respond to all inquiries within 2-4 business hours during regular business hours.\n\n\n\n\n\n\n\nGet a free 30-minute consultation to discuss your project requirements and explore potential solutions.\n\n\n\n\n\n\n\nReceive a comprehensive project proposal with timeline, deliverables, and transparent pricing.\n\n\n\n\n\n\n\n\n\n\nTechnical Support: support@elioratechsolutions.com\nProject Management: projects@elioratechsolutions.com\nBilling Inquiries: billing@elioratechsolutions.com\n\n\n\n\n\nPartnership Inquiries: partnerships@elioratechsolutions.com\nVendor Relations: vendors@elioratechsolutions.com\n\n\n\n\n\nCareer Opportunities: careers@elioratechsolutions.com\nInternship Program: internships@elioratechsolutions.com\n\n\n\n\n\nMain Site: https://elioratechsolutions.com\n\n\n\n\n\n\n\n\n\n\nFollow us for industry insights, company updates, and career opportunities.\n\n\n\n\n\n\n\nStay updated with the latest technology trends and company news.\n\n\n\n\n\n\n\nConnect with our community and see behind-the-scenes content.\n\n\n\n\n\n\n\nVisual content showcasing our projects and company culture.\n\n\n\n\n\n\n\nPrefer to meet in person or via video call? We offer flexible meeting options:\n\nIn-Person Meetings: Available at our office or your location\nVideo Calls: Zoom, Microsoft Teams, or Google Meet\nPhone Calls: Traditional phone consultations\nVirtual Demos: Product demonstrations and technical discussions\n\nSchedule a Meeting\n\nReady to start your digital transformation journey? Contact us today and let’s discuss how Eliora Tech Solutions can help you achieve your technology goals."
-  },
-  {
-    "objectID": "contact.html#contact-information",
-    "href": "contact.html#contact-information",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Phone: +1 (555) 123-4567\nEmail: info@elioratechsolutions.com\nSupport: support@elioratechsolutions.com\nWebsite: https://elioratechsolutions.com\nBusiness Hours:\nMonday - Friday: 9:00 AM - 6:00 PM EST\nSaturday: 10:00 AM - 2:00 PM EST\nSunday: Closed\nEmergency Support:\n24/7 technical support available for existing clients"
-  },
-  {
-    "objectID": "contact.html#office-location",
-    "href": "contact.html#office-location",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Eliora Tech Solutions\n123 Innovation Drive\nTech Hub, CA 90210\nUnited States\nDirections:\nLocated in the heart of the technology district, easily accessible by public transportation and major highways."
-  },
-  {
-    "objectID": "contact.html#send-us-a-message",
-    "href": "contact.html#send-us-a-message",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Name\nYour full name\n\n\nEmail\nyour.email@example.com\n\n\nPhone\n+1 (555) 123-4567\n\n\nCompany\nYour company name\n\n\nService Interest\nSelect a service - Custom Software Development - Cloud Solutions - DevOps & CI/CD - Data & Analytics - Digital Transformation - Cybersecurity - Other\n\nProject Details\nTell us about your project requirements, timeline, and budget…\n\n\nSend Message\n\n\n\n\n\n\n\n:::"
-  },
-  {
-    "objectID": "contact.html#why-choose-eliora-tech-solutions",
-    "href": "contact.html#why-choose-eliora-tech-solutions",
-    "title": "Contact Us",
-    "section": "",
-    "text": "We typically respond to all inquiries within 2-4 business hours during regular business hours.\n\n\n\n\n\n\n\nGet a free 30-minute consultation to discuss your project requirements and explore potential solutions.\n\n\n\n\n\n\n\nReceive a comprehensive project proposal with timeline, deliverables, and transparent pricing."
-  },
-  {
-    "objectID": "contact.html#alternative-contact-methods",
-    "href": "contact.html#alternative-contact-methods",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Technical Support: support@elioratechsolutions.com\nProject Management: projects@elioratechsolutions.com\nBilling Inquiries: billing@elioratechsolutions.com\n\n\n\n\n\nPartnership Inquiries: partnerships@elioratechsolutions.com\nVendor Relations: vendors@elioratechsolutions.com\n\n\n\n\n\nCareer Opportunities: careers@elioratechsolutions.com\nInternship Program: internships@elioratechsolutions.com\n\n\n\n\n\nMain Site: https://elioratechsolutions.com"
-  },
-  {
-    "objectID": "contact.html#connect-with-us",
-    "href": "contact.html#connect-with-us",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Follow us for industry insights, company updates, and career opportunities.\n\n\n\n\n\n\n\nStay updated with the latest technology trends and company news.\n\n\n\n\n\n\n\nConnect with our community and see behind-the-scenes content.\n\n\n\n\n\n\n\nVisual content showcasing our projects and company culture."
-  },
-  {
-    "objectID": "contact.html#schedule-a-meeting",
-    "href": "contact.html#schedule-a-meeting",
-    "title": "Contact Us",
-    "section": "",
-    "text": "Prefer to meet in person or via video call? We offer flexible meeting options:\n\nIn-Person Meetings: Available at our office or your location\nVideo Calls: Zoom, Microsoft Teams, or Google Meet\nPhone Calls: Traditional phone consultations\nVirtual Demos: Product demonstrations and technical discussions\n\nSchedule a Meeting\n\nReady to start your digital transformation journey? Contact us today and let’s discuss how Eliora Tech Solutions can help you achieve your technology goals."
+    "text": "Get in Touch\n\n\nWhether you’re exploring ideas or ready to embark on your next AI project, our team is here to help.\n\n\n\n\n\nEmail: shingai@elioratechsolutions.com / tevin@elioratechsolutions.com Phone: 240‑234‑5203 / 513‑320‑4779\n\n\n \n\n\nSend Message"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About Eliora Tech Solutions",
+    "title": "About – Eliora Tech Solutions",
     "section": "",
-    "text": "Eliora Tech Solutions is a forward-thinking technology company dedicated to helping businesses thrive in the digital age. Founded with a vision to bridge the gap between complex technology and practical business solutions, we’ve been at the forefront of digital innovation for over a decade.\n\n\nTo empower businesses with cutting-edge technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape.\n\n\n\nTo be the trusted technology partner for businesses worldwide, known for delivering innovative, scalable, and sustainable solutions that transform how organizations operate and serve their customers.\n\n\n\n\n\n\n\n\nWe strive for excellence in every project, delivering solutions that exceed expectations and drive measurable results.\n\n\n\n\n\n\n\nWe build long-term partnerships with our clients, understanding their unique challenges and growing together.\n\n\n\n\n\n\n\nWe stay ahead of technology trends, continuously learning and adopting new methodologies and tools.\n\n\n\n\n\n\n\nWe maintain the highest standards of security, confidentiality, and ethical business practices.\n\n\n\n\n\n\n\n\nCustom Software Development: Web applications, mobile apps, and enterprise software\nCloud Infrastructure: AWS, Azure, and Google Cloud solutions\nDevOps & CI/CD: Automated deployment and infrastructure management\nData Analytics: Business intelligence and data-driven insights\nDigital Transformation: Legacy system modernization and process optimization\nCybersecurity: Security audits, compliance, and threat protection\n\n\n\n\nOur team consists of experienced professionals with diverse backgrounds in software engineering, cloud architecture, project management, and business consulting. We bring together technical expertise and business acumen to deliver comprehensive solutions that address both immediate needs and long-term strategic goals.\n\n\n\nWe’ve successfully partnered with companies across various industries, from startups to Fortune 500 enterprises, helping them achieve their digital transformation goals. Our portfolio includes:\n\nE-commerce platforms processing millions of transactions\nHealthcare systems managing patient data securely\nFinancial services applications with real-time processing\nManufacturing automation and IoT solutions\nEducational technology platforms\n\n\n\n\nReady to transform your business with innovative technology solutions? Contact us today to discuss how Eliora Tech Solutions can help you achieve your goals."
-  },
-  {
-    "objectID": "about.html#our-mission",
-    "href": "about.html#our-mission",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "To empower businesses with cutting-edge technology solutions that drive growth, efficiency, and competitive advantage in an ever-evolving digital landscape."
-  },
-  {
-    "objectID": "about.html#our-vision",
-    "href": "about.html#our-vision",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "To be the trusted technology partner for businesses worldwide, known for delivering innovative, scalable, and sustainable solutions that transform how organizations operate and serve their customers."
-  },
-  {
-    "objectID": "about.html#our-values",
-    "href": "about.html#our-values",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "We strive for excellence in every project, delivering solutions that exceed expectations and drive measurable results.\n\n\n\n\n\n\n\nWe build long-term partnerships with our clients, understanding their unique challenges and growing together.\n\n\n\n\n\n\n\nWe stay ahead of technology trends, continuously learning and adopting new methodologies and tools.\n\n\n\n\n\n\n\nWe maintain the highest standards of security, confidentiality, and ethical business practices."
-  },
-  {
-    "objectID": "about.html#our-expertise",
-    "href": "about.html#our-expertise",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "Custom Software Development: Web applications, mobile apps, and enterprise software\nCloud Infrastructure: AWS, Azure, and Google Cloud solutions\nDevOps & CI/CD: Automated deployment and infrastructure management\nData Analytics: Business intelligence and data-driven insights\nDigital Transformation: Legacy system modernization and process optimization\nCybersecurity: Security audits, compliance, and threat protection"
-  },
-  {
-    "objectID": "about.html#our-team",
-    "href": "about.html#our-team",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "Our team consists of experienced professionals with diverse backgrounds in software engineering, cloud architecture, project management, and business consulting. We bring together technical expertise and business acumen to deliver comprehensive solutions that address both immediate needs and long-term strategic goals."
-  },
-  {
-    "objectID": "about.html#client-success-stories",
-    "href": "about.html#client-success-stories",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "We’ve successfully partnered with companies across various industries, from startups to Fortune 500 enterprises, helping them achieve their digital transformation goals. Our portfolio includes:\n\nE-commerce platforms processing millions of transactions\nHealthcare systems managing patient data securely\nFinancial services applications with real-time processing\nManufacturing automation and IoT solutions\nEducational technology platforms"
-  },
-  {
-    "objectID": "about.html#get-in-touch",
-    "href": "about.html#get-in-touch",
-    "title": "About Eliora Tech Solutions",
-    "section": "",
-    "text": "Ready to transform your business with innovative technology solutions? Contact us today to discuss how Eliora Tech Solutions can help you achieve your goals."
+    "text": "About Our Company\n\n\nDiscover what drives us: a bold vision, a multidisciplinary team and a commitment to AI‑powered innovation.\n\n\n\n\n\n\nVision\n\n\nWe envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At Eliora Tech Solutions, innovation is at the core of everything we do.\n\n\n\n\nWho We Are\n\n\nFounded in 2025, we are a team of scientists, engineers and dreamers building AI‑native solutions that help businesses work smarter – from startups to Fortune 500 enterprises.\n\n\n\n\nWhat We Do\n\n\nOur platform leverages neural networks and machine learning to automate decision‑making, uncover insights and drive growth for our clients. Every solution is customised from the ground up and delivered by our own engineers; we collaborate closely with our partners to ensure measurable results."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Eliora Tech Solutions",
+    "title": "\nAI That Transforms Business\n",
     "section": "",
-    "text": "We design and deploy intelligent systems that deliver measurable results for modern enterprises.\n\nBook a Consultation See Case Studies\n::: :::"
-  },
-  {
-    "objectID": "index.html#what-we-build",
-    "href": "index.html#what-we-build",
-    "title": "Eliora Tech Solutions",
-    "section": "What We Build",
-    "text": "What We Build\nCutting-edge AI solutions for forward-thinking companies"
-  },
-  {
-    "objectID": "index.html#why-industry-leaders-choose-eliora",
-    "href": "index.html#why-industry-leaders-choose-eliora",
-    "title": "Eliora Tech Solutions",
-    "section": "Why Industry Leaders Choose Eliora",
-    "text": "Why Industry Leaders Choose Eliora\n\n\nProven Expertise — 50+ successful AI deployments across industries\n\n\nEnd-to-End Delivery — From strategy to production support\n\n\nEnterprise-Grade Security — SOC2 compliant with military-grade encryption\n\n\nRapid Implementation — 3x faster deployment than traditional approaches"
-  },
-  {
-    "objectID": "index.html#ready-to-transform-your-business",
-    "href": "index.html#ready-to-transform-your-business",
-    "title": "Eliora Tech Solutions",
-    "section": "Ready to Transform Your Business?",
-    "text": "Ready to Transform Your Business?\nJoin the AI revolution. Let’s build something extraordinary together.\n\nGet Started Today Download AI Readiness Guide"
+    "text": "The light is here\n\n\nAI That Transforms Business\n\n\nUnlock the power of artificial intelligence and discover how our neural network solutions drive growth, efficiency, and innovation across industries.\n\nGet in Touch\n\n\n\nWhat We Deliver\n\n\n\n\n01\n\n\nAI Consulting & Strategy\n\n\nWe partner with you to identify high‑impact opportunities and craft a clear, tailored roadmap. Our AI consultants customise solutions around your unique goals to ensure your investments deliver maximum ROI.\n\n\n\n\n02\n\n\nCustom AI Development\n\n\nWe design and build bespoke AI models – from computer vision to NLP – customised entirely to your requirements. We are extremely knowledgeable and build every system ourselves to deliver tangible results.\n\n\n\n\n03\n\n\nEnterprise Integration\n\n\nDeploy and integrate AI solutions seamlessly into your infrastructure. Our team customises each integration to fit your architecture, ensuring smooth adoption across data pipelines, cloud and DevOps.\n\n\n\n\n\n\nTrusted by Forward‑Thinking Companies\n\n\n\nCrypto Sector\n\n\nSports Sector\n\n\nHealthcare Sector\n\n\n\n\n\nHow It Works\n\n\n\n\n1\n\n\nDiscover & Plan\n\n\nWe explore your goals, audit data readiness and outline a strategy to ensure AI aligns with your business priorities.\n\n\n\n\n2\n\n\nBuild & Integrate\n\n\nOur team develops custom AI models and integrates them with your systems, ensuring minimal disruption to operations.\n\n\n\n\n3\n\n\nOptimize & Support\n\n\nWe provide ongoing monitoring, optimization and support to adapt to evolving needs and keep your AI performing at its best.\n\n\n\n\n\n\nWhy Choose Eliora\n\n\nWe don’t just deploy off‑the‑shelf solutions – we craft AI tailored to your exact needs. Our team brings deep expertise across domains and builds everything in‑house, ensuring the highest quality and security.\n\n\nFrom ideation to deployment and continuous optimization, we partner closely with you to deliver solutions that illuminate new possibilities. The light is here – let us help you harness it.\n\n\n\n\nReady to Innovate with AI?\n\n\nPartner with us to bring AI to life in your organization. Let’s build the future together.\n\nSchedule a Consultation"
   }
 ]
