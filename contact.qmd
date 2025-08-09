@@ -1,10 +1,10 @@
 ---
-title: "Contact – Eliora Tech Solutions"
+title: "Contact – EliOra Tech Solutions"
 format: html
 ---
 
 <!--
-  Contact page for Eliora Tech Solutions.
+  Contact page for EliOra Tech Solutions.
   Provides contact information and a simple form for prospective
   clients to get in touch.  Reuses the navigation bar and animated
   background from the other pages.
@@ -13,7 +13,7 @@ format: html
 <div id="vanta-bg"></div>
 
 <nav class="navbar">
-<div class="brand">Eliora Tech Solutions</div>
+<div class="brand">EliOra Tech Solutions</div>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="about.html">About</a></li>
@@ -45,5 +45,5 @@ format: html
 </main>
 
 <footer>
-© 2025 Eliora Tech Solutions. All rights reserved.
+© 2025 EliOra Tech Solutions. All rights reserved.
 </footer>

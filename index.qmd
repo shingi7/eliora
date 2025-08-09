@@ -4,7 +4,7 @@ format: html
 ---
 
 <!--
-  Home page for the Eliora Tech Solutions website.
+  Home page for the EliOra Tech Solutions website.
   This page reproduces the look and feel of the polished HTML design.
   It includes a custom navigation bar, a full‑page animated background,
   and a series of sections presented as cards and grids.
@@ -19,7 +19,7 @@ format: html
      Quarto's built‑in navigation so we have complete control over the
      appearance and behaviour. -->
 <nav class="navbar">
-<div class="brand">Eliora Tech Solutions</div>
+<div class="brand">EliOra Tech Solutions</div>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="about.html">About</a></li>
@@ -89,7 +89,7 @@ format: html
 </section>
 
 <section class="section">
-<h2>Why Choose Eliora</h2>
+<h2>Why Choose EliOra</h2>
 <p>We don't just deploy off‑the‑shelf solutions – we craft AI tailored to your exact needs. Our team brings deep expertise across domains and builds everything in‑house, ensuring the highest quality and security.</p>
 <p>From ideation to deployment and continuous optimization, we partner closely with you to deliver solutions that illuminate new possibilities. The light is here – let us help you harness it.</p>
 </section>
@@ -103,5 +103,5 @@ format: html
 </main>
 
 <footer>
-© 2025 Eliora Tech Solutions. All rights reserved.
+© 2025 EliOra Tech Solutions. All rights reserved.
 </footer>

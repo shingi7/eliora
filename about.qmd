@@ -1,5 +1,5 @@
 ---
-title: "About – Eliora Tech Solutions"
+title: "About – EliOra Tech Solutions"
 format: html
 ---
 
@@ -15,7 +15,7 @@ format: html
 <div id="vanta-bg"></div>
 
 <nav class="navbar">
-<div class="brand">Eliora Tech Solutions</div>
+<div class="brand">EliOra Tech Solutions</div>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="about.html">About</a></li>
@@ -35,7 +35,7 @@ format: html
 <div class="about-grid">
 <div class="about-card">
 <h3>Vision</h3>
-<p>We envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At Eliora Tech Solutions, innovation is at the core of everything we do.</p>
+<p>We envision a future where artificial intelligence and human ingenuity combine to solve the world’s toughest challenges. At EliOra Tech Solutions, innovation is at the core of everything we do.</p>
 </div>
 <div class="about-card">
 <h3>Who We Are</h3>
@@ -51,5 +51,5 @@ format: html
 </main>
 
 <footer>
-© 2025 Eliora Tech Solutions. All rights reserved.
+© 2025 EliOra Tech Solutions. All rights reserved.
 </footer>

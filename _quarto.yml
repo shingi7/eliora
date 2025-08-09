@@ -9,7 +9,7 @@ project:
     - assets/after.html
 
 website:
-  title: "Eliora Tech Solutions"
+  title: "EliOra Tech Solutions"
   # Disable Quarto's default navigation bar so we can use our own
   navbar: false
 
