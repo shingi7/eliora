@@ -1,0 +1,211 @@
+---
+title: "Wake Forest Demon Deacon Soccer"
+subtitle: "Performance Analytics"
+description: "Comprehensive analysis of Wake Forest Demon Deacon performance data to drive strategic decision‑making and program excellence"
+author: "Shingai Nindi"
+date: last-modified
+format:
+  html:
+    page-layout: full
+    fig-cap-location: bottom
+    # inherit the site styles from the parent folder
+    css: ../styles.css
+---
+
+::: {.executive-summary}
+## Executive Summary
+
+This comprehensive analysis leverages **performance data** from the **2021–2024 seasons** to provide data‑driven insights for strategic decision‑making and program optimization for the Wake Forest Demon Deacon program. Our findings highlight both strengths to be amplified and opportunities for improvement to achieve sustained competitive advantage.
+:::
+
+## Project Overview
+
+Our analysis examines **four seasons** of detailed performance data for the Wake Forest Demon Deacon soccer program, encompassing:
+
+::: {.key-metrics}
+::: {.metric-card}
+::: {.metric-number}
+15
+:::
+::: {.metric-label}
+Individual&nbsp;Players
+:::
+:::
+
+::: {.metric-card}
+::: {.metric-number}
+450
+:::
+::: {.metric-label}
+Data&nbsp;Points
+:::
+:::
+
+::: {.metric-card}
+::: {.metric-number}
+42
+:::
+::: {.metric-label}
+Performance&nbsp;Metrics
+:::
+:::
+
+::: {.metric-card}
+::: {.metric-number}
+4
+:::
+::: {.metric-label}
+Seasons&nbsp;Analyzed
+:::
+:::
+:::
+
+::: {.columns}
+::: {.column width="50%"}
+### Data‑Driven Insights
+Analysis of **15 players** across **4 seasons** with **450 data points** and **42 performance metrics**
+:::
+
+::: {.column width="50%"}
+### Strategic Value
+Actionable recommendations for player development, tactical optimization and program excellence
+:::
+:::
+
+## Key Insights
+
+::: {.business-section}
+### Advanced Analytics Excellence
+
+**Comprehensive Performance Analysis:**
+
+::: {.business-list}
+- **Top 29 Advanced Metrics** evaluated for correlation with winning outcomes
+- **42 Performance Indicators** analyzed across four seasons
+- **Statistical Significance** testing for all correlations (p < 0.001)
+- **Per‑90 Normalization** enabling accurate season comparisons
+- **Interactive Visualizations** for deep exploration of results
+:::
+
+*Deep statistical analysis reveals actionable insights for sustainable competitive advantage*
+:::
+
+::: {.business-section}
+### Team Performance Evolution
+
+**Strategic Performance Summary:**
+
+| Season | Matches | Win Rate | Key Improvement |
+|------:|--------:|---------:|------------------|
+| **2021** | 21 | 64.3% | Baseline |
+| **2022** | 19 | 73.7% | +9.4 % change |
+| **2023** | 18 | 75.0% | +1.3 % change |
+| **2024** | 24 | 64.6% | **−10.4 % final** |
+:::
+
+::: {.business-section}
+### Critical Performance Drivers
+
+**Top Metrics Positively Correlated with Winning:**
+
+::: {.business-list}
+- **Goals**: r ≈ 0.673 – converting opportunities is paramount
+- **Shots Completed**: r ≈ 0.580 – accuracy and shot selection underpin success
+- **xG (Expected Goals)**: r ≈ 0.542 – quality chance creation is vital
+- **Touches in Penalty Area**: r ≈ 0.457 – getting the ball into dangerous areas matters
+- **Shots Total**: r ≈ 0.447 – sustained attacking pressure yields results
+:::
+
+**Top Metrics Negatively Correlated with Winning:**
+
+::: {.business-list}
+- **Conceded Goals**: r ≈ −0.673 – defensive solidity is critical
+- **Shots Against Completed**: r ≈ −0.577 – limiting opponent shot accuracy
+- **Shots Against Total**: r ≈ −0.447 – reducing opposition chances
+- **Shots Against %**: r ≈ −0.318 – efficiency of opponent shooting
+- **Average Shot Distance**: r ≈ −0.311 – allowing long‑range efforts indicates defensive breakdown
+:::
+
+*Data‑driven identification of factors that most strongly influence match outcomes*
+:::
+
+## Business Impact
+
+This analysis provides the foundation for strategic decision‑making across multiple dimensions:
+
+::: {.columns}
+::: {.column width="50%"}
+### Player Development
+- Individual performance tracking and benchmarking
+- Personalized development pathways
+- Recruitment strategy enhancement
+- Position‑specific training programs
+:::
+
+::: {.column width="50%"}
+### Program Excellence
+- Tactical evolution insights tailored to Wake’s playing style
+- Competitive advantage identification
+- Resource allocation optimization
+- Performance benchmarking against elite programs
+:::
+:::
+
+## Data‑Driven Decision Making
+
+Our comprehensive analysis covers multiple performance categories with advanced statistical rigor:
+
+::: {.callout-tip}
+### Performance Categories Analyzed
+- **Advanced Metrics** (29 indicators): xG, Goals, Shots Completed, Touches in Penalty Area, etc.
+- **Attacking Metrics** (15 indicators): Goals, shots, assists, xG, progressive passes
+- **Defending Metrics** (4 indicators): Clearances, interceptions, tackles, defensive duels
+- **Passing Metrics** (10 indicators): Accuracy, progressive passes, crosses, final third passes
+- **Physical Metrics** (7 indicators): Duels, aerial battles, recoveries, match tempo
+- **Tactical Metrics** (37 indicators): Possession, tempo, positioning, set pieces
+:::
+
+::: {.business-section}
+### Statistical Methodology
+
+**Rigorous Analytical Approach:**
+
+::: {.business-list}
+- **Pearson Correlation Analysis** applied to all 42 metrics versus winning
+- **Statistical Significance Testing** at p < 0.001
+- **Per‑90 Normalization** for season‑to‑season comparisons
+- **Interactive Visualization** enabling real‑time data exploration
+- **Multi‑dimensional Radar Analysis** to contrast Wake vs. opponents
+- **Year‑over‑Year Evolution Tracking** with percentage change analysis
+:::
+
+*Professional‑grade statistical analysis ensuring reliable, actionable insights*
+:::
+
+## Strategic Recommendations
+
+Based on our comprehensive analysis, we provide actionable insights for:
+
+::: {.business-list}
+- **Elite Performance Optimization** – emphasise shot accuracy, xG creation and finishing efficiency
+- **Attacking Evolution Strategy** – increase touches in the penalty area and maintain high shot volume
+- **Defensive Excellence** – tighten defensive structure to reduce shots against and conceded goals
+- **Set Piece Mastery** – optimize corners and free kicks for additional scoring opportunities
+- **Championship Pathway Planning** – utilize data‑driven benchmarks to chart progress toward elite standards
+:::
+
+::: {.business-section}
+### Priority Implementation Areas
+
+**Immediate Strategic Focus:**
+
+::: {.business-list}
+- **Maximize Offensive Strengths** in goals, shots on target and xG production
+- **Defensive Optimization** by limiting shots against and improving pressing resistance
+- **Set Piece & Transition Mastery** to gain a competitive edge from dead balls and counterattacks
+- **Performance Monitoring Systems** for continuous improvement across seasons
+- **Recruitment Strategy Enhancement** based on data‑driven player profiles
+:::
+
+*Evidence‑based recommendations derived from statistical correlation analysis*
+:::

@@ -26,5 +26,159 @@
     "title": "\nAI That Transforms Business\n",
     "section": "",
     "text": "The light has come\n\n\nAI That Transforms Business\n\n\nStep into the future where artificial intelligence doesn’t just assist—it revolutionizes. Our cutting-edge neural networks don’t just solve problems; they unlock hidden potential, turning data into gold and dreams into reality across every industry imaginable.\n\nGet in Touch\n\n\n\nYour Gateway to Tomorrow\n\n\n\n\n01\n\n\nAI Consulting & Strategy\n\n\nWe don’t just consult—we architect your digital destiny. Our AI strategists dive deep into your business DNA, uncovering hidden opportunities at lightspeed and creating precision roadmaps that turn your boldest visions into unstoppable market leadership.\n\n\n\n\n02\n\n\nCustom AI Development\n\n\nWitness the birth of digital intelligence crafted exclusively for you. Our visionary engineers don’t just code—they breathe life into algorithms, sculpting AI minds from computer vision to natural language mastery. Every neural pathway is precision-engineered to think, learn, and accelerate your unique goals.\n\n\n\n\n03\n\n\nEnterprise Integration\n\n\nTransform your existing infrastructure into an AI powerhouse without breaking a sweat. Our integration specialists weave intelligence seamlessly into your digital ecosystem, turning your data pipelines into superhighways and your cloud into a thinking machine that accelerates at lightspeed.\n\n\n\n\n\n\nIndustries We Accelerate\n\n\n\nCrypto\n\n\nFinance\n\n\nSports\n\n\nHealthcare\n\n\n\n\n\nYour Journey to AI Supremacy\n\n\n\n\n1\n\n\nDiscover & Plan\n\n\nWe embark on a journey through your business landscape, mapping every opportunity and discovering your data goldmines at lightspeed. Together, we craft a precision plan that aligns AI’s infinite potential with your most ambitious dreams.\n\n\n\n\n2\n\n\nBuild & Integrate\n\n\nWatch as our digital architects construct AI masterpieces tailored to your world. We seamlessly integrate these intelligent creations into your existing systems at lightspeed, transforming operations without missing a beat.\n\n\n\n\n3\n\n\nOptimize & Support\n\n\nYour AI companion grows stronger with every challenge. We stand as guardians of your digital intelligence, constantly fine-tuning and evolving your systems at lightspeed to stay ahead of tomorrow’s demands and maintain peak performance.\n\n\n\n\n\n\nWhy Choose EliOra\n\n\nWe are the architects of digital evolution, not mere vendors of pre-packaged dreams. Every AI solution we create is born from your unique vision, crafted by visionary engineers who live and breathe artificial intelligence. Our in-house expertise ensures your competitive edge accelerates at lightspeed.\n\n\nFrom the spark of an idea to the moment of deployment, we journey alongside you as partners in transformation. We don’t just build AI—we illuminate pathways to futures you never imagined possible. The light has come – let us accelerate you toward your dreams at lightspeed.\n\n\n\n\nReady to Accelerate Your Dreams?\n\n\nThe future doesn’t wait for the hesitant. Partner with us and watch as we transform your organization into an AI-powered success story that achieves your wildest dreams at lightspeed.\n\nSchedule a Consultation"
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html",
+    "href": "Wake/wake_team-analytics.html",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "",
+    "text": "Wake Forest Demon Deacon has emerged as a formidable program through data‑driven excellence. This analysis examines 82 matches across four seasons (2021–2024), revealing the statistical foundations of an average 68.9% win rate and identifying the specific performance factors that drive success or hinder results.\nKey Findings:\n\nGoals and Shots On Target are the strongest predictors of victory (r ≈ 0.67 and 0.58, respectively)\nxG efficiency and Touches in Penalty Area highlight the importance of quality chance creation\nConceded Goals and Shots Against are the primary inhibitors of success\nAverage Shot Distance suggests that forcing opponents into long‑range efforts benefits Wake"
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#executive-summary",
+    "href": "Wake/wake_team-analytics.html#executive-summary",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "",
+    "text": "Wake Forest Demon Deacon has emerged as a formidable program through data‑driven excellence. This analysis examines 82 matches across four seasons (2021–2024), revealing the statistical foundations of an average 68.9% win rate and identifying the specific performance factors that drive success or hinder results.\nKey Findings:\n\nGoals and Shots On Target are the strongest predictors of victory (r ≈ 0.67 and 0.58, respectively)\nxG efficiency and Touches in Penalty Area highlight the importance of quality chance creation\nConceded Goals and Shots Against are the primary inhibitors of success\nAverage Shot Distance suggests that forcing opponents into long‑range efforts benefits Wake"
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#correlation-analysis",
+    "href": "Wake/wake_team-analytics.html#correlation-analysis",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Correlation Analysis",
+    "text": "Correlation Analysis\nWhat This Shows: Statistical analysis of numerous performance factors and their relationship to winning outcomes. Green bars indicate metrics that increase win probability when improved; red bars show factors that decrease win probability when they increase.\n\n\n        \n        \n        \n\n\n\n                            \n                                            \n\n\nInterpretation: High positive correlations indicate metrics where Wake excels lead to winning (e.g. shots on target), while negative correlations highlight areas where increases harm performance (e.g. shots against)."
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#season-comparison",
+    "href": "Wake/wake_team-analytics.html#season-comparison",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "2024 Season Comparison",
+    "text": "2024 Season Comparison\nWhat This Shows: Interactive bar chart comparing Wake vs opponents across several critical performance metrics for the 2024 season. Use the dropdown to explore different statistics.\n\n\n\n                            \n                                            \n\n\nHighlights: Wake outperforms opponents in xG efficiency (~1.21 vs 0.94), shot accuracy (~37% vs 30%), pass accuracy (~81% vs 79%) and aerial duels (~50% vs 47%). Corner efficiency remains a point of improvement (Wake ~28% vs 35%)."
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#individual-metric-analysis",
+    "href": "Wake/wake_team-analytics.html#individual-metric-analysis",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Individual Metric Analysis",
+    "text": "Individual Metric Analysis\nWhat This Shows: Scatter plots examine how select performance factors relate to match outcomes. Green dots represent wins, red dots are losses/draws. Trend lines show correlation strength.\n\n\nC:\\Users\\shing\\AppData\\Local\\Temp\\ipykernel_11552\\1812603185.py:11: PerformanceWarning:\n\nDataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n\nC:\\Users\\shing\\AppData\\Local\\Temp\\ipykernel_11552\\1812603185.py:12: PerformanceWarning:\n\nDataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n\n\n\n\nInsights: Accuracy (Shots On Target), total shot volume and xG are all positively related to winning; limiting shots against and reducing average shot distance are associated with better outcomes."
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#strategic-recommendations",
+    "href": "Wake/wake_team-analytics.html#strategic-recommendations",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Strategic Recommendations",
+    "text": "Strategic Recommendations\nBased on the above analyses, Wake should focus on:\n\n\nShooting Efficiency – Continue refining shot selection and finishing to maintain high xG efficiency and shot accuracy.\nChance Creation – Increase touches in the penalty area and sustain high total shot numbers to keep pressure on opponents.\nDefensive Solidity – Reduce opponent shot volume and ensure shots come from low‑probability areas.\nSet Piece Improvement – Improve corner routines to close the gap with opponents.\nPhysical Dominance – Maintain advantage in aerial and defensive duels while reducing fouls."
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#key-performance-benchmarks",
+    "href": "Wake/wake_team-analytics.html#key-performance-benchmarks",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Key Performance Benchmarks",
+    "text": "Key Performance Benchmarks\n\n\n\n\n\n\nImportant\n\n\n\nTargets: - Win Rate: 75%+ in the upcoming season - xG Efficiency: &gt;1.3 (current ~1.21) - Shot Accuracy: &gt;40% (current ~37%) - Corner Effectiveness: &gt;35% - Goals Against: &lt;1 per match"
+  },
+  {
+    "objectID": "Wake/wake_index.html",
+    "href": "Wake/wake_index.html",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "",
+    "text": "This comprehensive analysis leverages performance data from the 2021–2024 seasons to provide data‑driven insights for strategic decision‑making and program optimization for the Wake Forest Demon Deacon program. Our findings highlight both strengths to be amplified and opportunities for improvement to achieve sustained competitive advantage."
+  },
+  {
+    "objectID": "Wake/wake_index.html#executive-summary",
+    "href": "Wake/wake_index.html#executive-summary",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "",
+    "text": "This comprehensive analysis leverages performance data from the 2021–2024 seasons to provide data‑driven insights for strategic decision‑making and program optimization for the Wake Forest Demon Deacon program. Our findings highlight both strengths to be amplified and opportunities for improvement to achieve sustained competitive advantage."
+  },
+  {
+    "objectID": "Wake/wake_index.html#project-overview",
+    "href": "Wake/wake_index.html#project-overview",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "Project Overview",
+    "text": "Project Overview\nOur analysis examines four seasons of detailed performance data for the Wake Forest Demon Deacon soccer program, encompassing:\n\n\n\n15\n\n\nIndividual Players\n\n\n\n\n450\n\n\nData Points\n\n\n\n\n42\n\n\nPerformance Metrics\n\n\n\n\n4\n\n\nSeasons Analyzed\n\n\n\n\n\n\nData‑Driven Insights\nAnalysis of 15 players across 4 seasons with 450 data points and 42 performance metrics\n\n\n\nStrategic Value\nActionable recommendations for player development, tactical optimization and program excellence"
+  },
+  {
+    "objectID": "Wake/wake_index.html#key-insights",
+    "href": "Wake/wake_index.html#key-insights",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "Key Insights",
+    "text": "Key Insights\n\nAdvanced Analytics Excellence\nComprehensive Performance Analysis:\n\n\nTop 29 Advanced Metrics evaluated for correlation with winning outcomes\n42 Performance Indicators analyzed across four seasons\nStatistical Significance testing for all correlations (p &lt; 0.001)\nPer‑90 Normalization enabling accurate season comparisons\nInteractive Visualizations for deep exploration of results\n\n\nDeep statistical analysis reveals actionable insights for sustainable competitive advantage\n\n\nTeam Performance Evolution\nStrategic Performance Summary:\n\n\n\nSeason\nMatches\nWin Rate\nKey Improvement\n\n\n\n\n2021\n21\n64.3%\nBaseline\n\n\n2022\n19\n73.7%\n+9.4 % change\n\n\n2023\n18\n75.0%\n+1.3 % change\n\n\n2024\n24\n64.6%\n−10.4 % final\n\n\n\n\n\nCritical Performance Drivers\nTop Metrics Positively Correlated with Winning:\n\n\nGoals: r ≈ 0.673 – converting opportunities is paramount\nShots Completed: r ≈ 0.580 – accuracy and shot selection underpin success\nxG (Expected Goals): r ≈ 0.542 – quality chance creation is vital\nTouches in Penalty Area: r ≈ 0.457 – getting the ball into dangerous areas matters\nShots Total: r ≈ 0.447 – sustained attacking pressure yields results\n\n\nTop Metrics Negatively Correlated with Winning:\n\n\nConceded Goals: r ≈ −0.673 – defensive solidity is critical\nShots Against Completed: r ≈ −0.577 – limiting opponent shot accuracy\nShots Against Total: r ≈ −0.447 – reducing opposition chances\nShots Against %: r ≈ −0.318 – efficiency of opponent shooting\nAverage Shot Distance: r ≈ −0.311 – allowing long‑range efforts indicates defensive breakdown\n\n\nData‑driven identification of factors that most strongly influence match outcomes"
+  },
+  {
+    "objectID": "Wake/wake_index.html#business-impact",
+    "href": "Wake/wake_index.html#business-impact",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "Business Impact",
+    "text": "Business Impact\nThis analysis provides the foundation for strategic decision‑making across multiple dimensions:\n\n\n\nPlayer Development\n\nIndividual performance tracking and benchmarking\nPersonalized development pathways\nRecruitment strategy enhancement\nPosition‑specific training programs\n\n\n\n\nProgram Excellence\n\nTactical evolution insights tailored to Wake’s playing style\nCompetitive advantage identification\nResource allocation optimization\nPerformance benchmarking against elite programs"
+  },
+  {
+    "objectID": "Wake/wake_index.html#datadriven-decision-making",
+    "href": "Wake/wake_index.html#datadriven-decision-making",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "Data‑Driven Decision Making",
+    "text": "Data‑Driven Decision Making\nOur comprehensive analysis covers multiple performance categories with advanced statistical rigor:\n\n\n\n\n\n\nPerformance Categories Analyzed\n\n\n\n\nAdvanced Metrics (29 indicators): xG, Goals, Shots Completed, Touches in Penalty Area, etc.\nAttacking Metrics (15 indicators): Goals, shots, assists, xG, progressive passes\nDefending Metrics (4 indicators): Clearances, interceptions, tackles, defensive duels\nPassing Metrics (10 indicators): Accuracy, progressive passes, crosses, final third passes\nPhysical Metrics (7 indicators): Duels, aerial battles, recoveries, match tempo\nTactical Metrics (37 indicators): Possession, tempo, positioning, set pieces\n\n\n\n\nStatistical Methodology\nRigorous Analytical Approach:\n\n\nPearson Correlation Analysis applied to all 42 metrics versus winning\nStatistical Significance Testing at p &lt; 0.001\nPer‑90 Normalization for season‑to‑season comparisons\nInteractive Visualization enabling real‑time data exploration\nMulti‑dimensional Radar Analysis to contrast Wake vs. opponents\nYear‑over‑Year Evolution Tracking with percentage change analysis\n\n\nProfessional‑grade statistical analysis ensuring reliable, actionable insights"
+  },
+  {
+    "objectID": "Wake/wake_index.html#strategic-recommendations",
+    "href": "Wake/wake_index.html#strategic-recommendations",
+    "title": "Wake Forest Demon Deacon Soccer",
+    "section": "Strategic Recommendations",
+    "text": "Strategic Recommendations\nBased on our comprehensive analysis, we provide actionable insights for:\n\n\nElite Performance Optimization – emphasise shot accuracy, xG creation and finishing efficiency\nAttacking Evolution Strategy – increase touches in the penalty area and maintain high shot volume\nDefensive Excellence – tighten defensive structure to reduce shots against and conceded goals\nSet Piece Mastery – optimize corners and free kicks for additional scoring opportunities\nChampionship Pathway Planning – utilize data‑driven benchmarks to chart progress toward elite standards\n\n\n\nPriority Implementation Areas\nImmediate Strategic Focus:\n\n\nMaximize Offensive Strengths in goals, shots on target and xG production\nDefensive Optimization by limiting shots against and improving pressing resistance\nSet Piece & Transition Mastery to gain a competitive edge from dead balls and counterattacks\nPerformance Monitoring Systems for continuous improvement across seasons\nRecruitment Strategy Enhancement based on data‑driven player profiles\n\n\nEvidence‑based recommendations derived from statistical correlation analysis"
+  },
+  {
+    "objectID": "Wake/wake_player-analytics.html",
+    "href": "Wake/wake_player-analytics.html",
+    "title": "Wake Forest Demon Deacon – Player Analytics",
+    "section": "",
+    "text": "How to use: Select a player from the dropdown menu to view their performance timeline across matches. Use the second dropdown to switch between different statistics (goals, assists, passes, etc.). The line graph shows trends over time, with each point representing a match. Hover over points to see match details and exact values."
+  },
+  {
+    "objectID": "Wake/wake_player-analytics.html#interactive-individual-player-dashboard",
+    "href": "Wake/wake_player-analytics.html#interactive-individual-player-dashboard",
+    "title": "Wake Forest Demon Deacon – Player Analytics",
+    "section": "",
+    "text": "How to use: Select a player from the dropdown menu to view their performance timeline across matches. Use the second dropdown to switch between different statistics (goals, assists, passes, etc.). The line graph shows trends over time, with each point representing a match. Hover over points to see match details and exact values."
+  },
+  {
+    "objectID": "Wake/wake_player-analytics.html#player-comparison-dashboard-2024",
+    "href": "Wake/wake_player-analytics.html#player-comparison-dashboard-2024",
+    "title": "Wake Forest Demon Deacon – Player Analytics",
+    "section": "Player Comparison Dashboard 2024",
+    "text": "Player Comparison Dashboard 2024\nHow to use: This radar chart compares multiple players across all performance metrics using 2024 data. Each colored polygon represents a player’s percentile ranking across different statistics. Players with larger areas are performing better overall. Use the legend on the right to toggle individual players on/off for focused comparisons."
+  },
+  {
+    "objectID": "Wake/wake_player-analytics.html#team-leaders-per-90-in-2024",
+    "href": "Wake/wake_player-analytics.html#team-leaders-per-90-in-2024",
+    "title": "Wake Forest Demon Deacon – Player Analytics",
+    "section": "Team Leaders per 90 in 2024",
+    "text": "Team Leaders per 90 in 2024\nHow to use: This bar chart shows team rankings for any selected metric using 2024 per‑90‑minute data. Use the dropdown menu above the chart to switch between different statistics (goals, assists, completion percentages, etc.). Players are automatically sorted from highest to lowest performance. Hover over bars to see exact per‑90 values."
+  },
+  {
+    "objectID": "Wake/wake_player-analytics.html#conclusion",
+    "href": "Wake/wake_player-analytics.html#conclusion",
+    "title": "Wake Forest Demon Deacon – Player Analytics",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe interactive dashboards above enable deep exploration of individual and team performance for every player in the Wake Forest Demon Deacon squad. Use the tools to identify trends, benchmark players against their peers and uncover the hidden factors driving success."
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#season-level-performance-radar-analysis",
+    "href": "Wake/wake_team-analytics.html#season-level-performance-radar-analysis",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Season-Level Performance Radar Analysis",
+    "text": "Season-Level Performance Radar Analysis\nWhat This Shows: Interactive radar charts comparing Wake’s performance against opponents across key metrics. Each axis represents a performance category, with values normalized to show relative strength. Wake’s profile (blue) vs opponents (orange) reveals our competitive advantages.\nHow to use it: Select the relevant year from the dropdown on the left. The closer a point is to the edge, the higher the value.\nIf the words are overlapping, grab the edge of the radar and rotate it accordingly\n\n\n\n                            \n                                            \n\n\n\n                            \n                                            \n\n\n\n                            \n                                            \n\n\nRadar Analysis Results: - Wake consistently outperforms opponents across multiple dimensions - Strongest advantages in possession, passing accuracy, and progressive play - Areas for improvement in defensive duels and aerial battles - Seasonal evolution shows systematic improvement in key metrics"
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#key-metrics-comparison",
+    "href": "Wake/wake_team-analytics.html#key-metrics-comparison",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "2024 Key Metrics Comparison",
+    "text": "2024 Key Metrics Comparison\nWhat This Shows: Interactive bar chart comparing Wake vs opponents across 13 critical performance metrics for the 2024 season. Use the dropdown to examine different aspects of our game.\n\n\n\n                            \n                                            \n\n\n2024 Performance Highlights: - XG Efficiency: Wake significantly outperforms opponents in clinical finishing - Shot Accuracy: Elite-level precision in shot selection and execution - Progressive Play: Superior ability to advance the ball into dangerous areas - Physical Dominance: Strong performance in duels and aerial battles"
+  },
+  {
+    "objectID": "Wake/wake_team-analytics.html#year-over-year-evolution-analysis",
+    "href": "Wake/wake_team-analytics.html#year-over-year-evolution-analysis",
+    "title": "Wake Forest Demon Deacon – Advanced Performance Analytics",
+    "section": "Year-over-Year Evolution Analysis",
+    "text": "Year-over-Year Evolution Analysis\nWhat This Shows: Heatmap displaying percentage changes in key metrics across seasons (2022-2024). Green cells indicate improvement vs previous season; red cells show decline. All values normalized per 90 minutes for fair comparison.\n\n\nC:\\Users\\shing\\AppData\\Local\\Temp\\ipykernel_11552\\2324885471.py:40: FutureWarning:\n\nDataFrame.applymap has been deprecated. Use DataFrame.map instead.\n\n\n\n\n                            \n                                            \n\n\nEvolution Insights: - Consistent Improvement: Most metrics show positive year-over-year growth - Tactical Refinement: PPDA and possession metrics demonstrate systematic improvement - Physical Development: Aerial and defensive duels show increasing dominance - Attacking Evolution: Progressive play and penalty area entries consistently improving"
   }
 ]

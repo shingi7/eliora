@@ -1,0 +1,442 @@
+---
+title: "Wake Forest Demon Deacon – Player Analytics"
+subtitle: "Interactive Individual & Team Analysis"
+description: "Interactive tools with all statistics, player selection, year filtering and per‑90 options for the Wake roster"
+author: "Shingai Nindi"
+date: last-modified
+jupyter: python3
+format:
+  html:
+    page-layout: full
+    body-width: 1400px
+    sidebar-width: 160px
+    margin-width: 30px
+    fig-cap-location: bottom
+    css: ../styles.css
+    toc: false
+---
+
+```{python}
+#| echo: false
+#| warning: false
+#| message: false
+
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+import plotly.express as px
+from plotly.subplots import make_subplots
+from pathlib import Path
+import warnings
+from scipy.stats import percentileofscore
+
+warnings.filterwarnings('ignore')
+
+# Load player data from Wake folder
+def load_player_data():
+    player_stats_path = Path("./Player_Data")
+    player_data = {}
+    # mapping all players to unknown positions
+    position_mapping = {
+        'A. Thomas': 'Unknown',
+        'B. Umar': 'Unknown',
+        'C. Escribano': 'Unknown',
+        'C. Flax': 'Unknown',
+        'D. Krueger': 'Unknown',
+        'J. Perez': 'Unknown',
+        'J. Torbic': 'Unknown',
+        'J. White': 'Unknown',
+        'M. Sullivan': 'Unknown',
+        'N. Rabiu': 'Unknown',
+        'P. Mitchell': 'Unknown',
+        'R. Belal': 'Unknown',
+        'T. Smith Jr.': 'Unknown',
+        'V. Walent': 'Unknown',
+        'W. Jackson': 'Unknown'
+    }
+    for file in player_stats_path.glob("*.xlsx"):
+        player_name = file.stem.replace("Player stats ", "")
+        df = pd.read_excel(file, header=0)
+        df.columns = [str(col).strip() for col in df.columns]
+        df['Player'] = player_name
+        df['Position'] = position_mapping.get(player_name, 'Unknown')
+        df['Match_Number'] = range(1, len(df) + 1)
+        if 'Date' in df.columns:
+            df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+            df['Year'] = df['Date'].dt.year
+        else:
+            df['Year'] = 2024
+        df['Season'] = df['Year'].apply(lambda x: f"{x-1}-{str(x)[2:]}" if pd.notna(x) else "2023-24")
+        player_data[player_name] = df
+    return player_data
+
+player_data = load_player_data()
+all_players = sorted(list(player_data.keys()))
+combined_df = pd.concat([df for df in player_data.values()], ignore_index=True) if player_data else pd.DataFrame()
+available_years = sorted([int(y) for y in combined_df['Year'].dropna().unique()])
+
+# Build list of all unique column names across players
+all_columns = set()
+for df in player_data.values():
+    all_columns.update(df.columns)
+all_columns = sorted(list(all_columns))
+```
+
+## Interactive Individual Player Dashboard
+
+**How to use:** Select a player from the dropdown menu to view their performance timeline across matches. Use the second dropdown to switch between different statistics (goals, assists, passes, etc.). The line graph shows trends over time, with each point representing a match. Hover over points to see match details and exact values.
+
+```{python}
+#| echo: false
+#| label: individual-dashboard
+
+# Determine default player and its data
+current_player = all_players[0]
+df_default = player_data[current_player].sort_values('Date') if 'Date' in player_data[current_player].columns else player_data[current_player]
+
+# Prepare custom data for hover (match and date)
+match_col = 'Match' if 'Match' in df_default.columns else ('Opponent' if 'Opponent' in df_default.columns else None)
+if match_col and 'Date' in df_default.columns:
+    customdata_default = df_default[[match_col, 'Date']].astype(str).values
+elif match_col:
+    customdata_default = df_default[[match_col]].astype(str).assign(Date='').values
+elif 'Date' in df_default.columns:
+    customdata_default = df_default[['Date']].astype(str).assign(Match='').values
+else:
+    customdata_default = np.empty((len(df_default), 2), dtype=object)
+
+# Determine x-axis range
+if 'Date' in df_default.columns:
+    x_min_default = df_default['Date'].min()
+    x_max_default = df_default['Date'].max()
+else:
+    x_min_default = df_default['Match_Number'].min()
+    x_max_default = df_default['Match_Number'].max()
+
+# Build metrics list dynamically
+metrics = []
+cols = df_default.columns.tolist()
+start = cols.index('Minutes played') if 'Minutes played' in cols else 0
+skip = False
+for i in range(start, len(cols)):
+    if skip:
+        skip = False
+        continue
+    col = cols[i]
+    if pd.isna(col):
+        continue
+    if '/' in col and 'Unnamed' not in col and i+1 < len(cols) and 'Unnamed' in cols[i+1]:
+        left, right = [s.strip() for s in col.split('/')]
+        left = left.replace('accurate', 'completed')
+        right = right.replace('accurate', 'completed')
+        metrics.append({'label': left, 'col': col, 'pct': False})
+        metrics.append({'label': f"{left} {right}", 'col': cols[i+1], 'pct': False})
+        metrics.append({'label': f"{left} completion %", 'total': col, 'made': cols[i+1], 'pct': True})
+        skip = True
+    else:
+        if 'Unnamed' in col or col in ['Player','Match_Number']:
+            continue
+        lbl = col.replace('accurate', 'completed')
+        metrics.append({'label': lbl, 'col': col, 'pct': False})
+# Deduplicate and filter unwanted metrics
+exclude_labels = {
+    'Yellow card','Red card','Season','Year','Yellow cards','Red cards',
+    'Total actions completion','Total actions completion %',
+    'Total actions completion ‘‘','Total actions completion ′'
+}
+unique_metrics = {}
+for m in metrics:
+    lbl = m['label']
+    if lbl in exclude_labels or lbl in unique_metrics:
+        continue
+    unique_metrics[lbl] = m
+metrics = list(unique_metrics.values())
+
+# Initialize figure with traces for ALL metrics for the default player
+fig_individual = go.Figure()
+metric_count = len(metrics)
+
+# Add a trace for EVERY metric (only first visible initially)
+for mi, m in enumerate(metrics):
+    if m.get('pct'):
+        y_vals = (df_default[m['made']] / df_default[m['total']].replace(0, np.nan)) * 100
+        hover = (f'{current_player}<br>%{{customdata[0]}}<br>Game: %{{x}}<br>{m["label"]}: %{{y:.1f}}%<extra></extra>')
+        cust_extra = customdata_default
+    else:
+        y_vals = pd.to_numeric(df_default[m['col']], errors='coerce')
+        hover = (f'{current_player}<br>%{{customdata[0]}}<br>Game: %{{x}}<br>{m["label"]}: %{{y}}<extra></extra>')
+        cust_extra = customdata_default
+    
+    fig_individual.add_trace(go.Scatter(
+        x=df_default['Match_Number'],
+        y=y_vals,
+        customdata=cust_extra,
+        mode='lines+markers',
+        name=f"{current_player} - {m['label']}",
+        hovertemplate=hover,
+        visible=(mi == 0)
+    ))
+
+# Player dropdown: updates ALL metric traces at once
+player_buttons = []
+for p in all_players:
+    df_p = player_data[p].sort_values('Date') if 'Date' in player_data[p].columns else player_data[p]
+    
+    # Build common customdata (Match & Date strings)
+    match_col = 'Match' if 'Match' in df_p.columns else ('Opponent' if 'Opponent' in df_p.columns else None)
+    if match_col and 'Date' in df_p.columns:
+        cust_base = df_p[[match_col, 'Date']].astype(str).values
+    elif match_col:
+        cust_base = df_p[[match_col]].astype(str).assign(Date='').values
+    elif 'Date' in df_p.columns:
+        cust_base = df_p[['Date']].astype(str).assign(Match='').values
+    else:
+        cust_base = np.empty((len(df_p), 2), dtype=object)
+    
+    # x-values are always Match_Number (same for every metric)
+    x_vals = [df_p['Match_Number']] * metric_count
+    
+    y_vals, cust_vals, hover_vals, name_vals = [], [], [], []
+    for m in metrics:
+        if m.get('pct'):
+            y_series = (df_p[m['made']] / df_p[m['total']].replace(0, np.nan)) * 100
+            y_vals.append(y_series)
+            cust_vals.append(cust_base)
+            hover_vals.append(
+                f'{p}<br>%{{customdata[0]}}<br>Game: %{{x}}<br>{m["label"]}: %{{y:.1f}}%<extra></extra>'
+            )
+        else:
+            y_vals.append(pd.to_numeric(df_p[m['col']], errors='coerce'))
+            cust_vals.append(cust_base)
+            hover_vals.append(
+                f'{p}<br>%{{customdata[0]}}<br>Game: %{{x}}<br>{m["label"]}: %{{y}}<extra></extra>'
+            )
+        name_vals.append(f"{p} - {m['label']}")
+    
+    player_buttons.append(
+        dict(
+            label=p,
+            method="update",
+            args=[
+                {"x": x_vals,
+                 "y": y_vals,
+                 "customdata": cust_vals,
+                 "hovertemplate": hover_vals,
+                 "name": name_vals},
+                {"title": f"Player Performance Timeline: {p}"},
+            ],
+        )
+    )
+
+# Stat dropdown: one button per metric
+stat_buttons = []
+for i, m in enumerate(metrics):
+    vis = [False] * metric_count
+    vis[i] = True
+    stat_buttons.append(
+        dict(
+            label=m['label'],
+            method="update",
+            args=[
+                {"visible": vis},
+                {"yaxis": {"title": m['label']}},
+            ],
+        )
+    )
+
+fig_individual.update_layout(
+    xaxis=dict(title='Game', showticklabels=True),
+    yaxis_title=metrics[0]['label'],
+    title=f"Player Performance Timeline: {current_player}",
+    height=500,
+    updatemenus=[
+        dict(
+            buttons=player_buttons,
+            direction="down",
+            showactive=True,
+            x=0.05,
+            y=1.15,
+            xanchor="left",
+            yanchor="top",
+            bgcolor="lightblue",
+            bordercolor="darkblue",
+        ),
+        dict(
+            buttons=stat_buttons,
+            direction="down",
+            showactive=True,
+            x=0.35,
+            y=1.15,
+            xanchor="left",
+            yanchor="top",
+            bgcolor="lightyellow",
+            bordercolor="orange",
+        ),
+    ],
+)
+fig_individual.show()
+```
+
+## Player Comparison Dashboard 2024
+
+**How to use:** This radar chart compares multiple players across all performance metrics using 2024 data. Each colored polygon represents a player's percentile ranking across different statistics. Players with larger areas are performing better overall. Use the legend on the right to toggle individual players on/off for focused comparisons.
+
+```{python}
+#| echo: false
+#| label: comparison-dashboard
+
+# Filter metrics for radar
+exclude_radar = {
+    'Total actions successful','Total actions','Back passes','Forward passes',
+    'Passes to penalty area','Passes to final third','Passes','Long passes',
+    'Through passes','Crosses','Offensive duels','Sliding tackles','Loose ball duels',
+    'Defensive duels','Recoveries completion %','Aerial duels','Duels','Duels won','Duels completion %','Dribbles','Dribbles successful','Dribbles completion %'
+}
+
+# Use the metrics list from earlier to construct radar variables
+filtered_metrics = [m for m in metrics if m['label'] not in exclude_radar]
+radar_metrics = [m['label'] for m in filtered_metrics]
+metric_count = len(radar_metrics)
+
+# Define year of interest
+year_keys = ['2024']
+percentile_by_year = {yr: {p: [0]*metric_count for p in all_players} for yr in year_keys}
+raw_by_year = {yr: {p: [0]*metric_count for p in all_players} for yr in year_keys}
+
+for idx, m in enumerate(filtered_metrics):
+    col_name = m.get('col')
+    for yr in year_keys:
+        series_all = {}
+        for p, df_p in player_data.items():
+            df_use = df_p[df_p['Year'] == int(yr)]
+            if df_use.empty:
+                continue
+            if m.get('pct'):
+                tot = df_use[m['total']]
+                made = df_use[m['made']]
+                pct_vals = (made / tot.replace(0,np.nan)) * 100
+                val = pct_vals.mean()
+            else:
+                if col_name in df_use.columns:
+                    val = pd.to_numeric(df_use[col_name], errors='coerce').mean()
+                else:
+                    continue
+            series_all[p] = val
+        if not series_all:
+            continue
+        all_vals = list(series_all.values())
+        for p, val in series_all.items():
+            percentile = percentileofscore(all_vals, val)
+            percentile_by_year[yr][p][idx] = percentile
+            raw_by_year[yr][p][idx] = val
+
+# Determine indices to keep (exclude metrics where all players have 0)
+keep_idx_by_year = {}
+for yr in year_keys:
+    keep = []
+    for i in range(metric_count):
+        if any(raw_by_year[yr][p][i] != 0 for p in all_players):
+            keep.append(i)
+    keep_idx_by_year[yr] = keep
+
+colors = px.colors.qualitative.Dark24
+fig_comparison = go.Figure()
+
+def build_vals(player, yr):
+    idxs = keep_idx_by_year[yr]
+    r_core = [percentile_by_year[yr][player][i] for i in idxs]
+    raw_core = [raw_by_year[yr][player][i] for i in idxs]
+    return (r_core + r_core[:1], raw_core + raw_core[:1], idxs)
+
+year_default = '2024'
+for i, p in enumerate(all_players):
+    r_vals, raw_vals, idxs = build_vals(p, year_default)
+    theta_vals = [radar_metrics[j] for j in idxs] + [radar_metrics[idxs[0]]]
+    hex_col = colors[i % len(colors)]
+    rgb = px.colors.hex_to_rgb(hex_col)
+    rgba_fill = f'rgba({rgb[0]},{rgb[1]},{rgb[2]},0.15)'
+    fig_comparison.add_trace(go.Scatterpolar(
+        r=r_vals,
+        theta=theta_vals,
+        mode='lines+markers',
+        line=dict(color=hex_col, width=2),
+        marker=dict(color=hex_col, size=5),
+        fill='toself',
+        fillcolor=rgba_fill,
+        name=p,
+        customdata=raw_vals,
+        hovertemplate='%{theta}: %{customdata:.2f} (percentile %{r:.0f}%)',
+        visible=('legendonly' if i >= 5 else True)
+    ))
+
+fig_comparison.update_layout(
+    polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+    title="Multi‑Player Performance Comparison (2024)",
+    height=1000,
+    width=1000,
+    legend=dict(title="Click to toggle players", orientation="v", font=dict(size=10), x=1.15, y=0.5),
+    showlegend=True
+)
+fig_comparison.show()
+```
+
+## Team Leaders per 90 in 2024
+
+**How to use:** This bar chart shows team rankings for any selected metric using 2024 per‑90‑minute data. Use the dropdown menu above the chart to switch between different statistics (goals, assists, completion percentages, etc.). Players are automatically sorted from highest to lowest performance. Hover over bars to see exact per‑90 values.
+
+```{python}
+#| echo: false
+#| label: team-leaders
+
+combined_2024 = combined_df[combined_df['Year'] == 2024]
+minutes_per_player = combined_2024.groupby('Player')['Minutes played'].sum() if 'Minutes played' in combined_2024.columns else combined_2024.groupby('Player').size()*90
+
+# Build dictionary of preferred metrics (choose percentage if available)
+by_label = {}
+for m in metrics:
+    if m['label'] == 'Minutes played':
+        continue
+    if m.get('pct'):
+        by_label[m['label']] = m
+    else:
+        pct_label = m['label'] + ' completion %' if '/' in m['label'] else m['label'] + ' completion %'
+        if pct_label not in by_label:
+            by_label[m['label']] = m
+
+metrics_bar = list(by_label.values())
+
+# Precompute series per metric
+metric_series = {}
+for m in metrics_bar:
+    if m.get('pct'):
+        tot = combined_2024.groupby('Player')[m['total']].sum()
+        made = combined_2024.groupby('Player')[m['made']].sum()
+        pct = (made / tot.replace(0,np.nan)) * 100
+        metric_series[m['label']] = pct.fillna(0).sort_values(ascending=False)
+    else:
+        col = m['col']
+        vals = combined_2024.groupby('Player')[col].sum()
+        per90 = (vals / minutes_per_player * 90).replace([np.inf,-np.inf], np.nan).fillna(0)
+        metric_series[m['label']] = per90.sort_values(ascending=False)
+
+cur_label = metrics_bar[0]['label']
+cur_series = metric_series[cur_label]
+fig_team = go.Figure()
+fig_team.add_bar(x=cur_series.index.tolist(), y=cur_series.values, marker_color='royalblue', hovertemplate='%{x}<br>'+cur_label+': %{y:.2f}<extra></extra>')
+
+buttons = []
+for lbl, series in metric_series.items():
+    buttons.append(dict(label=lbl,
+                        method='update',
+                        args=[{'x':[series.index.tolist()], 'y':[series.values], 'hovertemplate':'%{x}<br>'+lbl+': %{y:.2f}<extra></extra>'},
+                              {'title':f'Team 2024 – {lbl}'}]))
+
+fig_team.update_layout(title=' ',
+                       updatemenus=[dict(buttons=buttons, direction='down', x=0, y=1.15, xanchor='left', bgcolor='lightgreen')],
+                       xaxis=dict(tickangle=-45), height=600, showlegend=False)
+fig_team.show()
+```
+
+## Conclusion
+
+The interactive dashboards above enable deep exploration of individual and team performance for every player in the Wake Forest Demon Deacon squad. Use the tools to identify trends, benchmark players against their peers and uncover the hidden factors driving success.

@@ -10,5 +10,14 @@
   },
   "services.qmd": {
     "services.html": "7f9df844"
+  },
+  "Wake/wake_index.qmd": {
+    "wake_index.html": "9663d9f3"
+  },
+  "Wake/wake_player-analytics.qmd": {
+    "wake_player-analytics.html": "965c8be9"
+  },
+  "Wake/wake_team-analytics.qmd": {
+    "wake_team-analytics.html": "78b2845d"
   }
 }
