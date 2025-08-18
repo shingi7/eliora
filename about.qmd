@@ -40,8 +40,8 @@ EliOra Tech Solutions
 <section class="section">
 <div class="about-grid">
 <div class="about-card">
-<h3>Who we are</h3>
-<p>Eliora Tech. Solutions is a data science consulting and software development company focused on delivering AI-powered solutions to enterprises and small-to-medium businesses. Our mission is to help businesses better harness their data and the latest AI technology to improve efficiency, reduce costs, and drive growth. We provide both services and products, offering consulting insight to address client immediate needs, while in parallel developing a tailored software product. We are here to help provide data analysis results within seconds, not days.</p>
+<h3>Who Are We?</h3>
+<p>Eliora Tech. Solutions is a data science consulting and software development company focused on delivering AI-powered solutions to enterprises and small-to-medium businesses. <strong>Our mission</strong> is to help businesses better harness their data and the latest AI technology to improve efficiency, reduce costs, and drive growth. We provide both services and products, offering consulting insight to address client immediate needs, while in parallel developing a tailored software product. We are here to help provide data analysis results within seconds, not days.</p>
 </div>
 <div class="about-card">
 <h3>Our Quest</h3>

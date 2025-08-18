@@ -41,7 +41,7 @@ EliOra Tech Solutions
 </section>
 
 <section class="section">
-<h2>What we can produce for you</h2>
+<h2>What We Can Produce for You</h2>
 <div class="benefits-grid">
 <div class="benefit-card">
 <div class="number">01</div>
@@ -66,8 +66,8 @@ EliOra Tech Solutions
 <div class="trusted-logos">
 <div class="logo">Crypto Trading Automation</div>
 <div class="logo">Financial Analysis</div>
-<div class="logo">Sport Data</div>
-<div class="logo">Healthcare Data</div>
+<div class="logo">Sport Data Analysis</div>
+<div class="logo">Healthcare Data Analysis</div>
 </div>
 </section>
 
@@ -94,7 +94,7 @@ EliOra Tech Solutions
 
 <section class="section">
 <h2>Why Choose EliOra</h2>
-<p>We are the architects of digital evolution, not mere vendors of pre-packaged dreams. Every AI solution we create is born from your unique vision, crafted by visionary engineers who live and breathe artificial intelligence. Our in-house expertise ensures your competitive edge accelerates at lightspeed.</p>
+<p>We are the architects of digital evolution, not mere vendors of pre-packaged dreams. Every AI solution we create is born from your unique vision, crafted by visionary engineers who live and breathe artificial intelligence. Our in-house expertise ensures your competitive edge and continuous advancement.</p>
 <p>From the spark of an idea to the moment of deployment, we journey alongside you as partners in transformation. We don't just build AI—we illuminate pathways to futures you never imagined possible. The light has come – let us accelerate you toward your dreams at lightspeed.</p>
 </section>
 
@@ -107,5 +107,5 @@ EliOra Tech Solutions
 </main>
 
 <footer>
-© 2025 EliOra Tech Solutions. All rights reserved.
+© 2025 EliOra Tech Solutions LLC. All rights reserved.
 </footer>
