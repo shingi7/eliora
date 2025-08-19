@@ -27,7 +27,7 @@ format:
 **Technical Requirements**: Modern web browser with JavaScript enabled; optimal viewing on desktop/tablet devices
 :::
 
-## Platform Overview
+## Analytics Platform Overview
 
 This **comprehensive player analytics platform** provides Wake Forest Demon Deacon coaching staff with unprecedented insights into individual and team performance. The system processes detailed match-by-match statistics for all 15 squad members, enabling data-driven decisions for:
 
@@ -49,7 +49,7 @@ This **comprehensive player analytics platform** provides Wake Forest Demon Deac
 :::
 :::
 
-### **Key Platform Features**
+### **Platform Capabilities**
 
 ::: {.callout-tip}
 #### **Interactive Individual Dashboard**
@@ -152,7 +152,7 @@ for df in player_data.values():
 all_columns = sorted(list(all_columns))
 ```
 
-## Interactive Individual Player Dashboard
+## Individual Player Performance Dashboard
 
 ::: {.callout-note}
 ### **Production Usage Instructions**
@@ -446,10 +446,10 @@ fig_individual.update_layout(
 fig_individual.show()
 ```
 
-## Player Comparison Dashboard 2024
+## Multi-Player Performance Comparison Dashboard
 
 ::: {.callout-important}
-### **Advanced Analytics Interface**
+### **Multi-Player Analytics Interface**
 
 **Primary Function**: Multi-dimensional player performance comparison using percentile-based statistical analysis
 
@@ -637,10 +637,10 @@ fig_comparison.update_layout(
 fig_comparison.show()
 ```
 
-## Team Leaders per 90 in 2024
+## Team Performance Rankings Dashboard (Per 90)
 
 ::: {.callout-tip}
-### **Performance Benchmarking System**
+### **Team Performance Benchmarking System**
 
 **Primary Function**: Comprehensive ranking system for all team members across normalized performance metrics
 
@@ -776,7 +776,7 @@ else:
     print("Warning: No valid metrics found for team leaders visualization")
 ```
 
-## Comprehensive Player Analytics Summary
+## Player Analytics Platform Summary
 
 ### **🎯 Key Capabilities**
 

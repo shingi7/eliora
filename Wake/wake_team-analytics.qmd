@@ -76,7 +76,7 @@ raw = pd.concat(frames, ignore_index=True)
 
 ---
 
-## Correlation Analysis
+## Performance Correlation Analysis
 
 **What This Shows:** Statistical analysis of numerous performance factors and their relationship to winning outcomes. Green bars indicate metrics that increase win probability when improved; red bars show factors that decrease win probability when they increase.
 
@@ -127,13 +127,24 @@ neg_sorted = filtered.sort_values('r')
 top_pos = pos_sorted.head(8)
 top_neg = neg_sorted.head(8)
 combined = pd.concat([top_neg, top_pos]).set_index('metric').sort_values('r')
+
+# Create display name mapping for specific metrics
+display_names = {
+    'Long passes %': 'Long passes',
+    'Penalty area entries %': '% of Penalty area entries that are runs'
+}
+
+# Apply display name mapping
+combined_display = combined.copy()
+combined_display.index = [display_names.get(idx, idx) for idx in combined_display.index]
+
 colors = ['#d62728' if val < 0 else '#2ca02c' for val in combined['r']]
 fig_corr = go.Figure(go.Bar(
-    x=combined['r'],
-    y=combined.index,
+    x=combined_display['r'],
+    y=combined_display.index,
     orientation='h',
     marker_color=colors,
-    text=combined['r'].round(3),
+    text=combined_display['r'].round(3),
     textposition='outside'
 ))
 fig_corr.update_layout(title='Wake: Top Metrics Positively & Negatively Correlated with Winning',
@@ -149,7 +160,7 @@ fig_corr.show()
 
 ---
 
-## Season-Level Performance Radar Analysis
+## Performance Radar Analysis
 
 **What This Shows:** Interactive radar charts comparing Wake's performance against opponents across key metrics. Each axis represents a performance category, with values normalized to show relative strength. Wake's profile (blue) vs opponents (orange) reveals our competitive advantages.
 
@@ -311,7 +322,7 @@ else:
 
 ---
 
-## 2024 Key Metrics Comparison
+## 2024 Performance Metrics Comparison
 
 **What This Shows:** Interactive bar chart comparing Wake vs opponents across 13 critical performance metrics for the 2024 season. Use the dropdown to examine different aspects of our game.
 
@@ -438,7 +449,7 @@ else:
 
 ---
 
-## Year-over-Year Evolution Analysis
+## Performance Evolution Analysis
 
 **What This Shows:** Heatmap displaying percentage changes in key metrics across seasons (2022-2024). Green cells indicate improvement vs previous season; red cells show decline. All values normalized per 90 minutes for fair comparison.
 
@@ -494,6 +505,7 @@ else:
                                     y=sign_mat.index,
                                     colorscale=colorscale, showscale=False,
                                     text=pct_focused.values.round(1),
+                                    texttemplate='%{text}%',
                                     hovertemplate='%{y} – %{x}: %{text}%<extra></extra>'))
     fig.update_layout(height=700, xaxis_title='Season', yaxis_title='Metric')
 fig.show()
@@ -507,7 +519,7 @@ fig.show()
 
 ---
 
-## Year-over-Year Performance Report
+## Performance Trend Analysis Report
 
 **Executive Summary:** Wake Forest Demon Deacon has demonstrated a **cyclical performance pattern** with strategic improvements in key areas, though some metrics show concerning regression trends that require immediate attention.
 
@@ -559,7 +571,7 @@ fig.show()
 
 ---
 
-## Individual Metric Analysis
+## Individual Performance Metric Analysis
 
 **What This Shows:** Scatter plots examine how select performance factors relate to match outcomes. Green dots represent wins, red dots are losses/draws. Trend lines show correlation strength.
 
@@ -622,7 +634,7 @@ plt.show()
 
 ---
 
-## Individual Metric Analysis Report
+## Individual Performance Metric Analysis Report
 
 **Executive Summary:** The individual metric analysis reveals **eight critical performance factors** that directly influence Wake Forest's match outcomes, with **Shots On Target** emerging as the strongest predictor of success.
 
@@ -725,7 +737,7 @@ plt.show()
 
 ---
 
-## Executive Summary & Strategic Roadmap
+## Strategic Performance Roadmap
 
 **Wake Forest Demon Deacon Performance Analytics - 2021-2024**
 
@@ -811,7 +823,7 @@ Wake Forest Demon Deacon possesses the **talent, infrastructure, and strategic f
 
 ---
 
-## Strategic Recommendations
+## Performance Development Recommendations
 
 Based on the above analyses, Wake should focus on:
 
@@ -823,7 +835,7 @@ Based on the above analyses, Wake should focus on:
 - **Physical Dominance** – Maintain advantage in aerial and defensive duels while reducing fouls.
 :::
 
-## Key Performance Benchmarks
+## Performance Benchmark Targets
 
 ::: {.callout-important}
 **Targets:**
