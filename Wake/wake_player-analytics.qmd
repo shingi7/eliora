@@ -467,7 +467,6 @@ fig_individual.show()
 **Data Processing**: 
 - **Percentile rankings**: Each metric converted to 0-100 percentile scale for fair comparison
 - **2024 season focus**: Analysis based on most recent competitive performance
-- **Position categorization**: Goalkeeper (1), Defenders (4), Midfielders (7), Forwards (3)
 - **Metric filtering**: 49 relevant metrics selected from 70+ available statistics
 
 **Visualization Features**:
@@ -502,6 +501,13 @@ fig_individual.show()
 - **Formation Optimization**: Match player profiles to tactical system requirements
 - **Long-term Development**: Create individualized improvement plans based on peer comparison
 :::
+
+
+
+
+**How to use it:** Select the relevant year from the dropdown on the left. The closer a point is to the edge, the higher the value.
+
+**If the words are overlapping, grab the edge of the radar and rotate it accordingly**
 
 ```{python}
 #| echo: false
@@ -629,10 +635,10 @@ fig_comparison.update_layout(
     polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
     title="Multi‑Player Performance Comparison (2024)",
     height=1000,
-    width=1000,
-    legend=dict(title="Click to toggle players", orientation="v", font=dict(size=10), x=1.02, y=1, xanchor="left", yanchor="top"),
+    width=1200,
+    legend=dict(title="Click to toggle players", orientation="v", font=dict(size=10), x=1.15, y=1, xanchor="left", yanchor="top"),
     showlegend=True,
-    margin=dict(l=200, r=300, t=200, b=200)
+    margin=dict(l=200, r=400, t=200, b=200)
 )
 fig_comparison.show()
 ```

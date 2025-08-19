@@ -69,10 +69,10 @@ raw = pd.concat(frames, ignore_index=True)
 
 **Key Findings:**
 
-- **Goals** and **Shots On Target** are the strongest predictors of victory (r ≈ 0.67 and 0.58, respectively)
-- **xG efficiency** and **Touches in Penalty Area** highlight the importance of quality chance creation
-- **Conceded Goals** and **Shots Against** are the primary inhibitors of success
-- **Average Shot Distance** suggests that forcing opponents into long‑range efforts benefits Wake
+- **Passing accuracy (Passes %)** is the strongest positive predictor of victory (r = 0.326), indicating ball control mastery
+- **Back passes completed** and **Touches in penalty area** show strong correlations with winning (r = 0.322 and 0.281)
+- **Defensive duels total** is the strongest negative predictor (r = -0.319), suggesting fewer defensive actions correlate with success
+- **Penalty area entries that are runs** negatively correlates with winning (r = -0.251), indicating structured attacks may be more effective
 
 ---
 
@@ -156,7 +156,7 @@ fig_corr.update_layout(title='Wake: Top Metrics Positively & Negatively Correlat
 fig_corr.show()
 ```
 
-*Interpretation*: High positive correlations indicate metrics where Wake excels lead to winning (e.g. shots on target), while negative correlations highlight areas where increases harm performance (e.g. shots against).
+*Interpretation*: High positive correlations indicate metrics where Wake excels lead to winning (e.g. passing accuracy, back passes completed), while negative correlations highlight areas where increases harm performance (e.g. defensive duels total, penalty area entries that are runs). The results emphasize possession-based success and efficient, structured attacking play.
 
 ---
 
@@ -506,16 +506,16 @@ else:
                                     colorscale=colorscale, showscale=False,
                                     text=pct_focused.values.round(1),
                                     texttemplate='%{text}%',
-                                    hovertemplate='%{y} – %{x}: %{text}%<extra></extra>'))
+                                    hovertemplate='%{y} – %{x}<extra></extra>'))
     fig.update_layout(height=700, xaxis_title='Season', yaxis_title='Metric')
 fig.show()
 ```
 
 **Evolution Insights:**
-- **Consistent Improvement**: Most metrics show positive year-over-year growth
-- **Tactical Refinement**: PPDA and possession metrics demonstrate systematic improvement
-- **Physical Development**: Aerial and defensive duels show increasing dominance
-- **Attacking Evolution**: Progressive play and penalty area entries consistently improving
+- **2024 Decline**: Significant negative trends in most metrics from 2023 to 2024, indicating performance regression
+- **Set Piece Strength**: Corners completed shows strong positive growth (+67.4% in 2022, +8.8% in 2023)
+- **Attacking Concerns**: Major declines in xG (-14.6%), crosses completed (-37%), and offensive duels (-14.9%) in 2024
+- **Possession Challenges**: PPDA improved dramatically in 2023 (+34.1%) but declined in 2024 (-14.8%), suggesting defensive organization issues
 
 ---
 
@@ -526,33 +526,33 @@ fig.show()
 ### **Performance Trajectory Analysis**
 
 #### **🔴 Critical Regression Areas (2023-2024)**
-- **Possession %**: Declined from 2023 to 2024, indicating loss of ball control dominance
-- **Match Tempo**: Reduced pace suggests tactical conservatism that may limit attacking opportunities
-- **Passes per Possession**: Decreased efficiency in maintaining possession under pressure
-- **Aerial Duels**: Declining performance in physical battles, a key competitive advantage
+- **xG**: Major decline (-14.6%) indicating reduced chance creation quality
+- **Crosses completed**: Severe drop (-37%) suggesting wing play deterioration  
+- **Offensive duels won**: Significant decline (-14.9%) showing reduced attacking aggression
+- **PPDA**: Defensive organization regression (-14.8%) after strong 2023 improvement
 
 #### **🟡 Concerning Trends (2022-2024)**
-- **Offensive Duels**: Inconsistent performance with recent decline, affecting attacking effectiveness
-- **Duels Overall**: General regression in physical contests, impacting both attack and defense
-- **Outside Box Shots**: Declining long-range threat, allowing opponents to defend more compactly
+- **Aerial duels won**: Consistent decline (-7.9%, -11.3%, -9.3%) showing physical weakness development
+- **Passes/Possession**: Erratic pattern with major 2024 decline (-15.5%) indicating possession inefficiency
+- **Tempo**: Declining match pace (-15.4% in 2024) suggesting reduced intensity
 
 #### **🟢 Sustained Improvements (2022-2024)**
-- **PPDA (Passes Per Defensive Action)**: Consistent improvement shows better defensive organization
-- **Pass Length**: Strategic evolution toward more direct, penetrating play
-- **Crosses Completed**: Enhanced delivery quality from wide areas
-- **Defensive Duels**: Strong improvement in defensive physicality and positioning
+- **Corners completed**: Strong and consistent growth (+67.4%, +8.8%) showing set piece mastery
+- **Outside Box Shots**: Excellent improvement trend (+6.1%, +15.7%, +7.9%) expanding attacking range
+- **Defensive duels won**: Positive development (+6%, +12.3%) despite 2023 dip, showing defensive resilience
+- **Pass length**: Steady improvement (+4.7%) indicating more progressive passing approach
 
 ### **Strategic Implications**
 
 #### **Immediate Action Required**
-1. **Possession Recovery**: Implement possession-focused training to regain ball control dominance
-2. **Physical Conditioning**: Address aerial and offensive duel regression through targeted strength training
-3. **Tempo Management**: Develop strategies to maintain high match tempo without sacrificing control
+1. **Chance Creation Recovery**: Address xG decline through improved final third movement and shot selection
+2. **Wing Play Rehabilitation**: Rebuild crossing ability and wide attacking effectiveness
+3. **Physical Conditioning**: Reverse aerial duel decline through targeted strength and positioning training
 
 #### **Build on Strengths**
-1. **Defensive Organization**: Leverage PPDA improvements for tactical defensive training
-2. **Direct Play**: Enhance the evolving direct passing strategy with better movement patterns
-3. **Wide Play**: Maximize crossing improvements with better penalty area positioning
+1. **Set Piece Excellence**: Leverage corner success for more varied dead ball situations
+2. **Long Range Shooting**: Capitalize on outside box shot improvement for expanded attacking threat
+3. **Defensive Foundation**: Build on defensive duel improvements for stronger overall defending
 
 #### **Long-term Development**
 1. **Consistency Framework**: Establish performance monitoring systems to prevent future regressions
@@ -636,7 +636,7 @@ plt.show()
 
 ## Individual Performance Metric Analysis Report
 
-**Executive Summary:** The individual metric analysis reveals **eight critical performance factors** that directly influence Wake Forest's match outcomes, with **Shots On Target** emerging as the strongest predictor of success.
+**Executive Summary:** The individual metric analysis reveals **eight critical performance factors** that directly influence Wake Forest's match outcomes, with **Shots On Target** emerging as the strongest predictor of success at r = 0.51.
 
 ### **🔴 High-Impact Metrics (r > 0.4)**
 
@@ -839,9 +839,10 @@ Based on the above analyses, Wake should focus on:
 
 ::: {.callout-important}
 **Targets:**
-- **Win Rate**: 75%+ in the upcoming season
-- **xG Efficiency**: >1.3 (current ~1.21)
-- **Shot Accuracy**: >40% (current ~37%)
-- **Corner Effectiveness**: >35%
-- **Goals Against**: <1 per match
+- **Win Rate**: 70%+ in the upcoming season (building from current 68.9%)
+- **xG Recovery**: Return to 2023 levels (+14.6% improvement needed)
+- **Shots On Target**: Maintain >50% correlation strength through precision training
+- **Corner Effectiveness**: Achieve 75%+ success rate (building on current strength)
+- **Crossing Accuracy**: Recover from 37% decline to positive trend
+- **Aerial Duel Success**: Reverse 3-year decline trend (+15% improvement target)
 :::
