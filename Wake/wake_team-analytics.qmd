@@ -130,6 +130,7 @@ combined = pd.concat([top_neg, top_pos]).set_index('metric').sort_values('r')
 
 # Create display name mapping for specific metrics
 display_names = {
+    'Long passes': 'Long passes %',
     'Long passes %': 'Long passes',
     'Penalty area entries %': '% of Penalty area entries that are runs'
 }
