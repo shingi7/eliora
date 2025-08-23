@@ -58,6 +58,45 @@ EliOra Tech Solutions
 </div>
 </section>
 
+<section class="section">
+<h2>Meet Our Co-Founders</h2>
+<div class="founders-grid">
+<div class="founder-card">
+<div class="founder-image">
+<img src="tev_headshot.png" alt="Tevin Engle" class="founder-headshot">
+</div>
+<div class="founder-content">
+<h3>Tevin Engle</h3>
+<p class="founder-title">Chief Compliance Officer and Co-Founder</p>
+<p>Tevin Engle is the Chief Compliance Officer and Co-Founder of Eliora Tech Solutions. He is accompanied with a strong foundation in healthcare compliance, regulatory framework, Centers for Medicare and Medicaid Services expertise, and data analytics to the forefront of AI innovation. A 2021 graduate of Arizona State University with a Bachelor of Science in Healthcare Compliance and Regulations, he has been deeply involved in the healthcare data analytics and compliance space since graduation.</p>
+
+<p>His professional background includes key roles at leading healthcare organizations such as UnitedHealth Group and CVS Health. He currently serves as a Senior Data Analyst at CVS Caremark, focusing on Medicaid compliance for the Aetna Better Health of Oklahoma Medicaid Program. He also brings strong analytical experience from his time at the Arizona Health Care Cost Containment System (AHCCCS), where he supported the Office of Inspector General as a Medicaid Fraud Investigator, leveraging data analysis to identify trends, anomalies, and potential compliance issues within Medicaid claims data.</p>
+
+<p>As a Senior Analyst, he specializes in medicaid compliance, leveraging data to improve operational efficiency, ensure regulatory compliance with both state and federal policies, and drive strategic decision-making through routine audits.</p>
+
+<p>Tevin's expertise in navigating complex healthcare ecosystems has been instrumental in shaping Eliora Tech's AI-driven solutions tailored for the healthcare industry and data analytical possibilities that go beyond our healthcare ecosystem.</p>
+
+<p>With a passion for ethical technology and precision analytics, Tevin is committed to bridging the gap between healthcare and emerging AI technologies to build smarter, more compliant, and data-driven systems.</p>
+</div>
+</div>
+
+<div class="founder-card">
+<div class="founder-image">
+<img src="shingi_headshot.png" alt="Shingai Nindi" class="founder-headshot">
+</div>
+<div class="founder-content">
+<h3>Shingai Nindi</h3>
+<p class="founder-title">Senior Data Engineer and Co-Founder</p>
+<p>Shingai Nindi is the Senior Data Engineer and Co-Founder of Eliora Tech Solutions, where he brings a rare blend of technical depth and visionary problem-solving to software engineering, data infrastructure, and AI integration. With a B.Sc. in Computer Science and an M.Sc. in Data Science & Analytics from Georgetown University, graduating summa cum laude, Shingai has built a reputation for transforming raw data into actionable intelligence. His work spans industries—sports, healthcare, construction tech, and financial systems—each showcasing his ability to engineer scalable solutions that drive measurable impact.</p>
+
+<p>In sports analytics, Shingai has delivered cutting-edge insights that shaped strategy and performance at the NCAA Division I level. While serving Georgetown Women's Soccer, he built automated ETL pipelines for tens of thousands of match events, applied machine learning models to evaluate player impact, and crafted interactive dashboards that informed real-time coaching decisions—contributing directly to a Big East Coaching Staff of the Year award. His expertise extends beyond the field into natural language processing, where he has analyzed thousands of clinical notes to uncover sentiment and risk factors in healthcare, as well as into cryptocurrency and blockchain projects, where he has engineered infrastructure for financial intelligence and security.</p>
+
+<p>As a senior engineer, Shingai has spearheaded the deployment of secure, cloud-native systems on AWS, integrating APIs, webhooks, and machine learning pipelines into robust production environments. His portfolio includes building containerized applications on ECS Fargate, configuring multi-domain infrastructures with CloudFront and Route 53, and integrating financial APIs like Plaid with enterprise-grade security. Whether optimizing sports performance, designing intelligent healthcare systems, or bridging data with emerging technologies, Shingai's work reflects a passion for innovation and a commitment to solutions that are not only technically sound but transformative for organizations and communities alike.</p>
+</div>
+</div>
+</div>
+</section>
+
 </main>
 
 <footer>

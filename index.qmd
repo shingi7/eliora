@@ -34,7 +34,7 @@ EliOra Tech Solutions
 <main>
 
 <section class="hero-section section visible">
-<p class="hero-tagline">The light has come</p>
+<p class="hero-tagline">The Light of Tomorrow, Today</p>
 <h1>AI That Transforms Business</h1>
 
 <a href="contact.html" class="cta-button">Get in Touch</a>
