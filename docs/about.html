@@ -100,6 +100,82 @@ ul.task-list li input[type="checkbox"] {
 <div id="vanta-bg">
 
 </div>
+<!-- Inline CSS for founders section to ensure it works on GitHub Pages -->
+<style>
+/* Founders Section */
+.founders-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.founder-card {
+  background: rgba(26, 26, 26, 0.8);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(77, 182, 232, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.founder-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(77, 182, 232, 0.4);
+}
+
+.founder-image {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.founder-headshot {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4db6e8;
+  box-shadow: 0 0 20px rgba(77, 182, 232, 0.3);
+}
+
+.founder-content h3 {
+  color: #4db6e8;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.founder-title {
+  color: #cccccc;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.founder-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* Responsive adjustments for founders */
+@media (max-width: 768px) {
+  .founders-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .founder-card {
+    padding: 1.5rem;
+  }
+  
+  .founder-headshot {
+    width: 150px;
+    height: 150px;
+  }
+}
+</style>
 <nav class="navbar">
 <div class="brand">
 <p><img src="logo.png" alt="EliOra Tech Solutions Logo" class="navbar-logo"> EliOra Tech Solutions</p>
