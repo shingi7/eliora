@@ -1,0 +1,480 @@
+---
+title: "General Team Analytics – Synthetic Seasons"
+subtitle: "Interactive, Production-Grade Performance Analysis"
+description: "Comprehensive team analytics using realistic synthetic data across four seasons, including correlation analysis, radar comparisons, seasonal evolution, and executive insights."
+author: "EliOra Tech Solutions"
+date: last-modified
+jupyter: python3
+format:
+  html:
+    page-layout: full
+    body-width: 1600px
+    sidebar-width: 180px
+    margin-width: 40px
+    fig-cap-location: bottom
+    css: ../styles.css
+---
+
+```{python}
+#| echo: false
+#| warning: false
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from pathlib import Path
+import scipy.stats as stats
+np.random.seed(42)
+
+teams = ["Home Team", "Opponent"]
+seasons = [2021, 2022, 2023, 2024]
+matches_per_season = {2021: 20, 2022: 22, 2023: 20, 2024: 24}
+
+def generate_season(season:int) -> pd.DataFrame:
+    rows = []
+    for team in teams:
+        n = matches_per_season[season]
+        base_att = 1.4 if team == "Home Team" else 1.2
+        base_def = 1.1 if team == "Home Team" else 1.3
+        goals = np.random.poisson(lam=base_att, size=n)
+        conceded = np.random.poisson(lam=base_def, size=n)
+        shots_total = np.random.normal(13 if team=="Home Team" else 10, 3, n).clip(4)
+        shots_on = (shots_total * np.random.uniform(0.35, 0.6, n)).round()
+        xg = np.maximum(0, np.random.normal(goals + np.random.uniform(-0.4,0.4), 0.6, n))
+        possession = np.random.normal(58 if team=="Home Team" else 42, 6, n).clip(30, 70)
+        passes_total = np.random.normal(450 if team=="Home Team" else 350, 60, n).clip(200)
+        passes_completed = (passes_total * np.random.uniform(0.78, 0.9, n)).round()
+        progressive_passes = np.random.normal(38 if team=="Home Team" else 28, 7, n).clip(5)
+        touches_pen_area = np.random.normal(19 if team=="Home Team" else 12, 5, n).clip(0)
+        ppda = np.random.normal(8.5 if team=="Home Team" else 11.5, 2, n).clip(5, 16)
+        tempo = np.random.normal(1.05 if team=="Home Team" else 0.98, 0.08, n)
+        aerial_duels_total = np.random.normal(20, 4, n).clip(5)
+        aerial_duels_won = (aerial_duels_total * np.random.uniform(0.45, 0.65, n)).round()
+        corners_total = np.random.normal(5.5 if team=="Home Team" else 4.1, 1.8, n).clip(0)
+        corners_completed = (corners_total * np.random.uniform(0.25, 0.5, n)).round()
+        duration = np.full(n, 90)
+        match_id = np.arange(1, n+1)
+
+        df = pd.DataFrame({
+            'Season': season,
+            'Team': team,
+            'Match': match_id,
+            'Goals': goals,
+            'Conceded goals': conceded,
+            'Shots total': shots_total.round(),
+            'Shots completed': shots_on,
+            'xG': xg,
+            'Possession, %': possession,
+            'Passes total': passes_total.round(),
+            'Passes completed': passes_completed,
+            'Progressive passes total': progressive_passes.round(),
+            'Touches in penalty area': touches_pen_area.round(),
+            'PPDA': ppda,
+            'Match tempo': tempo,
+            'Aerial duels total': aerial_duels_total.round(),
+            'Aerial duels completed': aerial_duels_won,
+            'Corners total': corners_total.round(),
+            'Corners completed': corners_completed,
+            'Duration': duration
+        })
+        rows.append(df)
+    return pd.concat(rows, ignore_index=True)
+
+raw = pd.concat([generate_season(s) for s in seasons], ignore_index=True)
+
+# Derivations and guards
+raw['win'] = np.where(raw['Goals'] > raw['Conceded goals'], 1, np.where(raw['Goals'] < raw['Conceded goals'], 0, 0.5))
+raw['Shot Accuracy %'] = (raw['Shots completed'] / raw['Shots total'].replace(0, np.nan) * 100).fillna(0)
+raw['Pass Accuracy %'] = (raw['Passes completed'] / raw['Passes total'].replace(0, np.nan) * 100).fillna(0)
+raw['Aerial Duel %'] = (raw['Aerial duels completed'] / raw['Aerial duels total'].replace(0, np.nan) * 100).fillna(0)
+```
+
+## Executive Summary
+
+**Our synthetic Home Team exhibits a data-driven, possession-oriented identity with consistent advantages in passing, progressive play, and penalty-area presence.** The following modules surface the same production-grade insights we deliver on client data—correlations to winning, radar comparisons, seasonal evolution, and tactical recommendations.
+
+---
+
+## Performance Correlation Analysis
+
+```{python}
+#| echo: false
+home = raw[raw['Team']=="Home Team"].copy()
+num_cols = home.select_dtypes(include=[np.number]).columns
+corr = []
+for col in num_cols:
+    if col == 'win':
+        continue
+    subset = home[[col, 'win']].dropna()
+    if subset[col].nunique() <= 1:
+        continue
+    r, _ = stats.pearsonr(subset['win'], subset[col])
+    corr.append({'metric': col, 'r': r})
+cdf = pd.DataFrame(corr).set_index('metric').sort_values('r')
+top_neg = cdf.head(8)
+top_pos = cdf.tail(8)
+combined = pd.concat([top_neg, top_pos]).sort_values('r')
+colors = ['#d62728' if v < 0 else '#2ca02c' for v in combined['r']]
+fig_corr = go.Figure(go.Bar(x=combined['r'], y=combined.index, orientation='h', marker_color=colors, text=combined['r'].round(3), textposition='outside'))
+fig_corr.update_layout(title='Top Metrics Positively & Negatively Correlated with Winning', xaxis_title='Correlation (r)', yaxis_title='Performance Metric', height=700, width=1200, margin=dict(l=250, r=100, t=80, b=80))
+fig_corr.show()
+```
+
+#### What this shows
+- Horizontal bars for the metrics most correlated with winning for the Home Team. Green bars increase the chance of winning when the metric rises; red bars decrease it.
+
+#### How to use
+- Hover for exact correlation values (r). Use the left/right extremes to prioritize training and tactical focus: maximize strong positives, mitigate strong negatives.
+
+---
+
+## Radar Comparison (Season Selector)
+
+```{python}
+#| echo: false
+seas = sorted(raw['Season'].unique())
+metrics = ['Shot Accuracy %','Pass Accuracy %','Progressive passes total','Touches in penalty area','PPDA','Match tempo','Aerial Duel %','Corners completed']
+
+def build_radar_for(season:int):
+    d = raw[raw['Season']==season]
+    home_m = d[d['Team']=="Home Team"][metrics].mean()
+    opp_m  = d[d['Team']!="Home Team"][metrics].mean()
+    all_m  = raw[metrics]
+    home_std = (home_m - all_m.mean())/all_m.std()
+    opp_std  = (opp_m - all_m.mean())/all_m.std()
+    return home_std, opp_std
+
+h0, o0 = build_radar_for(seas[0])
+theta = metrics + [metrics[0]]
+fig = go.Figure()
+fig.add_trace(go.Scatterpolar(r=h0.tolist()+[h0.iloc[0]], theta=theta, name='Home Team', fill='toself'))
+fig.add_trace(go.Scatterpolar(r=o0.tolist()+[o0.iloc[0]], theta=theta, name='Opponents', fill='toself'))
+
+buttons = []
+for s in seas:
+    hs, os = build_radar_for(s)
+    buttons.append(dict(label=str(s), method='update', args=[{'r': [hs.tolist()+[hs.iloc[0]], os.tolist()+[os.iloc[0]]]}, {'title': f'Season {s} – Home vs Opponents'}]))
+
+fig.update_layout(polar=dict(radialaxis=dict(visible=True, range=[-2,2])), height=900, legend_title_text='Team', title=f'Season {seas[0]} – Home vs Opponents', updatemenus=[dict(active=0, buttons=buttons, x=0.02, y=0.98)])
+fig.show()
+```
+
+#### What this shows
+- A season-by-season “shape” comparison between the Home Team and Opponents across key dimensions (accuracy, progression, tempo, set pieces). Values are standardized to show relative strength in each metric.
+
+#### How to use
+- Use the season dropdown to switch seasons. Larger area from center indicates stronger relative performance. Compare which axes (metrics) expand/contract across seasons to track style and strengths.
+
+---
+
+## 2024 Focus: Key Metrics Comparison
+
+```{python}
+#| echo: false
+y = 2024
+d = raw[raw['Season']==y].copy()
+d['Group'] = np.where(d['Team']=="Home Team", 'Home', 'Opponents')
+
+derived = {
+    'XG Efficiency': (d['Goals'] / d['xG'].replace(0, np.nan)).fillna(0),
+    'Shot Accuracy %': d['Shot Accuracy %'],
+    'Pass Accuracy %': d['Pass Accuracy %'],
+    'Touches in Penalty Area': d['Touches in penalty area'],
+    'Progressive Passes': d['Progressive passes total'],
+    'PPDA': d['PPDA'],
+    'Match Tempo': d['Match tempo'],
+    'Corner Effectiveness %': (d['Corners completed'] / d['Corners total'].replace(0, np.nan) * 100).fillna(0)
+}
+
+agg = d.groupby('Group').mean(numeric_only=True)
+metrics = list(derived.keys())
+init = metrics[0]
+home_val = agg[init] if init in agg.columns else pd.Series([derived[init][d['Group']=='Home'].mean()])
+opp_val  = agg[init] if init in agg.columns else pd.Series([derived[init][d['Group']=='Opponents'].mean()])
+
+fig_bar = go.Figure()
+fig_bar.add_bar(name='Home', x=['Home'], y=[home_val.iloc[0] if hasattr(home_val, 'iloc') else float(home_val)], marker_color='#4169E1')
+fig_bar.add_bar(name='Opponents', x=['Opponents'], y=[opp_val.iloc[0] if hasattr(opp_val, 'iloc') else float(opp_val)], marker_color='#FF6347')
+
+buttons = []
+for m in metrics:
+    h = derived[m][d['Group']=='Home'].mean()
+    o = derived[m][d['Group']=='Opponents'].mean()
+    buttons.append(dict(label=m, method='update', args=[{'y': [[h],[o]]}, {'title': f'{m} – {y} Home vs Opponents', 'yaxis': {'title': m}}]))
+
+fig_bar.update_layout(title=f'{init} – {y} Home vs Opponents', updatemenus=[dict(active=0, buttons=buttons, x=0.02, y=0.98)], barmode='group', height=450, showlegend=False, yaxis_title=init)
+fig_bar.show()
+```
+
+#### What this shows
+- A side‑by‑side comparison for 2024 between Home and Opponents for a selected key metric (e.g., XG Efficiency, Shot/Pass Accuracy %, PPDA, Tempo).
+
+#### How to use
+- Use the dropdown to change the metric. Read the y‑axis to compare levels; use this to communicate concrete performance gaps in 2024.
+
+---
+
+## Seasonal Evolution Heatmap (Sign of Change)
+
+```{python}
+#| echo: false
+home = raw[raw['Team']=="Home Team"].copy()
+home_per90 = home.copy()
+num_cols = home_per90.select_dtypes(include=[np.number]).columns.difference(['Season'])
+home_per90[num_cols] = home_per90[num_cols].div(home_per90['Duration']/90, axis=0)
+season_trend = home_per90.groupby('Season').mean(numeric_only=True).sort_index()
+pct = (season_trend.pct_change()*100).round(1)
+
+focus = ['Match tempo','PPDA','Possession, %','Progressive passes total','Pass Accuracy %','Shot Accuracy %','Touches in penalty area','Corners completed','Aerial Duel %','xG']
+present = [c for c in focus if c in pct.columns]
+
+import plotly.graph_objects as go
+if present:
+    pct_focused = pct[present].T
+    sign_mat = pct_focused.applymap(lambda v: -1 if v < 0 else (1 if v > 0 else 0))
+    colorscale = [[0, 'red'], [0.49, 'red'], [0.5, 'green'], [1, 'green']]
+    fig = go.Figure(data=go.Heatmap(z=sign_mat.values, x=sign_mat.columns.astype(str), y=sign_mat.index, colorscale=colorscale, showscale=False, text=pct_focused.values.round(1), texttemplate='%{text}%', hovertemplate='%{y} – %{x}<extra></extra>'))
+    fig.update_layout(height=700, xaxis_title='Season', yaxis_title='Metric', title='Season-over-Season Direction of Change')
+    fig.show()
+else:
+    print('No focus metrics present for heatmap')
+```
+
+#### What this shows
+- Heatmap of direction of season‑over‑season change for selected metrics. Green means improvement vs previous season; red means decline. Cell labels show % change.
+
+#### How to use
+- Scan rows to spot persistent trends. Focus corrective actions where you see consecutive red seasons; double‑down where you see improving green sequences.
+
+---
+
+## Executive Recommendations
+
+#### Strategic Focus
+- Optimize final third efficiency: sustain high touches in the box with shot quality
+- Maintain possession and passing control to dictate tempo
+- Keep PPDA low via organized pressing and compact defensive shape
+- Leverage set pieces (corners) as repeatable goal opportunities
+
+#### Implementation Pathway
+- Weekly reviews of Shot Accuracy %, Touches in Penalty Area, and Pass Accuracy %
+- Tactical sessions on progressive play to sustain box entries
+- Set piece playbook with roles optimized by aerial duel strengths
+
+---
+
+## Advanced ML: Random Forest Feature Importance (Win Prediction)
+
+```{python}
+#| echo: false
+try:
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    import plotly.graph_objects as go
+
+    home = raw[raw['Team']=="Home Team"].copy()
+    feature_cols = [
+        'Shots total','Shots completed','xG','Possession, %','Passes total','Passes completed',
+        'Progressive passes total','Touches in penalty area','PPDA','Match tempo',
+        'Aerial duels total','Aerial duels completed','Corners total','Corners completed',
+        'Shot Accuracy %','Pass Accuracy %','Aerial Duel %'
+    ]
+    dfm = home.dropna(subset=['win'])[feature_cols + ['win']].copy()
+    dfm['win_binary'] = (dfm['win'] == 1).astype(int)
+    X = dfm[feature_cols]
+    y = dfm['win_binary']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+
+    rf = RandomForestClassifier(n_estimators=300, random_state=42, class_weight='balanced')
+    rf.fit(X_train, y_train)
+    importances = pd.Series(rf.feature_importances_, index=feature_cols).sort_values(ascending=True)
+
+    fig_rf = go.Figure(go.Bar(x=importances.values, y=importances.index, orientation='h'))
+    fig_rf.update_layout(title='Random Forest Feature Importance for Winning', xaxis_title='Importance', yaxis_title='Feature', height=650)
+    fig_rf.show()
+except ImportError:
+    print("scikit-learn not installed. Run: pip install scikit-learn")
+```
+
+#### What this shows
+- Feature importance from a Random Forest trained to classify win vs non‑win. Higher importance implies greater predictive contribution.
+
+#### How to use
+- Treat importances as a ranked list of levers. Combine with correlation results to choose high‑impact, controllable metrics for game‑model emphasis.
+
+### Visualize Trees and Model Performance
+
+```{python}
+#| echo: false
+try:
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.tree import DecisionTreeClassifier, plot_tree
+    from sklearn.metrics import confusion_matrix, classification_report
+    import matplotlib.pyplot as plt
+    import plotly.graph_objects as go
+
+    # Prepare data
+    home = raw[raw['Team']=="Home Team"].copy()
+    feature_cols = [
+        'Shots total','Shots completed','xG','Possession, %','Passes total','Passes completed',
+        'Progressive passes total','Touches in penalty area','PPDA','Match tempo',
+        'Aerial duels total','Aerial duels completed','Corners total','Corners completed',
+        'Shot Accuracy %','Pass Accuracy %','Aerial Duel %'
+    ]
+    dfm = home.dropna(subset=['win'])[feature_cols + ['win']].copy()
+    dfm['win_binary'] = (dfm['win'] == 1).astype(int)
+    X = dfm[feature_cols]
+    y = dfm['win_binary']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+
+    # Train Random Forest and visualize one tree
+    rf = RandomForestClassifier(n_estimators=400, random_state=42, class_weight='balanced')
+    rf.fit(X_train, y_train)
+
+    example_tree = rf.estimators_[0]
+    plt.figure(figsize=(28, 14))
+    plot_tree(
+        example_tree,
+        feature_names=feature_cols,
+        class_names=['draw/loss','win'],
+        filled=True,
+        rounded=True,
+        max_depth=5,
+        fontsize=8
+    )
+    plt.title('Random Forest – Example Decision Tree (max depth 5)')
+    plt.show()
+
+    # Confusion matrix (RF)
+    y_pred = rf.predict(X_test)
+    cm = confusion_matrix(y_test, y_pred, labels=[0,1])
+    fig_cm = go.Figure(data=go.Heatmap(z=cm, x=['draw/loss','win'], y=['draw/loss','win'], colorscale='Blues', text=cm, texttemplate='%{text}'))
+    fig_cm.update_layout(title='Random Forest – Confusion Matrix', xaxis_title='Predicted', yaxis_title='Actual', height=420)
+    fig_cm.show()
+
+    # Standalone interpretable Decision Tree
+    dt = DecisionTreeClassifier(max_depth=4, random_state=42, class_weight='balanced')
+    dt.fit(X_train, y_train)
+    plt.figure(figsize=(22, 12))
+    plot_tree(dt, feature_names=feature_cols, class_names=['draw/loss','win'], filled=True, rounded=True, fontsize=9)
+    plt.title('Decision Tree (max depth 4) – Interpretable Rules')
+    plt.show()
+except ImportError:
+    print("scikit-learn/matplotlib not installed. Run: pip install scikit-learn matplotlib")
+```
+
+#### What this shows
+- Example Decision Tree from the forest (read path from root to leaf), plus the RF confusion matrix (accuracy patterns) and a compact standalone Decision Tree for rule‑based interpretation.
+
+#### How to use
+- Use the tree diagrams to explain decision logic to staff. Use the confusion matrix to validate model balance (wins vs non‑wins). The shallow tree offers human‑readable rules for scouting and match planning.
+
+---
+
+## Playing Style Clusters: PCA + KMeans
+
+```{python}
+#| echo: false
+try:
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.decomposition import PCA
+    from sklearn.cluster import KMeans
+
+    home = raw[raw['Team']=="Home Team"].copy()
+    feats = [
+        'Shots total','Shots completed','xG','Possession, %','Passes total','Passes completed',
+        'Progressive passes total','Touches in penalty area','PPDA','Match tempo','Corners completed'
+    ]
+    dfm = home[feats + ['Season']].dropna().copy()
+    scaler = StandardScaler()
+    Xs = scaler.fit_transform(dfm[feats])
+    pca = PCA(n_components=2, random_state=42)
+    XY = pca.fit_transform(Xs)
+    kmeans = KMeans(n_clusters=3, n_init=10, random_state=42)
+    cl = kmeans.fit_predict(Xs)
+
+    fig_pca = go.Figure()
+    seasons = sorted(dfm['Season'].unique())
+    colors = ['#4db6e8','#ff7f0e','#2ca02c']
+    for ci in sorted(set(cl)):
+        mask = cl == ci
+        fig_pca.add_trace(go.Scatter(x=XY[mask,0], y=XY[mask,1], mode='markers', name=f'Cluster {ci}',
+                                     marker=dict(size=9, color=colors[ci % len(colors)], line=dict(color='#111', width=0.5))))
+    fig_pca.update_layout(title='PCA of Match Style (Home Team) with KMeans Clusters', xaxis_title='PC1', yaxis_title='PC2', height=600)
+    fig_pca.show()
+
+    # Cluster profiles for selected metrics
+    prof = pd.DataFrame(Xs, columns=feats)
+    prof['cluster'] = cl
+    means = prof.groupby('cluster').mean().sort_index()
+    metric_buttons = []
+    cur_metric = feats[0]
+    cur_vals = means[cur_metric]
+    fig_prof = go.Figure()
+    fig_prof.add_bar(x=[f'Cluster {i}' for i in means.index], y=cur_vals.values, marker_color=colors)
+    for m in feats:
+        metric_buttons.append(dict(label=m, method='update', args=[{'y': [means[m].values]}, {'title': f'Cluster Profile – {m}'}]))
+    fig_prof.update_layout(title=f'Cluster Profile – {cur_metric}', updatemenus=[dict(buttons=metric_buttons, direction='down', x=0.02, y=1.1)], height=450)
+    fig_prof.show()
+except ImportError:
+    print("scikit-learn not installed. Run: pip install scikit-learn")
+```
+
+#### What this shows
+- PCA map of matches, colored by KMeans clusters (style archetypes). Cluster profile chart summarizes how clusters differ on any metric.
+
+#### How to use
+- Identify recurring playing styles (pressing/tempo/possession vs direct play). Use the dropdown in the profile chart to examine which metrics define each cluster; plan training for desired cluster tendencies.
+
+---
+
+## Nearest Match Explorer (KNN)
+
+```{python}
+#| echo: false
+try:
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.neighbors import NearestNeighbors
+
+    home = raw[raw['Team']=="Home Team"].copy()
+    feats = [
+        'Shots total','Shots completed','xG','Possession, %','Passes total','Passes completed',
+        'Progressive passes total','Touches in penalty area','PPDA','Match tempo','Corners completed'
+    ]
+    dfm = home[feats + ['Match','Season']].dropna().copy()
+    scaler = StandardScaler()
+    Xs = scaler.fit_transform(dfm[feats])
+    nn = NearestNeighbors(n_neighbors=6, metric='euclidean')
+    nn.fit(Xs)
+    distances, indices = nn.kneighbors(Xs)
+
+    # Build an interactive selector for Match id
+    match_ids = dfm['Match'].tolist()
+    init_idx = 0
+    init_neigh = indices[init_idx, 1:]
+    init_dist = distances[init_idx, 1:]
+
+    labels = [f"Match {match_ids[i]} (Season {int(dfm.iloc[i]['Season'])})" for i in init_neigh]
+    sim = (1/(1+init_dist))
+    fig_knn = go.Figure(go.Bar(x=sim, y=labels, orientation='h'))
+
+    buttons = []
+    for i, mid in enumerate(match_ids):
+        neigh = indices[i, 1:]
+        dist = distances[i, 1:]
+        labs = [f"Match {match_ids[j]} (Season {int(dfm.iloc[j]['Season'])})" for j in neigh]
+        sims = (1/(1+dist))
+        buttons.append(dict(label=f"Match {mid}", method='update', args=[{'x':[sims], 'y':[labs]}, {'title': f'Nearest Matches to Match {mid}'}]))
+    fig_knn.update_layout(title='Nearest Matches (Similarity)', updatemenus=[dict(buttons=buttons, direction='down', x=0.02, y=1.1)], height=520, yaxis={'categoryorder':'total ascending'})
+    fig_knn.show()
+except ImportError:
+    print("scikit-learn not installed. Run: pip install scikit-learn")
+```
+
+#### What this shows
+- For any selected match, the most similar past matches (by multi‑metric distance), with similarity score.
+
+#### How to use
+- Pick a match from the dropdown to surface analogues. Review video/notes from nearest matches to prepare tactical plans or post‑match reviews.
+
+

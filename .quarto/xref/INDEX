@@ -19,5 +19,14 @@
   },
   "Wake/wake_team-analytics.qmd": {
     "wake_team-analytics.html": "78b2845d"
+  },
+  "General_Demo/general_index.qmd": {
+    "general_index.html": "d3fdeb83"
+  },
+  "General_Demo/general_player-analytics.qmd": {
+    "general_player-analytics.html": "0e8b6b97"
+  },
+  "General_Demo/general_team-analytics.qmd": {
+    "general_team-analytics.html": "2898e5b3"
   }
 }

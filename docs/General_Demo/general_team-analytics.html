@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="EliOra Tech Solutions">
+<meta name="dcterms.date" content="2025-09-07">
+<meta name="description" content="Comprehensive team analytics using realistic synthetic data across four seasons, including correlation analysis, radar comparisons, seasonal evolution, and executive insights.">
+
+<title>EliOra Tech Solutions - General Team Analytics – Synthetic Seasons</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">General Team Analytics – Synthetic Seasons</h1>
+<p class="subtitle lead">Interactive, Production-Grade Performance Analysis</p>
+</div>
+
+<div>
+  <div class="description">
+    Comprehensive team analytics using realistic synthetic data across four seasons, including correlation analysis, radar comparisons, seasonal evolution, and executive insights.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>EliOra Tech Solutions </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 7, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="executive-summary" class="level2">
+<h2 class="anchored" data-anchor-id="executive-summary">Executive Summary</h2>
+<p><strong>Our synthetic Home Team exhibits a data-driven, possession-oriented identity with consistent advantages in passing, progressive play, and penalty-area presence.</strong> The following modules surface the same production-grade insights we deliver on client data—correlations to winning, radar comparisons, seasonal evolution, and tactical recommendations.</p>
+<hr>
+</section>
+<section id="performance-correlation-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="performance-correlation-analysis">Performance Correlation Analysis</h2>
+<div class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+        <script type="text/javascript">
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        </script>
+        <script type="module">import "https://cdn.plot.ly/plotly-3.1.0.min"</script>
+        
+</div>
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="2cf17734-6594-412d-a0c4-d6dc046ad0eb" class="plotly-graph-div" style="height:700px; width:1200px;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("2cf17734-6594-412d-a0c4-d6dc046ad0eb")) {                    Plotly.newPlot(                        "2cf17734-6594-412d-a0c4-d6dc046ad0eb",                        [{"marker":{"color":["#d62728","#d62728","#d62728","#d62728","#d62728","#d62728","#d62728","#2ca02c","#2ca02c","#2ca02c","#2ca02c","#2ca02c","#2ca02c","#2ca02c","#2ca02c","#2ca02c"]},"orientation":"h","text":{"dtype":"f8","bdata":"7nw\u002fNV664b+6SQwCK4emv3sUrkfheqS\u002f\u002fKnx0k1ioL97FK5H4XqUvzvfT42XboK\u002fO99PjZdugr\u002f6fmq8dJNoP\u002fp+arx0k6g\u002fWDm0yHa+rz+yne+nxku3P9Ei2\u002fl+arw\u002fcT0K16NwvT8AAAAAAADAP0jhehSuR+E\u002fLbKd76fG4z8="},"textposition":"outside","x":{"dtype":"f8","bdata":"xUkERTC94b\u002f94hkQRWqmv9ir8WrykaS\u002fGuO\u002fT\u002fU5oL82C5+qkmOUv6qqojibO4O\u002fjLSC8sgtg7+AAxi6YsBlP8aPaffWXag\u002f7b7Kypm6rz\u002fQA5yYZGa3P5UuRqyOcbw\u002f6vPcDDCEvT\u002fj1ALp+\u002fO\u002fP3021UDASOE\u002f8h1asQ\u002fD4z8="},"y":["Conceded goals","PPDA","Aerial duels total","Shots total","Corners total","Corners completed","Shots completed","Match","Shot Accuracy %","Season","Touches in penalty area","Aerial Duel %","Passes total","Passes completed","xG","Goals"],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"margin":{"l":250,"r":100,"t":80,"b":80},"title":{"text":"Top Metrics Positively & Negatively Correlated with Winning"},"xaxis":{"title":{"text":"Correlation (r)"}},"yaxis":{"title":{"text":"Performance Metric"}},"height":700,"width":1200},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('2cf17734-6594-412d-a0c4-d6dc046ad0eb');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows">What this shows</h4>
+<ul>
+<li>Horizontal bars for the metrics most correlated with winning for the Home Team. Green bars increase the chance of winning when the metric rises; red bars decrease it.</li>
+</ul>
+</section>
+<section id="how-to-use" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use">How to use</h4>
+<ul>
+<li>Hover for exact correlation values (r). Use the left/right extremes to prioritize training and tactical focus: maximize strong positives, mitigate strong negatives.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="radar-comparison-season-selector" class="level2">
+<h2 class="anchored" data-anchor-id="radar-comparison-season-selector">Radar Comparison (Season Selector)</h2>
+<div class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="cc7e2607-437a-4117-b2b3-b815482278ae" class="plotly-graph-div" style="height:900px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("cc7e2607-437a-4117-b2b3-b815482278ae")) {                    Plotly.newPlot(                        "cc7e2607-437a-4117-b2b3-b815482278ae",                        [{"fill":"toself","name":"Home Team","r":[-0.02584084969062863,0.0024465535915137787,0.7387434645143618,0.6027160257747805,-0.6931987513138586,0.6263107845830571,0.13303340579113737,0.4817913925179723,-0.02584084969062863],"theta":["Shot Accuracy %","Pass Accuracy %","Progressive passes total","Touches in penalty area","PPDA","Match tempo","Aerial Duel %","Corners completed","Shot Accuracy %"],"type":"scatterpolar"},{"fill":"toself","name":"Opponents","r":[-0.1440642608837477,0.17051344900389143,-0.6667791976689165,-0.7937274198065332,0.5971916209058419,-0.5263931732480043,0.04697124027905327,-0.1956046797961249,-0.1440642608837477],"theta":["Shot Accuracy %","Pass Accuracy %","Progressive passes total","Touches in penalty area","PPDA","Match tempo","Aerial Duel %","Corners completed","Shot Accuracy %"],"type":"scatterpolar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"polar":{"radialaxis":{"visible":true,"range":[-2,2]}},"legend":{"title":{"text":"Team"}},"height":900,"title":{"text":"Season 2021 \u2013 Home vs Opponents"},"updatemenus":[{"active":0,"buttons":[{"args":[{"r":[[-0.02584084969062863,0.0024465535915137787,0.7387434645143618,0.6027160257747805,-0.6931987513138586,0.6263107845830571,0.13303340579113737,0.4817913925179723,-0.02584084969062863],[-0.1440642608837477,0.17051344900389143,-0.6667791976689165,-0.7937274198065332,0.5971916209058419,-0.5263931732480043,0.04697124027905327,-0.1956046797961249,-0.1440642608837477]]},{"title":"Season 2021 \u2013 Home vs Opponents"}],"label":"2021","method":"update"},{"args":[{"r":[[-0.24941936876945664,0.1899102884956714,0.6972035130319529,0.8422818368202554,-0.46444236664204863,0.23408484049449846,-0.23814163108289427,0.35862847027904526,-0.24941936876945664],[0.3329539356718898,0.038476317930250886,-0.7225163477592376,-0.5227655195642157,0.4130955046690813,-0.3768108240388187,0.02165852799548521,-0.15455037238314928,0.3329539356718898]]},{"title":"Season 2022 \u2013 Home vs Opponents"}],"label":"2022","method":"update"},{"args":[{"r":[[0.01232184068920605,-0.14845909156861903,0.3917008318765154,0.23483576322916563,-0.726363452866337,0.6581234813244435,0.09498874821200122,0.4817913925179723,0.01232184068920605],[0.12653016733991082,-0.1521593389286007,-0.5800185395094548,-0.6961265338250434,0.6276805263368654,-0.28138793697168596,-0.20293656934702772,-0.6472020613388564,0.12653016733991082]]},{"title":"Season 2023 \u2013 Home vs Opponents"}],"label":"2023","method":"update"},{"args":[{"r":[[-0.17673368371453468,0.052113620490391005,0.5179857898641755,0.6665319896857546,-0.5669622065984502,0.14885351637609062,-0.11099567522960557,0.11486852001450285,-0.17673368371453468],[0.12603791617501028,-0.1550859864626552,-0.39782115737458557,-0.4158368099807656,0.776271877521572,-0.41523232786697806,0.24939116561375776,-0.40258681300321014,0.12603791617501028]]},{"title":"Season 2024 \u2013 Home vs Opponents"}],"label":"2024","method":"update"}],"x":0.02,"y":0.98}]},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('cc7e2607-437a-4117-b2b3-b815482278ae');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-1" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-1">What this shows</h4>
+<ul>
+<li>A season-by-season “shape” comparison between the Home Team and Opponents across key dimensions (accuracy, progression, tempo, set pieces). Values are standardized to show relative strength in each metric.</li>
+</ul>
+</section>
+<section id="how-to-use-1" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-1">How to use</h4>
+<ul>
+<li>Use the season dropdown to switch seasons. Larger area from center indicates stronger relative performance. Compare which axes (metrics) expand/contract across seasons to track style and strengths.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="focus-key-metrics-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="focus-key-metrics-comparison">2024 Focus: Key Metrics Comparison</h2>
+<div class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="6174bd43-2f88-415f-ab09-fd5ea2c81798" class="plotly-graph-div" style="height:450px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("6174bd43-2f88-415f-ab09-fd5ea2c81798")) {                    Plotly.newPlot(                        "6174bd43-2f88-415f-ab09-fd5ea2c81798",                        [{"marker":{"color":"#4169E1"},"name":"Home","x":["Home"],"y":[23.32885113017325],"type":"bar"},{"marker":{"color":"#FF6347"},"name":"Opponents","x":["Opponents"],"y":[0.5754103913194909],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"XG Efficiency \u2013 2024 Home vs Opponents"},"updatemenus":[{"active":0,"buttons":[{"args":[{"y":[[23.32885113017325],[0.5754103913194909]]},{"title":"XG Efficiency \u2013 2024 Home vs Opponents","yaxis":{"title":"XG Efficiency"}}],"label":"XG Efficiency","method":"update"},{"args":[{"y":[[46.24524644745233],[48.67978868897987]]},{"title":"Shot Accuracy % \u2013 2024 Home vs Opponents","yaxis":{"title":"Shot Accuracy %"}}],"label":"Shot Accuracy %","method":"update"},{"args":[{"y":[[83.73685334841299],[83.01125449053637]]},{"title":"Pass Accuracy % \u2013 2024 Home vs Opponents","yaxis":{"title":"Pass Accuracy %"}}],"label":"Pass Accuracy %","method":"update"},{"args":[{"y":[[20.875],[13.666666666666666]]},{"title":"Touches in Penalty Area \u2013 2024 Home vs Opponents","yaxis":{"title":"Touches in Penalty Area"}}],"label":"Touches in Penalty Area","method":"update"},{"args":[{"y":[[37.541666666666664],[29.625]]},{"title":"Progressive Passes \u2013 2024 Home vs Opponents","yaxis":{"title":"Progressive Passes"}}],"label":"Progressive Passes","method":"update"},{"args":[{"y":[[8.85731448252843],[11.999950404670239]]},{"title":"PPDA \u2013 2024 Home vs Opponents","yaxis":{"title":"PPDA"}}],"label":"PPDA","method":"update"},{"args":[{"y":[[1.0321584483435753],[0.9851706863716817]]},{"title":"Match Tempo \u2013 2024 Home vs Opponents","yaxis":{"title":"Match Tempo"}}],"label":"Match Tempo","method":"update"},{"args":[{"y":[[34.42460317460317],[37.13955026455026]]},{"title":"Corner Effectiveness % \u2013 2024 Home vs Opponents","yaxis":{"title":"Corner Effectiveness %"}}],"label":"Corner Effectiveness %","method":"update"}],"x":0.02,"y":0.98}],"barmode":"group","height":450,"showlegend":false,"yaxis":{"title":{"text":"XG Efficiency"}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('6174bd43-2f88-415f-ab09-fd5ea2c81798');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-2" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-2">What this shows</h4>
+<ul>
+<li>A side‑by‑side comparison for 2024 between Home and Opponents for a selected key metric (e.g., XG Efficiency, Shot/Pass Accuracy %, PPDA, Tempo).</li>
+</ul>
+</section>
+<section id="how-to-use-2" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-2">How to use</h4>
+<ul>
+<li>Use the dropdown to change the metric. Read the y‑axis to compare levels; use this to communicate concrete performance gaps in 2024.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="seasonal-evolution-heatmap-sign-of-change" class="level2">
+<h2 class="anchored" data-anchor-id="seasonal-evolution-heatmap-sign-of-change">Seasonal Evolution Heatmap (Sign of Change)</h2>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stderr">
+<pre><code>/tmp/ipykernel_14646/1982108479.py:14: FutureWarning:
+
+DataFrame.applymap has been deprecated. Use DataFrame.map instead.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="421589ce-cc77-4b6c-a119-7429dcc5a5be" class="plotly-graph-div" style="height:700px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("421589ce-cc77-4b6c-a119-7429dcc5a5be")) {                    Plotly.newPlot(                        "421589ce-cc77-4b6c-a119-7429dcc5a5be",                        [{"colorscale":[[0,"red"],[0.49,"red"],[0.5,"green"],[1,"green"]],"hovertemplate":"%{y} \u2013 %{x}\u003cextra\u003e\u003c\u002fextra\u003e","showscale":false,"text":{"dtype":"f8","bdata":"AAAAAAAA+H8AAAAAAAAIwDMzMzMzMwtAMzMzMzMzD8AAAAAAAAD4fzMzMzMzMxlAzczMzMzMGsCamZmZmZkRQAAAAAAAAPh\u002fzczMzMzM\u002fL8zMzMzMzMDQAAAAAAAAPi\u002fAAAAAAAA+H\u002fNzMzMzMzsvzMzMzMzMxvAAAAAAAAACEAAAAAAAAD4f5qZmZmZmek\u002fZmZmZmZm9r+amZmZmZnpPwAAAAAAAPh\u002fZmZmZmZmDsBmZmZmZmYSQJqZmZmZmQnAAAAAAAAA+H8zMzMzMzMfQGZmZmZmZjLAAAAAAAAAMEAAAAAAAAD4fwAAAAAAABTAzczMzMzMFECamZmZmZktwAAAAAAAAPh\u002fmpmZmZmZDcAAAAAAAAAMQM3MzMzMzADAAAAAAAAA+H+amZmZmZkXQGZmZmZmZgrAAAAAAAAAJ0A=","shape":"10, 4"},"texttemplate":"%{text}%","x":["2021","2022","2023","2024"],"y":["Match tempo","PPDA","Possession, %","Progressive passes total","Pass Accuracy %","Shot Accuracy %","Touches in penalty area","Corners completed","Aerial Duel %","xG"],"z":{"dtype":"i1","bdata":"AP8B\u002fwAB\u002fwEA\u002fwH\u002fAP\u002f\u002fAQAB\u002fwEA\u002fwH\u002fAAH\u002fAQD\u002fAf8A\u002fwH\u002fAAH\u002fAQ==","shape":"10, 4"},"type":"heatmap"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"height":700,"xaxis":{"title":{"text":"Season"}},"yaxis":{"title":{"text":"Metric"}},"title":{"text":"Season-over-Season Direction of Change"}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('421589ce-cc77-4b6c-a119-7429dcc5a5be');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-3" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-3">What this shows</h4>
+<ul>
+<li>Heatmap of direction of season‑over‑season change for selected metrics. Green means improvement vs previous season; red means decline. Cell labels show % change.</li>
+</ul>
+</section>
+<section id="how-to-use-3" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-3">How to use</h4>
+<ul>
+<li>Scan rows to spot persistent trends. Focus corrective actions where you see consecutive red seasons; double‑down where you see improving green sequences.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="executive-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="executive-recommendations">Executive Recommendations</h2>
+<section id="strategic-focus" class="level4">
+<h4 class="anchored" data-anchor-id="strategic-focus">Strategic Focus</h4>
+<ul>
+<li>Optimize final third efficiency: sustain high touches in the box with shot quality</li>
+<li>Maintain possession and passing control to dictate tempo</li>
+<li>Keep PPDA low via organized pressing and compact defensive shape</li>
+<li>Leverage set pieces (corners) as repeatable goal opportunities</li>
+</ul>
+</section>
+<section id="implementation-pathway" class="level4">
+<h4 class="anchored" data-anchor-id="implementation-pathway">Implementation Pathway</h4>
+<ul>
+<li>Weekly reviews of Shot Accuracy %, Touches in Penalty Area, and Pass Accuracy %</li>
+<li>Tactical sessions on progressive play to sustain box entries</li>
+<li>Set piece playbook with roles optimized by aerial duel strengths</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="advanced-ml-random-forest-feature-importance-win-prediction" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-ml-random-forest-feature-importance-win-prediction">Advanced ML: Random Forest Feature Importance (Win Prediction)</h2>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="34122d55-f3f4-4145-b73c-017b8b289ca6" class="plotly-graph-div" style="height:650px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("34122d55-f3f4-4145-b73c-017b8b289ca6")) {                    Plotly.newPlot(                        "34122d55-f3f4-4145-b73c-017b8b289ca6",                        [{"orientation":"h","x":{"dtype":"f8","bdata":"QmfO\u002fwOLjT+qtppHTfCaP7i3284KxZs\u002fWD09uzrtnj8g2qPtFA6fPxlQk5Tn\u002fp8\u002f8IVToh0LoD+7LKc6PuGjP9UCNEnNjKY\u002f2amV41eypz+zJm3k5VypP7l\u002faoK+Xak\u002fOHJMFYJiqj98JoGbWbStP5H0oRT0ia8\u002fSa1eR7Mcsz+zwSlyo3DVPw=="},"y":["Corners completed","Corners total","Shots completed","Touches in penalty area","Aerial duels completed","Aerial duels total","Shots total","Shot Accuracy %","Progressive passes total","Aerial Duel %","Passes total","Possession, %","Passes completed","Pass Accuracy %","Match tempo","PPDA","xG"],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Random Forest Feature Importance for Winning"},"xaxis":{"title":{"text":"Importance"}},"yaxis":{"title":{"text":"Feature"}},"height":650},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('34122d55-f3f4-4145-b73c-017b8b289ca6');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-4" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-4">What this shows</h4>
+<ul>
+<li>Feature importance from a Random Forest trained to classify win vs non‑win. Higher importance implies greater predictive contribution.</li>
+</ul>
+</section>
+<section id="how-to-use-4" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-4">How to use</h4>
+<ul>
+<li>Treat importances as a ranked list of levers. Combine with correlation results to choose high‑impact, controllable metrics for game‑model emphasis.</li>
+</ul>
+</section>
+<section id="visualize-trees-and-model-performance" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-trees-and-model-performance">Visualize Trees and Model Performance</h3>
+<div class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<p><img src="general_team-analytics_files/figure-html/cell-8-output-1.png" width="2102" height="1074"></p>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="43715d07-b30c-44cf-901d-6f1a5cdc0159" class="plotly-graph-div" style="height:420px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("43715d07-b30c-44cf-901d-6f1a5cdc0159")) {                    Plotly.newPlot(                        "43715d07-b30c-44cf-901d-6f1a5cdc0159",                        [{"colorscale":[[0.0,"rgb(247,251,255)"],[0.125,"rgb(222,235,247)"],[0.25,"rgb(198,219,239)"],[0.375,"rgb(158,202,225)"],[0.5,"rgb(107,174,214)"],[0.625,"rgb(66,146,198)"],[0.75,"rgb(33,113,181)"],[0.875,"rgb(8,81,156)"],[1.0,"rgb(8,48,107)"]],"text":{"dtype":"i1","bdata":"DgMFBA==","shape":"2, 2"},"texttemplate":"%{text}","x":["draw\u002floss","win"],"y":["draw\u002floss","win"],"z":{"dtype":"i1","bdata":"DgMFBA==","shape":"2, 2"},"type":"heatmap"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Random Forest \u2013 Confusion Matrix"},"xaxis":{"title":{"text":"Predicted"}},"yaxis":{"title":{"text":"Actual"}},"height":420},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('43715d07-b30c-44cf-901d-6f1a5cdc0159');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="general_team-analytics_files/figure-html/cell-8-output-3.png" width="1656" height="926"></p>
+</div>
+</div>
+<section id="what-this-shows-5" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-5">What this shows</h4>
+<ul>
+<li>Example Decision Tree from the forest (read path from root to leaf), plus the RF confusion matrix (accuracy patterns) and a compact standalone Decision Tree for rule‑based interpretation.</li>
+</ul>
+</section>
+<section id="how-to-use-5" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-5">How to use</h4>
+<ul>
+<li>Use the tree diagrams to explain decision logic to staff. Use the confusion matrix to validate model balance (wins vs non‑wins). The shallow tree offers human‑readable rules for scouting and match planning.</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="playing-style-clusters-pca-kmeans" class="level2">
+<h2 class="anchored" data-anchor-id="playing-style-clusters-pca-kmeans">Playing Style Clusters: PCA + KMeans</h2>
+<div class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="45adbb90-01fe-41b9-9f09-e67a7bd5f05d" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("45adbb90-01fe-41b9-9f09-e67a7bd5f05d")) {                    Plotly.newPlot(                        "45adbb90-01fe-41b9-9f09-e67a7bd5f05d",                        [{"marker":{"color":"#4db6e8","line":{"color":"#111","width":0.5},"size":9},"mode":"markers","name":"Cluster 0","x":{"dtype":"f8","bdata":"7VYATeVuAcC\u002fzlSGTmrZv\u002fseX1r35vO\u002fh2MleYq2tj+lPljbyin0v5am7YUgAMK\u002fsjsqUZsY9L9kMs2LPtD9v80Ob0oF1sQ\u002fG9U\u002f1pIz\u002fL85Snqf5xb2v7nwUEq9HvG\u002fWvsm7OhqA8AbGIFy\u002f+7uv+QVjCftu7q\u002fuuCngXadA8COA6XV+57zv0Mp3+BxQ+O\u002fVzI9b8JEq7+Z0F4A7gbpvzV669fDu94\u002fLV6IQV\u002fyC8BsC40xN7kDwPs9q7oN9OC\u002fAel9TQxe87+HvALJeoLfP20fC5QAneO\u002fW9w8pezhCsCTE+qDK7XXPxG\u002fFyM9oeK\u002f22PQExlr779\u002frV5hoD7Uv8FlvkgZdv2\u002fIGprKaFV5r+KX6dU9cX9v4dhxPKowuC\u002foT\u002ftp7mngD+4PJUg+K3GPw=="},"y":{"dtype":"f8","bdata":"aau3f+my5D8CAEB2z4\u002fFv5qD3c5RzxBAKXEetRFS5D9JjTBI8bbhv3qoVDXohgxAEEsX4YUw9j9TX4kz1zL0P1IFN0yHgNs\u002fCj\u002fC1NjaAUBzttYYVyzgv9r+twO4U9C\u002fg+uTdENb9D8TsKvTPjiqPzAs1ijUJ9E\u002fwUEYw6rs6j\u002fzcOVQxYzaP\u002fdEZVe85sy\u002fCMB6UqGQyj9P71yqtiilv9htRMvKP9G\u002ftJgklwNb6b9ML6xTh5\u002f6P\u002fl0Tk21i5c\u002f3jucwfv09T\u002fxznexbvzfv9DSkhR+7\u002fU\u002fcGgg4hPn4D8lZHuf2grwP\u002fOHULS9AeU\u002ftdPHDthuxL9NslOY21LxP2XvpbnL+eu\u002fg5T6M5PE4b\u002fQTiR5PuvxP2jaUE1d2fA\u002f7ItFMu12\u002fj+Wg0SHba7aPw=="},"type":"scatter"},{"marker":{"color":"#ff7f0e","line":{"color":"#111","width":0.5},"size":9},"mode":"markers","name":"Cluster 1","x":{"dtype":"f8","bdata":"uUXboX1s1b884ixjw5CHv4zaC5XOcqY\u002fKGv5EJS+6j+bM0CIjI7mv1t6baD5+QBASza6i07j5z\u002fFezBvXTLWv99STEXklvS\u002faeVu3DEE\u002fT+8yPg60u3yv94x6X3hGsI\u002fdawIeer6nz8tNDTmcMDhv66uI\u002fFqVcs\u002fBvphOPb89b8lyzVScc\u002fYPyxtieyOA+2\u002fEFYd7D3B678Fj\u002fZyPszVvxO9jQ6Sn\u002fK\u002fQYsTt6jh879K+F8pbR30PyIQep\u002fQwtC\u002fHwPbt0t17r8="},"y":{"dtype":"f8","bdata":"zMlBOyTg8r\u002f5PnNs+7jEv3LDZG+lVeK\u002fSa6G9vXp\u002fb\u002fHSX7rEc\u002f9vzWhUaTkDgTA483cbHHq4r9+Fr5Kygnxv75GWXbCevm\u002fimdtGhDx\u002fb+tPVcF7B7yvwrds0\u002fgMf2\u002f59L\u002fa\u002fU5AcDumw6mt7f+v7o\u002fgQaoz8q\u002f6fmZ4jNjB8At9mfXRgb\u002fv+kW1vCa+QLADq034L\u002f5+b9yOyfRDOcCwD\u002fzbsxvyATAKYqLiSRL6r8HiH3MoKX1v7vg495YEa+\u002fMSTRTBtJA8A="},"type":"scatter"},{"marker":{"color":"#2ca02c","line":{"color":"#111","width":0.5},"size":9},"mode":"markers","name":"Cluster 2","x":{"dtype":"f8","bdata":"m9PTWkQ\u002f0T\u002f4G7bnGxr1P3bLr72fZ\u002fQ\u002fBPBw0xkkCEBvOuOBPi3vP5CGDkYnff8\u002f1yijcnIa9T+a2Q26Q+gHQN5NCAHymA1Ak9lTStcZ7z\u002fvYIFZweT5Px4Kvev9JglA5Vc+TCA56j\u002ftnvTSVnsDQFw\u002fko6MaQdAHOS6tloj+D9scnsGpOcEQIPSyaliTQRA+9oYWj+C7z\u002fi5n8XOODxPxIqL8aFhgJAiViKCdHI4T\u002fSbsYLnsj2Pw=="},"y":{"dtype":"f8","bdata":"KVUQe8Dy8z+B5QSMoL3dPxPMOYXCwNU\u002fqbABnaZ+8z84SI+xQDb+PyMXx8b8AdU\u002fUyGE\u002f+s40D\u002fEO72Uu8y4PxKbrvS0MPc\u002frae\u002fWqJY8j+PgKa1nTb3PzfL9bLd2cs\u002f8cHLYBoi9T+KswEe2H79v5BJutdfMN0\u002fqxCMAk007j8O239iBzkBwDC\u002f4V\u002f8utq\u002fGWk73O3P0z\u002fU8suIqsoJQHiG6xQ8GfM\u002fp5Dt1YXu6T+hWRKLu67UPw=="},"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"PCA of Match Style (Home Team) with KMeans Clusters"},"xaxis":{"title":{"text":"PC1"}},"yaxis":{"title":{"text":"PC2"}},"height":600},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('45adbb90-01fe-41b9-9f09-e67a7bd5f05d');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="c99f6247-de78-4cd0-b2a5-f31c893e8ad4" class="plotly-graph-div" style="height:450px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("c99f6247-de78-4cd0-b2a5-f31c893e8ad4")) {                    Plotly.newPlot(                        "c99f6247-de78-4cd0-b2a5-f31c893e8ad4",                        [{"marker":{"color":["#4db6e8","#ff7f0e","#2ca02c"]},"x":["Cluster 0","Cluster 1","Cluster 2"],"y":{"dtype":"f8","bdata":"yMj431dz57\u002fBwoUQRqrnP0MG\u002fVv5Cto\u002f"},"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"text":"Cluster Profile \u2013 Shots total"},"updatemenus":[{"buttons":[{"args":[{"y":[[-0.732829987950276,0.7395353625016342,0.4069198034595482]]},{"title":"Cluster Profile \u2013 Shots total"}],"label":"Shots total","method":"update"},{"args":[{"y":[[-0.6665362366415984,0.7161910453627145,0.32276525470925554]]},{"title":"Cluster Profile \u2013 Shots completed"}],"label":"Shots completed","method":"update"},{"args":[{"y":[[0.058037715997097894,-0.06813235738962906,-0.021831490136912383]]},{"title":"Cluster Profile \u2013 xG"}],"label":"xG","method":"update"},{"args":[{"y":[[0.18844432479180653,-0.5887797118362947,0.32863515016603906]]},{"title":"Cluster Profile \u2013 Possession, %"}],"label":"Possession, %","method":"update"},{"args":[{"y":[[-0.39435935984089165,-0.4494223041484625,1.1400527512028449]]},{"title":"Cluster Profile \u2013 Passes total"}],"label":"Passes total","method":"update"},{"args":[{"y":[[-0.39503771721031444,-0.5051235110739942,1.2017183056887724]]},{"title":"Cluster Profile \u2013 Passes completed"}],"label":"Passes completed","method":"update"},{"args":[{"y":[[0.22572471206598477,-0.3662536205879307,0.025165280703950202]]},{"title":"Cluster Profile \u2013 Progressive passes total"}],"label":"Progressive passes total","method":"update"},{"args":[{"y":[[0.14435900849892366,0.32533936141738834,-0.5921359286258177]]},{"title":"Cluster Profile \u2013 Touches in penalty area"}],"label":"Touches in penalty area","method":"update"},{"args":[{"y":[[-0.2735334855088737,0.35027974809474366,0.0711860324768947]]},{"title":"Cluster Profile \u2013 PPDA"}],"label":"PPDA","method":"update"},{"args":[{"y":[[-0.21483292547315536,0.7779936557714753,-0.49070392288291564]]},{"title":"Cluster Profile \u2013 Match tempo"}],"label":"Match tempo","method":"update"},{"args":[{"y":[[-0.34017000069860776,0.4080472404693434,0.11849039194841286]]},{"title":"Cluster Profile \u2013 Corners completed"}],"label":"Corners completed","method":"update"}],"direction":"down","x":0.02,"y":1.1}],"height":450},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('c99f6247-de78-4cd0-b2a5-f31c893e8ad4');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-6" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-6">What this shows</h4>
+<ul>
+<li>PCA map of matches, colored by KMeans clusters (style archetypes). Cluster profile chart summarizes how clusters differ on any metric.</li>
+</ul>
+</section>
+<section id="how-to-use-6" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-6">How to use</h4>
+<ul>
+<li>Identify recurring playing styles (pressing/tempo/possession vs direct play). Use the dropdown in the profile chart to examine which metrics define each cluster; plan training for desired cluster tendencies.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="nearest-match-explorer-knn" class="level2">
+<h2 class="anchored" data-anchor-id="nearest-match-explorer-knn">Nearest Match Explorer (KNN)</h2>
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.1.0.min.js" integrity="sha256-Ei4740bWZhaUTQuD6q9yQlgVCMPBz6CZWhevDYPv93A=" crossorigin="anonymous"></script>                <div id="d1a92f90-e559-4e97-b7ea-24066e85d965" class="plotly-graph-div" style="height:520px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("d1a92f90-e559-4e97-b7ea-24066e85d965")) {                    Plotly.newPlot(                        "d1a92f90-e559-4e97-b7ea-24066e85d965",                        [{"orientation":"h","x":{"dtype":"f8","bdata":"lVcFNiov0j87+SXz3ejRPx84woXODNE\u002flUe\u002fu\u002flR0D\u002fCIQSyLiPQPw=="},"y":["Match 15 (Season 2024)","Match 1 (Season 2022)","Match 11 (Season 2022)","Match 5 (Season 2023)","Match 6 (Season 2024)"],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"yaxis":{"categoryorder":"total ascending"},"title":{"text":"Nearest Matches (Similarity)"},"updatemenus":[{"buttons":[{"args":[{"x":[[0.2841287162349258,0.27983807320551407,0.26640666067476276,0.25500338873563894,0.2521473635138386]],"y":[["Match 15 (Season 2024)","Match 1 (Season 2022)","Match 11 (Season 2022)","Match 5 (Season 2023)","Match 6 (Season 2024)"]]},{"title":"Nearest Matches to Match 1"}],"label":"Match 1","method":"update"},{"args":[{"x":[[0.32388065359744117,0.31524804342959606,0.30624040942579117,0.30565678476725144,0.28523134631187635]],"y":[["Match 9 (Season 2022)","Match 16 (Season 2023)","Match 18 (Season 2024)","Match 14 (Season 2024)","Match 15 (Season 2022)"]]},{"title":"Nearest Matches to Match 2"}],"label":"Match 2","method":"update"},{"args":[{"x":[[0.3504639197752942,0.30818418935545694,0.30774064627811354,0.2891630446947091,0.2808414539297104]],"y":[["Match 5 (Season 2023)","Match 20 (Season 2022)","Match 4 (Season 2022)","Match 12 (Season 2024)","Match 9 (Season 2023)"]]},{"title":"Nearest Matches to Match 3"}],"label":"Match 3","method":"update"},{"args":[{"x":[[0.35055078474297074,0.3071891409894627,0.2804781147935924,0.2737841617262001,0.26802523657329763]],"y":[["Match 11 (Season 2023)","Match 14 (Season 2024)","Match 5 (Season 2023)","Match 20 (Season 2021)","Match 15 (Season 2022)"]]},{"title":"Nearest Matches to Match 4"}],"label":"Match 4","method":"update"},{"args":[{"x":[[0.255577573896544,0.24263550095735198,0.24019676181597693,0.23758542103447197,0.23349451320206233]],"y":[["Match 5 (Season 2022)","Match 15 (Season 2021)","Match 20 (Season 2021)","Match 8 (Season 2022)","Match 7 (Season 2023)"]]},{"title":"Nearest Matches to Match 5"}],"label":"Match 5","method":"update"},{"args":[{"x":[[0.29065813018634,0.2662088312841013,0.25527529872523097,0.25172178499691905,0.25141088357011104]],"y":[["Match 8 (Season 2024)","Match 5 (Season 2023)","Match 13 (Season 2022)","Match 16 (Season 2022)","Match 6 (Season 2023)"]]},{"title":"Nearest Matches to Match 6"}],"label":"Match 6","method":"update"},{"args":[{"x":[[0.31102540084927455,0.27476465466078315,0.2744907032221047,0.26719583990062684,0.26686946085620317]],"y":[["Match 12 (Season 2022)","Match 6 (Season 2023)","Match 3 (Season 2022)","Match 4 (Season 2024)","Match 15 (Season 2021)"]]},{"title":"Nearest Matches to Match 7"}],"label":"Match 7","method":"update"},{"args":[{"x":[[0.45573379601120895,0.3362034831122912,0.30437987397502003,0.29739476673349197,0.27001079875770695]],"y":[["Match 17 (Season 2024)","Match 20 (Season 2022)","Match 16 (Season 2021)","Match 1 (Season 2024)","Match 5 (Season 2023)"]]},{"title":"Nearest Matches to Match 8"}],"label":"Match 8","method":"update"},{"args":[{"x":[[0.33183941935796946,0.2847579978771397,0.27468164443706106,0.25577840960163867,0.24376895656854827]],"y":[["Match 20 (Season 2021)","Match 12 (Season 2022)","Match 6 (Season 2023)","Match 17 (Season 2023)","Match 18 (Season 2022)"]]},{"title":"Nearest Matches to Match 9"}],"label":"Match 9","method":"update"},{"args":[{"x":[[0.24307624561770125,0.23294591782715274,0.22619623394593716,0.21820096888200655,0.20912240239520752]],"y":[["Match 3 (Season 2022)","Match 11 (Season 2021)","Match 18 (Season 2023)","Match 12 (Season 2021)","Match 17 (Season 2023)"]]},{"title":"Nearest Matches to Match 10"}],"label":"Match 10","method":"update"},{"args":[{"x":[[0.27273441344962995,0.25506530130859945,0.24387297764221277,0.2363286731780233,0.23437756036435556]],"y":[["Match 9 (Season 2023)","Match 12 (Season 2021)","Match 4 (Season 2022)","Match 2 (Season 2022)","Match 7 (Season 2024)"]]},{"title":"Nearest Matches to Match 11"}],"label":"Match 11","method":"update"},{"args":[{"x":[[0.30210800203098853,0.25506530130859945,0.24839795365802592,0.2416716008228307,0.23948273205625412]],"y":[["Match 4 (Season 2022)","Match 11 (Season 2021)","Match 4 (Season 2021)","Match 15 (Season 2022)","Match 3 (Season 2022)"]]},{"title":"Nearest Matches to Match 12"}],"label":"Match 12","method":"update"},{"args":[{"x":[[0.21742094263656725,0.2118413679259355,0.20670579215826365,0.20369046788269163,0.19887464225799698]],"y":[["Match 16 (Season 2023)","Match 18 (Season 2021)","Match 9 (Season 2022)","Match 1 (Season 2022)","Match 22 (Season 2022)"]]},{"title":"Nearest Matches to Match 13"}],"label":"Match 13","method":"update"},{"args":[{"x":[[0.25356251437861577,0.2527756342000549,0.24585916857716383,0.2134343616569791,0.21178940016825906]],"y":[["Match 21 (Season 2022)","Match 2 (Season 2022)","Match 19 (Season 2021)","Match 7 (Season 2022)","Match 11 (Season 2021)"]]},{"title":"Nearest Matches to Match 14"}],"label":"Match 14","method":"update"},{"args":[{"x":[[0.3686619328105151,0.30571121372930254,0.30541183639399944,0.3047566770002704,0.30363884247706413]],"y":[["Match 18 (Season 2022)","Match 20 (Season 2022)","Match 8 (Season 2022)","Match 9 (Season 2024)","Match 20 (Season 2021)"]]},{"title":"Nearest Matches to Match 15"}],"label":"Match 15","method":"update"},{"args":[{"x":[[0.3045905903692243,0.30437987397502003,0.302095855222289,0.2796684805229239,0.2795909759485691]],"y":[["Match 12 (Season 2024)","Match 8 (Season 2021)","Match 20 (Season 2022)","Match 4 (Season 2022)","Match 7 (Season 2024)"]]},{"title":"Nearest Matches to Match 16"}],"label":"Match 16","method":"update"},{"args":[{"x":[[0.29572075029512235,0.2922103224180483,0.2707260216143807,0.25407520431096203,0.2503818601473027]],"y":[["Match 21 (Season 2024)","Match 19 (Season 2023)","Match 12 (Season 2023)","Match 17 (Season 2024)","Match 15 (Season 2022)"]]},{"title":"Nearest Matches to Match 17"}],"label":"Match 17","method":"update"},{"args":[{"x":[[0.2605215471680702,0.21925932987742355,0.21859505604846569,0.21800949960365557,0.21756400008698482]],"y":[["Match 14 (Season 2022)","Match 20 (Season 2024)","Match 13 (Season 2024)","Match 1 (Season 2021)","Match 20 (Season 2022)"]]},{"title":"Nearest Matches to Match 18"}],"label":"Match 18","method":"update"},{"args":[{"x":[[0.250914439291092,0.2458603085444573,0.24585916857716383,0.2441394879579166,0.2321453763327763]],"y":[["Match 2 (Season 2022)","Match 24 (Season 2024)","Match 14 (Season 2021)","Match 9 (Season 2023)","Match 13 (Season 2024)"]]},{"title":"Nearest Matches to Match 19"}],"label":"Match 19","method":"update"},{"args":[{"x":[[0.34770825425774876,0.33183941935796946,0.3208686847679635,0.3097511822308733,0.30363884247706413]],"y":[["Match 5 (Season 2022)","Match 9 (Season 2021)","Match 14 (Season 2024)","Match 18 (Season 2022)","Match 15 (Season 2021)"]]},{"title":"Nearest Matches to Match 20"}],"label":"Match 20","method":"update"},{"args":[{"x":[[0.27983807320551407,0.26431879492154037,0.2344351296270648,0.23025643351747194,0.23017295825546996]],"y":[["Match 1 (Season 2021)","Match 22 (Season 2022)","Match 22 (Season 2024)","Match 16 (Season 2022)","Match 5 (Season 2024)"]]},{"title":"Nearest Matches to Match 1"}],"label":"Match 1","method":"update"},{"args":[{"x":[[0.3490241198174658,0.26787466101171425,0.2611490390813595,0.25701715161098515,0.2527756342000549]],"y":[["Match 21 (Season 2022)","Match 4 (Season 2022)","Match 24 (Season 2024)","Match 3 (Season 2021)","Match 14 (Season 2021)"]]},{"title":"Nearest Matches to Match 2"}],"label":"Match 2","method":"update"},{"args":[{"x":[[0.2831907008895193,0.2744907032221047,0.2715565242578761,0.26261196054956915,0.25938111557731475]],"y":[["Match 18 (Season 2022)","Match 7 (Season 2021)","Match 18 (Season 2023)","Match 12 (Season 2024)","Match 8 (Season 2022)"]]},{"title":"Nearest Matches to Match 3"}],"label":"Match 3","method":"update"},{"args":[{"x":[[0.30774064627811354,0.30210800203098853,0.2830426770350187,0.2810316431311414,0.2796684805229239]],"y":[["Match 3 (Season 2021)","Match 12 (Season 2021)","Match 21 (Season 2022)","Match 20 (Season 2022)","Match 16 (Season 2021)"]]},{"title":"Nearest Matches to Match 4"}],"label":"Match 4","method":"update"},{"args":[{"x":[[0.34770825425774876,0.3103460886437776,0.29371488597282736,0.2682084766324864,0.255577573896544]],"y":[["Match 20 (Season 2021)","Match 9 (Season 2024)","Match 15 (Season 2021)","Match 18 (Season 2022)","Match 5 (Season 2021)"]]},{"title":"Nearest Matches to Match 5"}],"label":"Match 5","method":"update"},{"args":[{"x":[[0.32421534332210056,0.27294428238816687,0.2588136871765245,0.24584799565093202,0.2431705514004006]],"y":[["Match 15 (Season 2024)","Match 4 (Season 2024)","Match 21 (Season 2022)","Match 3 (Season 2021)","Match 11 (Season 2022)"]]},{"title":"Nearest Matches to Match 6"}],"label":"Match 6","method":"update"},{"args":[{"x":[[0.2416894436768012,0.23366138814413415,0.23349432731060693,0.22658851164286944,0.22010795037798414]],"y":[["Match 21 (Season 2022)","Match 3 (Season 2021)","Match 15 (Season 2023)","Match 11 (Season 2022)","Match 12 (Season 2024)"]]},{"title":"Nearest Matches to Match 7"}],"label":"Match 7","method":"update"},{"args":[{"x":[[0.30541183639399944,0.28626696289885084,0.2819512253400727,0.2665884053179575,0.25938111557731475]],"y":[["Match 15 (Season 2021)","Match 20 (Season 2021)","Match 18 (Season 2022)","Match 9 (Season 2024)","Match 3 (Season 2022)"]]},{"title":"Nearest Matches to Match 8"}],"label":"Match 8","method":"update"},{"args":[{"x":[[0.33951836210549313,0.32388065359744117,0.29760907733288355,0.2729916989051948,0.26543787593997054]],"y":[["Match 7 (Season 2024)","Match 2 (Season 2021)","Match 20 (Season 2023)","Match 16 (Season 2023)","Match 20 (Season 2024)"]]},{"title":"Nearest Matches to Match 9"}],"label":"Match 9","method":"update"},{"args":[{"x":[[0.22712146567647792,0.22613929530023869,0.22482268229193378,0.22330963594193692,0.21997585492049104]],"y":[["Match 16 (Season 2024)","Match 13 (Season 2022)","Match 2 (Season 2024)","Match 11 (Season 2022)","Match 4 (Season 2022)"]]},{"title":"Nearest Matches to Match 10"}],"label":"Match 10","method":"update"},{"args":[{"x":[[0.3043853319199594,0.26707215326927897,0.26640666067476276,0.24805273639152506,0.24650907238017875]],"y":[["Match 15 (Season 2023)","Match 15 (Season 2024)","Match 1 (Season 2021)","Match 22 (Season 2024)","Match 6 (Season 2024)"]]},{"title":"Nearest Matches to Match 11"}],"label":"Match 11","method":"update"},{"args":[{"x":[[0.31102540084927455,0.2978287496589319,0.2847579978771397,0.24686888405869747,0.24008249424997638]],"y":[["Match 7 (Season 2021)","Match 6 (Season 2023)","Match 9 (Season 2021)","Match 18 (Season 2022)","Match 6 (Season 2021)"]]},{"title":"Nearest Matches to Match 12"}],"label":"Match 12","method":"update"},{"args":[{"x":[[0.32045837637562063,0.29878687170374674,0.27180552310557604,0.27038409082556886,0.26813042051019353]],"y":[["Match 21 (Season 2024)","Match 8 (Season 2024)","Match 16 (Season 2021)","Match 19 (Season 2024)","Match 24 (Season 2024)"]]},{"title":"Nearest Matches to Match 13"}],"label":"Match 13","method":"update"},{"args":[{"x":[[0.28865811310204886,0.2605215471680702,0.24638679800194327,0.23756041339606165,0.23704609853926137]],"y":[["Match 17 (Season 2022)","Match 18 (Season 2021)","Match 18 (Season 2024)","Match 2 (Season 2021)","Match 20 (Season 2022)"]]},{"title":"Nearest Matches to Match 14"}],"label":"Match 14","method":"update"},{"args":[{"x":[[0.31922234143148465,0.29290511478162934,0.28523134631187635,0.2753758606923634,0.27151664123596675]],"y":[["Match 17 (Season 2024)","Match 14 (Season 2024)","Match 2 (Season 2021)","Match 7 (Season 2024)","Match 19 (Season 2023)"]]},{"title":"Nearest Matches to Match 15"}],"label":"Match 15","method":"update"},{"args":[{"x":[[0.27947563152682847,0.2523534044308961,0.25172178499691905,0.24803744369145542,0.24729895182316136]],"y":[["Match 11 (Season 2023)","Match 4 (Season 2021)","Match 6 (Season 2021)","Match 22 (Season 2022)","Match 18 (Season 2024)"]]},{"title":"Nearest Matches to Match 16"}],"label":"Match 16","method":"update"},{"args":[{"x":[[0.3371891662990659,0.28865811310204886,0.27792443076379536,0.2713163817433337,0.26084481962642414]],"y":[["Match 18 (Season 2024)","Match 14 (Season 2022)","Match 2 (Season 2021)","Match 16 (Season 2023)","Match 17 (Season 2024)"]]},{"title":"Nearest Matches to Match 17"}],"label":"Match 17","method":"update"},{"args":[{"x":[[0.3686619328105151,0.33533531219804436,0.3097511822308733,0.2999982178579159,0.2988059007696759]],"y":[["Match 15 (Season 2021)","Match 3 (Season 2024)","Match 20 (Season 2021)","Match 17 (Season 2023)","Match 16 (Season 2024)"]]},{"title":"Nearest Matches to Match 18"}],"label":"Match 18","method":"update"},{"args":[{"x":[[0.2567534560815135,0.23152842993015021,0.2202418631464099,0.2127142837992655,0.20333833657324316]],"y":[["Match 9 (Season 2024)","Match 5 (Season 2021)","Match 5 (Season 2022)","Match 20 (Season 2022)","Match 20 (Season 2021)"]]},{"title":"Nearest Matches to Match 19"}],"label":"Match 19","method":"update"},{"args":[{"x":[[0.36288563884468994,0.3617597263630342,0.3362034831122912,0.30818418935545694,0.308078336234251]],"y":[["Match 5 (Season 2023)","Match 17 (Season 2024)","Match 8 (Season 2021)","Match 3 (Season 2021)","Match 12 (Season 2024)"]]},{"title":"Nearest Matches to Match 20"}],"label":"Match 20","method":"update"},{"args":[{"x":[[0.3490241198174658,0.2830426770350187,0.27372743656536247,0.2588136871765245,0.25356251437861577]],"y":[["Match 2 (Season 2022)","Match 4 (Season 2022)","Match 3 (Season 2021)","Match 6 (Season 2022)","Match 14 (Season 2021)"]]},{"title":"Nearest Matches to Match 21"}],"label":"Match 21","method":"update"},{"args":[{"x":[[0.26534115248491147,0.26431879492154037,0.26283541160498414,0.2553306592813632,0.24803744369145542]],"y":[["Match 8 (Season 2024)","Match 1 (Season 2022)","Match 16 (Season 2023)","Match 2 (Season 2021)","Match 16 (Season 2022)"]]},{"title":"Nearest Matches to Match 22"}],"label":"Match 22","method":"update"},{"args":[{"x":[[0.22579942836751493,0.22506529987923926,0.2243267101498317,0.21616846320287889,0.20971784092423462]],"y":[["Match 22 (Season 2024)","Match 8 (Season 2021)","Match 20 (Season 2022)","Match 6 (Season 2024)","Match 12 (Season 2024)"]]},{"title":"Nearest Matches to Match 1"}],"label":"Match 1","method":"update"},{"args":[{"x":[[0.319184427213665,0.24507288480095046,0.23815995444377966,0.23055781597934,0.22792163361572296]],"y":[["Match 19 (Season 2023)","Match 14 (Season 2024)","Match 24 (Season 2024)","Match 15 (Season 2022)","Match 19 (Season 2024)"]]},{"title":"Nearest Matches to Match 2"}],"label":"Match 2","method":"update"},{"args":[{"x":[[0.2430739884175594,0.23854380825328478,0.23653502089154366,0.23241629255687948,0.2265476689925527]],"y":[["Match 16 (Season 2024)","Match 5 (Season 2023)","Match 12 (Season 2024)","Match 6 (Season 2021)","Match 8 (Season 2024)"]]},{"title":"Nearest Matches to Match 3"}],"label":"Match 3","method":"update"},{"args":[{"x":[[0.2597484191038241,0.25451266651541027,0.24592794169039875,0.24217149858899134,0.22462826754554702]],"y":[["Match 14 (Season 2024)","Match 8 (Season 2023)","Match 20 (Season 2021)","Match 17 (Season 2023)","Match 5 (Season 2022)"]]},{"title":"Nearest Matches to Match 4"}],"label":"Match 4","method":"update"},{"args":[{"x":[[0.36288563884468994,0.3504639197752942,0.2836536081017438,0.2823529958575156,0.2818954384316563]],"y":[["Match 20 (Season 2022)","Match 3 (Season 2021)","Match 12 (Season 2024)","Match 11 (Season 2023)","Match 17 (Season 2024)"]]},{"title":"Nearest Matches to Match 5"}],"label":"Match 5","method":"update"},{"args":[{"x":[[0.2978287496589319,0.27476465466078315,0.27468164443706106,0.25141088357011104,0.23538067631919238]],"y":[["Match 12 (Season 2022)","Match 7 (Season 2021)","Match 9 (Season 2021)","Match 6 (Season 2021)","Match 11 (Season 2023)"]]},{"title":"Nearest Matches to Match 6"}],"label":"Match 6","method":"update"},{"args":[{"x":[[0.32706265746089486,0.2420911261680428,0.23349451320206233,0.21981171823825077,0.21961644115758663]],"y":[["Match 6 (Season 2024)","Match 19 (Season 2023)","Match 5 (Season 2021)","Match 15 (Season 2021)","Match 6 (Season 2021)"]]},{"title":"Nearest Matches to Match 7"}],"label":"Match 7","method":"update"},{"args":[{"x":[[0.2747044621881044,0.25451266651541027,0.2468742888187609,0.24318980481689084,0.23621034592568502]],"y":[["Match 8 (Season 2024)","Match 4 (Season 2023)","Match 18 (Season 2022)","Match 15 (Season 2021)","Match 3 (Season 2024)"]]},{"title":"Nearest Matches to Match 8"}],"label":"Match 8","method":"update"},{"args":[{"x":[[0.33011121588939746,0.29970881022584145,0.2808414539297104,0.27273441344962995,0.2511722354446591]],"y":[["Match 7 (Season 2024)","Match 20 (Season 2024)","Match 3 (Season 2021)","Match 11 (Season 2021)","Match 16 (Season 2021)"]]},{"title":"Nearest Matches to Match 9"}],"label":"Match 9","method":"update"},{"args":[{"x":[[0.23672759562451728,0.21585914780835597,0.20905440582337095,0.20784775808927447,0.2049181567037061]],"y":[["Match 8 (Season 2021)","Match 24 (Season 2024)","Match 16 (Season 2021)","Match 19 (Season 2021)","Match 7 (Season 2024)"]]},{"title":"Nearest Matches to Match 10"}],"label":"Match 10","method":"update"},{"args":[{"x":[[0.35055078474297074,0.3275708488356168,0.30956348533906936,0.2823529958575156,0.27947563152682847]],"y":[["Match 4 (Season 2021)","Match 23 (Season 2024)","Match 14 (Season 2024)","Match 5 (Season 2023)","Match 16 (Season 2022)"]]},{"title":"Nearest Matches to Match 11"}],"label":"Match 11","method":"update"},{"args":[{"x":[[0.2707260216143807,0.2126471487472125,0.20579079239478407,0.19157268268086416,0.1896913130453729]],"y":[["Match 17 (Season 2021)","Match 15 (Season 2022)","Match 19 (Season 2023)","Match 17 (Season 2024)","Match 17 (Season 2022)"]]},{"title":"Nearest Matches to Match 12"}],"label":"Match 12","method":"update"},{"args":[{"x":[[0.2686597830772397,0.22046302854269056,0.22029584548104106,0.2193578356076758,0.21044758463342111]],"y":[["Match 18 (Season 2023)","Match 3 (Season 2022)","Match 24 (Season 2024)","Match 21 (Season 2022)","Match 3 (Season 2021)"]]},{"title":"Nearest Matches to Match 13"}],"label":"Match 13","method":"update"},{"args":[{"x":[[0.24335479536586394,0.2164584400035797,0.2022433437086944,0.1994487433037096,0.19140809721780172]],"y":[["Match 4 (Season 2024)","Match 6 (Season 2022)","Match 15 (Season 2024)","Match 3 (Season 2021)","Match 7 (Season 2021)"]]},{"title":"Nearest Matches to Match 14"}],"label":"Match 14","method":"update"},{"args":[{"x":[[0.3043853319199594,0.30027082406013195,0.2676127073646579,0.24464265828304016,0.24346955497882972]],"y":[["Match 11 (Season 2022)","Match 12 (Season 2024)","Match 20 (Season 2022)","Match 5 (Season 2023)","Match 16 (Season 2024)"]]},{"title":"Nearest Matches to Match 15"}],"label":"Match 15","method":"update"},{"args":[{"x":[[0.31524804342959606,0.2729916989051948,0.2713163817433337,0.26283541160498414,0.2523240537669569]],"y":[["Match 2 (Season 2021)","Match 9 (Season 2022)","Match 17 (Season 2022)","Match 22 (Season 2022)","Match 18 (Season 2024)"]]},{"title":"Nearest Matches to Match 16"}],"label":"Match 16","method":"update"},{"args":[{"x":[[0.2999982178579159,0.2967328870452114,0.27018237270954265,0.25577840960163867,0.24893356070350448]],"y":[["Match 18 (Season 2022)","Match 20 (Season 2021)","Match 15 (Season 2021)","Match 9 (Season 2021)","Match 8 (Season 2022)"]]},{"title":"Nearest Matches to Match 17"}],"label":"Match 17","method":"update"},{"args":[{"x":[[0.2715565242578761,0.2686597830772397,0.23961587367252624,0.2287779038080818,0.22710204478311724]],"y":[["Match 3 (Season 2022)","Match 13 (Season 2023)","Match 21 (Season 2022)","Match 4 (Season 2024)","Match 3 (Season 2021)"]]},{"title":"Nearest Matches to Match 18"}],"label":"Match 18","method":"update"},{"args":[{"x":[[0.319184427213665,0.2989491126376382,0.2922103224180483,0.27151664123596675,0.24431396225056878]],"y":[["Match 2 (Season 2023)","Match 21 (Season 2024)","Match 17 (Season 2021)","Match 15 (Season 2022)","Match 9 (Season 2023)"]]},{"title":"Nearest Matches to Match 19"}],"label":"Match 19","method":"update"},{"args":[{"x":[[0.29760907733288355,0.27761456540693913,0.24071692507598627,0.23341385524363556,0.224042534957824]],"y":[["Match 9 (Season 2022)","Match 7 (Season 2024)","Match 20 (Season 2024)","Match 11 (Season 2021)","Match 9 (Season 2023)"]]},{"title":"Nearest Matches to Match 20"}],"label":"Match 20","method":"update"},{"args":[{"x":[[0.3354263315715769,0.29739476673349197,0.26156816194344423,0.2569364077923728,0.25683727577006144]],"y":[["Match 17 (Season 2024)","Match 8 (Season 2021)","Match 20 (Season 2022)","Match 24 (Season 2024)","Match 3 (Season 2021)"]]},{"title":"Nearest Matches to Match 1"}],"label":"Match 1","method":"update"},{"args":[{"x":[[0.2703488151264191,0.26024603157092613,0.25785192367018206,0.25192213728487683,0.2435231448968573]],"y":[["Match 16 (Season 2024)","Match 20 (Season 2022)","Match 20 (Season 2024)","Match 22 (Season 2024)","Match 15 (Season 2021)"]]},{"title":"Nearest Matches to Match 2"}],"label":"Match 2","method":"update"},{"args":[{"x":[[0.33533531219804436,0.2870871731703968,0.27673679830610937,0.27198534429538335,0.2467489956403245]],"y":[["Match 18 (Season 2022)","Match 17 (Season 2024)","Match 23 (Season 2024)","Match 11 (Season 2023)","Match 8 (Season 2021)"]]},{"title":"Nearest Matches to Match 3"}],"label":"Match 3","method":"update"},{"args":[{"x":[[0.27294428238816687,0.26719583990062684,0.2472045828937519,0.24388299364388885,0.24335479536586394]],"y":[["Match 6 (Season 2022)","Match 7 (Season 2021)","Match 3 (Season 2021)","Match 6 (Season 2024)","Match 14 (Season 2023)"]]},{"title":"Nearest Matches to Match 4"}],"label":"Match 4","method":"update"},{"args":[{"x":[[0.2831519537187892,0.2550567022952318,0.23017295825546996,0.22961082342474237,0.2263368042513073]],"y":[["Match 2 (Season 2021)","Match 14 (Season 2024)","Match 1 (Season 2022)","Match 16 (Season 2023)","Match 9 (Season 2022)"]]},{"title":"Nearest Matches to Match 5"}],"label":"Match 5","method":"update"},{"args":[{"x":[[0.32706265746089486,0.25638672650916794,0.25346129444750043,0.2521473635138386,0.24650907238017875]],"y":[["Match 7 (Season 2023)","Match 22 (Season 2024)","Match 20 (Season 2022)","Match 1 (Season 2021)","Match 11 (Season 2022)"]]},{"title":"Nearest Matches to Match 6"}],"label":"Match 6","method":"update"},{"args":[{"x":[[0.33951836210549313,0.33011121588939746,0.3115497627420527,0.2795909759485691,0.27761456540693913]],"y":[["Match 9 (Season 2022)","Match 9 (Season 2023)","Match 20 (Season 2024)","Match 16 (Season 2021)","Match 20 (Season 2023)"]]},{"title":"Nearest Matches to Match 7"}],"label":"Match 7","method":"update"},{"args":[{"x":[[0.29878687170374674,0.29065813018634,0.2747044621881044,0.26867092789471725,0.26680592374587714]],"y":[["Match 13 (Season 2022)","Match 6 (Season 2021)","Match 8 (Season 2023)","Match 15 (Season 2021)","Match 2 (Season 2021)"]]},{"title":"Nearest Matches to Match 8"}],"label":"Match 8","method":"update"},{"args":[{"x":[[0.3103460886437776,0.3047566770002704,0.29583572041972206,0.2665884053179575,0.26423950470861385]],"y":[["Match 5 (Season 2022)","Match 15 (Season 2021)","Match 20 (Season 2021)","Match 8 (Season 2022)","Match 20 (Season 2022)"]]},{"title":"Nearest Matches to Match 9"}],"label":"Match 9","method":"update"},{"args":[{"x":[[0.2517591757203664,0.2421904267752162,0.23462222385133769,0.22085743082406262,0.21841780208094844]],"y":[["Match 20 (Season 2022)","Match 16 (Season 2024)","Match 9 (Season 2024)","Match 14 (Season 2022)","Match 2 (Season 2024)"]]},{"title":"Nearest Matches to Match 10"}],"label":"Match 10","method":"update"},{"args":[{"x":[[0.19061587086998558,0.1786457542517749,0.17789049439784504,0.17695623830557466,0.17676042400957484]],"y":[["Match 8 (Season 2023)","Match 19 (Season 2024)","Match 10 (Season 2022)","Match 8 (Season 2024)","Match 10 (Season 2021)"]]},{"title":"Nearest Matches to Match 11"}],"label":"Match 11","method":"update"},{"args":[{"x":[[0.308078336234251,0.3045905903692243,0.30027082406013195,0.2891630446947091,0.2887991787678469]],"y":[["Match 20 (Season 2022)","Match 16 (Season 2021)","Match 15 (Season 2023)","Match 3 (Season 2021)","Match 16 (Season 2024)"]]},{"title":"Nearest Matches to Match 12"}],"label":"Match 12","method":"update"},{"args":[{"x":[[0.23607817880342,0.2321453763327763,0.22355674524079727,0.21859505604846569,0.20641531319957157]],"y":[["Match 20 (Season 2024)","Match 19 (Season 2021)","Match 9 (Season 2023)","Match 18 (Season 2021)","Match 2 (Season 2022)"]]},{"title":"Nearest Matches to Match 13"}],"label":"Match 13","method":"update"},{"args":[{"x":[[0.3208686847679635,0.30956348533906936,0.3071891409894627,0.30565678476725144,0.29290511478162934]],"y":[["Match 20 (Season 2021)","Match 11 (Season 2023)","Match 4 (Season 2021)","Match 2 (Season 2021)","Match 15 (Season 2022)"]]},{"title":"Nearest Matches to Match 14"}],"label":"Match 14","method":"update"},{"args":[{"x":[[0.32421534332210056,0.2841287162349258,0.2798933033617782,0.26707215326927897,0.24699500180301973]],"y":[["Match 6 (Season 2022)","Match 1 (Season 2021)","Match 3 (Season 2021)","Match 11 (Season 2022)","Match 21 (Season 2022)"]]},{"title":"Nearest Matches to Match 15"}],"label":"Match 15","method":"update"},{"args":[{"x":[[0.2988059007696759,0.29552524830901283,0.2887991787678469,0.2874869058150156,0.2763245844891031]],"y":[["Match 18 (Season 2022)","Match 15 (Season 2021)","Match 12 (Season 2024)","Match 20 (Season 2022)","Match 5 (Season 2023)"]]},{"title":"Nearest Matches to Match 16"}],"label":"Match 16","method":"update"},{"args":[{"x":[[0.45573379601120895,0.3617597263630342,0.3354263315715769,0.31922234143148465,0.2870871731703968]],"y":[["Match 8 (Season 2021)","Match 20 (Season 2022)","Match 1 (Season 2024)","Match 15 (Season 2022)","Match 3 (Season 2024)"]]},{"title":"Nearest Matches to Match 17"}],"label":"Match 17","method":"update"},{"args":[{"x":[[0.3371891662990659,0.30624040942579117,0.2523240537669569,0.2519535307100274,0.24933945906780386]],"y":[["Match 17 (Season 2022)","Match 2 (Season 2021)","Match 16 (Season 2023)","Match 17 (Season 2024)","Match 5 (Season 2023)"]]},{"title":"Nearest Matches to Match 18"}],"label":"Match 18","method":"update"},{"args":[{"x":[[0.27038409082556886,0.23513316353281763,0.23250423177017462,0.22792163361572296,0.22491433383257806]],"y":[["Match 13 (Season 2022)","Match 16 (Season 2022)","Match 8 (Season 2024)","Match 2 (Season 2023)","Match 21 (Season 2024)"]]},{"title":"Nearest Matches to Match 19"}],"label":"Match 19","method":"update"},{"args":[{"x":[[0.3115497627420527,0.29970881022584145,0.273945597459798,0.26543787593997054,0.25785192367018206]],"y":[["Match 7 (Season 2024)","Match 9 (Season 2023)","Match 16 (Season 2021)","Match 9 (Season 2022)","Match 2 (Season 2024)"]]},{"title":"Nearest Matches to Match 20"}],"label":"Match 20","method":"update"},{"args":[{"x":[[0.32045837637562063,0.2989491126376382,0.29572075029512235,0.24146047962727174,0.2404041321389711]],"y":[["Match 13 (Season 2022)","Match 19 (Season 2023)","Match 17 (Season 2021)","Match 8 (Season 2024)","Match 1 (Season 2024)"]]},{"title":"Nearest Matches to Match 21"}],"label":"Match 21","method":"update"},{"args":[{"x":[[0.2641481198435568,0.25638672650916794,0.25192213728487683,0.24805273639152506,0.2478007914579574]],"y":[["Match 12 (Season 2024)","Match 6 (Season 2024)","Match 2 (Season 2024)","Match 11 (Season 2022)","Match 1 (Season 2021)"]]},{"title":"Nearest Matches to Match 22"}],"label":"Match 22","method":"update"},{"args":[{"x":[[0.3275708488356168,0.27673679830610937,0.24205917348567285,0.2401327082963484,0.23188777059556823]],"y":[["Match 11 (Season 2023)","Match 3 (Season 2024)","Match 7 (Season 2021)","Match 18 (Season 2022)","Match 5 (Season 2023)"]]},{"title":"Nearest Matches to Match 23"}],"label":"Match 23","method":"update"},{"args":[{"x":[[0.2786511459141046,0.26813042051019353,0.2611490390813595,0.2569364077923728,0.2507881470708392]],"y":[["Match 3 (Season 2021)","Match 13 (Season 2022)","Match 2 (Season 2022)","Match 1 (Season 2024)","Match 9 (Season 2023)"]]},{"title":"Nearest Matches to Match 24"}],"label":"Match 24","method":"update"}],"direction":"down","x":0.02,"y":1.1}],"height":520},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('d1a92f90-e559-4e97-b7ea-24066e85d965');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+<section id="what-this-shows-7" class="level4">
+<h4 class="anchored" data-anchor-id="what-this-shows-7">What this shows</h4>
+<ul>
+<li>For any selected match, the most similar past matches (by multi‑metric distance), with similarity score.</li>
+</ul>
+</section>
+<section id="how-to-use-7" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-use-7">How to use</h4>
+<ul>
+<li>Pick a match from the dropdown to surface analogues. Review video/notes from nearest matches to prepare tactical plans or post‑match reviews.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- After-body scripts for Eliora Tech Solutions website -->
+<!-- Load Three.js and Vanta.js for the animated neural network background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<!-- Custom site JavaScript -->
+<script src="script.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

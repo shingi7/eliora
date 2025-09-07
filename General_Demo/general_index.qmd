@@ -1,0 +1,120 @@
+---
+title: "Elite Soccer Analytics – General Demo"
+subtitle: "Production-Grade Interactive Analytics (Synthetic Data)"
+description: "A polished, vendor-neutral demo showcasing our team and player analytics capabilities using realistic synthetic data."
+author: "EliOra Tech Solutions"
+date: last-modified
+format:
+  html:
+    page-layout: full
+    fig-cap-location: bottom
+    css: ../styles.css
+---
+
+:::: {.callout-important}
+## General Analytics Command Center
+This demo showcases our production-grade soccer analytics platform powered by synthetic yet realistic data. It is vendor-neutral and suitable for sharing publicly without revealing any organization's data.
+::
+
+## Platform Overview
+
+:::: {.columns}
+:::: {.column width="50%"}
+### Team Performance Analytics
+- Tactical analysis across 40+ metrics
+- Seasonal evolution and trend identification
+- Opponent comparison and benchmarking
+- Correlation analysis vs match outcomes
+::
+
+:::: {.column width="50%"}
+### Player Analytics Platform
+- Individual player timelines across 60+ metrics
+- Multi-player percentile comparison (radar)
+- Team leaders (per-90 normalization)
+- Position-aware insights
+::
+::
+
+### Navigate the Demo
+
+:::: {.callout-tip}
+#### Primary Analytics Modules
+
+**[Team Analytics →](general_team-analytics.html)**
+- Comprehensive team performance analysis (2021–2024 synthetic seasons)
+- Correlation with winning and seasonal evolution
+- Interactive comparisons and executive insights
+
+**[Player Analytics →](general_player-analytics.html)**
+- Individual dashboards for 15 synthetic players
+- Multi-player radar comparisons and team leaders
+- Position-specific insights and interactive exploration
+::
+
+---
+
+:::: {.executive-summary}
+## Executive Summary
+
+This general-purpose demo presents a realistic, production-ready analytics experience without relying on proprietary data. The visuals, controls, and insights mirror what clients receive in an engagement—fully interactive, robust to data issues, and designed for decision-makers.
+::
+
+## Project Highlights
+
+:::: {.key-metrics}
+:::: {.metric-card}
+:::: {.metric-number}
+15
+::
+:::: {.metric-label}
+Players
+::
+::
+
+:::: {.metric-card}
+:::: {.metric-number}
+4
+::
+:::: {.metric-label}
+Seasons
+::
+::
+
+:::: {.metric-card}
+:::: {.metric-number}
+60+
+::
+:::: {.metric-label}
+Player Metrics
+::
+::
+
+:::: {.metric-card}
+:::: {.metric-number}
+40+
+::
+:::: {.metric-label}
+Team Metrics
+::
+::
+::
+
+## Business Value
+
+:::: {.business-section}
+### Advanced Analytics Excellence
+
+:::: {.business-list}
+- Production-grade data processing with validation and error handling
+- Interactive Plotly visuals tailored for technical and non-technical users
+- Executive-ready narratives aligned with coaching workflows
+- Scalable templates easily adapted to real client data
+::
+::
+
+## Implementation Notes
+
+This demo uses synthetic data generated at render time. When you are ready to connect real data sources (database, spreadsheets, APIs), we switch the generators for real loaders—keeping the same robust logic, visuals, and UX.
+
+
