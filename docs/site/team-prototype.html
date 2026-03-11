@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ST Player Comparison Prototype</title>
+    <title>Team Prototype</title>
     <style>
       :root {
         color-scheme: light;
@@ -58,7 +58,8 @@
         margin-bottom: 6px;
       }
       select,
-      input[type="number"] {
+      input[type="number"],
+      input[type="text"] {
         width: 100%;
         padding: 6px 8px;
         border: 1px solid #cfd5e2;
@@ -102,15 +103,12 @@
       .table-wrap {
         overflow-x: auto;
       }
-      .section-note {
-        margin-top: 8px;
-      }
     </style>
   </head>
   <body>
     <div class="page">
-      <h1>ST Player Comparison Prototype</h1>
-      <p>This is a static prototype for interactive ST player comparison, radar selection, and a similarity preview.</p>
+      <h1>Team Prototype</h1>
+      <p>Prototype view of team metrics using the first-build export.</p>
 
       <div id="dataStatus" class="status">Loading data...</div>
       <details>
@@ -122,16 +120,16 @@
         <h2>Filters</h2>
         <div class="grid">
           <div>
-            <label for="seasonSelect">Season</label>
-            <select id="seasonSelect"></select>
+            <label for="yearSelect">Season</label>
+            <select id="yearSelect"></select>
           </div>
           <div>
-            <label for="minutesInput">Minimum minutes</label>
-            <input id="minutesInput" type="number" min="0" step="50" value="1200">
+            <label for="pointsInput">Minimum points</label>
+            <input id="pointsInput" type="number" min="0" step="1" value="0">
           </div>
           <div>
-            <label for="playerSelect">Players (multi-select)</label>
-            <select id="playerSelect" multiple size="8"></select>
+            <label for="teamSelect">Teams (multi-select)</label>
+            <select id="teamSelect" multiple size="8"></select>
           </div>
           <div>
             <label for="metricSelect">Metrics (multi-select)</label>
@@ -148,20 +146,20 @@
       </section>
 
       <section class="card">
-        <h2>Radar Comparison</h2>
+        <h2>Team Radar Comparison</h2>
         <div id="radar" class="chart"></div>
         <div id="radarStatus" class="status"></div>
       </section>
 
       <section class="card">
-        <h2>Top Performers</h2>
+        <h2>Top Teams</h2>
         <div class="grid" id="topControls">
           <div>
-            <label for="topSeasonSelect">Seasons (multi-select)</label>
-            <select id="topSeasonSelect" multiple size="4"></select>
+            <label for="topYearSelect">Seasons (multi-select)</label>
+            <select id="topYearSelect" multiple size="4"></select>
           </div>
           <div>
-            <label for="topMetricSelect">Category (single-select)</label>
+            <label for="topMetricSelect">Metric (single-select)</label>
             <select id="topMetricSelect"></select>
           </div>
           <div>
@@ -169,17 +167,17 @@
             <input id="topNInput" type="number" min="1" max="50" step="1" value="10">
           </div>
         </div>
-        <div id="topPerformersChart" class="chart tight"></div>
-        <div id="topPerformersStatus" class="status"></div>
+        <div id="topTeamsChart" class="chart tight"></div>
+        <div id="topTeamsStatus" class="status"></div>
       </section>
 
       <section class="card">
-        <h2>Holistic Score Bubble Chart</h2>
+        <h2>Team Scatter / Bubble</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <div class="grid" id="bubbleControls">
           <div>
-            <label for="bubbleSeasonSelect">Seasons (multi-select)</label>
-            <select id="bubbleSeasonSelect" multiple size="4"></select>
+            <label for="bubbleYearSelect">Seasons (multi-select)</label>
+            <select id="bubbleYearSelect" multiple size="4"></select>
           </div>
           <div>
             <label for="bubbleXMetricSelect">X-axis metric</label>
@@ -206,11 +204,11 @@
       </section>
 
       <section class="card">
-        <h2>Similarity</h2>
-        <p class="muted">Similarity uses Euclidean distance across ST z-score features within the filtered dataset.</p>
+        <h2>Similar Teams</h2>
+        <p class="muted">Similarity uses Euclidean distance across team z-score features within the filtered dataset.</p>
         <div class="grid">
           <div>
-            <label for="targetSelect">Target player</label>
+            <label for="targetSelect">Target team</label>
             <select id="targetSelect"></select>
           </div>
         </div>
@@ -218,10 +216,9 @@
         <table id="similarityTable">
           <thead>
             <tr>
-              <th>Player</th>
-              <th>Season</th>
               <th>Team</th>
-              <th>Minutes</th>
+              <th>Season</th>
+              <th>Points</th>
               <th>Distance</th>
             </tr>
           </thead>
@@ -230,23 +227,19 @@
       </section>
 
       <section class="card">
-        <h2>Player Table</h2>
+        <h2>Team Table</h2>
         <div class="grid" id="tableControls">
           <div>
-            <label for="tableSeasonSelect">Seasons (multi-select)</label>
-            <select id="tableSeasonSelect" multiple size="4"></select>
+            <label for="tableYearSelect">Seasons (multi-select)</label>
+            <select id="tableYearSelect" multiple size="4"></select>
           </div>
           <div>
-            <label for="tableTeamSelect">Teams (multi-select)</label>
-            <select id="tableTeamSelect" multiple size="6"></select>
+            <label for="tableTeamSearch">Team search</label>
+            <input id="tableTeamSearch" type="text" placeholder="Search team name">
           </div>
           <div>
-            <label for="tablePlayerSearch">Player search</label>
-            <input id="tablePlayerSearch" type="text" placeholder="Search player name">
-          </div>
-          <div>
-            <label for="tableMinutesInput">Minimum minutes</label>
-            <input id="tableMinutesInput" type="number" min="0" step="50" value="0">
+            <label for="tablePointsInput">Minimum points</label>
+            <input id="tablePointsInput" type="number" min="0" step="1" value="0">
           </div>
           <div>
             <label for="tableRowsSelect">Rows to show</label>
@@ -271,24 +264,28 @@
         </div>
         <div id="tableStatus" class="status"></div>
         <div class="table-wrap">
-          <table id="playerTable">
+          <table id="teamTable">
             <thead>
               <tr>
                 <th>Season</th>
-                <th>Player</th>
                 <th>Team</th>
-                <th>Minutes</th>
-                <th>Overall %</th>
-                <th>Goal Threat %</th>
-                <th>Link Play %</th>
-                <th>Non PKxG P90</th>
-                <th>Non-pen goals P90</th>
-                <th>Shots P90</th>
-                <th>Shots on target %</th>
-                <th>Offensive duels won %</th>
-                <th>Touches in box P90</th>
-                <th>Key passes P90</th>
-                <th>xA P90</th>
+                <th>Points</th>
+                <th>Std Points Score</th>
+                <th>Position</th>
+                <th>Adj Position Z</th>
+                <th>Composite Score</th>
+                <th>Total Score</th>
+                <th>Attacking</th>
+                <th>Defensive</th>
+                <th>Ball Progression</th>
+                <th>xG Diff</th>
+                <th>Possession Threat</th>
+                <th>Goals</th>
+                <th>Conceded</th>
+                <th>xG</th>
+                <th>Shots on Target</th>
+                <th>Possession %</th>
+                <th>Passes Accurate</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -298,6 +295,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js"></script>
+    <script src="./team-prototype.js"></script>
   </body>
 </html>

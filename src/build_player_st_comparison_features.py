@@ -26,6 +26,16 @@ def main() -> None:
         "touches_in_box_per_90",
         "key_passes_per_90",
         "xa_per_90",
+        "xg",
+        "non_pkxg",
+        "goal_conversion_pct",
+        "offensive_duels_per_90",
+        "passes_to_penalty_area_per_90",
+        "accurate_passes_to_penalty_area_pct",
+        "penalties_taken",
+        "possession",
+        "shooting_impact",
+        "penalty_box_passes_impact",
     ]
 
     df = pd.read_csv(input_path)
