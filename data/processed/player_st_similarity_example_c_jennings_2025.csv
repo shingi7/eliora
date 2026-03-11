@@ -1,0 +1,6 @@
+target_player,target_season,similar_player,similar_season,team,minutes_played,similarity_distance,overall_percentile,goal_threat_percentile,link_play_percentile,non_pkxg_p90,non_penalty_goals_p90,shots_per_90,shots_on_target_pct,offensive_duels_won_pct,touches_in_box_per_90,key_passes_per_90,xa_per_90
+C. Jennings,2025.0,F. López,2022.0,Rio Grande Valley,1505.0,1.5542884634256378,0.571,0.748,0.624,0.748,0.713,0.94,0.73,0.617,0.943,0.613,0.805
+C. Jennings,2025.0,M. Foster,2022.0,Sacramento Republic,1210.0,1.603335714871666,0.975,0.95,0.823,0.918,0.957,0.855,0.787,0.777,0.926,0.777,0.805
+C. Jennings,2025.0,M. Arteaga,2022.0,Indy Eleven,1560.0,1.6922086875075197,0.805,0.67,0.84,0.635,0.546,0.933,0.879,0.316,0.684,0.787,0.78
+C. Jennings,2025.0,T. Trager,2024.0,Monterey Bay FC,1375.0,1.7352831118853012,0.848,0.933,0.738,0.961,0.865,0.869,0.915,0.22,0.965,0.55,0.493
+C. Jennings,2025.0,J. LaCava,2022.0,Tampa Bay Rowdies,2460.0,1.788950564434396,0.961,0.812,0.862,0.674,0.851,0.812,0.656,0.784,0.926,0.638,0.855

@@ -1,0 +1,4 @@
+year,team,points,composite_team_score,points_order_within_year,composite_order_within_year,underlying_minus_results_order_within_year,luck_bucket
+2022.0,Colorado Springs,55.0,0.8816116812,9,6,-3,unlucky
+2024.0,Phoenix Rising,42.0,-0.3181662393,19,16,-3,unlucky
+2024.0,Oakland Roots,44.0,-0.1015020293,18,15,-3,unlucky

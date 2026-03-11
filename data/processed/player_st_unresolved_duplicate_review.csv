@@ -1,0 +1,3 @@
+season,player_900_plus_mins,team,minutes_played,total_stdev,overall_rank,xg,non_pkxg,non_pkxg_p90,non_penalty_goals_p90,shots_per_90,shots_on_target_pct,shooting_impact,goal_conversion_pct,goal_threat_rank,offensive_duels_per_90,offensive_duels_won_pct,offensive_duel_impact,touches_in_box_per_90,key_passes_per_90,passes_to_penalty_area_per_90,accurate_passes_to_penalty_area_pct,penalty_box_passes_impact,xa_per_90,link_play_rank
+2025.0,S. Stojanovic,Las Vegas Lights,1307.0,-12.74586108,0.007,2.54,2.54,0.181,0.167,0.167,0.34,0.206,0.209,0.167,0.046,0.106,0.028,0.121,0.28,0.074,0.968,0.394,0.089,0.103
+2025.0,S. Stojanovic,Las Vegas Lights,873.0,-12.79534594,0.004,2.25,2.25,0.39,0.362,0.234,0.057,0.082,0.379,0.23,0.035,0.039,0.007,0.071,0.28,0.028,0.968,0.202,0.089,0.046

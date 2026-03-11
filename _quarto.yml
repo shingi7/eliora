@@ -2,12 +2,20 @@ project:
   type: website
   # Where the built site should be written
   output-dir: docs
+  render:
+    - index.qmd
+    - about.qmd
+    - services.qmd
+    - contact.qmd
   # Make sure our custom assets are copied into the output
   resources:
     - styles.css
     - script.js
     - assets/after.html
     - logo.png
+    - site/player-st.html
+    - site/player-st.js
+    - site/data/player_st_comparison_features.json
 
 website:
   title: "EliOra Tech Solutions"

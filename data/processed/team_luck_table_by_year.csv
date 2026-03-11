@@ -1,0 +1,100 @@
+year,team,points,composite_team_score,points_order_within_year,composite_order_within_year,underlying_minus_results_order_within_year,luck_bucket
+2022.0,Louisville City,72.0,1.819586539,2,2,0,about_expected
+2023.0,San Antonio,56.0,0.7814043415,7,7,0,about_expected
+2025.0,Louisville City,73.0,1.858405496,1,1,0,about_expected
+2024.0,Indy Eleven,51.0,0.5873095576,6,7,1,about_expected
+2023.0,Indy Eleven,49.0,0.2316190511,11,11,0,about_expected
+2025.0,FC Tulsa,57.0,1.237302188,3,3,0,about_expected
+2022.0,Rio Grande Valley,49.0,0.2316190511,13,13,0,about_expected
+2025.0,Pittsburgh Riverhounds,44.0,0.3155768602,7,7,0,about_expected
+2024.0,Louisville City,76.0,1.974862366,1,1,0,about_expected
+2022.0,San Antonio,77.0,2.013681323,1,1,0,about_expected
+2022.0,Birmingham Legion,58.0,0.859042255,6,7,1,about_expected
+2024.0,Tampa Bay Rowdies,50.0,0.2704380079,9,11,2,about_expected
+2024.0,Rhode Island,51.0,0.4482832611,7,9,2,about_expected
+2022.0,New York RB II,15.0,-2.200435851,27,27,0,about_expected
+2024.0,Pittsburgh Riverhounds,48.0,0.05377379783,12,13,1,about_expected
+2023.0,Pittsburgh Riverhounds,67.0,1.625491755,1,1,0,about_expected
+2022.0,Detroit City,54.0,0.2866875385,10,12,2,about_expected
+2023.0,Louisville City,50.0,0.4094643043,10,10,0,about_expected
+2022.0,Phoenix Rising,42.0,-0.5962188323,17,19,2,about_expected
+2023.0,Colorado Springs,53.0,0.5259211747,8,9,1,about_expected
+2023.0,Detroit City,41.0,-0.3569851961,18,16,-2,about_expected
+2025.0,Sacramento Republic,48.0,0.7489052803,4,4,0,about_expected
+2025.0,Indy Eleven,35.0,-0.7289252332,18,18,0,about_expected
+2022.0,Pittsburgh Riverhounds,57.0,0.6811970018,7,8,1,about_expected
+2023.0,Las Vegas Lights,19.0,-1.767107431,23,23,0,about_expected
+2022.0,Oakland Roots,46.0,-0.02386411572,14,14,0,about_expected
+2022.0,Charleston Battery,25.0,-1.53419369,25,25,0,about_expected
+2025.0,Loudoun United,42.0,-0.04011364634,9,11,2,about_expected
+2023.0,Oakland Roots,42.0,-0.5962188323,17,19,2,about_expected
+2023.0,Charleston Battery,59.0,1.036887508,4,5,1,about_expected
+2025.0,Rhode Island,38.0,-0.3344157699,14,14,0,about_expected
+2024.0,Monterey Bay FC,34.0,-1.045796783,22,22,0,about_expected
+2022.0,Sacramento Republic,53.0,0.6649474712,11,9,-2,about_expected
+2024.0,Colorado Springs,52.0,0.9041811074,5,5,0,about_expected
+2022.0,Tampa Bay Rowdies,67.0,1.347439162,4,4,0,about_expected
+2024.0,Charleston Battery,64.0,1.370008589,2,2,0,about_expected
+2022.0,Memphis 901,68.0,1.525284416,3,3,0,about_expected
+2025.0,El Paso Locomotive,41.0,0.1991199899,10,8,-2,about_expected
+2022.0,Miami,55.0,0.4645327917,8,10,2,about_expected
+2023.0,Miami,41.0,-0.4960114926,19,18,-1,about_expected
+2024.0,San Antonio,39.0,-0.5736494061,20,19,-1,about_expected
+2024.0,North Carolina FC,48.0,-0.08525249866,13,14,1,about_expected
+2025.0,Detroit City,37.0,-0.5122610232,15,15,0,about_expected
+2022.0,New Mexico United,51.0,0.4482832611,12,11,-1,about_expected
+2022.0,Indy Eleven,41.0,-0.4960114926,19,18,-1,about_expected
+2023.0,Rio Grande Valley,43.0,-0.418373579,16,17,1,about_expected
+2024.0,Sacramento Republic,49.0,0.3706453476,11,10,-1,about_expected
+2024.0,Loudoun United,44.0,-0.6576072152,16,20,4,lucky
+2023.0,Birmingham Legion,46.0,-0.02386411572,14,14,0,about_expected
+2025.0,Lexington,36.0,-0.6901062764,17,17,0,about_expected
+2023.0,San Diego Loyal,57.0,0.9592495947,5,6,1,about_expected
+2024.0,New Mexico United,59.0,1.314940101,3,3,0,about_expected
+2024.0,Birmingham Legion,45.0,-0.3407356655,15,17,2,about_expected
+2022.0,San Diego Loyal,60.0,1.214732762,5,5,0,about_expected
+2022.0,Monterey Bay FC,40.0,-0.9519093388,20,22,2,about_expected
+2023.0,Memphis 901,52.0,0.6261285144,9,8,-1,about_expected
+2025.0,Charleston Battery,62.0,1.292370675,2,2,0,about_expected
+2025.0,Tampa Bay Rowdies,34.0,-0.9067704865,19,19,0,about_expected
+2022.0,Colorado Springs,55.0,0.8816116812,9,6,-3,unlucky
+2022.0,Orange County SC,34.0,-1.323849376,23,24,1,about_expected
+2024.0,Hartford Athletic,44.0,-0.5185809187,17,18,1,about_expected
+2023.0,Monterey Bay FC,41.0,-0.7740640855,20,21,1,about_expected
+2024.0,Phoenix Rising,42.0,-0.3181662393,19,16,-3,unlucky
+2023.0,New Mexico United,46.0,-0.1628904122,15,15,0,about_expected
+2025.0,Miami,30.0,-1.20107261,21,21,0,about_expected
+2024.0,FC Tulsa,38.0,-0.7514946594,21,21,0,about_expected
+2024.0,Las Vegas Lights,50.0,0.5484906008,10,8,-2,about_expected
+2023.0,Phoenix Rising,48.0,0.1928000943,12,12,0,about_expected
+2025.0,Hartford Athletic,44.0,0.1765505637,8,9,1,about_expected
+2022.0,Loudoun United,28.0,-1.278710524,24,23,-1,about_expected
+2025.0,Colorado Springs,37.0,-0.5122610232,16,16,0,about_expected
+2023.0,Loudoun United,25.0,-1.395167394,22,22,0,about_expected
+2024.0,Memphis 901,51.0,0.7263358541,8,6,-2,about_expected
+2023.0,Hartford Athletic,18.0,-1.805926388,24,24,0,about_expected
+2023.0,Tampa Bay Rowdies,63.0,1.331189632,3,3,0,about_expected
+2024.0,Oakland Roots,44.0,-0.1015020293,18,15,-3,unlucky
+2023.0,Orange County SC,57.0,1.098275891,6,4,-2,about_expected
+2022.0,El Paso Locomotive,46.0,-0.1628904122,15,15,0,about_expected
+2025.0,New Mexico United,48.0,0.6098789838,5,5,0,about_expected
+2025.0,Birmingham Legion,27.0,-1.456555777,23,23,0,about_expected
+2023.0,Sacramento Republic,64.0,1.509034885,2,2,0,about_expected
+2022.0,Hartford Athletic,36.0,-0.8291325729,22,21,-1,about_expected
+2022.0,FC Tulsa,42.0,-0.3181662393,18,16,-2,about_expected
+2024.0,Detroit City,56.0,0.920430638,4,4,0,about_expected
+2024.0,Orange County SC,46.0,0.1151621808,14,12,-2,about_expected
+2025.0,San Antonio,40.0,-0.1177515599,11,12,1,about_expected
+2025.0,Orange County SC,39.0,-0.2955968132,13,13,0,about_expected
+2022.0,Atlanta United II,23.0,-1.7508579,26,26,0,about_expected
+2025.0,Monterey Bay FC,29.0,-1.239891567,22,22,0,about_expected
+2025.0,North Carolina FC,45.0,0.4934221134,6,6,0,about_expected
+2025.0,Phoenix Rising,40.0,0.0212747366,12,10,-2,about_expected
+2022.0,LA Galaxy II,40.0,-0.8128830423,21,20,-1,about_expected
+2024.0,El Paso Locomotive,32.0,-1.262460993,23,23,0,about_expected
+2025.0,Oakland Roots,32.0,-0.9844084,20,20,0,about_expected
+2022.0,Las Vegas Lights,45.0,-0.3407356655,16,17,1,about_expected
+2023.0,FC Tulsa,39.0,-0.7126757026,21,20,-1,about_expected
+2023.0,El Paso Locomotive,47.0,0.01495484105,13,13,0,about_expected
+2025.0,Las Vegas Lights,27.0,-1.456555777,24,24,0,about_expected
+2024.0,Miami,11.0,-2.077659085,24,24,0,about_expected

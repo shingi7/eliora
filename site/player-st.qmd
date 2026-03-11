@@ -1,0 +1,68 @@
+---
+title: "ST Player Comparison Prototype"
+format: html
+resources:
+  - data/player_st_comparison_features.json
+  - player-st.js
+---
+
+This is a static prototype for interactive ST player comparison, radar selection, and a similarity preview.
+
+::: {.html}
+<div id="dataStatus">Loading data...</div>
+<div id="dataDebug"></div>
+
+<div id="controls">
+  <h2>Filters</h2>
+  <div>
+    <label for="seasonSelect">Season</label>
+    <select id="seasonSelect"></select>
+  </div>
+  <div>
+    <label for="minutesInput">Minimum minutes</label>
+    <input id="minutesInput" type="number" min="0" step="50" value="1200">
+  </div>
+  <div>
+    <label for="playerSelect">Players (multi-select)</label>
+    <select id="playerSelect" multiple size="8"></select>
+  </div>
+  <div>
+    <label for="metricSelect">Metrics (multi-select)</label>
+    <select id="metricSelect" multiple size="8"></select>
+  </div>
+  <div>
+    <label for="radarModeSelect">Radar value mode</label>
+    <select id="radarModeSelect">
+      <option value="z" selected>Z-scores</option>
+      <option value="raw">Raw values</option>
+    </select>
+  </div>
+</div>
+
+<h2>Radar Comparison</h2>
+<div id="radar"></div>
+<div id="radarStatus"></div>
+
+<h2>Similarity</h2>
+<p>Similarity uses Euclidean distance across ST z-score features within the filtered dataset.</p>
+<div>
+  <label for="targetSelect">Target player</label>
+  <select id="targetSelect"></select>
+</div>
+<div id="similarityStatus"></div>
+<table id="similarityTable">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Season</th>
+      <th>Team</th>
+      <th>Minutes</th>
+      <th>Distance</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script src="player-st.js"></script>
+:::
