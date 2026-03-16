@@ -66,6 +66,17 @@
         font-size: 14px;
         background: #fff;
       }
+      button {
+        padding: 6px 10px;
+        border: 1px solid #cfd5e2;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #f3f5fa;
+      }
       .chart {
         width: 100%;
         min-height: 360px;
@@ -145,23 +156,35 @@
             </select>
           </div>
         </div>
+        <div class="section-note">
+          <span class="muted">Quick Presets:</span>
+          <button type="button" data-preset="balanced">Balanced ST</button>
+          <button type="button" data-preset="finisher">Finisher</button>
+          <button type="button" data-preset="link">Link Striker</button>
+        </div>
+        <div class="section-note">
+          <button id="copySummaryBtn" type="button">Copy current view summary</button>
+          <span id="copySummaryStatus" class="muted"></span>
+        </div>
       </section>
 
       <section class="card">
         <h2>Radar Comparison</h2>
+        <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
         <div id="radar" class="chart"></div>
         <div id="radarStatus" class="status"></div>
       </section>
 
       <section class="card">
         <h2>Top Performers</h2>
+        <p class="muted section-note">Ranks players by a single metric within the selected seasons and minutes filter.</p>
         <div class="grid" id="topControls">
           <div>
             <label for="topSeasonSelect">Seasons (multi-select)</label>
             <select id="topSeasonSelect" multiple size="4"></select>
           </div>
           <div>
-            <label for="topMetricSelect">Category (single-select)</label>
+            <label for="topMetricSelect">Metric (single-select)</label>
             <select id="topMetricSelect"></select>
           </div>
           <div>
@@ -176,6 +199,7 @@
       <section class="card">
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
+        <p class="muted section-note">Use X/Y to compare two metrics; labels show the top 10 by composite score.</p>
         <div class="grid" id="bubbleControls">
           <div>
             <label for="bubbleSeasonSelect">Seasons (multi-select)</label>
@@ -207,7 +231,8 @@
 
       <section class="card">
         <h2>Similarity</h2>
-        <p class="muted">Similarity uses Euclidean distance across ST z-score features within the filtered dataset.</p>
+        <p class="muted">Similarity uses Euclidean distance across core z-score features within the filtered dataset, shown as a relative percentage (higher is more similar).</p>
+        <p class="muted section-note">Best for finding stylistically similar profiles, not predicting outcomes.</p>
         <div class="grid">
           <div>
             <label for="targetSelect">Target player</label>
@@ -222,7 +247,7 @@
               <th>Season</th>
               <th>Team</th>
               <th>Minutes</th>
-              <th>Distance</th>
+              <th>Similarity %</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -231,6 +256,11 @@
 
       <section class="card">
         <h2>Player Table</h2>
+        <p class="muted section-note">Sortable view of the filtered dataset. Blanks indicate missing or unavailable values.</p>
+        <div class="section-note">
+          <button id="exportTableBtn" type="button">Export filtered table CSV</button>
+          <span id="exportTableStatus" class="muted"></span>
+        </div>
         <div class="grid" id="tableControls">
           <div>
             <label for="tableSeasonSelect">Seasons (multi-select)</label>
@@ -281,23 +311,83 @@
                 <th>Overall %</th>
                 <th>Goal Threat %</th>
                 <th>Link Play %</th>
-                <th>Non PKxG P90</th>
-                <th>Non-pen goals P90</th>
+                <th>Total Stdev</th>
+                <th>Goal Threat Stdev</th>
+                <th>Link Play Stdev</th>
+                <th>Non-PK xG P90</th>
+                <th>Non-Pen Goals P90</th>
                 <th>Shots P90</th>
-                <th>Shots on target %</th>
-                <th>Offensive duels won %</th>
-                <th>Touches in box P90</th>
-                <th>Key passes P90</th>
+                <th>Shots On Target %</th>
+                <th>Goal Conversion %</th>
+                <th>Shooting Impact</th>
+                <th>Offensive Duels P90</th>
+                <th>Offensive Duels Won %</th>
+                <th>Offensive Duel Impact</th>
+                <th>Touches In Box P90</th>
+                <th>Key Passes P90</th>
+                <th>Passes To Pen Area P90</th>
+                <th>Accurate Passes To Pen Area %</th>
+                <th>Penalty Box Passes Impact</th>
                 <th>xA P90</th>
+                <th>xG</th>
+                <th>Non-PK xG</th>
+                <th>Penalties Taken</th>
+                <th>Possession</th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
         </div>
       </section>
+
+      <section class="card" id="currentReport">
+        <h2>Current View Report</h2>
+        <div class="grid">
+          <div>
+            <label>Season filter</label>
+            <div id="reportSeason" class="muted"></div>
+          </div>
+          <div>
+            <label>Minimum minutes</label>
+            <div id="reportMinutes" class="muted"></div>
+          </div>
+          <div>
+            <label>Radar players</label>
+            <div id="reportPlayers" class="muted"></div>
+          </div>
+          <div>
+            <label>Radar metrics</label>
+            <div id="reportMetrics" class="muted"></div>
+          </div>
+          <div>
+            <label>Radar mode</label>
+            <div id="reportRadarMode" class="muted"></div>
+          </div>
+          <div>
+            <label>Top performers</label>
+            <div id="reportTop" class="muted"></div>
+          </div>
+          <div>
+            <label>Bubble settings</label>
+            <div id="reportBubble" class="muted"></div>
+          </div>
+          <div>
+            <label>Similarity target</label>
+            <div id="reportSimilarity" class="muted"></div>
+          </div>
+        </div>
+        <div class="section-note">
+          <label>Key Takeaways</label>
+          <ul id="reportTakeaways" class="muted"></ul>
+        </div>
+        <div class="section-note">
+          <button id="copyReportBtn" type="button">Copy report text</button>
+          <span id="copyReportStatus" class="muted"></span>
+        </div>
+      </section>
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js"></script>
+    <script src="./player-st.js?v=st-v6-radar-tooltips-20250206"></script>
   </body>
 </html>

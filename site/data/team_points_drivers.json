@@ -1,0 +1,116 @@
+{
+  "correlations_process": [
+    {
+      "feature": "attacking_score_6",
+      "pearson_with_points": 0.7136765040443093,
+      "spearman_with_points": 0.7251443348509438,
+      "abs_spearman": 0.7251443348509438
+    },
+    {
+      "feature": "ball_progression_6",
+      "pearson_with_points": 0.6691019279895043,
+      "spearman_with_points": 0.6872214566955338,
+      "abs_spearman": 0.6872214566955338
+    },
+    {
+      "feature": "defensive_score_8",
+      "pearson_with_points": 0.686726319075392,
+      "spearman_with_points": 0.6778041585143404,
+      "abs_spearman": 0.6778041585143404
+    },
+    {
+      "feature": "touches_in_penalty_area",
+      "pearson_with_points": 0.6406138458970522,
+      "spearman_with_points": 0.6462712438539603,
+      "abs_spearman": 0.6462712438539603
+    },
+    {
+      "feature": "possesion_threat",
+      "pearson_with_points": 0.6019786232292627,
+      "spearman_with_points": 0.6136526818109155,
+      "abs_spearman": 0.6136526818109155
+    },
+    {
+      "feature": "penalty_area_entries_runs_crosses",
+      "pearson_with_points": 0.5413933657047685,
+      "spearman_with_points": 0.5563995326723172,
+      "abs_spearman": 0.5563995326723172
+    },
+    {
+      "feature": "positional_attacks_with_shots",
+      "pearson_with_points": 0.5473901420299039,
+      "spearman_with_points": 0.5404778052930462,
+      "abs_spearman": 0.5404778052930462
+    },
+    {
+      "feature": "deep_completed_passes",
+      "pearson_with_points": 0.5258246398997098,
+      "spearman_with_points": 0.5278193357445976,
+      "abs_spearman": 0.5278193357445976
+    },
+    {
+      "feature": "corners_with_shots",
+      "pearson_with_points": 0.5345743645677776,
+      "spearman_with_points": 0.5253826363769348,
+      "abs_spearman": 0.5253826363769348
+    },
+    {
+      "feature": "passes_to_final_third_accurate",
+      "pearson_with_points": 0.4827801335515199,
+      "spearman_with_points": 0.5075131726123671,
+      "abs_spearman": 0.5075131726123671
+    }
+  ],
+  "rf_importance_process": [
+    {
+      "feature": "defensive_score_8",
+      "importance_mean": 0.31218695631925,
+      "importance_std": 0.2901432902372024
+    },
+    {
+      "feature": "attacking_score_6",
+      "importance_mean": 0.1547785191255485,
+      "importance_std": 0.2807109643682594
+    },
+    {
+      "feature": "possesion_threat",
+      "importance_mean": 0.1456343024894548,
+      "importance_std": 0.1497875463603655
+    },
+    {
+      "feature": "red_cards",
+      "importance_mean": 0.1031477839402763,
+      "importance_std": 0.0582373779781308
+    },
+    {
+      "feature": "yellow_cards",
+      "importance_mean": 0.0419003759530291,
+      "importance_std": 0.050424269421979
+    },
+    {
+      "feature": "set_pieces_with_shots",
+      "importance_mean": 0.0370815176725716,
+      "importance_std": 0.0411372584074201
+    },
+    {
+      "feature": "average_shot_distance",
+      "importance_mean": 0.0234238613867068,
+      "importance_std": 0.0421858165568275
+    },
+    {
+      "feature": "counterattacks_with_shots",
+      "importance_mean": 0.0125988558929074,
+      "importance_std": 0.0155764356235812
+    },
+    {
+      "feature": "fouls",
+      "importance_mean": 0.0094695283951305,
+      "importance_std": 0.0302765191278856
+    },
+    {
+      "feature": "positional_attacks_with_shots",
+      "importance_mean": 0.0052036458547456,
+      "importance_std": 0.0642132403969454
+    }
+  ]
+}

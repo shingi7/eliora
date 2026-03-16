@@ -44,7 +44,7 @@ def build_headers(raw_headers: list) -> list[str]:
 
 
 def main() -> None:
-    input_path = Path("usl-project/Data/Raw/USL C League Wide Performance & KPIs 2026 (1).xlsx")
+    input_path = Path("data/raw/USL C League Wide Performance & KPIs 2026 refined working.xlsx")
     output_path = Path("data/processed/team_model_full_export.csv")
 
     wb = load_workbook(input_path, read_only=True, data_only=True)
