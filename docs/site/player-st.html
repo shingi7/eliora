@@ -116,6 +116,23 @@
       .section-note {
         margin-top: 8px;
       }
+      .tab-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 16px;
+      }
+      .tab-bar button.active {
+        background: #111;
+        color: #fff;
+        border-color: #111;
+      }
+      .tab-section {
+        display: none;
+      }
+      .tab-section.active {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -129,53 +146,65 @@
         <div id="dataDebug" class="status"></div>
       </details>
 
-      <section class="card" id="controls">
-        <h2>Filters</h2>
-        <div class="grid">
-          <div>
-            <label for="seasonSelect">Season</label>
-            <select id="seasonSelect"></select>
-          </div>
-          <div>
-            <label for="minutesInput">Minimum minutes</label>
-            <input id="minutesInput" type="number" min="0" step="50" value="1200">
-          </div>
-          <div>
-            <label for="playerSelect">Players (multi-select)</label>
-            <select id="playerSelect" multiple size="8"></select>
-          </div>
-          <div>
-            <label for="metricSelect">Metrics (multi-select)</label>
-            <select id="metricSelect" multiple size="8"></select>
-          </div>
-          <div>
-            <label for="radarModeSelect">Radar value mode</label>
-            <select id="radarModeSelect">
-              <option value="z" selected>Z-scores</option>
-              <option value="raw">Raw values</option>
-            </select>
-          </div>
-        </div>
-        <div class="section-note">
-          <span class="muted">Quick Presets:</span>
-          <button type="button" data-preset="balanced">Balanced ST</button>
-          <button type="button" data-preset="finisher">Finisher</button>
-          <button type="button" data-preset="link">Link Striker</button>
-        </div>
-        <div class="section-note">
-          <button id="copySummaryBtn" type="button">Copy current view summary</button>
-          <span id="copySummaryStatus" class="muted"></span>
-        </div>
-      </section>
+      <div class="tab-bar" id="tabBar" role="tablist">
+        <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
+        <button type="button" data-tab-target="tab-top">Top Performers</button>
+        <button type="button" data-tab-target="tab-bubble">Bubble</button>
+        <button type="button" data-tab-target="tab-similarity">Similarity</button>
+        <button type="button" data-tab-target="tab-table">Table</button>
+        <button type="button" data-tab-target="tab-report">Current View Report</button>
+      </div>
 
-      <section class="card">
-        <h2>Radar Comparison</h2>
-        <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
-        <div id="radar" class="chart"></div>
-        <div id="radarStatus" class="status"></div>
-      </section>
+      <div class="tab-section active" id="tab-overview">
+        <section class="card" id="controls">
+          <h2>Filters</h2>
+          <div class="grid">
+            <div>
+              <label for="seasonSelect">Season</label>
+              <select id="seasonSelect"></select>
+            </div>
+            <div>
+              <label for="minutesInput">Minimum minutes</label>
+              <input id="minutesInput" type="number" min="0" step="50" value="1200">
+            </div>
+            <div>
+              <label for="playerSelect">Players (multi-select)</label>
+              <select id="playerSelect" multiple size="8"></select>
+            </div>
+            <div>
+              <label for="metricSelect">Metrics (multi-select)</label>
+              <select id="metricSelect" multiple size="8"></select>
+            </div>
+            <div>
+              <label for="radarModeSelect">Radar value mode</label>
+              <select id="radarModeSelect">
+                <option value="z" selected>Z-scores</option>
+                <option value="raw">Raw values</option>
+              </select>
+            </div>
+          </div>
+          <div class="section-note">
+            <span class="muted">Quick Presets:</span>
+            <button type="button" data-preset="false9">False 9</button>
+            <button type="button" data-preset="advanced">Advanced Forward</button>
+            <button type="button" data-preset="target">Target Man</button>
+            <button type="button" data-preset="poacher">Poacher</button>
+          </div>
+          <div class="section-note">
+            <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            <span id="copySummaryStatus" class="muted"></span>
+          </div>
+        </section>
 
-      <section class="card">
+        <section class="card">
+          <h2>Radar Comparison</h2>
+          <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
+          <div id="radar" class="chart"></div>
+          <div id="radarStatus" class="status"></div>
+        </section>
+      </div>
+
+      <section class="card tab-section" id="tab-top">
         <h2>Top Performers</h2>
         <p class="muted section-note">Ranks players by a single metric within the selected seasons and minutes filter.</p>
         <div class="grid" id="topControls">
@@ -196,7 +225,7 @@
         <div id="topPerformersStatus" class="status"></div>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-bubble">
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <p class="muted section-note">Use X/Y to compare two metrics; labels show the top 10 by composite score.</p>
@@ -229,7 +258,7 @@
         <div id="bubbleStatus" class="status"></div>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-similarity">
         <h2>Similarity</h2>
         <p class="muted">Similarity uses Euclidean distance across core z-score features within the filtered dataset, shown as a relative percentage (higher is more similar).</p>
         <p class="muted section-note">Best for finding stylistically similar profiles, not predicting outcomes.</p>
@@ -252,9 +281,47 @@
           </thead>
           <tbody></tbody>
         </table>
+
+        <div class="subsection">
+          <h3>Similarity (Custom Metrics)</h3>
+          <p class="muted">Use a role preset or pick metrics directly to calculate similarity on that subset only.</p>
+          <div class="grid">
+            <div>
+              <label for="similarityPresetSelect">Similarity preset</label>
+              <select id="similarityPresetSelect">
+                <option value="custom" selected>Custom metrics</option>
+                <option value="false9">False 9</option>
+                <option value="advanced">Advanced Forward</option>
+                <option value="target">Target Man</option>
+                <option value="poacher">Poacher</option>
+              </select>
+            </div>
+            <div>
+              <label for="targetSelectCustom">Target player</label>
+              <select id="targetSelectCustom"></select>
+            </div>
+            <div>
+              <label for="similarityMetricSelect">Similarity metrics (multi-select)</label>
+              <select id="similarityMetricSelect" multiple size="8"></select>
+            </div>
+          </div>
+          <div id="similarityCustomStatus" class="status"></div>
+          <table id="similarityTableCustom">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Season</th>
+                <th>Team</th>
+                <th>Minutes</th>
+                <th>Similarity %</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-table">
         <h2>Player Table</h2>
         <p class="muted section-note">Sortable view of the filtered dataset. Blanks indicate missing or unavailable values.</p>
         <div class="section-note">
@@ -340,7 +407,7 @@
         </div>
       </section>
 
-      <section class="card" id="currentReport">
+      <section class="card tab-section" id="tab-report">
         <h2>Current View Report</h2>
         <div class="grid">
           <div>
@@ -388,6 +455,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js?v=st-v6-radar-tooltips-20250206"></script>
+    <script src="./player-st.js?v=st-v14-tabs-20250206"></script>
   </body>
 </html>

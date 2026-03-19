@@ -137,6 +137,23 @@
         border-radius: 6px;
         background: #fff;
       }
+      .tab-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 16px;
+      }
+      .tab-bar button.active {
+        background: #111;
+        color: #fff;
+        border-color: #111;
+      }
+      .tab-section {
+        display: none;
+      }
+      .tab-section.active {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -152,54 +169,66 @@
         <div id="dataDebug" class="status"></div>
       </details>
 
-      <section class="card" id="controls">
-        <h2>Filters</h2>
-        <div class="grid">
-          <div>
-            <label for="yearSelect">Season</label>
-            <select id="yearSelect"></select>
-          </div>
-          <div>
-            <label for="pointsInput">Minimum points</label>
-            <input id="pointsInput" type="number" min="0" step="1" value="0">
-          </div>
-          <div>
-            <label for="teamSelect">Teams (multi-select)</label>
-            <select id="teamSelect" multiple size="8"></select>
-          </div>
-          <div>
-            <label for="metricSelect">Metrics (multi-select)</label>
-            <select id="metricSelect" multiple size="8"></select>
-          </div>
-          <div>
-            <label for="radarModeSelect">Radar value mode</label>
-            <select id="radarModeSelect">
-              <option value="z" selected>Z-scores</option>
-              <option value="raw">Raw values</option>
-            </select>
-          </div>
-        </div>
-        <div class="section-note">
-          <span class="muted">Quick Presets:</span>
-          <button type="button" data-preset="results">Results Lens</button>
-          <button type="button" data-preset="attack">Attacking Profile</button>
-          <button type="button" data-preset="defense">Defensive Profile</button>
-          <button type="button" data-preset="possession">Possession / Progression</button>
-        </div>
-        <div class="section-note">
-          <button id="copySummaryBtn" type="button">Copy current view summary</button>
-          <span id="copySummaryStatus" class="muted"></span>
-        </div>
-      </section>
+      <div class="tab-bar" id="tabBar" role="tablist">
+        <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
+        <button type="button" data-tab-target="tab-top">Top Teams</button>
+        <button type="button" data-tab-target="tab-bubble">Bubble</button>
+        <button type="button" data-tab-target="tab-similarity">Similarity</button>
+        <button type="button" data-tab-target="tab-table">Table</button>
+        <button type="button" data-tab-target="tab-report">Current View Report</button>
+        <button type="button" data-tab-target="tab-drivers">Points Drivers</button>
+      </div>
 
-      <section class="card">
-        <h2>Team Radar Comparison</h2>
-        <p class="muted section-note">Compare selected teams across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
-        <div id="radar" class="chart"></div>
-        <div id="radarStatus" class="status"></div>
-      </section>
+      <div class="tab-section active" id="tab-overview">
+        <section class="card" id="controls">
+          <h2>Filters</h2>
+          <div class="grid">
+            <div>
+              <label for="yearSelect">Season</label>
+              <select id="yearSelect"></select>
+            </div>
+            <div>
+              <label for="pointsInput">Minimum points</label>
+              <input id="pointsInput" type="number" min="0" step="1" value="0">
+            </div>
+            <div>
+              <label for="teamSelect">Teams (multi-select)</label>
+              <select id="teamSelect" multiple size="8"></select>
+            </div>
+            <div>
+              <label for="metricSelect">Metrics (multi-select)</label>
+              <select id="metricSelect" multiple size="8"></select>
+            </div>
+            <div>
+              <label for="radarModeSelect">Radar value mode</label>
+              <select id="radarModeSelect">
+                <option value="z" selected>Z-scores</option>
+                <option value="raw">Raw values</option>
+              </select>
+            </div>
+          </div>
+          <div class="section-note">
+            <span class="muted">Quick Presets:</span>
+            <button type="button" data-preset="results">Results Lens</button>
+            <button type="button" data-preset="attack">Attacking Profile</button>
+            <button type="button" data-preset="defense">Defensive Profile</button>
+            <button type="button" data-preset="possession">Possession / Progression</button>
+          </div>
+          <div class="section-note">
+            <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            <span id="copySummaryStatus" class="muted"></span>
+          </div>
+        </section>
 
-      <section class="card">
+        <section class="card">
+          <h2>Team Radar Comparison</h2>
+          <p class="muted section-note">Compare selected teams across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
+          <div id="radar" class="chart"></div>
+          <div id="radarStatus" class="status"></div>
+        </section>
+      </div>
+
+      <section class="card tab-section" id="tab-top">
         <h2>Top Teams</h2>
         <p class="muted section-note">Ranks teams by a single metric within the selected seasons and points filter.</p>
         <div class="grid" id="topControls">
@@ -220,7 +249,7 @@
         <div id="topTeamsStatus" class="status"></div>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-bubble">
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <p class="muted section-note">Use X/Y to compare results vs process; labels show the top 10 by composite score.</p>
@@ -253,7 +282,7 @@
         <div id="bubbleStatus" class="status"></div>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-similarity">
         <h2>Similarity</h2>
         <p class="muted">Similarity uses Euclidean distance across core z-score features within the filtered dataset, shown as a relative percentage (higher is more similar).</p>
         <p class="muted section-note">Best for comparing team profiles, not predicting results.</p>
@@ -277,7 +306,7 @@
         </table>
       </section>
 
-      <section class="card">
+      <section class="card tab-section" id="tab-table">
         <h2>Team Table</h2>
         <p class="muted section-note">Sortable view of the filtered dataset. Blanks indicate missing or unavailable values.</p>
         <div class="section-note">
@@ -329,7 +358,7 @@
         </div>
       </section>
 
-      <section class="card" id="currentReport">
+      <section class="card tab-section" id="tab-report">
         <h2>Current View Report</h2>
         <div class="grid">
           <div>
@@ -375,7 +404,7 @@
         </div>
       </section>
 
-      <section class="card" id="pointsDrivers">
+      <section class="card tab-section" id="tab-drivers">
         <h2>What Drives Points?</h2>
         <p class="muted">Coach-facing view of the strongest patterns associated with points in historical team data.</p>
         <div id="driversStatus" class="status"></div>
@@ -420,6 +449,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./team-prototype.js?v=team-v5-points-drivers-20250206"></script>
+    <script src="./team-prototype.js?v=team-v8-drivers-fix-20250206"></script>
   </body>
 </html>

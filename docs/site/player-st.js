@@ -1,25 +1,29 @@
-const ST_BUILD_VERSION = "st-v6-radar-tooltips-20250206";
+const ST_BUILD_VERSION = "st-v14-tabs-20250206";
 const dataUrl = `./data/player_st_comparison_features.json?v=${ST_BUILD_VERSION}`;
+const ROLE_DEFAULT = "Advanced Forward";
 
 const metricOptions = [
-  "overall_percentile",
-  "goal_threat_percentile",
-  "link_play_percentile",
-  "touches_in_box_per_90",
   "non_pkxg_p90",
   "non_penalty_goals_p90",
   "shots_per_90",
   "shots_on_target_pct",
   "goal_conversion_pct",
   "shooting_impact",
-  "offensive_duels_per_90",
-  "offensive_duels_won_pct",
-  "offensive_duel_impact",
+  "touches_in_box_per_90",
+  "received_passes_per_90",
   "key_passes_per_90",
   "passes_to_penalty_area_per_90",
   "accurate_passes_to_penalty_area_pct",
   "penalty_box_passes_impact",
-  "xa_per_90"
+  "xa_per_90",
+  "offensive_duels_per_90",
+  "offensive_duels_won_pct",
+  "offensive_duel_impact",
+  "defensive_duel_impact",
+  "aerial_duel_impact",
+  "progressive_runs_per_90",
+  "accelerations_per_90",
+  "dribble_impact"
 ];
 
 const zMetricOptions = [
@@ -40,52 +44,35 @@ const zMetricOptions = [
 const chartZMetricOptions = metricOptions.map(metric => `${metric}_z`);
 
 const defaultMetrics = [
-  "overall_percentile",
-  "goal_threat_percentile",
-  "link_play_percentile",
   "non_pkxg_p90",
-  "touches_in_box_per_90"
+  "non_penalty_goals_p90",
+  "shots_per_90",
+  "shots_on_target_pct",
+  "goal_conversion_pct"
+];
+
+const BASELINE_METRICS = [
+  "non_pkxg_p90",
+  "non_penalty_goals_p90",
+  "shooting_impact",
+  "goal_conversion_pct",
+  "defensive_duel_impact",
+  "aerial_duel_impact",
+  "offensive_duel_impact",
+  "progressive_runs_per_90",
+  "accelerations_per_90",
+  "dribble_impact",
+  "received_passes_per_90",
+  "touches_in_box_per_90",
+  "key_passes_per_90",
+  "penalty_box_passes_impact",
+  "xa_per_90"
 ];
 
 const ST_PRESETS = {
-  balanced: {
+  false9: {
     radar: [
-      "overall_percentile",
-      "goal_threat_percentile",
-      "link_play_percentile",
-      "non_pkxg_p90",
-      "touches_in_box_per_90"
-    ],
-    bubbleX: "non_pkxg_p90",
-    bubbleY: "goal_conversion_pct",
-    bubbleComposite: [
-      "overall_percentile",
-      "goal_threat_percentile",
-      "link_play_percentile",
-      "non_pkxg_p90",
-      "touches_in_box_per_90"
-    ]
-  },
-  finisher: {
-    radar: [
-      "goal_threat_percentile",
-      "non_penalty_goals_p90",
-      "shots_per_90",
-      "shots_on_target_pct",
-      "goal_conversion_pct"
-    ],
-    bubbleX: "shots_per_90",
-    bubbleY: "goal_conversion_pct",
-    bubbleComposite: [
-      "goal_threat_percentile",
-      "non_penalty_goals_p90",
-      "shots_on_target_pct",
-      "goal_conversion_pct"
-    ]
-  },
-  link: {
-    radar: [
-      "link_play_percentile",
+      ...BASELINE_METRICS,
       "key_passes_per_90",
       "passes_to_penalty_area_per_90",
       "accurate_passes_to_penalty_area_pct",
@@ -94,10 +81,45 @@ const ST_PRESETS = {
     bubbleX: "key_passes_per_90",
     bubbleY: "xa_per_90",
     bubbleComposite: [
-      "link_play_percentile",
+      ...BASELINE_METRICS,
       "key_passes_per_90",
       "passes_to_penalty_area_per_90",
+      "accurate_passes_to_penalty_area_pct",
       "xa_per_90"
+    ]
+  },
+  advanced: {
+    radar: [
+      ...BASELINE_METRICS
+    ],
+    bubbleX: "non_pkxg_p90",
+    bubbleY: "shots_per_90",
+    bubbleComposite: [
+      ...BASELINE_METRICS
+    ]
+  },
+  target: {
+    radar: [
+      ...BASELINE_METRICS,
+      "offensive_duels_per_90",
+      "offensive_duels_won_pct"
+    ],
+    bubbleX: "offensive_duels_per_90",
+    bubbleY: "goal_conversion_pct",
+    bubbleComposite: [
+      ...BASELINE_METRICS,
+      "offensive_duels_per_90",
+      "offensive_duels_won_pct"
+    ]
+  },
+  poacher: {
+    radar: [
+      ...BASELINE_METRICS
+    ],
+    bubbleX: "goal_conversion_pct",
+    bubbleY: "non_penalty_goals_p90",
+    bubbleComposite: [
+      ...BASELINE_METRICS
     ]
   }
 };
@@ -105,6 +127,7 @@ const ST_PRESETS = {
 const tableColumns = [
   { key: "season", label: "Season", type: "int" },
   { key: "player", label: "Player", type: "text" },
+  { key: "role", label: "Role", type: "text" },
   { key: "team", label: "Team", type: "text" },
   { key: "minutes_played", label: "Minutes", type: "int" },
   { key: "overall_percentile", label: "Overall %", type: "num" },
@@ -150,6 +173,12 @@ const metricLabels = {
   offensive_duels_per_90: "Offensive Duels P90",
   offensive_duels_won_pct: "Offensive Duels Won %",
   offensive_duel_impact: "Offensive Duel Impact",
+  defensive_duel_impact: "Defensive Duel Impact",
+  aerial_duel_impact: "Aerial Duel Impact",
+  progressive_runs_per_90: "Progressive Runs P90",
+  accelerations_per_90: "Accelerations P90",
+  dribble_impact: "Dribble Impact",
+  received_passes_per_90: "Received Passes P90",
   touches_in_box_per_90: "Touches In Box P90",
   key_passes_per_90: "Key Passes P90",
   passes_to_penalty_area_per_90: "Passes To Pen Area P90",
@@ -180,6 +209,12 @@ const metricHelp = {
   offensive_duels_per_90: "Offensive duels per 90.",
   offensive_duels_won_pct: "Offensive duel win rate (%).",
   offensive_duel_impact: "Offensive duel impact metric (model-derived).",
+  defensive_duel_impact: "Defensive duel impact metric (model-derived).",
+  aerial_duel_impact: "Aerial duel impact metric (model-derived).",
+  progressive_runs_per_90: "Progressive runs per 90.",
+  accelerations_per_90: "Accelerations per 90.",
+  dribble_impact: "Dribble impact metric (model-derived).",
+  received_passes_per_90: "Received passes per 90.",
   touches_in_box_per_90: "Touches in the penalty box per 90.",
   key_passes_per_90: "Key passes per 90.",
   passes_to_penalty_area_per_90: "Passes into the penalty area per 90.",
@@ -191,6 +226,36 @@ const metricHelp = {
   penalties_taken: "Penalties taken.",
   possession: "Team possession context."
 };
+
+const percentileMetrics = new Set([
+  "overall_percentile",
+  "goal_threat_percentile",
+  "link_play_percentile"
+]);
+
+const percentLikeMetrics = new Set([
+  "shots_on_target_pct",
+  "goal_conversion_pct",
+  "offensive_duels_won_pct",
+  "accurate_passes_to_penalty_area_pct"
+]);
+
+const roleMetricKeys = [
+  "overall_percentile",
+  "goal_threat_percentile",
+  "link_play_percentile",
+  "touches_in_box_per_90",
+  "non_pkxg_p90",
+  "non_penalty_goals_p90",
+  "shots_per_90",
+  "goal_conversion_pct",
+  "offensive_duels_per_90",
+  "offensive_duels_won_pct",
+  "key_passes_per_90",
+  "passes_to_penalty_area_per_90",
+  "accurate_passes_to_penalty_area_pct",
+  "xa_per_90"
+];
 
 const numericMetricKeys = new Set(
   tableColumns
@@ -215,6 +280,7 @@ const radarPalette = [
 let rawData = [];
 let filteredData = [];
 let rowById = new Map();
+let metricStats = {};
 
 function toNumber(value) {
   const num = Number(value);
@@ -225,8 +291,13 @@ function rowId(row) {
   return `${row.season}|${row.player}|${row.team}`;
 }
 
+function playerLabel(row) {
+  const role = row.role || ROLE_DEFAULT;
+  return `${row.player} (${role})`;
+}
+
 function rowLabel(row) {
-  return `${row.player} — ${row.team} — ${row.season}`;
+  return `${playerLabel(row)} — ${row.team} — ${row.season}`;
 }
 
 function prettyMetricLabel(metric) {
@@ -284,6 +355,20 @@ function buildMetricOptions(metricSelect) {
   setSelectedValues(metricSelect, defaultMetrics);
 }
 
+function buildSimilarityMetricOptions(similarityMetricSelect) {
+  similarityMetricSelect.innerHTML = "";
+  metricOptions.forEach(metric => {
+    const option = document.createElement("option");
+    option.value = metric;
+    option.textContent = prettyMetricLabel(metric);
+    if (metricHelp[metric]) {
+      option.title = metricHelp[metric];
+    }
+    similarityMetricSelect.appendChild(option);
+  });
+  setSelectedValues(similarityMetricSelect, defaultMetrics);
+}
+
 function getRadarValue(row, metric, radarModeSelect) {
   if (radarModeSelect.value === "z") {
     return row[`${metric}_z`];
@@ -297,6 +382,174 @@ function formatRadarValue(value, mode) {
   }
   const decimals = mode === "z" ? 2 : 3;
   return value.toFixed(decimals);
+}
+
+function setupTabs() {
+  const buttons = Array.from(document.querySelectorAll("[data-tab-target]"));
+  const sections = Array.from(document.querySelectorAll(".tab-section"));
+  if (buttons.length === 0 || sections.length === 0) {
+    return;
+  }
+
+  const activate = (targetId) => {
+    sections.forEach(section => {
+      section.classList.toggle("active", section.id === targetId);
+    });
+    buttons.forEach(button => {
+      button.classList.toggle("active", button.getAttribute("data-tab-target") === targetId);
+    });
+    if (targetId) {
+      const newUrl = `${window.location.pathname}${window.location.search}#${targetId}`;
+      window.history.replaceState(null, "", newUrl);
+    }
+  };
+
+  const initialHash = window.location.hash ? window.location.hash.slice(1) : "";
+  const initialTarget = sections.some(section => section.id === initialHash)
+    ? initialHash
+    : buttons[0].getAttribute("data-tab-target");
+  activate(initialTarget);
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      activate(button.getAttribute("data-tab-target"));
+    });
+  });
+}
+
+function buildMetricStats(rows, keys) {
+  const stats = {};
+  keys.forEach(key => {
+    const values = rows.map(row => row[key]).filter(val => Number.isFinite(val));
+    if (values.length === 0) {
+      return;
+    }
+    const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
+    const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+    const std = Math.sqrt(variance);
+    stats[key] = { mean, std: std > 0 ? std : null };
+  });
+  return stats;
+}
+
+function normalizeMetric(row, key) {
+  const raw = row[key];
+  if (!Number.isFinite(raw)) {
+    return null;
+  }
+  if (percentileMetrics.has(key) || percentLikeMetrics.has(key)) {
+    return Math.max(0, Math.min(1, raw / 100));
+  }
+  const zKey = `${key}_z`;
+  if (Number.isFinite(row[zKey])) {
+    const clamped = Math.max(-2, Math.min(2, row[zKey]));
+    return (clamped + 2) / 4;
+  }
+  const stats = metricStats[key];
+  if (!stats || !stats.std) {
+    return null;
+  }
+  const z = (raw - stats.mean) / stats.std;
+  const clamped = Math.max(-2, Math.min(2, z));
+  return (clamped + 2) / 4;
+}
+
+function averageScore(values) {
+  const valid = values.filter(val => Number.isFinite(val));
+  if (valid.length === 0) {
+    return null;
+  }
+  return valid.reduce((sum, val) => sum + val, 0) / valid.length;
+}
+
+function getPlayerRole(row) {
+  // False 9: link play + creativity, less box reliance
+  const linkPlay = averageScore([
+    normalizeMetric(row, "link_play_percentile"),
+    normalizeMetric(row, "key_passes_per_90"),
+    normalizeMetric(row, "xa_per_90"),
+    normalizeMetric(row, "passes_to_penalty_area_per_90"),
+    normalizeMetric(row, "accurate_passes_to_penalty_area_pct")
+  ]);
+  // Box/finishing emphasis
+  const boxFinishing = averageScore([
+    normalizeMetric(row, "goal_threat_percentile"),
+    normalizeMetric(row, "non_penalty_goals_p90"),
+    normalizeMetric(row, "goal_conversion_pct"),
+    normalizeMetric(row, "touches_in_box_per_90")
+  ]);
+  // Duel/target profile
+  const duelProfile = averageScore([
+    normalizeMetric(row, "offensive_duels_per_90"),
+    normalizeMetric(row, "offensive_duels_won_pct"),
+    normalizeMetric(row, "touches_in_box_per_90")
+  ]);
+  // All-round threat profile
+  const volumeThreat = averageScore([
+    normalizeMetric(row, "non_pkxg_p90"),
+    normalizeMetric(row, "shots_per_90"),
+    normalizeMetric(row, "touches_in_box_per_90")
+  ]);
+  const overallProfile = averageScore([
+    normalizeMetric(row, "overall_percentile"),
+    normalizeMetric(row, "goal_threat_percentile"),
+    normalizeMetric(row, "link_play_percentile")
+  ]);
+
+  const false9 = averageScore([
+    linkPlay,
+    normalizeMetric(row, "key_passes_per_90"),
+    normalizeMetric(row, "xa_per_90"),
+    normalizeMetric(row, "passes_to_penalty_area_per_90"),
+    normalizeMetric(row, "accurate_passes_to_penalty_area_pct"),
+    boxFinishing !== null ? 1 - boxFinishing : null
+  ]);
+
+  const targetMan = averageScore([
+    duelProfile,
+    normalizeMetric(row, "offensive_duels_per_90"),
+    normalizeMetric(row, "offensive_duels_won_pct"),
+    normalizeMetric(row, "touches_in_box_per_90"),
+    normalizeMetric(row, "goal_conversion_pct")
+  ]);
+
+  const poacher = averageScore([
+    boxFinishing,
+    normalizeMetric(row, "goal_threat_percentile"),
+    normalizeMetric(row, "non_penalty_goals_p90"),
+    normalizeMetric(row, "goal_conversion_pct"),
+    normalizeMetric(row, "touches_in_box_per_90"),
+    linkPlay !== null ? 1 - linkPlay : null
+  ]);
+
+  const advanced = averageScore([
+    overallProfile,
+    volumeThreat,
+    normalizeMetric(row, "non_pkxg_p90"),
+    normalizeMetric(row, "shots_per_90"),
+    normalizeMetric(row, "touches_in_box_per_90")
+  ]);
+
+  const scores = [
+    { role: "False 9", score: false9 },
+    { role: "Target Man", score: targetMan },
+    { role: "Poacher", score: poacher },
+    { role: "Advanced Forward", score: advanced }
+  ];
+
+  let bestRole = ROLE_DEFAULT;
+  let bestScore = -Infinity;
+  scores.forEach(entry => {
+    if (entry.score === null || Number.isNaN(entry.score)) {
+      return;
+    }
+    if (entry.score > bestScore) {
+      bestScore = entry.score;
+      bestRole = entry.role;
+    }
+  });
+
+  return bestScore === -Infinity ? ROLE_DEFAULT : bestRole;
 }
 
 function computeMetricRanks(rows, metric, radarModeSelect, lowerBetter) {
@@ -359,7 +612,7 @@ function updatePlayerOptions(playerSelect) {
   }
 }
 
-function updateTargetOptions(targetSelect) {
+function updateTargetOptions(targetSelect, secondarySelect) {
   const previous = targetSelect.value;
   targetSelect.innerHTML = "";
   filteredData.forEach(row => {
@@ -374,6 +627,14 @@ function updateTargetOptions(targetSelect) {
     targetSelect.value = previous;
   } else if (available.length > 0) {
     targetSelect.value = available[0];
+  }
+
+  if (secondarySelect) {
+    const selected = targetSelect.value;
+    secondarySelect.innerHTML = targetSelect.innerHTML;
+    if (selected) {
+      secondarySelect.value = selected;
+    }
   }
 }
 
@@ -484,7 +745,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
 
   Plotly.newPlot("radar", traces, {
     polar: {
-      radialaxis: { visible: true },
+      radialaxis: { visible: true, showticklabels: false },
       angularaxis: { tickmode: "array", tickvals: metricAngles, ticktext: selectedMetrics.map(prettyMetricLabel) }
     },
     barmode: "stack",
@@ -509,7 +770,9 @@ function buildTopMetricOptions(topMetricSelect) {
     }
     topMetricSelect.appendChild(option);
   });
-  topMetricSelect.value = "overall_percentile";
+  topMetricSelect.value = metricOptions.includes("non_pkxg_p90")
+    ? "non_pkxg_p90"
+    : metricOptions[0] || "";
 }
 
 function buildBubbleMetricOptions(bubbleMetricSelect) {
@@ -574,8 +837,8 @@ function applyPreset(presetKey, controls) {
     return;
   }
   const { metricSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, playerSelect, radarModeSelect, radarStatus, bubbleSeasonSelect, bubbleLabelSelect, minutesInput, bubbleStatus } = controls;
-  const validRadar = preset.radar.filter(metric => metricOptions.includes(metric));
-  const validComposite = preset.bubbleComposite.filter(metric => metricOptions.includes(metric));
+  const validRadar = Array.from(new Set(preset.radar.filter(metric => metricOptions.includes(metric))));
+  const validComposite = Array.from(new Set(preset.bubbleComposite.filter(metric => metricOptions.includes(metric))));
 
   if (validRadar.length > 0) {
     setSelectedValues(metricSelect, validRadar);
@@ -622,6 +885,8 @@ function readUrlState() {
     bubbleComposite: decodeList(params.get("bubble_comp")),
     bubbleLabels: params.get("bubble_labels"),
     similarityTarget: params.get("similarity_target"),
+    similarityPreset: params.get("similarity_preset"),
+    similarityMetrics: decodeList(params.get("similarity_metrics")),
     tableSeasons: decodeList(params.get("table_seasons")),
     tableTeams: decodeList(params.get("table_teams")),
     tableSearch: params.get("table_search"),
@@ -706,6 +971,8 @@ function syncUrlFromControls(state) {
   setListParam("bubble_comp", normalizeMultiSelection(getSelectedValues(state.bubbleCompositeSelect)));
   setParam("bubble_labels", state.bubbleLabelSelect.value);
   setParam("similarity_target", state.targetSelect.value);
+  setParam("similarity_preset", state.similarityPresetSelect?.value);
+  setListParam("similarity_metrics", normalizeMultiSelection(getSelectedValues(state.similarityMetricSelect)));
   setListParam("table_seasons", normalizeMultiSelection(getSelectedValues(state.tableSeasonSelect)));
   setListParam("table_teams", normalizeMultiSelection(getSelectedValues(state.tableTeamSelect)));
   setParam("table_search", state.tablePlayerSearch.value.trim());
@@ -786,7 +1053,7 @@ function buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStat
     type: "bar",
     orientation: "v",
     name: prettyMetricLabel(selectedMetric),
-    x: players.map(row => row.player),
+    x: players.map(row => playerLabel(row)),
     y: values,
     hovertext: yLabels,
     hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>"
@@ -999,9 +1266,9 @@ function buildPlayerTakeaways(selectedRows, selectedMetrics, targetRow) {
   const bullets = [];
   if (selectedRows.length >= 2) {
     const metricPriority = [
-      { key: "overall_percentile", label: metricLabels.overall_percentile || "Overall %" },
       { key: "non_pkxg_p90", label: metricLabels.non_pkxg_p90 || "Non-PK xG P90" },
-      { key: "goal_conversion_pct", label: metricLabels.goal_conversion_pct || "Goal Conversion %" }
+      { key: "goal_conversion_pct", label: metricLabels.goal_conversion_pct || "Goal Conversion %" },
+      { key: "shots_per_90", label: metricLabels.shots_per_90 || "Shots P90" }
     ];
     metricPriority.forEach(metric => {
       const hasMetric = selectedMetrics.includes(metric.key) || metricOptions.includes(metric.key);
@@ -1024,13 +1291,30 @@ function buildPlayerTakeaways(selectedRows, selectedMetrics, targetRow) {
     bullets.push(`Similarity target: ${rowLabel(targetRow)}`);
   }
 
-  if (bullets.length > 3) {
-    if (targetRow) {
-      const similarityBullet = bullets[bullets.length - 1];
-      const metricBullets = bullets.slice(0, -1).slice(0, 2);
-      return [...metricBullets, similarityBullet];
+  if (selectedRows.length >= 2) {
+    const roles = Array.from(new Set(selectedRows.map(row => row.role || ROLE_DEFAULT)));
+    if (roles.length > 1) {
+      bullets.push(`Current comparison mixes roles: ${roles.join(" vs ")}.`);
     }
-    return bullets.slice(0, 3);
+  }
+
+  if (bullets.length > 3) {
+    const roleBullet = bullets.find(item => item.startsWith("Current comparison mixes roles"));
+    const similarityBullet = bullets.find(item => item.startsWith("Similarity target"));
+    const metricBullets = bullets.filter(item => item !== roleBullet && item !== similarityBullet);
+    const trimmed = [];
+    if (metricBullets.length > 0) {
+      trimmed.push(metricBullets[0]);
+    }
+    if (roleBullet) {
+      trimmed.push(roleBullet);
+    }
+    if (similarityBullet) {
+      trimmed.push(similarityBullet);
+    } else if (metricBullets.length > 1) {
+      trimmed.push(metricBullets[1]);
+    }
+    return trimmed.slice(0, 3);
   }
   return bullets;
 }
@@ -1213,7 +1497,8 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
   Array.from(pointsBySeason.keys()).sort().forEach(seasonKey => {
     const seasonPoints = pointsBySeason.get(seasonKey);
     const customdata = seasonPoints.map(point => [
-      point.row.player,
+      playerLabel(point.row),
+      point.row.role || ROLE_DEFAULT,
       point.row.team,
       point.row.season,
       point.row.minutes_played,
@@ -1235,12 +1520,13 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
       },
       hovertemplate:
         "Player: %{customdata[0]}<br>" +
-        "Team: %{customdata[1]}<br>" +
-        "Season: %{customdata[2]}<br>" +
-        "Minutes: %{customdata[3]}<br>" +
-        `${prettyMetricLabel(xMetric)}: %{customdata[4]:.3f}<br>` +
-        `${prettyMetricLabel(yMetric)}: %{customdata[5]:.3f}<br>` +
-        "Composite (avg z): %{customdata[6]:.3f}<extra></extra>"
+        "Role: %{customdata[1]}<br>" +
+        "Team: %{customdata[2]}<br>" +
+        "Season: %{customdata[3]}<br>" +
+        "Minutes: %{customdata[4]}<br>" +
+        `${prettyMetricLabel(xMetric)}: %{customdata[5]:.3f}<br>` +
+        `${prettyMetricLabel(yMetric)}: %{customdata[6]:.3f}<br>` +
+        "Composite (avg z): %{customdata[7]:.3f}<extra></extra>"
     });
   });
 
@@ -1252,7 +1538,7 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
       name: "Top 10",
       x: labeledPoints.map(point => point.xVal),
       y: labeledPoints.map(point => point.yVal),
-      text: labeledPoints.map(point => point.row.player),
+      text: labeledPoints.map(point => playerLabel(point.row)),
       textposition: "top center",
       textfont: { size: 10 },
       showlegend: false,
@@ -1282,6 +1568,24 @@ function distance(aRow, bRow) {
     sum += (a - b) * (a - b);
   }
   return Math.sqrt(sum);
+}
+
+function distanceSubset(aRow, bRow, zCols, minShared) {
+  let sum = 0;
+  let count = 0;
+  for (const col of zCols) {
+    const a = aRow[col];
+    const b = bRow[col];
+    if (!Number.isFinite(a) || !Number.isFinite(b)) {
+      continue;
+    }
+    sum += (a - b) * (a - b);
+    count += 1;
+  }
+  if (count < minShared) {
+    return null;
+  }
+  return { dist: Math.sqrt(sum), count };
 }
 
 function updateSimilarity(targetSelect, similarityStatus) {
@@ -1323,7 +1627,7 @@ function updateSimilarity(targetSelect, similarityStatus) {
     const similarityPct = maxDist === 0 ? 100 : (1 - entry.dist / maxDist) * 100;
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${row.player}</td>
+      <td>${playerLabel(row)}</td>
       <td>${row.season}</td>
       <td>${row.team}</td>
       <td>${row.minutes_played}</td>
@@ -1333,13 +1637,79 @@ function updateSimilarity(targetSelect, similarityStatus) {
   });
 }
 
-function updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus) {
+function updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus) {
+  const targetId = targetSelect.value;
+  const tbody = document.querySelector("#similarityTableCustom tbody");
+  tbody.innerHTML = "";
+  similarityCustomStatus.textContent = "";
+
+  if (!targetId) {
+    similarityCustomStatus.textContent = "Select a target player.";
+    return;
+  }
+
+  const selectedMetrics = getSelectedValues(similarityMetricSelect);
+  if (selectedMetrics.length === 0) {
+    similarityCustomStatus.textContent = "Select at least one metric.";
+    return;
+  }
+
+  const zCols = selectedMetrics.map(metric => `${metric}_z`);
+  const targetRow = rowById.get(targetId);
+  if (!targetRow) {
+    similarityCustomStatus.textContent = "Target player is not available in the filtered dataset.";
+    return;
+  }
+
+  const minShared = Math.min(3, zCols.length);
+  const targetValid = zCols.filter(col => Number.isFinite(targetRow[col])).length;
+  if (targetValid < minShared) {
+    similarityCustomStatus.textContent = "Similarity unavailable: target player lacks enough selected metrics.";
+    return;
+  }
+
+  const candidates = [];
+  filteredData.forEach(row => {
+    if (rowId(row) === targetId) return;
+    const result = distanceSubset(row, targetRow, zCols, minShared);
+    if (!result) return;
+    candidates.push({ row, dist: result.dist });
+  });
+
+  candidates.sort((a, b) => a.dist - b.dist);
+  const maxDist = candidates.length > 0 ? Math.max(...candidates.map(entry => entry.dist)) : 0;
+  const topFive = candidates.slice(0, 5);
+
+  if (topFive.length === 0) {
+    similarityCustomStatus.textContent = "No similar players found with the selected metrics.";
+    return;
+  }
+
+  similarityCustomStatus.textContent = `Using ${zCols.length} selected metrics.`;
+
+  topFive.forEach(entry => {
+    const row = entry.row;
+    const similarityPct = maxDist === 0 ? 100 : (1 - entry.dist / maxDist) * 100;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${playerLabel(row)}</td>
+      <td>${row.season}</td>
+      <td>${row.team}</td>
+      <td>${row.minutes_played}</td>
+      <td>${similarityPct.toFixed(1)}%</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus) {
   filteredData = getFilteredData(seasonSelect, minutesInput);
   rowById = new Map(filteredData.map(row => [rowId(row), row]));
   updatePlayerOptions(playerSelect);
-  updateTargetOptions(targetSelect);
+  updateTargetOptions(targetSelect, targetSelectCustom);
   updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
   updateSimilarity(targetSelect, similarityStatus);
+  updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
 
   buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStatus, minutesInput);
   buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, minutesInput, bubbleStatus);
@@ -1357,6 +1727,10 @@ async function init() {
   const metricSelect = document.getElementById("metricSelect");
   const radarModeSelect = document.getElementById("radarModeSelect");
   const targetSelect = document.getElementById("targetSelect");
+  const similarityPresetSelect = document.getElementById("similarityPresetSelect");
+  const similarityMetricSelect = document.getElementById("similarityMetricSelect");
+  const similarityCustomStatus = document.getElementById("similarityCustomStatus");
+  const targetSelectCustom = document.getElementById("targetSelectCustom");
   const radarStatus = document.getElementById("radarStatus");
   const similarityStatus = document.getElementById("similarityStatus");
   const dataStatus = document.getElementById("dataStatus");
@@ -1435,6 +1809,9 @@ async function init() {
     numericMetricKeys.forEach(metric => {
       row[metric] = toNumber(row[metric]);
     });
+    roleMetricKeys.forEach(metric => {
+      row[metric] = toNumber(row[metric]);
+    });
     chartZMetricOptions.forEach(metric => {
       row[metric] = toNumber(row[metric]);
     });
@@ -1443,8 +1820,14 @@ async function init() {
     });
   });
 
+  metricStats = buildMetricStats(rawData, roleMetricKeys);
+  rawData.forEach(row => {
+    row.role = getPlayerRole(row);
+  });
+
   buildSeasonOptions(seasonSelect);
   buildMetricOptions(metricSelect);
+  buildSimilarityMetricOptions(similarityMetricSelect);
   buildTopSeasonOptions(topSeasonSelect);
   buildTopMetricOptions(topMetricSelect);
   buildTopSeasonOptions(bubbleSeasonSelect);
@@ -1476,6 +1859,17 @@ async function init() {
   applySingleSelect(tableSortSelect, urlState.tableSort);
   applySingleSelect(tableSortDirSelect, urlState.tableSortDir);
 
+  applySingleSelect(similarityPresetSelect, urlState.similarityPreset);
+  if (similarityPresetSelect && similarityPresetSelect.value !== "custom") {
+    const preset = ST_PRESETS[similarityPresetSelect.value];
+    if (preset) {
+      const validMetrics = Array.from(new Set(preset.radar.filter(metric => metricOptions.includes(metric))));
+      setSelectedValues(similarityMetricSelect, validMetrics);
+    }
+  } else {
+    applyMultiSelect(similarityMetricSelect, urlState.similarityMetrics);
+  }
+
   setStatus(dataStatus, "Data loaded.");
   setTimeout(() => {
     setStatus(dataStatus, "");
@@ -1488,6 +1882,8 @@ async function init() {
     metricSelect,
     radarModeSelect,
     targetSelect,
+    similarityPresetSelect,
+    similarityMetricSelect,
     topSeasonSelect,
     topMetricSelect,
     topNInput,
@@ -1534,12 +1930,12 @@ async function init() {
   };
 
   seasonSelect.addEventListener("change", () => {
-    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   minutesInput.addEventListener("change", () => {
-    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
@@ -1559,10 +1955,49 @@ async function init() {
     syncUrlFromControls(stateRefs);
   });
   targetSelect.addEventListener("change", () => {
+    if (targetSelectCustom) {
+      targetSelectCustom.value = targetSelect.value;
+    }
     updateSimilarity(targetSelect, similarityStatus);
+    updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+
+  if (targetSelectCustom) {
+    targetSelectCustom.addEventListener("change", () => {
+      targetSelect.value = targetSelectCustom.value;
+      updateSimilarity(targetSelect, similarityStatus);
+      updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+    });
+  }
+
+  if (similarityPresetSelect && similarityMetricSelect) {
+    similarityPresetSelect.addEventListener("change", () => {
+      const presetKey = similarityPresetSelect.value;
+      if (presetKey !== "custom") {
+        const preset = ST_PRESETS[presetKey];
+        if (preset) {
+          const validMetrics = Array.from(new Set(preset.radar.filter(metric => metricOptions.includes(metric))));
+          setSelectedValues(similarityMetricSelect, validMetrics);
+        }
+      }
+      updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+      syncUrlFromControls(stateRefs);
+    });
+  }
+
+  if (similarityMetricSelect) {
+    similarityMetricSelect.addEventListener("change", () => {
+      if (similarityPresetSelect) {
+        similarityPresetSelect.value = "custom";
+      }
+      updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+      syncUrlFromControls(stateRefs);
+    });
+  }
 
   topSeasonSelect.addEventListener("change", () => {
     buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStatus, minutesInput);
@@ -1712,7 +2147,7 @@ async function init() {
     });
   });
 
-  updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+  updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
   applyMultiSelect(playerSelect, urlState.players);
   applySingleSelect(targetSelect, urlState.similarityTarget);
   updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
@@ -1722,4 +2157,7 @@ async function init() {
   syncUrlFromControls(stateRefs);
 }
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
+  init();
+});

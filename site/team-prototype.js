@@ -1,4 +1,4 @@
-const TEAM_BUILD_VERSION = "team-v5-points-drivers-20250206";
+const TEAM_BUILD_VERSION = "team-v8-drivers-fix-20250206";
 const dataUrl = `./data/team_comparison_features.json?v=${TEAM_BUILD_VERSION}`;
 const driversUrl = `./data/team_points_drivers.json?v=${TEAM_BUILD_VERSION}`;
 
@@ -18,7 +18,6 @@ const chartMetricOptions = [
   "xg",
   "shots_on_target",
   "average_shot_distance",
-  "attacking_score_6",
   "touches_in_penalty_area",
   "positional_attacks_with_shots",
   "counterattacks_with_shots",
@@ -29,14 +28,12 @@ const chartMetricOptions = [
   "deep_completed_passes",
   "penalty_area_entries_runs_crosses",
   "offensive_duels_won",
-  "defensive_score_8",
   "defensive_duels_won",
   "aerial_duels_won",
   "interceptions",
   "clearances",
   "shots_against_on_target",
   "ppda",
-  "ball_progression_6",
   "possession_pct",
   "passes_accurate",
   "progressive_passes_accurate",
@@ -48,35 +45,35 @@ const chartMetricOptions = [
 const defaultMetrics = [
   "points",
   "xg_diff",
-  "attacking_score_6",
-  "defensive_score_8",
-  "composite_team_score"
+  "goals",
+  "conceded_goals",
+  "possession_pct"
 ];
 
 const TEAM_PRESETS = {
   results: {
-    radar: ["points", "position", "composite_team_score", "total_score", "xg_diff"],
+    radar: ["points", "position", "xg_diff", "goals", "conceded_goals"],
     bubbleX: "points",
     bubbleY: "xg_diff",
-    bubbleComposite: ["points", "composite_team_score", "total_score", "xg_diff"]
+    bubbleComposite: ["points", "xg_diff", "goals", "conceded_goals"]
   },
   attack: {
-    radar: ["attacking_score_6", "goals", "xg", "shots_on_target", "touches_in_penalty_area"],
+    radar: ["goals", "xg", "shots_on_target", "touches_in_penalty_area", "positional_attacks_with_shots"],
     bubbleX: "xg",
     bubbleY: "goals",
-    bubbleComposite: ["attacking_score_6", "xg", "shots_on_target", "touches_in_penalty_area"]
+    bubbleComposite: ["xg", "shots_on_target", "touches_in_penalty_area", "positional_attacks_with_shots"]
   },
   defense: {
-    radar: ["defensive_score_8", "conceded_goals", "shots_against_on_target", "interceptions", "ppda"],
+    radar: ["conceded_goals", "shots_against_on_target", "interceptions", "ppda", "defensive_duels_won"],
     bubbleX: "shots_against_on_target",
     bubbleY: "ppda",
-    bubbleComposite: ["defensive_score_8", "shots_against_on_target", "interceptions", "ppda"]
+    bubbleComposite: ["shots_against_on_target", "interceptions", "ppda", "defensive_duels_won"]
   },
   possession: {
-    radar: ["ball_progression_6", "possession_pct", "passes_accurate", "progressive_passes_accurate", "passes_to_final_third_accurate"],
+    radar: ["possession_pct", "passes_accurate", "progressive_passes_accurate", "passes_to_final_third_accurate", "deep_completed_passes"],
     bubbleX: "possession_pct",
     bubbleY: "progressive_passes_accurate",
-    bubbleComposite: ["ball_progression_6", "possession_pct", "passes_accurate", "progressive_passes_accurate"]
+    bubbleComposite: ["possession_pct", "passes_accurate", "progressive_passes_accurate", "passes_to_final_third_accurate"]
   }
 };
 
@@ -282,6 +279,66 @@ function rowLabel(row) {
 
 function prettyMetricLabel(metric) {
   return metricLabels[metric] || metric.replace(/_/g, " ");
+}
+
+function resizePlot(containerId) {
+  if (!window.Plotly) return;
+  const el = document.getElementById(containerId);
+  if (el && el.data) {
+    Plotly.Plots.resize(el);
+  }
+}
+
+function resizePlotsForTab(tabId) {
+  const map = {
+    "tab-overview": ["radar"],
+    "tab-top": ["topTeamsChart"],
+    "tab-bubble": ["bubbleChart"],
+    "tab-drivers": ["driversCorrChart", "driversRfChart"]
+  };
+  const ids = map[tabId] || [];
+  ids.forEach(id => resizePlot(id));
+}
+
+function setupTabs() {
+  const buttons = Array.from(document.querySelectorAll("[data-tab-target]"));
+  const sections = Array.from(document.querySelectorAll(".tab-section"));
+  if (buttons.length === 0 || sections.length === 0) {
+    return;
+  }
+
+  const activate = (targetId) => {
+    sections.forEach(section => {
+      section.classList.toggle("active", section.id === targetId);
+    });
+    buttons.forEach(button => {
+      button.classList.toggle("active", button.getAttribute("data-tab-target") === targetId);
+    });
+    if (targetId) {
+      const newUrl = `${window.location.pathname}${window.location.search}#${targetId}`;
+      window.history.replaceState(null, "", newUrl);
+    }
+    resizePlotsForTab(targetId);
+  };
+
+  const initialHash = window.location.hash ? window.location.hash.slice(1) : "";
+  const initialTarget = sections.some(section => section.id === initialHash)
+    ? initialHash
+    : buttons[0].getAttribute("data-tab-target");
+  activate(initialTarget);
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      activate(button.getAttribute("data-tab-target"));
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    const active = buttons.find(button => button.classList.contains("active"));
+    if (active) {
+      resizePlotsForTab(active.getAttribute("data-tab-target"));
+    }
+  });
 }
 
 function buildTableHeader(columnsOverride) {
@@ -627,7 +684,7 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
 
   Plotly.newPlot("radar", traces, {
     polar: {
-      radialaxis: { visible: true },
+      radialaxis: { visible: true, showticklabels: false },
       angularaxis: { tickmode: "array", tickvals: metricAngles, ticktext: selectedMetrics.map(prettyMetricLabel) }
     },
     barmode: "stack",
@@ -1670,6 +1727,7 @@ async function initDriversSection() {
     "#ff7f0e"
   );
   buildDriversReport(driversData);
+  resizePlotsForTab("tab-drivers");
 
   if (copyBtn) {
     copyBtn.addEventListener("click", async () => {
@@ -2080,4 +2138,7 @@ async function init() {
   syncUrlFromControls(stateRefs);
 }
 
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
+  init();
+});
