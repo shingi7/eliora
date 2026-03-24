@@ -7,21 +7,36 @@
     <style>
       :root {
         color-scheme: light;
+        --purple-950: #1f0a3d;
+        --purple-900: #2b0a57;
+        --purple-700: #4b1e8a;
+        --purple-500: #6a2fbf;
+        --purple-300: #c7a8f2;
+        --lavender-100: #f5f0fb;
+        --lavender-200: #efe7fb;
+        --gold-500: #d1a20f;
+        --text-main: #1a1b22;
+        --text-muted: #5c5b6b;
+        --border-soft: #e2d6f4;
+        --shadow-soft: 0 6px 18px rgba(31, 10, 61, 0.08);
       }
       body {
         margin: 0;
         padding: 24px;
         font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-        color: #111;
-        background: #f6f7fb;
+        color: var(--text-main);
+        background: var(--lavender-100);
       }
       h1 {
-        margin: 0 0 8px 0;
-        font-size: 28px;
+        margin: 0 0 6px 0;
+        font-size: 30px;
+        color: var(--purple-900);
+        letter-spacing: 0.2px;
       }
       h2 {
         margin: 0 0 12px 0;
         font-size: 20px;
+        color: var(--purple-900);
       }
       p {
         margin: 0 0 16px 0;
@@ -32,19 +47,19 @@
       }
       .status {
         font-size: 13px;
-        color: #444;
+        color: var(--text-muted);
         margin-bottom: 12px;
       }
       .status.error {
-        color: #a30000;
+        color: #b4231f;
       }
       .card {
         background: #fff;
-        border: 1px solid #e2e5ec;
-        border-radius: 10px;
-        padding: 16px;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        padding: 18px;
         margin-bottom: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        box-shadow: var(--shadow-soft);
       }
       .grid {
         display: grid;
@@ -56,26 +71,37 @@
         display: block;
         font-weight: 600;
         margin-bottom: 6px;
+        color: var(--purple-900);
       }
       select,
       input[type="number"] {
         width: 100%;
         padding: 6px 8px;
-        border: 1px solid #cfd5e2;
-        border-radius: 6px;
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
         font-size: 14px;
         background: #fff;
+        color: var(--text-main);
+      }
+      select:focus,
+      input[type="number"]:focus {
+        outline: none;
+        border-color: var(--purple-500);
+        box-shadow: 0 0 0 3px rgba(106, 47, 191, 0.2);
       }
       button {
-        padding: 6px 10px;
-        border: 1px solid #cfd5e2;
-        border-radius: 6px;
+        padding: 7px 12px;
+        border: 1px solid var(--purple-500);
+        border-radius: 8px;
         background: #fff;
+        color: var(--purple-700);
         font-size: 13px;
         cursor: pointer;
+        transition: all 0.15s ease;
       }
       button:hover {
-        background: #f3f5fa;
+        background: var(--purple-500);
+        color: #fff;
       }
       .chart {
         width: 100%;
@@ -86,7 +112,7 @@
       }
       .muted {
         font-size: 13px;
-        color: #666;
+        color: var(--text-muted);
       }
       table {
         width: 100%;
@@ -95,12 +121,16 @@
       }
       th,
       td {
-        border-bottom: 1px solid #e2e5ec;
+        border-bottom: 1px solid var(--border-soft);
         padding: 6px 8px;
         text-align: left;
       }
       thead th {
-        background: #f3f5fa;
+        background: var(--lavender-200);
+        color: var(--purple-900);
+      }
+      tbody tr:hover {
+        background: rgba(106, 47, 191, 0.06);
       }
       details {
         margin-top: 8px;
@@ -108,7 +138,7 @@
       summary {
         cursor: pointer;
         font-size: 13px;
-        color: #444;
+        color: var(--purple-700);
       }
       .table-wrap {
         overflow-x: auto;
@@ -123,9 +153,9 @@
         margin: 12px 0 16px;
       }
       .tab-bar button.active {
-        background: #111;
+        background: var(--purple-900);
         color: #fff;
-        border-color: #111;
+        border-color: var(--gold-500);
       }
       .tab-section {
         display: none;
@@ -171,18 +201,11 @@
               <label for="playerSelect">Players (multi-select)</label>
               <select id="playerSelect" multiple size="8"></select>
             </div>
-            <div>
-              <label for="metricSelect">Metrics (multi-select)</label>
-              <select id="metricSelect" multiple size="8"></select>
-            </div>
-            <div>
-              <label for="radarModeSelect">Radar value mode</label>
-              <select id="radarModeSelect">
-                <option value="z" selected>Z-scores</option>
-                <option value="raw">Raw values</option>
-              </select>
-            </div>
+          <div>
+            <label for="metricSelect">Metrics (multi-select)</label>
+            <select id="metricSelect" multiple size="8"></select>
           </div>
+        </div>
           <div class="section-note">
             <span class="muted">Quick Presets:</span>
             <button type="button" data-preset="false9">False 9</button>
@@ -198,7 +221,11 @@
 
         <section class="card">
           <h2>Radar Comparison</h2>
-          <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average; raw values are unscaled.</p>
+          <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average.</p>
+          <div class="section-note">
+            <button type="button" data-download-target="radar" data-download-name="st_radar">Download chart image</button>
+            <span id="radarDownloadStatus" class="muted"></span>
+          </div>
           <div id="radar" class="chart"></div>
           <div id="radarStatus" class="status"></div>
         </section>
@@ -207,6 +234,10 @@
       <section class="card tab-section" id="tab-top">
         <h2>Top Performers</h2>
         <p class="muted section-note">Ranks players by a single metric within the selected seasons and minutes filter.</p>
+        <div class="section-note">
+          <button type="button" data-download-target="topPerformersChart" data-download-name="st_top_performers">Download chart image</button>
+          <span id="topPerformersChartDownloadStatus" class="muted"></span>
+        </div>
         <div class="grid" id="topControls">
           <div>
             <label for="topSeasonSelect">Seasons (multi-select)</label>
@@ -217,7 +248,7 @@
             <select id="topMetricSelect"></select>
           </div>
           <div>
-            <label for="topNInput">Top N</label>
+            <label for="topNInput">Number of players</label>
             <input id="topNInput" type="number" min="1" max="50" step="1" value="10">
           </div>
         </div>
@@ -229,6 +260,10 @@
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <p class="muted section-note">Use X/Y to compare two metrics; labels show the top 10 by composite score.</p>
+        <div class="section-note">
+          <button type="button" data-download-target="bubbleChart" data-download-name="st_bubble">Download chart image</button>
+          <span id="bubbleChartDownloadStatus" class="muted"></span>
+        </div>
         <div class="grid" id="bubbleControls">
           <div>
             <label for="bubbleSeasonSelect">Seasons (multi-select)</label>
@@ -455,6 +490,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js?v=st-v14-tabs-20250206"></script>
+    <script src="./player-st.js?v=st-v33-radar-tooltip-coach-20250206"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
-const ST_BUILD_VERSION = "st-v14-tabs-20250206";
+const ST_BUILD_VERSION = "st-v33-radar-tooltip-coach-20250206";
 const dataUrl = `./data/player_st_comparison_features.json?v=${ST_BUILD_VERSION}`;
+const teamDataUrl = `./data/team_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const ROLE_DEFAULT = "Advanced Forward";
 
 const metricOptions = [
@@ -67,6 +68,33 @@ const BASELINE_METRICS = [
   "key_passes_per_90",
   "penalty_box_passes_impact",
   "xa_per_90"
+];
+
+const impactMetricComponents = {
+  shooting_impact: {
+    volume: "shots_per_90",
+    success: "shots_on_target_pct"
+  },
+  offensive_duel_impact: {
+    volume: "offensive_duels_per_90",
+    success: "offensive_duels_won_pct"
+  },
+  penalty_box_passes_impact: {
+    volume: "passes_to_penalty_area_per_90",
+    success: "accurate_passes_to_penalty_area_pct"
+  }
+};
+
+const playerTeamFitMap = [
+  { player: "non_pkxg_p90", team: "xg" },
+  { player: "non_penalty_goals_p90", team: "goals" },
+  { player: "shots_per_90", team: "shots_on_target" },
+  { player: "goal_conversion_pct", team: "goals" },
+  { player: "touches_in_box_per_90", team: "touches_in_penalty_area" },
+  { player: "key_passes_per_90", team: "progressive_passes_accurate" },
+  { player: "passes_to_penalty_area_per_90", team: "penalty_area_entries_runs_crosses" },
+  { player: "xa_per_90", team: "possesion_threat" },
+  { player: "link_play_percentile", team: "ball_progression_6" }
 ];
 
 const ST_PRESETS = {
@@ -264,22 +292,38 @@ const numericMetricKeys = new Set(
     .concat(metricOptions)
 );
 
+const ORL_COLORS = {
+  purple: "#6a2fbf",
+  purpleDeep: "#2b0a57",
+  purpleMid: "#4b1e8a",
+  lavender: "#c7a8f2",
+  lavenderLight: "#efe7fb",
+  gold: "#d1a20f",
+  grid: "#e2d6f4",
+  text: "#2b0a57"
+};
+
 const radarPalette = [
+  // Orlando-first core
+  ORL_COLORS.purple,
+  ORL_COLORS.gold,
+  ORL_COLORS.purpleMid,
+  ORL_COLORS.lavender,
+  // then higher-contrast extensions
   "#1f77b4",
   "#ff7f0e",
   "#2ca02c",
   "#d62728",
-  "#9467bd",
+  "#17becf",
   "#8c564b",
-  "#e377c2",
-  "#7f7f7f",
-  "#bcbd22",
-  "#17becf"
+  "#9467bd",
+  "#7f7f7f"
 ];
 
 let rawData = [];
 let filteredData = [];
 let rowById = new Map();
+let teamData = [];
 let metricStats = {};
 
 function toNumber(value) {
@@ -302,6 +346,74 @@ function rowLabel(row) {
 
 function prettyMetricLabel(metric) {
   return metricLabels[metric] || metric.replace(/_/g, " ");
+}
+
+function formatPercentile(value) {
+  if (!Number.isFinite(value)) {
+    return "n/a";
+  }
+  const pct = Math.round(value * 100);
+  const mod100 = pct % 100;
+  let suffix = "th";
+  if (mod100 < 11 || mod100 > 13) {
+    const mod10 = pct % 10;
+    if (mod10 === 1) suffix = "st";
+    if (mod10 === 2) suffix = "nd";
+    if (mod10 === 3) suffix = "rd";
+  }
+  return `${pct}${suffix} pct`;
+}
+
+function buildTeamFitList(playerRow, maxTeams = 3) {
+  if (!teamData || teamData.length === 0) {
+    return null;
+  }
+  const playerSeason = Number.isFinite(playerRow.season) ? playerRow.season : null;
+  let pool = teamData;
+  if (playerSeason !== null) {
+    const seasonPool = teamData.filter(row => row.year === playerSeason);
+    if (seasonPool.length > 0) {
+      pool = seasonPool;
+    }
+  }
+
+  const candidates = [];
+  pool.forEach(teamRow => {
+    const diffs = [];
+    playerTeamFitMap.forEach(pair => {
+      const playerVal = playerRow[`${pair.player}_z`];
+      const teamVal = teamRow[`${pair.team}_z`];
+      if (Number.isFinite(playerVal) && Number.isFinite(teamVal)) {
+        diffs.push(playerVal - teamVal);
+      }
+    });
+    if (diffs.length < 3) {
+      return;
+    }
+    const dist = Math.sqrt(diffs.reduce((sum, val) => sum + val * val, 0) / diffs.length);
+    candidates.push({ team: teamRow.team, dist });
+  });
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  candidates.sort((a, b) => a.dist - b.dist);
+  const topTeams = [];
+  for (const entry of candidates) {
+    if (!topTeams.includes(entry.team)) {
+      topTeams.push(entry.team);
+    }
+    if (topTeams.length >= maxTeams) break;
+  }
+  return topTeams.length > 0 ? topTeams : null;
+}
+
+function getRadarModeValue(radarModeSelect) {
+  if (radarModeSelect && radarModeSelect.value) {
+    return radarModeSelect.value;
+  }
+  return "z";
 }
 
 function getSelectedValues(selectEl) {
@@ -370,7 +482,7 @@ function buildSimilarityMetricOptions(similarityMetricSelect) {
 }
 
 function getRadarValue(row, metric, radarModeSelect) {
-  if (radarModeSelect.value === "z") {
+  if (getRadarModeValue(radarModeSelect) === "z") {
     return row[`${metric}_z`];
   }
   return row[metric];
@@ -553,9 +665,36 @@ function getPlayerRole(row) {
 }
 
 function computeMetricRanks(rows, metric, radarModeSelect, lowerBetter) {
-  const metricKey = radarModeSelect.value === "z" ? `${metric}_z` : metric;
+  const metricKey = getRadarModeValue(radarModeSelect) === "z" ? `${metric}_z` : metric;
   const values = rows
     .map(row => ({ id: rowId(row), value: row[metricKey] }))
+    .filter(item => Number.isFinite(item.value));
+
+  const n = values.length;
+  if (n === 0) {
+    return { n: 0, map: new Map() };
+  }
+
+  values.sort((a, b) => {
+    if (lowerBetter) {
+      return a.value - b.value;
+    }
+    return b.value - a.value;
+  });
+
+  const rankMap = new Map();
+  values.forEach((item, idx) => {
+    const rank = idx + 1;
+    const percentile = n === 1 ? 100 : ((n - rank) / (n - 1)) * 100;
+    rankMap.set(item.id, { rank, percentile, n });
+  });
+
+  return { n, map: rankMap };
+}
+
+function computeMetricRanksRaw(rows, metric, lowerBetter = false) {
+  const values = rows
+    .map(row => ({ id: rowId(row), value: row[metric] }))
     .filter(item => Number.isFinite(item.value));
 
   const n = values.length;
@@ -594,12 +733,18 @@ function updatePlayerOptions(playerSelect) {
   const previous = getSelectedValues(playerSelect);
   playerSelect.innerHTML = "";
 
-  const sorted = [...filteredData].sort((a, b) => (b.overall_percentile || -Infinity) - (a.overall_percentile || -Infinity));
+  const sorted = [...filteredData].sort((a, b) => {
+    const nameCmp = (a.player || "").localeCompare(b.player || "", undefined, { sensitivity: "base" });
+    if (nameCmp !== 0) return nameCmp;
+    const teamCmp = (a.team || "").localeCompare(b.team || "", undefined, { sensitivity: "base" });
+    if (teamCmp !== 0) return teamCmp;
+    return (a.season || 0) - (b.season || 0);
+  });
   sorted.forEach(row => {
     const option = document.createElement("option");
     const id = rowId(row);
     option.value = id;
-    option.textContent = rowLabel(row);
+    option.textContent = `${row.player} — ${row.team} — ${row.season}`;
     playerSelect.appendChild(option);
   });
 
@@ -650,88 +795,148 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
   }
 
   const entries = [];
-  const allValues = [];
   selectedPlayers.forEach(id => {
     const row = rowById.get(id);
     if (!row) return;
-    const values = selectedMetrics.map(metric => getRadarValue(row, metric, radarModeSelect));
-    if (values.some(value => value === null || value === undefined || Number.isNaN(value))) {
-      return;
-    }
-    values.forEach(value => allValues.push(value));
-    entries.push({ row, values });
+    entries.push({ row });
   });
 
-  const metricCount = selectedMetrics.length;
-  const metricAngles = selectedMetrics.map((_, idx) => (360 / metricCount) * idx);
-  const wedgeWidth = (360 / metricCount) * 0.9;
+  if (entries.length === 0) {
+    Plotly.purge("radar");
+    radarStatus.textContent = "No data available for the selected players/metrics.";
+    return;
+  }
+
+  const mode = getRadarModeValue(radarModeSelect);
+  const radialRange = [0, 8];
+  const angleStep = 360 / selectedMetrics.length;
+  const thetaValues = selectedMetrics.map((_, idx) => idx * angleStep);
   const rankMaps = new Map();
   selectedMetrics.forEach(metric => {
     const lowerBetter = radarLowerBetter.has(metric);
     rankMaps.set(metric, computeMetricRanks(filteredData, metric, radarModeSelect, lowerBetter));
   });
-
-  const colorById = new Map();
-  entries.forEach((entry, idx) => {
-    colorById.set(rowId(entry.row), radarPalette[idx % radarPalette.length]);
+  const rawRankMaps = new Map();
+  selectedMetrics.forEach(metric => {
+    if (!rawRankMaps.has(metric)) {
+      const lowerBetter = radarLowerBetter.has(metric);
+      rawRankMaps.set(metric, computeMetricRanksRaw(filteredData, metric, lowerBetter));
+    }
+  });
+  const impactRankMaps = new Map();
+  selectedMetrics.forEach(metric => {
+    const components = impactMetricComponents[metric];
+    if (!components) return;
+    [components.volume, components.success].forEach(component => {
+      if (!impactRankMaps.has(component)) {
+        impactRankMaps.set(component, computeMetricRanksRaw(filteredData, component, false));
+      }
+    });
   });
 
-  const traces = [];
-  const legendShown = new Set();
-  let valueShift = 0;
-  if (allValues.length > 0) {
-    const minVal = Math.min(...allValues);
-    valueShift = minVal < 0 ? -minVal : 0;
-  }
-
-  for (let metricIndex = 0; metricIndex < metricCount; metricIndex += 1) {
-    const angle = metricAngles[metricIndex];
-    const metricValues = entries
-      .map(entry => ({ entry, value: entry.values[metricIndex] }))
-      .sort((a, b) => a.value - b.value);
-
-    metricValues.forEach(item => {
-      const entryId = rowId(item.entry.row);
-      const showLegend = !legendShown.has(entryId);
-      if (showLegend) {
-        legendShown.add(entryId);
+  const thetaLabels = selectedMetrics.map(prettyMetricLabel);
+  const metricRanges = selectedMetrics.map(metric => {
+    if (mode !== "raw") return null;
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+    filteredData.forEach(row => {
+      const value = row[metric];
+      if (Number.isFinite(value)) {
+        minVal = Math.min(minVal, value);
+        maxVal = Math.max(maxVal, value);
       }
-      const metricKey = selectedMetrics[metricIndex];
-      const rawVal = item.entry.row[metricKey];
-      const zVal = item.entry.row[`${metricKey}_z`];
-      const mode = radarModeSelect.value;
-      const rankInfo = rankMaps.get(metricKey);
+    });
+    if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)) {
+      return { min: 0, max: 0, range: 0 };
+    }
+    return { min: minVal, max: maxVal, range: maxVal - minVal };
+  });
+
+  const traces = entries.map((entry, idx) => {
+    const entryId = rowId(entry.row);
+    const color = radarPalette[idx % radarPalette.length];
+    const fitTeams = buildTeamFitList(entry.row, 4);
+    const fitText = fitTeams ? fitTeams.join(", ") : "n/a";
+    const overallText = formatPercentile(entry.row.overall_percentile);
+    const minutesText = Number.isFinite(entry.row.minutes_played) ? Math.round(entry.row.minutes_played) : "n/a";
+    const customdata = [];
+    const rVals = selectedMetrics.map((metric, mIdx) => {
+      const rawVal = entry.row[metric];
+      const zVal = entry.row[`${metric}_z`];
+      const rankInfo = rankMaps.get(metric);
       const rankEntry = rankInfo ? rankInfo.map.get(entryId) : null;
       const rankText = rankEntry ? `${rankEntry.rank}/${rankEntry.n}` : "—";
       const pctText = rankEntry ? `${rankEntry.percentile.toFixed(0)}%` : "—";
-      const hoverTemplate = mode === "z"
-        ? "<b>%{customdata.label}</b><br>%{customdata.metric}: %{customdata.zText} (Z)<br>Raw: %{customdata.rawText}<br>Rank: %{customdata.rankText}<br>Percentile: %{customdata.pctText}<extra></extra>"
-        : "<b>%{customdata.label}</b><br>%{customdata.metric}: %{customdata.rawText} (Raw)<br>Z: %{customdata.zText}<br>Rank: %{customdata.rankText}<br>Percentile: %{customdata.pctText}<extra></extra>";
-      traces.push({
-        type: "barpolar",
-        r: [item.value + valueShift],
-        theta: [angle],
-        width: wedgeWidth,
-        name: rowLabel(item.entry.row),
-        legendgroup: entryId,
-        showlegend: showLegend,
-        marker: {
-          color: colorById.get(entryId),
-          opacity: entries.length > 1 ? 0.65 : 0.85,
-          line: { width: 1, color: "rgba(0,0,0,0.25)" }
-        },
-        customdata: [{
-          label: rowLabel(item.entry.row),
-          metric: prettyMetricLabel(metricKey),
-          rawText: formatRadarValue(rawVal, "raw"),
-          zText: formatRadarValue(zVal, "z"),
-          rankText,
-          pctText
-        }],
-        hovertemplate: hoverTemplate
-      });
+      let impactLines = "";
+      const impactComponents = impactMetricComponents[metric];
+      const volumeMetric = impactComponents ? impactComponents.volume : metric;
+      const successMetric = impactComponents ? impactComponents.success : metric;
+      const volumeInfo = impactComponents ? impactRankMaps.get(volumeMetric) : rawRankMaps.get(volumeMetric);
+      const volumeEntry = volumeInfo ? volumeInfo.map.get(entryId) : null;
+      const volumeText = volumeEntry ? `${volumeEntry.rank} / ${volumeEntry.n}` : "n/a";
+      const successInfo = impactComponents ? impactRankMaps.get(successMetric) : rawRankMaps.get(successMetric);
+      const successEntry = successInfo ? successInfo.map.get(entryId) : null;
+      const successText = successEntry ? `${successEntry.rank} / ${successEntry.n}` : "n/a";
+      impactLines =
+        `<br>Volume rank (${prettyMetricLabel(volumeMetric)}): ${volumeText}` +
+        `<br>Success rank (${prettyMetricLabel(successMetric)}): ${successText}`;
+
+      customdata.push([
+        prettyMetricLabel(metric),
+        formatRadarValue(rawVal, "raw"),
+        formatRadarValue(zVal, "z"),
+        rankText,
+        pctText,
+        impactLines,
+        fitText
+      ]);
+
+      if (mode === "raw") {
+        if (!Number.isFinite(rawVal)) return null;
+        const stats = metricRanges[mIdx];
+        if (!stats || stats.range === 0) return 4;
+        return ((rawVal - stats.min) / stats.range) * 8;
+      }
+      if (!Number.isFinite(zVal)) return null;
+      const clamped = Math.max(-4, Math.min(4, zVal));
+      return clamped + 4;
     });
-  }
+
+    if (rVals.some(value => value === null)) {
+      return null;
+    }
+
+    const meanRadius = rVals.reduce((sum, val) => sum + val, 0) / rVals.length;
+
+    const legendLabel = [
+      `<b>${rowLabel(entry.row)}</b>`,
+      `Min: ${minutesText} — Overall: ${overallText}`,
+      `Fit: ${fitText}`
+    ].join("<br>");
+
+    return {
+      type: "barpolar",
+      r: rVals,
+      theta: thetaValues,
+      base: 0,
+      name: legendLabel,
+      marker: {
+        color,
+        opacity: entries.length > 1 ? 0.55 : 0.85,
+        line: { width: 1, color: ORL_COLORS.purpleDeep }
+      },
+      width: angleStep * 0.9,
+      customdata,
+      hovertemplate:
+        "<b>%{customdata[0]}</b><br>" +
+        "Rank: %{customdata[3]}<br>" +
+        "Percentile: %{customdata[4]}%{customdata[5]}<br>" +
+        "Fit: %{customdata[6]}<extra></extra>",
+      meta: { meanRadius }
+    };
+  }).filter(Boolean);
+
+  traces.sort((a, b) => (b.meta?.meanRadius || 0) - (a.meta?.meanRadius || 0));
 
   if (traces.length === 0) {
     Plotly.purge("radar");
@@ -739,18 +944,30 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
     return;
   }
 
-  if (valueShift > 0) {
-    radarStatus.textContent = "Values shifted to be non-negative for stacked pizza slices.";
-  }
-
   Plotly.newPlot("radar", traces, {
     polar: {
-      radialaxis: { visible: true, showticklabels: false },
-      angularaxis: { tickmode: "array", tickvals: metricAngles, ticktext: selectedMetrics.map(prettyMetricLabel) }
+      radialaxis: {
+        visible: true,
+        showticklabels: false,
+        gridcolor: ORL_COLORS.grid,
+        linecolor: ORL_COLORS.grid,
+        range: radialRange
+      },
+      angularaxis: {
+        tickmode: "array",
+        tickvals: thetaValues,
+        ticktext: thetaLabels,
+        tickfont: { color: ORL_COLORS.text }
+      }
     },
-    barmode: "stack",
+    barmode: "overlay",
     showlegend: true,
-    margin: { t: 30, b: 30, l: 30, r: 30 }
+    legend: { tracegroupgap: 12 },
+    margin: { t: 40, b: 40, l: 70, r: 40 },
+    height: 600,
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -961,7 +1178,7 @@ function syncUrlFromControls(state) {
   setParam("min_minutes", state.minutesInput.value);
   setListParam("players", normalizeMultiSelection(getSelectedValues(state.playerSelect)));
   setListParam("metrics", normalizeMultiSelection(getSelectedValues(state.metricSelect)));
-  setParam("radar_mode", state.radarModeSelect.value);
+  setParam("radar_mode", getRadarModeValue(state.radarModeSelect));
   setListParam("top_seasons", normalizeMultiSelection(getSelectedValues(state.topSeasonSelect)));
   setParam("top_metric", state.topMetricSelect.value);
   setParam("top_n", state.topNInput.value);
@@ -1056,14 +1273,18 @@ function buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStat
     x: players.map(row => playerLabel(row)),
     y: values,
     hovertext: yLabels,
-    hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>"
+    hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>",
+    marker: { color: ORL_COLORS.purple }
   };
 
   Plotly.newPlot("topPerformersChart", [trace], {
     margin: { t: 30, b: 160, l: 50, r: 20 },
     xaxis: { tickangle: -30, automargin: true, tickfont: { size: 10 } },
     yaxis: { title: prettyMetricLabel(selectedMetric), automargin: true },
-    showlegend: false
+    showlegend: false,
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -1162,6 +1383,41 @@ function formatDateStamp() {
   return `${yyyy}${mm}${dd}`;
 }
 
+function setupDownloadButtons() {
+  const buttons = Array.from(document.querySelectorAll("[data-download-target]"));
+  if (buttons.length === 0) {
+    return;
+  }
+  buttons.forEach(button => {
+    button.addEventListener("click", async () => {
+      const targetId = button.getAttribute("data-download-target");
+      const filenameBase = button.getAttribute("data-download-name") || "chart";
+      const statusId = `${targetId}DownloadStatus`;
+      const statusEl = document.getElementById(statusId);
+      if (statusEl) {
+        statusEl.textContent = "";
+      }
+      const plotEl = document.getElementById(targetId);
+      if (!plotEl || !plotEl.data || plotEl.data.length === 0) {
+        if (statusEl) {
+          statusEl.textContent = "Chart not ready yet.";
+        }
+        return;
+      }
+      try {
+        await Plotly.downloadImage(plotEl, {
+          format: "png",
+          filename: `${filenameBase}_${formatDateStamp()}`
+        });
+      } catch (error) {
+        if (statusEl) {
+          statusEl.textContent = "Download failed.";
+        }
+      }
+    });
+  });
+}
+
 function describeSelection(selectEl, useLabels = true, labelFn = null) {
   const selected = Array.from(selectEl.selectedOptions);
   if (selected.length === 0) {
@@ -1219,7 +1475,7 @@ function buildSummaryText(state) {
     `Min minutes: ${minutesInput.value || 0}`,
     `Radar players: ${describeSelection(playerSelect, true)}`,
     `Radar metrics: ${describeSelection(metricSelect, false, prettyMetricLabel)}`,
-    `Radar mode: ${radarModeSelect.value === "z" ? "Z-scores" : "Raw values"}`,
+    `Radar mode: ${getRadarModeValue(radarModeSelect) === "z" ? "Z-scores" : "Raw values"}`,
     `Top performers: ${prettyMetricLabel(topMetricSelect.value)} (Top ${topNInput.value})`,
     `Top seasons: ${describeSelection(topSeasonSelect, true)}`,
     `Bubble seasons: ${describeSelection(bubbleSeasonSelect, true)}`,
@@ -1324,7 +1580,7 @@ function buildReportSnapshot(state) {
   const minutesText = state.minutesInput.value || "0";
   const playersText = describeSelection(state.playerSelect, true);
   const metricsText = describeSelection(state.metricSelect, false, prettyMetricLabel);
-  const radarModeText = state.radarModeSelect.value === "z" ? "Z-scores" : "Raw values";
+  const radarModeText = getRadarModeValue(state.radarModeSelect) === "z" ? "Z-scores" : "Raw values";
   const topText = `${prettyMetricLabel(state.topMetricSelect.value)} (Top ${state.topNInput.value}) | Seasons: ${describeSelection(state.topSeasonSelect, true)}`;
   const bubbleText = `Seasons: ${describeSelection(state.bubbleSeasonSelect, true)} | X: ${prettyMetricLabel(state.bubbleXSelect.value)} | Y: ${prettyMetricLabel(state.bubbleYSelect.value)} | Composite: ${describeSelection(state.bubbleCompositeSelect, false, prettyMetricLabel)}`;
   const similarityText = state.targetSelect.selectedOptions[0]?.textContent || "None";
@@ -1494,7 +1750,8 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
   });
 
   const traces = [];
-  Array.from(pointsBySeason.keys()).sort().forEach(seasonKey => {
+  const seasonKeys = Array.from(pointsBySeason.keys()).sort();
+  seasonKeys.forEach((seasonKey, idx) => {
     const seasonPoints = pointsBySeason.get(seasonKey);
     const customdata = seasonPoints.map(point => [
       playerLabel(point.row),
@@ -1516,7 +1773,9 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
       marker: {
         size: seasonPoints.map(point => sizeFor(point.compositeZ)),
         sizemode: "area",
-        opacity: 0.7
+        opacity: 0.75,
+        color: radarPalette[idx % radarPalette.length],
+        line: { color: ORL_COLORS.purpleDeep, width: 0.5 }
       },
       hovertemplate:
         "Player: %{customdata[0]}<br>" +
@@ -1553,7 +1812,10 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
     xaxis: { title: prettyMetricLabel(xMetric) },
     yaxis: { title: prettyMetricLabel(yMetric) },
     showlegend: showLegend,
-    legend: { orientation: "h" }
+    legend: { orientation: "h" },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -1769,6 +2031,7 @@ async function init() {
   const copyReportBtn = document.getElementById("copyReportBtn");
   const copyReportStatus = document.getElementById("copyReportStatus");
   const presetButtons = Array.from(document.querySelectorAll("[data-preset]"));
+  setupDownloadButtons();
 
   const urlState = readUrlState();
 
@@ -1779,7 +2042,8 @@ async function init() {
     `Page URL: ${pageUrl}`,
     `Origin: ${pageOrigin}`,
     `Pathname: ${pagePathname}`,
-    `Data URL: ${dataUrl}`
+    `Data URL: ${dataUrl}`,
+    `Team fit URL: ${teamDataUrl}`
   ].join("<br>");
   setStatus(dataStatus, "Loading data...");
 
@@ -1803,6 +2067,15 @@ async function init() {
     return;
   }
 
+  try {
+    const teamResponse = await fetch(teamDataUrl);
+    if (teamResponse.ok) {
+      teamData = await teamResponse.json();
+    }
+  } catch (error) {
+    teamData = [];
+  }
+
   rawData.forEach(row => {
     row.season = toNumber(row.season);
     row.minutes_played = toNumber(row.minutes_played);
@@ -1819,6 +2092,16 @@ async function init() {
       row[metric] = toNumber(row[metric]);
     });
   });
+
+  if (teamData.length > 0) {
+    const teamNumericKeys = Object.keys(teamData[0] || {}).filter(key => key !== "team" && key !== "year");
+    teamData.forEach(row => {
+      row.year = toNumber(row.year);
+      teamNumericKeys.forEach(key => {
+        row[key] = toNumber(row[key]);
+      });
+    });
+  }
 
   metricStats = buildMetricStats(rawData, roleMetricKeys);
   rawData.forEach(row => {
@@ -1949,11 +2232,13 @@ async function init() {
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
-  radarModeSelect.addEventListener("change", () => {
-    updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
-    updateReportNow();
-    syncUrlFromControls(stateRefs);
-  });
+  if (radarModeSelect) {
+    radarModeSelect.addEventListener("change", () => {
+      updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+    });
+  }
   targetSelect.addEventListener("change", () => {
     if (targetSelectCustom) {
       targetSelectCustom.value = targetSelect.value;

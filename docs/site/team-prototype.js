@@ -1,4 +1,4 @@
-const TEAM_BUILD_VERSION = "team-v8-drivers-fix-20250206";
+const TEAM_BUILD_VERSION = "team-v18-radar-tooltip-coach-20250206";
 const dataUrl = `./data/team_comparison_features.json?v=${TEAM_BUILD_VERSION}`;
 const driversUrl = `./data/team_points_drivers.json?v=${TEAM_BUILD_VERSION}`;
 
@@ -226,17 +226,32 @@ const tableColumns = [
   { key: "match_tempo", label: "Match Tempo", type: "num" }
 ];
 
+const ORL_COLORS = {
+  purple: "#6a2fbf",
+  purpleDeep: "#2b0a57",
+  purpleMid: "#4b1e8a",
+  lavender: "#c7a8f2",
+  lavenderLight: "#efe7fb",
+  gold: "#d1a20f",
+  grid: "#e2d6f4",
+  text: "#2b0a57"
+};
+
 const radarPalette = [
+  // Orlando-first core
+  ORL_COLORS.purple,
+  ORL_COLORS.gold,
+  ORL_COLORS.purpleMid,
+  ORL_COLORS.lavender,
+  // then higher-contrast extensions
   "#1f77b4",
   "#ff7f0e",
   "#2ca02c",
   "#d62728",
-  "#9467bd",
+  "#17becf",
   "#8c564b",
-  "#e377c2",
-  "#7f7f7f",
-  "#bcbd22",
-  "#17becf"
+  "#9467bd",
+  "#7f7f7f"
 ];
 
 let rawData = [];
@@ -279,6 +294,24 @@ function rowLabel(row) {
 
 function prettyMetricLabel(metric) {
   return metricLabels[metric] || metric.replace(/_/g, " ");
+}
+
+function getRadarModeValue(radarModeSelect) {
+  if (radarModeSelect && radarModeSelect.value) {
+    return radarModeSelect.value;
+  }
+  return "z";
+}
+
+function hexToRgba(hex, alpha) {
+  const clean = hex.replace("#", "");
+  if (clean.length !== 6) {
+    return `rgba(0,0,0,${alpha})`;
+  }
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 function resizePlot(containerId) {
@@ -535,7 +568,7 @@ function updateTargetOptions(targetSelect) {
 }
 
 function getRadarValue(row, metric, radarModeSelect) {
-  if (radarModeSelect.value === "z") {
+  if (getRadarModeValue(radarModeSelect) === "z") {
     return row[`${metric}_z`];
   }
   return row[metric];
@@ -550,7 +583,7 @@ function formatRadarValue(value, mode) {
 }
 
 function computeMetricRanks(rows, metric, radarModeSelect, lowerBetter) {
-  const metricKey = radarModeSelect.value === "z" ? `${metric}_z` : metric;
+  const metricKey = getRadarModeValue(radarModeSelect) === "z" ? `${metric}_z` : metric;
   const values = rows
     .map(row => ({ id: rowId(row), value: row[metricKey] }))
     .filter(item => Number.isFinite(item.value));
@@ -589,88 +622,109 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
   }
 
   const entries = [];
-  const allValues = [];
   selectedTeams.forEach(id => {
     const row = rowById.get(id);
     if (!row) return;
-    const values = selectedMetrics.map(metric => getRadarValue(row, metric, radarModeSelect));
-    if (values.some(value => value === null || value === undefined || Number.isNaN(value))) {
-      return;
-    }
-    values.forEach(value => allValues.push(value));
-    entries.push({ row, values });
+    entries.push({ row });
   });
 
-  const metricCount = selectedMetrics.length;
-  const metricAngles = selectedMetrics.map((_, idx) => (360 / metricCount) * idx);
-  const wedgeWidth = (360 / metricCount) * 0.9;
+  if (entries.length === 0) {
+    Plotly.purge("radar");
+    radarStatus.textContent = "No data available for the selected teams/metrics.";
+    return;
+  }
+
+  const mode = getRadarModeValue(radarModeSelect);
+  const radialRange = [0, 8];
+  const angleStep = 360 / selectedMetrics.length;
+  const thetaValues = selectedMetrics.map((_, idx) => idx * angleStep);
   const rankMaps = new Map();
   selectedMetrics.forEach(metric => {
     const lowerBetter = radarLowerBetter.has(metric);
     rankMaps.set(metric, computeMetricRanks(filteredData, metric, radarModeSelect, lowerBetter));
   });
 
-  const colorById = new Map();
-  entries.forEach((entry, idx) => {
-    colorById.set(rowId(entry.row), radarPalette[idx % radarPalette.length]);
-  });
-
-  const traces = [];
-  const legendShown = new Set();
-  let valueShift = 0;
-  if (allValues.length > 0) {
-    const minVal = Math.min(...allValues);
-    valueShift = minVal < 0 ? -minVal : 0;
-  }
-
-  for (let metricIndex = 0; metricIndex < metricCount; metricIndex += 1) {
-    const angle = metricAngles[metricIndex];
-    const metricValues = entries
-      .map(entry => ({ entry, value: entry.values[metricIndex] }))
-      .sort((a, b) => a.value - b.value);
-
-    metricValues.forEach(item => {
-      const entryId = rowId(item.entry.row);
-      const showLegend = !legendShown.has(entryId);
-      if (showLegend) {
-        legendShown.add(entryId);
+  const thetaLabels = selectedMetrics.map(prettyMetricLabel);
+  const metricRanges = selectedMetrics.map(metric => {
+    if (mode !== "raw") return null;
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+    filteredData.forEach(row => {
+      const value = row[metric];
+      if (Number.isFinite(value)) {
+        minVal = Math.min(minVal, value);
+        maxVal = Math.max(maxVal, value);
       }
-      const metricKey = selectedMetrics[metricIndex];
-      const rawVal = item.entry.row[metricKey];
-      const zVal = item.entry.row[`${metricKey}_z`];
-      const mode = radarModeSelect.value;
-      const rankInfo = rankMaps.get(metricKey);
+    });
+    if (!Number.isFinite(minVal) || !Number.isFinite(maxVal)) {
+      return { min: 0, max: 0, range: 0 };
+    }
+    return { min: minVal, max: maxVal, range: maxVal - minVal };
+  });
+  const traces = entries.map((entry, idx) => {
+    const entryId = rowId(entry.row);
+    const color = radarPalette[idx % radarPalette.length];
+    const customdata = [];
+    const rVals = selectedMetrics.map((metric, mIdx) => {
+      const rawVal = entry.row[metric];
+      const zVal = entry.row[`${metric}_z`];
+      const rankInfo = rankMaps.get(metric);
       const rankEntry = rankInfo ? rankInfo.map.get(entryId) : null;
       const rankText = rankEntry ? `${rankEntry.rank}/${rankEntry.n}` : "—";
       const pctText = rankEntry ? `${rankEntry.percentile.toFixed(0)}%` : "—";
-      const hoverTemplate = mode === "z"
-        ? "<b>%{customdata.label}</b><br>%{customdata.metric}: %{customdata.zText} (Z)<br>Raw: %{customdata.rawText}<br>Rank: %{customdata.rankText}<br>Percentile: %{customdata.pctText}<extra></extra>"
-        : "<b>%{customdata.label}</b><br>%{customdata.metric}: %{customdata.rawText} (Raw)<br>Z: %{customdata.zText}<br>Rank: %{customdata.rankText}<br>Percentile: %{customdata.pctText}<extra></extra>";
-      traces.push({
-        type: "barpolar",
-        r: [item.value + valueShift],
-        theta: [angle],
-        width: wedgeWidth,
-        name: rowLabel(item.entry.row),
-        legendgroup: entryId,
-        showlegend: showLegend,
-        marker: {
-          color: colorById.get(entryId),
-          opacity: entries.length > 1 ? 0.65 : 0.85,
-          line: { width: 1, color: "rgba(0,0,0,0.25)" }
-        },
-        customdata: [{
-          label: rowLabel(item.entry.row),
-          metric: prettyMetricLabel(metricKey),
-          rawText: formatRadarValue(rawVal, "raw"),
-          zText: formatRadarValue(zVal, "z"),
-          rankText,
-          pctText
-        }],
-        hovertemplate: hoverTemplate
-      });
+      customdata.push([
+        prettyMetricLabel(metric),
+        formatRadarValue(rawVal, "raw"),
+        formatRadarValue(zVal, "z"),
+        rankText,
+        pctText
+      ]);
+
+      if (mode === "raw") {
+        if (!Number.isFinite(rawVal)) return null;
+        const stats = metricRanges[mIdx];
+        if (!stats || stats.range === 0) return 4;
+        return ((rawVal - stats.min) / stats.range) * 8;
+      }
+      if (!Number.isFinite(zVal)) return null;
+      const clamped = Math.max(-4, Math.min(4, zVal));
+      return clamped + 4;
     });
-  }
+
+    if (rVals.some(value => value === null)) {
+      return null;
+    }
+
+    return {
+      type: "barpolar",
+      r: rVals,
+      theta: thetaValues,
+      base: 0,
+      name: rowLabel(entry.row),
+      marker: {
+        color,
+        opacity: entries.length > 1 ? 0.55 : 0.85,
+        line: { width: 1, color: ORL_COLORS.purpleDeep }
+      },
+      width: angleStep * 0.9,
+      customdata,
+      hovertemplate:
+        "<b>%{customdata[0]}</b><br>" +
+        "Rank: %{customdata[3]}<br>" +
+        "Percentile: %{customdata[4]}<extra></extra>"
+    };
+  }).filter(Boolean);
+
+  traces.forEach(trace => {
+    if (!Array.isArray(trace.r) || trace.r.length === 0) {
+      trace.meta = { meanRadius: 0 };
+      return;
+    }
+    const meanRadius = trace.r.reduce((sum, val) => sum + val, 0) / trace.r.length;
+    trace.meta = { meanRadius };
+  });
+
+  traces.sort((a, b) => (b.meta?.meanRadius || 0) - (a.meta?.meanRadius || 0));
 
   if (traces.length === 0) {
     Plotly.purge("radar");
@@ -678,18 +732,29 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
     return;
   }
 
-  if (valueShift > 0) {
-    radarStatus.textContent = "Values shifted to be non-negative for stacked pizza slices.";
-  }
-
   Plotly.newPlot("radar", traces, {
     polar: {
-      radialaxis: { visible: true, showticklabels: false },
-      angularaxis: { tickmode: "array", tickvals: metricAngles, ticktext: selectedMetrics.map(prettyMetricLabel) }
+      radialaxis: {
+        visible: true,
+        showticklabels: false,
+        gridcolor: ORL_COLORS.grid,
+        linecolor: ORL_COLORS.grid,
+        range: radialRange
+      },
+      angularaxis: {
+        tickmode: "array",
+        tickvals: thetaValues,
+        ticktext: thetaLabels,
+        tickfont: { color: ORL_COLORS.text }
+      }
     },
-    barmode: "stack",
+    barmode: "overlay",
     showlegend: true,
-    margin: { t: 30, b: 30, l: 30, r: 30 }
+    margin: { t: 40, b: 40, l: 40, r: 40 },
+    height: 600,
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -790,14 +855,18 @@ function buildTopTeams(topYearSelect, topMetricSelect, topNInput, topStatus, poi
     x: teams.map(row => row.team),
     y: values,
     hovertext: labels,
-    hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>"
+    hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>",
+    marker: { color: ORL_COLORS.purple }
   };
 
   Plotly.newPlot("topTeamsChart", [trace], {
     margin: { t: 30, b: 160, l: 50, r: 20 },
     xaxis: { tickangle: -30, automargin: true, tickfont: { size: 10 } },
     yaxis: { title: prettyMetricLabel(selectedMetric), automargin: true },
-    showlegend: false
+    showlegend: false,
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -897,7 +966,8 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
   });
 
   const traces = [];
-  Array.from(pointsByYear.keys()).sort().forEach(yearKey => {
+  const yearKeys = Array.from(pointsByYear.keys()).sort();
+  yearKeys.forEach((yearKey, idx) => {
     const yearPoints = pointsByYear.get(yearKey);
     const customdata = yearPoints.map(point => [
       point.row.team,
@@ -917,7 +987,9 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
       marker: {
         size: yearPoints.map(point => sizeFor(point.compositeZ)),
         sizemode: "area",
-        opacity: 0.7
+        opacity: 0.75,
+        color: radarPalette[idx % radarPalette.length],
+        line: { color: ORL_COLORS.purpleDeep, width: 0.5 }
       },
       hovertemplate:
         "Team: %{customdata[0]}<br>" +
@@ -952,7 +1024,10 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
     xaxis: { title: prettyMetricLabel(xMetric) },
     yaxis: { title: prettyMetricLabel(yMetric) },
     showlegend: showLegend,
-    legend: { orientation: "h" }
+    legend: { orientation: "h" },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   }, { displayModeBar: false });
 }
 
@@ -1211,7 +1286,7 @@ function syncUrlFromControls(state) {
   setParam("min_points", state.pointsInput.value);
   setListParam("teams", normalizeMultiSelection(getSelectedValues(state.teamSelect)));
   setListParam("metrics", normalizeMultiSelection(getSelectedValues(state.metricSelect)));
-  setParam("radar_mode", state.radarModeSelect.value);
+  setParam("radar_mode", getRadarModeValue(state.radarModeSelect));
   setListParam("top_seasons", normalizeMultiSelection(getSelectedValues(state.topYearSelect)));
   setParam("top_metric", state.topMetricSelect.value);
   setParam("top_n", state.topNInput.value);
@@ -1341,6 +1416,41 @@ function formatDateStamp() {
   return `${yyyy}${mm}${dd}`;
 }
 
+function setupDownloadButtons() {
+  const buttons = Array.from(document.querySelectorAll("[data-download-target]"));
+  if (buttons.length === 0) {
+    return;
+  }
+  buttons.forEach(button => {
+    button.addEventListener("click", async () => {
+      const targetId = button.getAttribute("data-download-target");
+      const filenameBase = button.getAttribute("data-download-name") || "chart";
+      const statusId = `${targetId}DownloadStatus`;
+      const statusEl = document.getElementById(statusId);
+      if (statusEl) {
+        statusEl.textContent = "";
+      }
+      const plotEl = document.getElementById(targetId);
+      if (!plotEl || !plotEl.data || plotEl.data.length === 0) {
+        if (statusEl) {
+          statusEl.textContent = "Chart not ready yet.";
+        }
+        return;
+      }
+      try {
+        await Plotly.downloadImage(plotEl, {
+          format: "png",
+          filename: `${filenameBase}_${formatDateStamp()}`
+        });
+      } catch (error) {
+        if (statusEl) {
+          statusEl.textContent = "Download failed.";
+        }
+      }
+    });
+  });
+}
+
 function describeSelection(selectEl, useLabels = true, labelFn = null) {
   const selected = Array.from(selectEl.selectedOptions);
   if (selected.length === 0) {
@@ -1398,7 +1508,7 @@ function buildSummaryText(state) {
     `Min points: ${pointsInput.value || 0}`,
     `Radar teams: ${describeSelection(teamSelect, true)}`,
     `Radar metrics: ${describeSelection(metricSelect, false, prettyMetricLabel)}`,
-    `Radar mode: ${radarModeSelect.value === "z" ? "Z-scores" : "Raw values"}`,
+    `Radar mode: ${getRadarModeValue(radarModeSelect) === "z" ? "Z-scores" : "Raw values"}`,
     `Top teams: ${prettyMetricLabel(topMetricSelect.value)} (Top ${topNInput.value})`,
     `Top seasons: ${describeSelection(topYearSelect, true)}`,
     `Bubble seasons: ${describeSelection(bubbleYearSelect, true)}`,
@@ -1482,7 +1592,7 @@ function buildReportSnapshot(state) {
   const pointsText = state.pointsInput.value || "0";
   const teamsText = describeSelection(state.teamSelect, true);
   const metricsText = describeSelection(state.metricSelect, false, prettyMetricLabel);
-  const radarModeText = state.radarModeSelect.value === "z" ? "Z-scores" : "Raw values";
+  const radarModeText = getRadarModeValue(state.radarModeSelect) === "z" ? "Z-scores" : "Raw values";
   const topText = `${prettyMetricLabel(state.topMetricSelect.value)} (Top ${state.topNInput.value}) | Seasons: ${describeSelection(state.topYearSelect, true)}`;
   const bubbleText = `Seasons: ${describeSelection(state.bubbleYearSelect, true)} | X: ${prettyMetricLabel(state.bubbleXSelect.value)} | Y: ${prettyMetricLabel(state.bubbleYSelect.value)} | Composite: ${describeSelection(state.bubbleCompositeSelect, false, prettyMetricLabel)}`;
   const similarityText = state.targetSelect.selectedOptions[0]?.textContent || "None";
@@ -1595,13 +1705,16 @@ function buildDriversChart(containerId, rows, valueKey, title, color) {
     x: values,
     y: labels,
     orientation: "h",
-    marker: { color: color || "#1f77b4" }
+    marker: { color: color || ORL_COLORS.purple }
   };
   const layout = {
     title: title || "",
     margin: { l: 180, r: 20, t: 20, b: 40 },
     xaxis: { title: valueKey === "abs_spearman" ? "|Spearman|" : "Model reliance (higher = stronger)" },
-    yaxis: { automargin: true }
+    yaxis: { automargin: true },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    font: { color: ORL_COLORS.text }
   };
   Plotly.newPlot(container, [trace], layout, { displayModeBar: false, responsive: true });
 }
@@ -1717,14 +1830,14 @@ async function initDriversSection() {
     driversData.correlations_process || [],
     "abs_spearman",
     "",
-    "#1f77b4"
+    ORL_COLORS.purple
   );
   buildDriversChart(
     "driversRfChart",
     driversData.rf_importance_process || [],
     "importance_mean",
     "",
-    "#ff7f0e"
+    ORL_COLORS.gold
   );
   buildDriversReport(driversData);
   resizePlotsForTab("tab-drivers");
@@ -1790,6 +1903,7 @@ async function init() {
   const copyReportBtn = document.getElementById("copyReportBtn");
   const copyReportStatus = document.getElementById("copyReportStatus");
   const presetButtons = Array.from(document.querySelectorAll("[data-preset]"));
+  setupDownloadButtons();
 
   const urlState = readUrlState();
 
@@ -1974,11 +2088,13 @@ async function init() {
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
-  radarModeSelect.addEventListener("change", () => {
-    updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
-    updateReportNow();
-    syncUrlFromControls(stateRefs);
-  });
+  if (radarModeSelect) {
+    radarModeSelect.addEventListener("change", () => {
+      updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+    });
+  }
   targetSelect.addEventListener("change", () => {
     updateSimilarity(targetSelect, similarityStatus);
     updateReportNow();
