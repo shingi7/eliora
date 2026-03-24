@@ -3222,7 +3222,7 @@ async function init() {
         setSelectedValues(playerSelect, getSelectedValues(insightControls.playerSelect));
         updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
         buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
-        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
         buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
         updateReportNow();
         syncUrlFromControls(stateRefs);
@@ -3237,7 +3237,7 @@ async function init() {
         setSelectedValues(metricSelect, getSelectedValues(insightControls.metricSelect));
         updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
         buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
-        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
         updateReportNow();
         syncUrlFromControls(stateRefs);
         insightSyncing = false;
@@ -3254,7 +3254,7 @@ async function init() {
         }
         updateSimilarity(targetSelect, similarityStatus);
         updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
-        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
         updateReportNow();
         syncUrlFromControls(stateRefs);
         insightSyncing = false;
@@ -3267,7 +3267,7 @@ async function init() {
       targetSelect.value = targetSelectCustom.value;
       updateSimilarity(targetSelect, similarityStatus);
       updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
-      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
       updateReportNow();
       syncUrlFromControls(stateRefs);
     });
