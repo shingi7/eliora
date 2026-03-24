@@ -16,6 +16,7 @@ project:
     - site/player-st.html
     - site/player-st.js
     - site/data/player_st_comparison_features.json
+    - site/executive-demo.html
     - site/team-prototype.html
     - site/team-prototype.js
     - site/data/team_comparison_features.json

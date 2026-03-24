@@ -20,12 +20,19 @@
         --border-soft: #e2d6f4;
         --shadow-soft: 0 6px 18px rgba(31, 10, 61, 0.08);
       }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         padding: 24px;
         font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         color: var(--text-main);
         background: var(--lavender-100);
+      }
+      :focus-visible {
+        outline: 2px solid var(--gold-500);
+        outline-offset: 2px;
       }
       h1 {
         margin: 0 0 6px 0;
@@ -49,6 +56,7 @@
         font-size: 13px;
         color: var(--text-muted);
         margin-bottom: 12px;
+        min-height: 18px;
       }
       .status.error {
         color: #b4231f;
@@ -142,15 +150,76 @@
       }
       .table-wrap {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .section-note {
         margin-top: 8px;
       }
+      .summary-strip {
+        margin: 16px 0 18px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        padding: 14px;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(35, 10, 70, 0.08);
+      }
+      .summary-item {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: var(--lavender-200);
+      }
+      .summary-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--purple-700);
+        margin-bottom: 4px;
+        display: block;
+      }
+      .summary-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--purple-900);
+      }
+      .summary-headline {
+        grid-column: 1 / -1;
+        background: #fff;
+        border: 1px dashed var(--border-soft);
+      }
+      .summary-headline .summary-value {
+        font-weight: 500;
+        color: var(--text-main);
+      }
+      .summary-compare {
+        grid-column: 1 / -1;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+      }
+      .summary-compare table {
+        font-size: 13px;
+      }
+      .summary-compare th,
+      .summary-compare td {
+        padding: 6px 8px;
+      }
       .tab-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: 12px 0 16px;
+        gap: 10px;
+        margin: 16px 0 20px;
+        padding: 10px;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+        box-shadow: 0 8px 16px rgba(35, 10, 70, 0.06);
+      }
+      .tab-bar button {
+        background: var(--lavender-200);
+        border-color: transparent;
+        font-weight: 600;
       }
       .tab-bar button.active {
         background: var(--purple-900);
@@ -163,6 +232,81 @@
       .tab-section.active {
         display: block;
       }
+      .hero-chart {
+        min-height: 520px;
+      }
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .action-row button {
+        background: var(--purple-500);
+        color: #fff;
+        border-color: var(--purple-500);
+      }
+      .action-row button.secondary {
+        background: #fff;
+        color: var(--purple-700);
+        border-color: var(--purple-300);
+      }
+      .fingerprint-row {
+        display: grid;
+        grid-template-columns: 140px 1fr 80px;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .fingerprint-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: var(--lavender-200);
+        position: relative;
+        overflow: hidden;
+      }
+      .fingerprint-bar span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--purple-500), var(--gold-500));
+      }
+      @media (max-width: 960px) {
+        body {
+          padding: 18px;
+        }
+        .hero-chart {
+          min-height: 440px;
+        }
+      }
+      @media (max-width: 720px) {
+        body {
+          padding: 14px;
+        }
+        h1 {
+          font-size: 26px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .summary-strip {
+          grid-template-columns: 1fr;
+        }
+        .summary-headline,
+        .summary-compare {
+          grid-column: auto;
+        }
+        .tab-bar {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tab-bar button {
+          flex: 0 0 auto;
+        }
+        .hero-chart {
+          min-height: 380px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -170,16 +314,53 @@
       <h1>ST Player Comparison Prototype</h1>
       <p>This is a static prototype for interactive ST player comparison, radar selection, and a similarity preview.</p>
 
-      <div id="dataStatus" class="status">Loading data...</div>
+      <div id="dataStatus" class="status" role="status" aria-live="polite">Loading data...</div>
       <details>
         <summary>Debug info</summary>
         <div id="dataDebug" class="status"></div>
       </details>
 
+      <div class="summary-strip">
+        <div class="summary-item">
+          <span class="summary-label">Season filter</span>
+          <span id="summarySeason" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Player pool</span>
+          <span id="summaryPool" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Selected players</span>
+          <span id="summarySelected" class="summary-value">—</span>
+        </div>
+        <div class="summary-item summary-headline">
+          <span class="summary-label">Headline takeaway</span>
+          <span id="summaryHeadline" class="summary-value">—</span>
+        </div>
+        <div class="summary-item summary-compare">
+          <span class="summary-label">Headline comparison</span>
+          <div class="table-wrap">
+            <table id="summaryCompareTable">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Leader</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="summaryCompareStatus" class="muted"></div>
+        </div>
+      </div>
+
       <div class="tab-bar" id="tabBar" role="tablist">
         <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
         <button type="button" data-tab-target="tab-top">Top Performers</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
+        <button type="button" data-tab-target="tab-insights">Insights</button>
+        <button type="button" data-tab-target="tab-intelligence">Role & Fit</button>
         <button type="button" data-tab-target="tab-similarity">Similarity</button>
         <button type="button" data-tab-target="tab-table">Table</button>
         <button type="button" data-tab-target="tab-report">Current View Report</button>
@@ -214,7 +395,9 @@
             <button type="button" data-preset="poacher">Poacher</button>
           </div>
           <div class="section-note">
-            <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            <div class="action-row">
+              <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            </div>
             <span id="copySummaryStatus" class="muted"></span>
           </div>
         </section>
@@ -222,11 +405,11 @@
         <section class="card">
           <h2>Radar Comparison</h2>
           <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average.</p>
-          <div class="section-note">
+          <div class="section-note action-row">
             <button type="button" data-download-target="radar" data-download-name="st_radar">Download chart image</button>
             <span id="radarDownloadStatus" class="muted"></span>
           </div>
-          <div id="radar" class="chart"></div>
+          <div id="radar" class="chart hero-chart"></div>
           <div id="radarStatus" class="status"></div>
         </section>
       </div>
@@ -234,7 +417,7 @@
       <section class="card tab-section" id="tab-top">
         <h2>Top Performers</h2>
         <p class="muted section-note">Ranks players by a single metric within the selected seasons and minutes filter.</p>
-        <div class="section-note">
+        <div class="section-note action-row">
           <button type="button" data-download-target="topPerformersChart" data-download-name="st_top_performers">Download chart image</button>
           <span id="topPerformersChartDownloadStatus" class="muted"></span>
         </div>
@@ -260,7 +443,7 @@
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <p class="muted section-note">Use X/Y to compare two metrics; labels show the top 10 by composite score.</p>
-        <div class="section-note">
+        <div class="section-note action-row">
           <button type="button" data-download-target="bubbleChart" data-download-name="st_bubble">Download chart image</button>
           <span id="bubbleChartDownloadStatus" class="muted"></span>
         </div>
@@ -291,6 +474,126 @@
         </div>
         <div id="bubbleChart" class="chart"></div>
         <div id="bubbleStatus" class="status"></div>
+      </section>
+
+      <section class="card tab-section" id="tab-insights">
+        <h2>Benchmark & Profile Insights</h2>
+        <p class="muted section-note">Executive-friendly views that summarize the same selected players and metrics.</p>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Insight Controls</h3>
+          <p class="muted section-note">Adjust player and metric selections directly while viewing insights.</p>
+          <div class="grid">
+            <div>
+              <label for="insightPlayerSelect">Players (multi-select)</label>
+              <select id="insightPlayerSelect" multiple size="6"></select>
+            </div>
+          <div>
+            <label for="insightMetricSelect">Metrics (multi-select)</label>
+            <select id="insightMetricSelect" multiple size="6"></select>
+          </div>
+        </div>
+      </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Percentile Benchmark View</h3>
+          <p class="muted section-note">Compares selected players across the chosen metrics using percentile ranks.</p>
+          <div id="benchmarkChart" class="chart tight"></div>
+          <div id="benchmarkStatus" class="status"></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Striker Archetype Fingerprint</h3>
+          <p class="muted section-note">Pick the metrics you want in the fingerprint, then select a player to profile.</p>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="fingerprintPlayerSelect">Player</label>
+              <select id="fingerprintPlayerSelect"></select>
+            </div>
+            <div>
+              <label for="fingerprintMetricSelect">Fingerprint metrics (multi-select)</label>
+              <select id="fingerprintMetricSelect" multiple size="6"></select>
+            </div>
+          </div>
+          <div id="fingerprintChart" class="chart tight"></div>
+          <div id="fingerprintStatus" class="status"></div>
+        </div>
+
+        <div class="card">
+          <h3>Striker Quadrant</h3>
+          <p class="muted section-note">Choose any two metrics. The chart still draws league‑average reference lines for the current filtered pool.</p>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="quadrantPlayerSelect">Players (multi-select)</label>
+              <select id="quadrantPlayerSelect" multiple size="6"></select>
+            </div>
+          </div>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="quadrantXSelect">X-axis metric</label>
+              <select id="quadrantXSelect"></select>
+            </div>
+            <div>
+              <label for="quadrantYSelect">Y-axis metric</label>
+              <select id="quadrantYSelect"></select>
+            </div>
+          </div>
+          <div id="quadrantChart" class="chart tight"></div>
+          <div id="quadrantStatus" class="status"></div>
+        </div>
+      </section>
+
+      <section class="card tab-section" id="tab-intelligence">
+        <h2>Role & Fit Intelligence</h2>
+        <p class="muted section-note">Explainable recruitment intelligence based on the current ST dataset. Heuristic outputs are labeled and coach‑facing.</p>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Profile selection</h3>
+          <p class="muted section-note">Choose a player to generate role, confidence, archetype, and team‑fit outputs.</p>
+          <div class="grid">
+            <div>
+              <label for="intelPlayerSelect">Player</label>
+              <select id="intelPlayerSelect"></select>
+            </div>
+            <div>
+              <label>Confidence</label>
+              <div id="intelConfidence" class="muted"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid drivers-grid">
+          <div class="subcard">
+            <h3>Role recommendation</h3>
+            <div class="muted section-note">Primary + secondary role with transparent scoring.</div>
+            <div id="intelRoleSummary" class="muted"></div>
+            <div id="roleProbChart" class="chart tight"></div>
+          </div>
+          <div class="subcard">
+            <h3>Data confidence</h3>
+            <div id="intelDataConfidence" class="muted"></div>
+            <p class="muted section-note">Based on minutes played and completeness of key profile metrics.</p>
+          </div>
+        </div>
+
+        <div class="grid drivers-grid">
+          <div class="subcard">
+            <h3>Archetype cluster</h3>
+            <div id="intelClusterLabel" class="muted"></div>
+            <div class="section-note">
+              <label>Nearest style comps</label>
+              <ul id="intelCompsList" class="muted"></ul>
+            </div>
+          </div>
+          <div class="subcard">
+            <h3>Best‑fit teams</h3>
+            <div id="intelFitSummary" class="muted"></div>
+            <div class="section-note">
+              <label>Top stylistic matches</label>
+              <ul id="intelFitList" class="muted"></ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="card tab-section" id="tab-similarity">
@@ -490,6 +793,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js?v=st-v33-radar-tooltip-coach-20250206"></script>
+    <script src="./player-st.js?v=st-v46-final-20250206"></script>
   </body>
 </html>

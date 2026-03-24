@@ -1,116 +1,608 @@
 {
-  "correlations_process": [
+  "correlations_descriptive": [
+    {
+      "feature": "xg_diff",
+      "pearson_with_points": 0.8212603963122307,
+      "abs_pearson": 0.8212603963122307,
+      "spearman_with_points": 0.8034735207831483,
+      "abs_spearman": 0.8034735207831483,
+      "n_rows": 99
+    },
     {
       "feature": "attacking_score_6",
       "pearson_with_points": 0.7136765040443093,
+      "abs_pearson": 0.7136765040443093,
       "spearman_with_points": 0.7251443348509438,
-      "abs_spearman": 0.7251443348509438
+      "abs_spearman": 0.7251443348509438,
+      "n_rows": 99
+    },
+    {
+      "feature": "xg",
+      "pearson_with_points": 0.7093449831457838,
+      "abs_pearson": 0.7093449831457838,
+      "spearman_with_points": 0.721226173802951,
+      "abs_spearman": 0.721226173802951,
+      "n_rows": 99
+    },
+    {
+      "feature": "goals",
+      "pearson_with_points": 0.742417542837008,
+      "abs_pearson": 0.742417542837008,
+      "spearman_with_points": 0.7069196641106362,
+      "abs_spearman": 0.7069196641106362,
+      "n_rows": 99
+    },
+    {
+      "feature": "conceded_goals",
+      "pearson_with_points": -0.7655628293141393,
+      "abs_pearson": 0.7655628293141393,
+      "spearman_with_points": -0.699084104242551,
+      "abs_spearman": 0.699084104242551,
+      "n_rows": 99
     },
     {
       "feature": "ball_progression_6",
       "pearson_with_points": 0.6691019279895043,
+      "abs_pearson": 0.6691019279895043,
       "spearman_with_points": 0.6872214566955338,
-      "abs_spearman": 0.6872214566955338
+      "abs_spearman": 0.6872214566955338,
+      "n_rows": 99
     },
     {
       "feature": "defensive_score_8",
       "pearson_with_points": 0.686726319075392,
+      "abs_pearson": 0.686726319075392,
       "spearman_with_points": 0.6778041585143404,
-      "abs_spearman": 0.6778041585143404
+      "abs_spearman": 0.6778041585143404,
+      "n_rows": 99
     },
     {
       "feature": "touches_in_penalty_area",
       "pearson_with_points": 0.6406138458970522,
+      "abs_pearson": 0.6406138458970522,
       "spearman_with_points": 0.6462712438539603,
-      "abs_spearman": 0.6462712438539603
+      "abs_spearman": 0.6462712438539603,
+      "n_rows": 99
     },
     {
       "feature": "possesion_threat",
       "pearson_with_points": 0.6019786232292627,
+      "abs_pearson": 0.6019786232292627,
       "spearman_with_points": 0.6136526818109155,
-      "abs_spearman": 0.6136526818109155
+      "abs_spearman": 0.6136526818109155,
+      "n_rows": 99
+    },
+    {
+      "feature": "shots_on_target",
+      "pearson_with_points": 0.5815855334772211,
+      "abs_pearson": 0.5815855334772211,
+      "spearman_with_points": 0.6075266670154049,
+      "abs_spearman": 0.6075266670154049,
+      "n_rows": 99
     },
     {
       "feature": "penalty_area_entries_runs_crosses",
       "pearson_with_points": 0.5413933657047685,
+      "abs_pearson": 0.5413933657047685,
       "spearman_with_points": 0.5563995326723172,
-      "abs_spearman": 0.5563995326723172
+      "abs_spearman": 0.5563995326723172,
+      "n_rows": 99
     },
     {
       "feature": "positional_attacks_with_shots",
       "pearson_with_points": 0.5473901420299039,
+      "abs_pearson": 0.5473901420299039,
       "spearman_with_points": 0.5404778052930462,
-      "abs_spearman": 0.5404778052930462
+      "abs_spearman": 0.5404778052930462,
+      "n_rows": 99
     },
     {
       "feature": "deep_completed_passes",
       "pearson_with_points": 0.5258246398997098,
+      "abs_pearson": 0.5258246398997098,
       "spearman_with_points": 0.5278193357445976,
-      "abs_spearman": 0.5278193357445976
+      "abs_spearman": 0.5278193357445976,
+      "n_rows": 99
     },
     {
       "feature": "corners_with_shots",
       "pearson_with_points": 0.5345743645677776,
+      "abs_pearson": 0.5345743645677776,
       "spearman_with_points": 0.5253826363769348,
-      "abs_spearman": 0.5253826363769348
+      "abs_spearman": 0.5253826363769348,
+      "n_rows": 99
+    },
+    {
+      "feature": "shots_against_on_target",
+      "pearson_with_points": -0.5689770170240138,
+      "abs_pearson": 0.5689770170240138,
+      "spearman_with_points": -0.5133499302881127,
+      "abs_spearman": 0.5133499302881127,
+      "n_rows": 99
+    }
+  ],
+  "correlations_process": [
+    {
+      "feature": "attacking_score_6",
+      "pearson_with_points": 0.7136765040443093,
+      "abs_pearson": 0.7136765040443093,
+      "spearman_with_points": 0.7251443348509438,
+      "abs_spearman": 0.7251443348509438,
+      "n_rows": 99
+    },
+    {
+      "feature": "ball_progression_6",
+      "pearson_with_points": 0.6691019279895043,
+      "abs_pearson": 0.6691019279895043,
+      "spearman_with_points": 0.6872214566955338,
+      "abs_spearman": 0.6872214566955338,
+      "n_rows": 99
+    },
+    {
+      "feature": "defensive_score_8",
+      "pearson_with_points": 0.686726319075392,
+      "abs_pearson": 0.686726319075392,
+      "spearman_with_points": 0.6778041585143404,
+      "abs_spearman": 0.6778041585143404,
+      "n_rows": 99
+    },
+    {
+      "feature": "touches_in_penalty_area",
+      "pearson_with_points": 0.6406138458970522,
+      "abs_pearson": 0.6406138458970522,
+      "spearman_with_points": 0.6462712438539603,
+      "abs_spearman": 0.6462712438539603,
+      "n_rows": 99
+    },
+    {
+      "feature": "possesion_threat",
+      "pearson_with_points": 0.6019786232292627,
+      "abs_pearson": 0.6019786232292627,
+      "spearman_with_points": 0.6136526818109155,
+      "abs_spearman": 0.6136526818109155,
+      "n_rows": 99
+    },
+    {
+      "feature": "penalty_area_entries_runs_crosses",
+      "pearson_with_points": 0.5413933657047685,
+      "abs_pearson": 0.5413933657047685,
+      "spearman_with_points": 0.5563995326723172,
+      "abs_spearman": 0.5563995326723172,
+      "n_rows": 99
+    },
+    {
+      "feature": "positional_attacks_with_shots",
+      "pearson_with_points": 0.5473901420299039,
+      "abs_pearson": 0.5473901420299039,
+      "spearman_with_points": 0.5404778052930462,
+      "abs_spearman": 0.5404778052930462,
+      "n_rows": 99
+    },
+    {
+      "feature": "deep_completed_passes",
+      "pearson_with_points": 0.5258246398997098,
+      "abs_pearson": 0.5258246398997098,
+      "spearman_with_points": 0.5278193357445976,
+      "abs_spearman": 0.5278193357445976,
+      "n_rows": 99
+    },
+    {
+      "feature": "corners_with_shots",
+      "pearson_with_points": 0.5345743645677776,
+      "abs_pearson": 0.5345743645677776,
+      "spearman_with_points": 0.5253826363769348,
+      "abs_spearman": 0.5253826363769348,
+      "n_rows": 99
     },
     {
       "feature": "passes_to_final_third_accurate",
-      "pearson_with_points": 0.4827801335515199,
+      "pearson_with_points": 0.48278013355151994,
+      "abs_pearson": 0.48278013355151994,
       "spearman_with_points": 0.5075131726123671,
-      "abs_spearman": 0.5075131726123671
+      "abs_spearman": 0.5075131726123671,
+      "n_rows": 99
+    },
+    {
+      "feature": "ppda",
+      "pearson_with_points": -0.317245657429362,
+      "abs_pearson": 0.317245657429362,
+      "spearman_with_points": -0.3724859084667389,
+      "abs_spearman": 0.3724859084667389,
+      "n_rows": 99
+    },
+    {
+      "feature": "goal_kicks",
+      "pearson_with_points": -0.3867150034181668,
+      "abs_pearson": 0.3867150034181668,
+      "spearman_with_points": -0.3642611026143303,
+      "abs_spearman": 0.3642611026143303,
+      "n_rows": 99
+    },
+    {
+      "feature": "recoveries_low_medium_high",
+      "pearson_with_points": 0.35183439489461793,
+      "abs_pearson": 0.35183439489461793,
+      "spearman_with_points": 0.35272283846301067,
+      "abs_spearman": 0.35272283846301067,
+      "n_rows": 99
+    },
+    {
+      "feature": "progressive_passes_accurate",
+      "pearson_with_points": 0.3461757125247991,
+      "abs_pearson": 0.3461757125247991,
+      "spearman_with_points": 0.34251669258161016,
+      "abs_spearman": 0.34251669258161016,
+      "n_rows": 99
+    },
+    {
+      "feature": "crosses_accurate",
+      "pearson_with_points": 0.3468268967351075,
+      "abs_pearson": 0.3468268967351075,
+      "spearman_with_points": 0.3045049716686754,
+      "abs_spearman": 0.3045049716686754,
+      "n_rows": 99
+    }
+  ],
+  "rf_importance_descriptive": [
+    {
+      "feature": "conceded_goals",
+      "importance_mean": 0.5612833574925589,
+      "importance_std": 0.2707863802984381
+    },
+    {
+      "feature": "goals",
+      "importance_mean": 0.302234551949252,
+      "importance_std": 0.19426254168613696
+    },
+    {
+      "feature": "attacking_score_6",
+      "importance_mean": 0.12599808754274483,
+      "importance_std": 0.16125377278458353
+    },
+    {
+      "feature": "defensive_score_8",
+      "importance_mean": 0.11633200201718796,
+      "importance_std": 0.1393180145924028
+    },
+    {
+      "feature": "xg_diff",
+      "importance_mean": 0.09692960097744141,
+      "importance_std": 0.19754156039386028
+    },
+    {
+      "feature": "xg",
+      "importance_mean": 0.09438436097724316,
+      "importance_std": 0.15412571304383244
+    },
+    {
+      "feature": "ball_progression_6",
+      "importance_mean": 0.07440247496487824,
+      "importance_std": 0.10415613607329967
+    },
+    {
+      "feature": "penalties_converted",
+      "importance_mean": 0.04539906387051479,
+      "importance_std": 0.037432332142008716
+    },
+    {
+      "feature": "corners_with_shots",
+      "importance_mean": 0.04241978342730637,
+      "importance_std": 0.03152711060033134
+    },
+    {
+      "feature": "positional_attacks_with_shots",
+      "importance_mean": 0.03814552380061648,
+      "importance_std": 0.045609270556086746
+    },
+    {
+      "feature": "red_cards",
+      "importance_mean": 0.036836749837810843,
+      "importance_std": 0.01892088187108674
+    },
+    {
+      "feature": "touches_in_penalty_area",
+      "importance_mean": 0.03615978230088957,
+      "importance_std": 0.059702750817369366
+    },
+    {
+      "feature": "free_kicks_with_shots",
+      "importance_mean": 0.02806339329323529,
+      "importance_std": 0.024193079610318007
+    },
+    {
+      "feature": "yellow_cards",
+      "importance_mean": 0.021952798765877902,
+      "importance_std": 0.024571095948136164
+    },
+    {
+      "feature": "clearances",
+      "importance_mean": 0.020188967450445714,
+      "importance_std": 0.013252485552241912
     }
   ],
   "rf_importance_process": [
     {
       "feature": "defensive_score_8",
-      "importance_mean": 0.31218695631925,
-      "importance_std": 0.2901432902372024
+      "importance_mean": 0.3837399406898822,
+      "importance_std": 0.2789981809552026
     },
     {
       "feature": "attacking_score_6",
-      "importance_mean": 0.1547785191255485,
-      "importance_std": 0.2807109643682594
-    },
-    {
-      "feature": "possesion_threat",
-      "importance_mean": 0.1456343024894548,
-      "importance_std": 0.1497875463603655
+      "importance_mean": 0.17693356282563477,
+      "importance_std": 0.27660333295957806
     },
     {
       "feature": "red_cards",
-      "importance_mean": 0.1031477839402763,
-      "importance_std": 0.0582373779781308
+      "importance_mean": 0.13285142700092584,
+      "importance_std": 0.07083467002518616
     },
     {
-      "feature": "yellow_cards",
-      "importance_mean": 0.0419003759530291,
-      "importance_std": 0.050424269421979
-    },
-    {
-      "feature": "set_pieces_with_shots",
-      "importance_mean": 0.0370815176725716,
-      "importance_std": 0.0411372584074201
-    },
-    {
-      "feature": "average_shot_distance",
-      "importance_mean": 0.0234238613867068,
-      "importance_std": 0.0421858165568275
-    },
-    {
-      "feature": "counterattacks_with_shots",
-      "importance_mean": 0.0125988558929074,
-      "importance_std": 0.0155764356235812
-    },
-    {
-      "feature": "fouls",
-      "importance_mean": 0.0094695283951305,
-      "importance_std": 0.0302765191278856
+      "feature": "ball_progression_6",
+      "importance_mean": 0.0873397503095628,
+      "importance_std": 0.1472815165103325
     },
     {
       "feature": "positional_attacks_with_shots",
-      "importance_mean": 0.0052036458547456,
-      "importance_std": 0.0642132403969454
+      "importance_mean": 0.08149455973124979,
+      "importance_std": 0.06929811711197183
+    },
+    {
+      "feature": "touches_in_penalty_area",
+      "importance_mean": 0.05595203654298989,
+      "importance_std": 0.22647843455709804
+    },
+    {
+      "feature": "possesion_threat",
+      "importance_mean": 0.03463648684491597,
+      "importance_std": 0.11114292588791232
+    },
+    {
+      "feature": "set_pieces_with_shots",
+      "importance_mean": 0.03445827822583289,
+      "importance_std": 0.03615480181818244
+    },
+    {
+      "feature": "counterattacks_with_shots",
+      "importance_mean": 0.02770659471701181,
+      "importance_std": 0.01675449184294198
+    },
+    {
+      "feature": "ppda",
+      "importance_mean": 0.022109414248303535,
+      "importance_std": 0.04417445373197684
+    },
+    {
+      "feature": "free_kicks_with_shots",
+      "importance_mean": 0.012805086246058472,
+      "importance_std": 0.007731401087433501
+    },
+    {
+      "feature": "offensive_duels_won",
+      "importance_mean": 0.012500661375661257,
+      "importance_std": 0.018263593236987962
+    },
+    {
+      "feature": "clearances",
+      "importance_mean": 0.012052392002430955,
+      "importance_std": 0.019322200310263393
+    },
+    {
+      "feature": "throw_ins_accurate",
+      "importance_mean": 0.011228190965555801,
+      "importance_std": 0.016569503068343493
+    },
+    {
+      "feature": "corners_with_shots",
+      "importance_mean": 0.010881684630527568,
+      "importance_std": 0.07097818414577846
     }
-  ]
+  ],
+  "benchmarks_descriptive": [
+    {
+      "label": "descriptive",
+      "model": "elastic_net",
+      "mae": 5.546689883788638,
+      "rmse": 6.690499366038399,
+      "r2": 0.6923968429187636
+    },
+    {
+      "label": "descriptive",
+      "model": "random_forest",
+      "mae": 6.535641637383534,
+      "rmse": 8.155559495080206,
+      "r2": 0.5863594698011776
+    },
+    {
+      "label": "descriptive",
+      "model": "hist_gb",
+      "mae": 7.024845069281324,
+      "rmse": 8.548369854227671,
+      "r2": 0.5421104632047079
+    }
+  ],
+  "benchmarks_process": [
+    {
+      "label": "process",
+      "model": "hist_gb",
+      "mae": 7.201878724700158,
+      "rmse": 9.010301592731482,
+      "r2": 0.5014007720297342
+    },
+    {
+      "label": "process",
+      "model": "elastic_net",
+      "mae": 7.20653418708011,
+      "rmse": 8.81750269700938,
+      "r2": 0.4726839215085514
+    },
+    {
+      "label": "process",
+      "model": "random_forest",
+      "mae": 7.412643899792336,
+      "rmse": 9.43547340638577,
+      "r2": 0.4537094039109349
+    }
+  ],
+  "best_model_descriptive": {
+    "name": "random_forest",
+    "pdp_image": "team_best_model_pdp_descriptive.png",
+    "importance": [
+      {
+        "feature": "conceded_goals",
+        "importance_mean": 0.9495391169810368,
+        "importance_std": 0.06570644499413646
+      },
+      {
+        "feature": "xg_diff",
+        "importance_mean": 0.7140184722684733,
+        "importance_std": 0.037056527898525274
+      },
+      {
+        "feature": "goals",
+        "importance_mean": 0.5439178935075399,
+        "importance_std": 0.06414082183805703
+      },
+      {
+        "feature": "attacking_score_6",
+        "importance_mean": 0.479629742124691,
+        "importance_std": 0.06714802226007971
+      },
+      {
+        "feature": "defensive_score_8",
+        "importance_mean": 0.4445100571426327,
+        "importance_std": 0.10208425274880874
+      },
+      {
+        "feature": "xg",
+        "importance_mean": 0.4114654070676811,
+        "importance_std": 0.06051120621196684
+      },
+      {
+        "feature": "ball_progression_6",
+        "importance_mean": 0.24094658124329804,
+        "importance_std": 0.04250270008943111
+      },
+      {
+        "feature": "possesion_threat",
+        "importance_mean": 0.1904436268464038,
+        "importance_std": 0.03459411735881395
+      },
+      {
+        "feature": "shots_against_on_target",
+        "importance_mean": 0.13810994930060616,
+        "importance_std": 0.0120764078776118
+      },
+      {
+        "feature": "counterattacks_with_shots",
+        "importance_mean": 0.1316105824123502,
+        "importance_std": 0.02772807981985412
+      },
+      {
+        "feature": "shots_on_target",
+        "importance_mean": 0.11657961992179189,
+        "importance_std": 0.02603775772608455
+      },
+      {
+        "feature": "touches_in_penalty_area",
+        "importance_mean": 0.11468987867725247,
+        "importance_std": 0.022900774552830048
+      },
+      {
+        "feature": "yellow_cards",
+        "importance_mean": 0.1129384525874424,
+        "importance_std": 0.029132639748176616
+      },
+      {
+        "feature": "goal_kicks",
+        "importance_mean": 0.10878415523870011,
+        "importance_std": 0.011409993271299565
+      },
+      {
+        "feature": "fouls",
+        "importance_mean": 0.1025928008112352,
+        "importance_std": 0.016771216564109927
+      }
+    ]
+  },
+  "best_model_process": {
+    "name": "hist_gb",
+    "pdp_image": "team_best_model_pdp_process.png",
+    "importance": [
+      {
+        "feature": "attacking_score_6",
+        "importance_mean": 2.5377670501540828,
+        "importance_std": 0.303302376897492
+      },
+      {
+        "feature": "defensive_score_8",
+        "importance_mean": 2.5319794041199453,
+        "importance_std": 0.2945576151186797
+      },
+      {
+        "feature": "yellow_cards",
+        "importance_mean": 1.023684786890611,
+        "importance_std": 0.10353042008272573
+      },
+      {
+        "feature": "red_cards",
+        "importance_mean": 0.8676115312230855,
+        "importance_std": 0.12447898095596124
+      },
+      {
+        "feature": "possesion_threat",
+        "importance_mean": 0.8355798164043463,
+        "importance_std": 0.0906746249196108
+      },
+      {
+        "feature": "offsides",
+        "importance_mean": 0.7110600218692021,
+        "importance_std": 0.16076622242295766
+      },
+      {
+        "feature": "deep_completed_crosses",
+        "importance_mean": 0.6589944685530676,
+        "importance_std": 0.06646904636025763
+      },
+      {
+        "feature": "offensive_duels_won",
+        "importance_mean": 0.410741456572781,
+        "importance_std": 0.0894122132661759
+      },
+      {
+        "feature": "back_passes_accurate",
+        "importance_mean": 0.3544578795246126,
+        "importance_std": 0.08615937875774181
+      },
+      {
+        "feature": "match_tempo",
+        "importance_mean": 0.25363664468636526,
+        "importance_std": 0.0377339337591311
+      },
+      {
+        "feature": "long_passes_accurate",
+        "importance_mean": 0.21241046767850175,
+        "importance_std": 0.06795146123779885
+      },
+      {
+        "feature": "set_pieces_with_shots",
+        "importance_mean": 0.1992176762199338,
+        "importance_std": 0.04320460785650463
+      },
+      {
+        "feature": "ball_progression_6",
+        "importance_mean": 0.18102011258630543,
+        "importance_std": 0.07286405595950013
+      },
+      {
+        "feature": "throw_ins_accurate",
+        "importance_mean": 0.15130684983171533,
+        "importance_std": 0.04076576381540563
+      },
+      {
+        "feature": "average_shot_distance",
+        "importance_mean": 0.1503057010880023,
+        "importance_std": 0.04043216500032978
+      }
+    ]
+  }
 }

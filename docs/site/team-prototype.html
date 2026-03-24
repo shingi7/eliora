@@ -20,12 +20,19 @@
         --border-soft: #e2d6f4;
         --shadow-soft: 0 6px 18px rgba(31, 10, 61, 0.08);
       }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         padding: 24px;
         font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         color: var(--text-main);
         background: var(--lavender-100);
+      }
+      :focus-visible {
+        outline: 2px solid var(--gold-500);
+        outline-offset: 2px;
       }
       h1 {
         margin: 0 0 6px 0;
@@ -49,6 +56,7 @@
         font-size: 13px;
         color: var(--text-muted);
         margin-bottom: 12px;
+        min-height: 18px;
       }
       .status.error {
         color: #b4231f;
@@ -76,6 +84,30 @@
       }
       .drivers-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .drivers-grid.stack {
+        grid-template-columns: 1fr;
+      }
+      .drivers-stack {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr;
+      }
+      .drivers-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .drivers-table th,
+      .drivers-table td {
+        padding: 6px 8px;
+        border-bottom: 1px solid var(--border-soft);
+        text-align: left;
+      }
+      .drivers-table th {
+        background: var(--lavender-200);
+        color: var(--purple-900);
+        font-weight: 600;
       }
       h3 {
         margin: 0 0 8px 0;
@@ -159,13 +191,66 @@
       }
       .table-wrap {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .section-note {
         margin-top: 8px;
       }
+      .summary-strip {
+        margin: 16px 0 18px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        padding: 14px;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(35, 10, 70, 0.08);
+      }
+      .summary-item {
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: var(--lavender-200);
+      }
+      .summary-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--purple-700);
+        margin-bottom: 4px;
+        display: block;
+      }
+      .summary-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--purple-900);
+      }
+      .summary-headline {
+        grid-column: 1 / -1;
+        background: #fff;
+        border: 1px dashed var(--border-soft);
+      }
+      .summary-headline .summary-value {
+        font-weight: 500;
+        color: var(--text-main);
+      }
+      .summary-compare {
+        grid-column: 1 / -1;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+      }
+      .summary-compare table {
+        font-size: 13px;
+      }
+      .summary-compare th,
+      .summary-compare td {
+        padding: 6px 8px;
+      }
       .drivers-img {
         width: 100%;
         height: auto;
+        max-height: 420px;
+        object-fit: contain;
         border: 1px solid var(--border-soft);
         border-radius: 8px;
         background: #fff;
@@ -173,8 +258,18 @@
       .tab-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        margin: 12px 0 16px;
+        gap: 10px;
+        margin: 16px 0 20px;
+        padding: 10px;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--border-soft);
+        box-shadow: 0 8px 16px rgba(35, 10, 70, 0.06);
+      }
+      .tab-bar button {
+        background: var(--lavender-200);
+        border-color: transparent;
+        font-weight: 600;
       }
       .tab-bar button.active {
         background: var(--purple-900);
@@ -187,6 +282,62 @@
       .tab-section.active {
         display: block;
       }
+      .hero-chart {
+        min-height: 520px;
+      }
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .action-row button {
+        background: var(--purple-500);
+        color: #fff;
+        border-color: var(--purple-500);
+      }
+      .action-row button.secondary {
+        background: #fff;
+        color: var(--purple-700);
+        border-color: var(--purple-300);
+      }
+      @media (max-width: 960px) {
+        body {
+          padding: 18px;
+        }
+        .hero-chart {
+          min-height: 440px;
+        }
+      }
+      @media (max-width: 720px) {
+        body {
+          padding: 14px;
+        }
+        h1 {
+          font-size: 26px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .summary-strip {
+          grid-template-columns: 1fr;
+        }
+        .summary-headline,
+        .summary-compare {
+          grid-column: auto;
+        }
+        .tab-bar {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tab-bar button {
+          flex: 0 0 auto;
+        }
+        .hero-chart {
+          min-height: 380px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -194,18 +345,54 @@
       <h1>Team Prototype</h1>
       <p>Prototype view of team metrics using the first-build export.</p>
 
-      <div id="dataStatus" class="status">Loading data...</div>
+      <div id="dataStatus" class="status" role="status" aria-live="polite">Loading data...</div>
       <div id="buildVersion" class="status muted">Build version: </div>
-      <div id="dataWarning" class="status"></div>
+      <div id="dataWarning" class="status" role="status" aria-live="polite"></div>
       <details>
         <summary>Debug info</summary>
         <div id="dataDebug" class="status"></div>
       </details>
 
+      <div class="summary-strip">
+        <div class="summary-item">
+          <span class="summary-label">Season filter</span>
+          <span id="summarySeason" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Team pool</span>
+          <span id="summaryPool" class="summary-value">—</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Selected teams</span>
+          <span id="summarySelected" class="summary-value">—</span>
+        </div>
+        <div class="summary-item summary-headline">
+          <span class="summary-label">Headline takeaway</span>
+          <span id="summaryHeadline" class="summary-value">—</span>
+        </div>
+        <div class="summary-item summary-compare">
+          <span class="summary-label">Headline comparison</span>
+          <div class="table-wrap">
+            <table id="summaryCompareTable">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Leader</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="summaryCompareStatus" class="muted"></div>
+        </div>
+      </div>
+
       <div class="tab-bar" id="tabBar" role="tablist">
         <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
         <button type="button" data-tab-target="tab-top">Top Teams</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
+        <button type="button" data-tab-target="tab-insights">Insights</button>
         <button type="button" data-tab-target="tab-similarity">Similarity</button>
         <button type="button" data-tab-target="tab-table">Table</button>
         <button type="button" data-tab-target="tab-report">Current View Report</button>
@@ -241,7 +428,9 @@
             <button type="button" data-preset="possession">Possession / Progression</button>
           </div>
           <div class="section-note">
-            <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            <div class="action-row">
+              <button id="copySummaryBtn" type="button">Copy current view summary</button>
+            </div>
             <span id="copySummaryStatus" class="muted"></span>
           </div>
         </section>
@@ -249,11 +438,11 @@
         <section class="card">
           <h2>Team Radar Comparison</h2>
           <p class="muted section-note">Compare selected teams across chosen metrics. Z-scores show relative to the league average.</p>
-          <div class="section-note">
+          <div class="section-note action-row">
             <button type="button" data-download-target="radar" data-download-name="team_radar">Download chart image</button>
             <span id="radarDownloadStatus" class="muted"></span>
           </div>
-          <div id="radar" class="chart"></div>
+          <div id="radar" class="chart hero-chart"></div>
           <div id="radarStatus" class="status"></div>
         </section>
       </div>
@@ -261,7 +450,7 @@
       <section class="card tab-section" id="tab-top">
         <h2>Top Teams</h2>
         <p class="muted section-note">Ranks teams by a single metric within the selected seasons and points filter.</p>
-        <div class="section-note">
+        <div class="section-note action-row">
           <button type="button" data-download-target="topTeamsChart" data-download-name="team_top_teams">Download chart image</button>
           <span id="topTeamsChartDownloadStatus" class="muted"></span>
         </div>
@@ -287,7 +476,7 @@
         <h2>Holistic Score Bubble Chart</h2>
         <p class="muted">Bubble size = average z-score across selected composite metrics. Color indicates season when multiple seasons are selected.</p>
         <p class="muted section-note">Use X/Y to compare results vs process; labels show the top 10 by composite score.</p>
-        <div class="section-note">
+        <div class="section-note action-row">
           <button type="button" data-download-target="bubbleChart" data-download-name="team_bubble">Download chart image</button>
           <span id="bubbleChartDownloadStatus" class="muted"></span>
         </div>
@@ -318,6 +507,73 @@
         </div>
         <div id="bubbleChart" class="chart"></div>
         <div id="bubbleStatus" class="status"></div>
+      </section>
+
+      <section class="card tab-section" id="tab-insights">
+        <h2>Process & Style Insights</h2>
+        <p class="muted section-note">Executive-friendly views that surface process vs results and team style identity.</p>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Insight Controls</h3>
+          <p class="muted section-note">Adjust the highlighted teams directly while viewing insights.</p>
+          <div class="grid">
+            <div>
+              <label for="insightTeamSelect">Teams (multi-select)</label>
+              <select id="insightTeamSelect" multiple size="6"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Process vs Results</h3>
+          <p class="muted section-note">xG Diff vs Points. Quadrants show process strength vs results.</p>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="processXSelect">X-axis metric</label>
+              <select id="processXSelect"></select>
+            </div>
+            <div>
+              <label for="processYSelect">Y-axis metric</label>
+              <select id="processYSelect"></select>
+            </div>
+          </div>
+          <div id="processResultsChart" class="chart tight"></div>
+          <div id="processResultsStatus" class="status"></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 16px;">
+          <h3>Deserved vs Actual</h3>
+          <p class="muted section-note">Process score vs points (z‑scores). Above the line = overperforming process.</p>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="deservedXSelect">X-axis metric (z)</label>
+              <select id="deservedXSelect"></select>
+            </div>
+            <div>
+              <label for="deservedYSelect">Y-axis metric (z)</label>
+              <select id="deservedYSelect"></select>
+            </div>
+          </div>
+          <div id="deservedActualChart" class="chart tight"></div>
+          <div id="deservedActualStatus" class="status"></div>
+        </div>
+
+        <div class="card">
+          <h3>Team Style Map</h3>
+          <p class="muted section-note">Possession % vs shots on target. Reveals style identity by season.</p>
+          <div class="grid" style="margin-bottom: 12px;">
+            <div>
+              <label for="styleXSelect">X-axis metric</label>
+              <select id="styleXSelect"></select>
+            </div>
+            <div>
+              <label for="styleYSelect">Y-axis metric</label>
+              <select id="styleYSelect"></select>
+            </div>
+          </div>
+          <div id="styleMapChart" class="chart tight"></div>
+          <div id="styleMapStatus" class="status"></div>
+        </div>
       </section>
 
       <section class="card tab-section" id="tab-similarity">
@@ -445,30 +701,64 @@
       <section class="card tab-section" id="tab-drivers">
         <h2>What Drives Points?</h2>
         <p class="muted">Coach-facing view of the strongest patterns associated with points in historical team data.</p>
-        <div class="section-note">
-          <button type="button" data-download-target="driversCorrChart" data-download-name="team_points_correlations">Download correlations chart</button>
-          <button type="button" data-download-target="driversRfChart" data-download-name="team_points_importance">Download model chart</button>
-          <span id="driversCorrChartDownloadStatus" class="muted"></span>
-          <span id="driversRfChartDownloadStatus" class="muted"></span>
+        <div class="section-note action-row">
+          <button type="button" data-download-target="driversCorrChartProcess" data-download-name="team_points_correlations_process">Download process correlations</button>
+          <button type="button" data-download-target="driversModelChartProcess" data-download-name="team_points_model_process">Download process model</button>
+          <button type="button" data-download-target="driversCorrChartDesc" data-download-name="team_points_correlations_descriptive">Download descriptive correlations</button>
+          <button type="button" data-download-target="driversModelChartDesc" data-download-name="team_points_model_descriptive">Download descriptive model</button>
+          <span id="driversCorrChartProcessDownloadStatus" class="muted"></span>
+          <span id="driversModelChartProcessDownloadStatus" class="muted"></span>
+          <span id="driversCorrChartDescDownloadStatus" class="muted"></span>
+          <span id="driversModelChartDescDownloadStatus" class="muted"></span>
         </div>
         <div id="driversStatus" class="status"></div>
         <div class="grid drivers-grid">
           <div class="subcard">
-            <h3>Strongest simple relationships with points</h3>
-            <div id="driversCorrChart" class="chart tight"></div>
-            <p class="muted section-note">These are the metrics that rise most consistently with points when looked at one at a time.</p>
+            <h3>Model benchmark summary</h3>
+            <div id="driversBenchmarkTable"></div>
+            <p class="muted section-note">Grouped cross‑validation by season. Lower MAE/RMSE is better.</p>
           </div>
           <div class="subcard">
-            <h3>Most important predictors in the model</h3>
-            <div id="driversRfChart" class="chart tight"></div>
-            <p class="muted section-note">These are the metrics the model relied on most when predicting points from the full process profile.</p>
+            <h3>What this means</h3>
+            <div id="driversMeaning" class="muted"></div>
+            <p class="muted section-note">Process drivers are emphasized for sustainable decision‑making.</p>
+          </div>
+        </div>
+        <div class="grid drivers-grid stack">
+          <div class="subcard">
+            <h3>Top process drivers</h3>
+            <div class="drivers-stack">
+              <div>
+                <div class="muted">Simple relationships</div>
+                <div id="driversCorrChartProcess" class="chart tight"></div>
+              </div>
+              <div>
+                <div class="muted">Model reliance</div>
+                <div id="driversModelChartProcess" class="chart tight"></div>
+              </div>
+            </div>
+            <p class="muted section-note">Process model uses non‑leaky performance indicators.</p>
+          </div>
+          <div class="subcard">
+            <h3>Top descriptive drivers</h3>
+            <div class="drivers-stack">
+              <div>
+                <div class="muted">Simple relationships</div>
+                <div id="driversCorrChartDesc" class="chart tight"></div>
+              </div>
+              <div>
+                <div class="muted">Model reliance</div>
+                <div id="driversModelChartDesc" class="chart tight"></div>
+              </div>
+            </div>
+            <p class="muted section-note">Descriptive model includes results‑adjacent signals for context.</p>
           </div>
         </div>
         <div class="grid drivers-grid">
           <div class="subcard">
             <h3>Decision tree view</h3>
             <p class="muted section-note">Simplified tree showing main split patterns associated with higher-point teams.</p>
-            <div class="grid">
+            <div class="drivers-stack">
               <div>
                 <div class="muted">Process tree (top 8 features)</div>
                 <img id="driversTreeProcessImg" class="drivers-img" alt="Process decision tree">
@@ -479,6 +769,22 @@
               </div>
             </div>
           </div>
+          <div class="subcard">
+            <h3>Model response curves</h3>
+            <p class="muted section-note">Partial dependence plots for the best non‑linear model.</p>
+            <div class="drivers-stack">
+              <div>
+                <div class="muted">Process model</div>
+                <img id="driversPdpProcessImg" class="drivers-img" alt="Process PDP">
+              </div>
+              <div>
+                <div class="muted">Descriptive model</div>
+                <img id="driversPdpDescImg" class="drivers-img" alt="Descriptive PDP">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid drivers-grid">
           <div class="subcard">
             <h3>Coach takeaway report</h3>
             <div id="driversReport" class="muted"></div>
@@ -493,6 +799,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./team-prototype.js?v=team-v18-radar-tooltip-coach-20250206"></script>
+    <script src="./team-prototype.js?v=team-v29-final-20250206"></script>
   </body>
 </html>

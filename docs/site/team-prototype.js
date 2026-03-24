@@ -1,10 +1,12 @@
-const TEAM_BUILD_VERSION = "team-v18-radar-tooltip-coach-20250206";
+const TEAM_BUILD_VERSION = "team-v29-final-20250206";
 const dataUrl = `./data/team_comparison_features.json?v=${TEAM_BUILD_VERSION}`;
 const driversUrl = `./data/team_points_drivers.json?v=${TEAM_BUILD_VERSION}`;
 
 const identityCols = new Set(["year", "team"]);
 let metricOptions = [];
 let zMetricOptions = [];
+let insightControls = null;
+let insightSyncing = false;
 
 const chartMetricOptions = [
   "points",
@@ -264,6 +266,7 @@ let similarityMetricMissing = [];
 let similarityMinShared = 0;
 let allDataKeys = new Set();
 let driversData = null;
+let summaryElements = null;
 
 const REQUIRED_TABLE_KEYS = new Set(["year", "team", "points"]);
 const MIN_SHARED_SIM_METRICS = 4;
@@ -294,6 +297,14 @@ function rowLabel(row) {
 
 function prettyMetricLabel(metric) {
   return metricLabels[metric] || metric.replace(/_/g, " ");
+}
+
+function axisLabel(metric) {
+  if (metric.endsWith("_z")) {
+    const base = metric.slice(0, -2);
+    return `${prettyMetricLabel(base)} (z)`;
+  }
+  return prettyMetricLabel(metric);
 }
 
 function getRadarModeValue(radarModeSelect) {
@@ -327,7 +338,12 @@ function resizePlotsForTab(tabId) {
     "tab-overview": ["radar"],
     "tab-top": ["topTeamsChart"],
     "tab-bubble": ["bubbleChart"],
-    "tab-drivers": ["driversCorrChart", "driversRfChart"]
+    "tab-drivers": [
+      "driversCorrChartProcess",
+      "driversModelChartProcess",
+      "driversCorrChartDesc",
+      "driversModelChartDesc"
+    ]
   };
   const ids = map[tabId] || [];
   ids.forEach(id => resizePlot(id));
@@ -345,7 +361,10 @@ function setupTabs() {
       section.classList.toggle("active", section.id === targetId);
     });
     buttons.forEach(button => {
-      button.classList.toggle("active", button.getAttribute("data-tab-target") === targetId);
+      const isActive = button.getAttribute("data-tab-target") === targetId;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-selected", isActive ? "true" : "false");
+      button.setAttribute("tabindex", isActive ? "0" : "-1");
     });
     if (targetId) {
       const newUrl = `${window.location.pathname}${window.location.search}#${targetId}`;
@@ -358,11 +377,42 @@ function setupTabs() {
   const initialTarget = sections.some(section => section.id === initialHash)
     ? initialHash
     : buttons[0].getAttribute("data-tab-target");
+  buttons.forEach((button, index) => {
+    const targetId = button.getAttribute("data-tab-target");
+    const tabId = `tab-${targetId}`;
+    button.setAttribute("id", tabId);
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-controls", targetId);
+    button.setAttribute("tabindex", index === 0 ? "0" : "-1");
+    button.setAttribute("aria-selected", "false");
+  });
+  sections.forEach(section => {
+    section.setAttribute("role", "tabpanel");
+    const controller = buttons.find(button => button.getAttribute("data-tab-target") === section.id);
+    if (controller) {
+      section.setAttribute("aria-labelledby", controller.id);
+    }
+  });
   activate(initialTarget);
 
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       activate(button.getAttribute("data-tab-target"));
+    });
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+        return;
+      }
+      event.preventDefault();
+      const currentIndex = buttons.indexOf(button);
+      if (currentIndex === -1) return;
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const nextIndex = (currentIndex + direction + buttons.length) % buttons.length;
+      const nextButton = buttons[nextIndex];
+      if (nextButton) {
+        nextButton.focus();
+        activate(nextButton.getAttribute("data-tab-target"));
+      }
     });
   });
 
@@ -755,7 +805,7 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function buildTopYearOptions(topYearSelect) {
@@ -793,6 +843,43 @@ function buildBubbleAxisOptions(selectEl, defaultMetric) {
   selectEl.value = metricOptions.includes(defaultMetric)
     ? defaultMetric
     : metricOptions[0] || "";
+}
+
+function buildInsightAxisOptions(selectEl, metrics, defaultMetric) {
+  if (!selectEl) return;
+  selectEl.innerHTML = "";
+  metrics.forEach(metric => {
+    const option = document.createElement("option");
+    option.value = metric;
+    option.textContent = axisLabel(metric);
+    if (metricHelp[metric]) {
+      option.title = metricHelp[metric];
+    }
+    selectEl.appendChild(option);
+  });
+  selectEl.value = metrics.includes(defaultMetric)
+    ? defaultMetric
+    : metrics[0] || "";
+}
+
+function syncInsightTeams(mainSelect, insightSelect) {
+  if (insightSyncing) return;
+  if (!insightSelect) return;
+  insightSyncing = true;
+  const previous = Array.from(insightSelect.selectedOptions).map(option => option.value);
+  insightSelect.innerHTML = mainSelect.innerHTML;
+  const available = new Set(Array.from(insightSelect.options).map(option => option.value));
+  const preserved = previous.filter(value => available.has(value));
+  if (preserved.length > 0) {
+    Array.from(insightSelect.options).forEach(option => {
+      option.selected = preserved.includes(option.value);
+    });
+  } else {
+    Array.from(insightSelect.options).forEach(option => {
+      option.selected = Array.from(mainSelect.selectedOptions).some(sel => sel.value === option.value);
+    });
+  }
+  insightSyncing = false;
 }
 
 function buildBubbleMetricOptions(bubbleMetricSelect) {
@@ -867,7 +954,7 @@ function buildTopTeams(topYearSelect, topMetricSelect, topNInput, topStatus, poi
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, pointsInput, bubbleStatus) {
@@ -1028,7 +1115,7 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function distance(aRow, bRow) {
@@ -1629,6 +1716,9 @@ function updateReport(state, elements) {
   if (elements.reportTakeaways) {
     elements.reportTakeaways.innerHTML = snapshot.takeaways.map(item => `<li>${item}</li>`).join("");
   }
+  if (summaryElements) {
+    updateExecutiveSummary(state, summaryElements);
+  }
 }
 
 function buildReportText(state) {
@@ -1651,6 +1741,242 @@ function buildReportText(state) {
   return lines.join("\n");
 }
 
+function updateExecutiveSummary(state, elements) {
+  if (!elements) return;
+  const seasonText = state.yearSelect.selectedOptions[0]?.textContent || "All";
+  const poolCount = filteredData.length;
+  const selectedCount = getSelectedValues(state.teamSelect).length;
+  const selectedRows = getSelectedValues(state.teamSelect).map(id => rowById.get(id)).filter(Boolean);
+  const targetRow = rowById.get(state.targetSelect.value);
+  let headline = "Select teams to compare profiles.";
+  const selectedMetrics = getSelectedValues(state.metricSelect);
+  const metricPriority = [
+    "points",
+    "xg_diff",
+    "composite_team_score"
+  ];
+  const headlineMetrics = selectedMetrics.length > 0 ? selectedMetrics : metricPriority;
+  const headlineLeaders = headlineMetrics.slice(0, 3);
+  const comparisonRows = [];
+  if (selectedRows.length >= 2) {
+    const leaderLines = [];
+    headlineMetrics.forEach(metricKey => {
+      const top = getTopRowByMetric(selectedRows, metricKey);
+      if (!top) return;
+      const label = prettyMetricLabel(metricKey);
+      if (headlineLeaders.includes(metricKey)) {
+        leaderLines.push(`${label}: ${top.row.team}`);
+      }
+      comparisonRows.push({
+        metric: label,
+        leader: top.row.team,
+        value: formatReportValue(metricKey, top.value)
+      });
+    });
+    if (leaderLines.length > 0) {
+      headline = `Leaders — ${leaderLines.join("; ")}`;
+    } else {
+      headline = "Comparing selected team profiles across key metrics.";
+    }
+  } else if (selectedRows.length === 1) {
+    headline = `Profile focus: ${selectedRows[0].team}`;
+  }
+
+  if (elements.summarySeason) {
+    elements.summarySeason.textContent = seasonText;
+  }
+  if (elements.summaryPool) {
+    elements.summaryPool.textContent = `${poolCount} teams`;
+  }
+  if (elements.summarySelected) {
+    elements.summarySelected.textContent = `${selectedCount} selected`;
+  }
+  if (elements.summaryHeadline) {
+    elements.summaryHeadline.textContent = headline;
+  }
+  if (elements.summaryCompareTable) {
+    const tbody = elements.summaryCompareTable.querySelector("tbody");
+    if (tbody) {
+      tbody.innerHTML = comparisonRows
+        .map(row => `<tr><td>${row.metric}</td><td>${row.leader}</td><td>${row.value}</td></tr>`)
+        .join("");
+    }
+  }
+  if (elements.summaryCompareStatus) {
+    elements.summaryCompareStatus.textContent = selectedRows.length >= 2
+      ? ""
+      : "Select at least two teams to populate comparisons.";
+  }
+}
+
+function buildProcessResultsChart(teamSelect, statusEl, xSelect, ySelect, selectionSelect) {
+  const xMetric = xSelect?.value || "xg_diff";
+  const yMetric = ySelect?.value || "points";
+  const rows = filteredData.filter(row => Number.isFinite(row[xMetric]) && Number.isFinite(row[yMetric]));
+  if (rows.length === 0) {
+    Plotly.purge("processResultsChart");
+    if (statusEl) statusEl.textContent = "No data available for process vs results.";
+    return;
+  }
+  const avgX = rows.reduce((sum, row) => sum + row[xMetric], 0) / rows.length;
+  const avgY = rows.reduce((sum, row) => sum + row[yMetric], 0) / rows.length;
+  const selectedIds = new Set(getSelectedValues(selectionSelect || teamSelect));
+  const xLabel = axisLabel(xMetric);
+  const yLabel = axisLabel(yMetric);
+
+  const allTrace = {
+    type: "scatter",
+    mode: "markers",
+    x: rows.map(row => row[xMetric]),
+    y: rows.map(row => row[yMetric]),
+    text: rows.map(row => rowLabel(row)),
+    marker: { color: "rgba(150,150,150,0.35)", size: 6 },
+    hovertemplate: `%{text}<br>${xLabel}: %{x:.2f}<br>${yLabel}: %{y:.2f}<extra></extra>`,
+    name: "All teams"
+  };
+
+  const selectedRows = rows.filter(row => selectedIds.has(rowId(row)));
+  const selectedTrace = {
+    type: "scatter",
+    mode: "markers+text",
+    x: selectedRows.map(row => row[xMetric]),
+    y: selectedRows.map(row => row[yMetric]),
+    text: selectedRows.map(row => row.team),
+    textposition: "top center",
+    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    name: "Selected"
+  };
+
+  Plotly.newPlot("processResultsChart", [allTrace, selectedTrace], {
+    margin: { t: 30, l: 50, r: 30, b: 40 },
+    height: 420,
+    xaxis: { title: xLabel, zeroline: false },
+    yaxis: { title: yLabel, zeroline: false },
+    shapes: [
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+    ],
+    annotations: [
+      { x: avgX * 1.1, y: avgY * 1.1, text: `High ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } },
+      { x: avgX * 0.6, y: avgY * 1.1, text: `Low ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+    ],
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: false
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
+}
+
+function buildDeservedActualChart(teamSelect, statusEl, xSelect, ySelect, selectionSelect) {
+  const xMetric = xSelect?.value || "composite_team_score_z";
+  const yMetric = ySelect?.value || "points_z";
+  const rows = filteredData.filter(row => Number.isFinite(row[xMetric]) && Number.isFinite(row[yMetric]));
+  if (rows.length === 0) {
+    Plotly.purge("deservedActualChart");
+    if (statusEl) statusEl.textContent = "No data available for deserved vs actual.";
+    return;
+  }
+  const selectedIds = new Set(getSelectedValues(selectionSelect || teamSelect));
+  const xLabel = axisLabel(xMetric);
+  const yLabel = axisLabel(yMetric);
+  const allTrace = {
+    type: "scatter",
+    mode: "markers",
+    x: rows.map(row => row[xMetric]),
+    y: rows.map(row => row[yMetric]),
+    text: rows.map(row => rowLabel(row)),
+    marker: { color: "rgba(150,150,150,0.35)", size: 6 },
+    hovertemplate: `%{text}<br>${xLabel}: %{x:.2f}<br>${yLabel}: %{y:.2f}<extra></extra>`,
+    name: "All teams"
+  };
+  const selectedRows = rows.filter(row => selectedIds.has(rowId(row)));
+  const selectedTrace = {
+    type: "scatter",
+    mode: "markers+text",
+    x: selectedRows.map(row => row[xMetric]),
+    y: selectedRows.map(row => row[yMetric]),
+    text: selectedRows.map(row => row.team),
+    textposition: "top center",
+    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    name: "Selected"
+  };
+
+  Plotly.newPlot("deservedActualChart", [allTrace, selectedTrace], {
+    margin: { t: 30, l: 50, r: 30, b: 40 },
+    height: 420,
+    xaxis: { title: xLabel, zeroline: false },
+    yaxis: { title: yLabel, zeroline: false },
+    shapes: [
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: Math.min(...rows.map(r => r[xMetric])), y1: Math.max(...rows.map(r => r[xMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } }
+    ],
+    annotations: [
+      { x: 1.6, y: 2.0, text: `Higher ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } },
+      { x: -1.6, y: -2.0, text: `Lower ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+    ],
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: false
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
+}
+
+function buildStyleMapChart(teamSelect, statusEl, xSelect, ySelect, selectionSelect) {
+  const xMetric = xSelect?.value || "possession_pct";
+  const yMetric = ySelect?.value || "shots_on_target";
+  const rows = filteredData.filter(row => Number.isFinite(row[xMetric]) && Number.isFinite(row[yMetric]));
+  if (rows.length === 0) {
+    Plotly.purge("styleMapChart");
+    if (statusEl) statusEl.textContent = "No data available for style map.";
+    return;
+  }
+  const avgX = rows.reduce((sum, row) => sum + row[xMetric], 0) / rows.length;
+  const avgY = rows.reduce((sum, row) => sum + row[yMetric], 0) / rows.length;
+  const selectedIds = new Set(getSelectedValues(selectionSelect || teamSelect));
+  const xLabel = axisLabel(xMetric);
+  const yLabel = axisLabel(yMetric);
+
+  const allTrace = {
+    type: "scatter",
+    mode: "markers",
+    x: rows.map(row => row[xMetric]),
+    y: rows.map(row => row[yMetric]),
+    text: rows.map(row => rowLabel(row)),
+    marker: { color: "rgba(150,150,150,0.35)", size: 6 },
+    hovertemplate: `%{text}<br>${xLabel}: %{x:.2f}<br>${yLabel}: %{y:.2f}<extra></extra>`,
+    name: "All teams"
+  };
+
+  const selectedRows = rows.filter(row => selectedIds.has(rowId(row)));
+  const selectedTrace = {
+    type: "scatter",
+    mode: "markers+text",
+    x: selectedRows.map(row => row[xMetric]),
+    y: selectedRows.map(row => row[yMetric]),
+    text: selectedRows.map(row => row.team),
+    textposition: "top center",
+    marker: { color: ORL_COLORS.gold, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    name: "Selected"
+  };
+
+  Plotly.newPlot("styleMapChart", [allTrace, selectedTrace], {
+    margin: { t: 30, l: 50, r: 30, b: 40 },
+    height: 420,
+    xaxis: { title: xLabel, zeroline: false },
+    yaxis: { title: yLabel, zeroline: false },
+    shapes: [
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+    ],
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: false
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
+}
+
 function handleTableExport(tableYearSelect, tableTeamSearch, tablePointsInput, tableRowsSelect, tableSortSelect, tableSortDirSelect, exportStatus) {
   const { rows: displayRows, columns } = getTableDisplayRows(tableYearSelect, tableTeamSearch, tablePointsInput, tableRowsSelect, tableSortSelect, tableSortDirSelect);
   if (displayRows.length === 0) {
@@ -1666,17 +1992,31 @@ function handleTableExport(tableYearSelect, tableTeamSearch, tablePointsInput, t
   }, 2000);
 }
 
-function updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus) {
+function updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, processResultsStatus, deservedActualStatus, styleMapStatus, processXSelect, processYSelect, deservedXSelect, deservedYSelect, styleXSelect, styleYSelect, insightTeamSelect) {
   filteredData = getFilteredData(yearSelect, pointsInput);
   rowById = new Map(filteredData.map(row => [rowId(row), row]));
   computeSimilarityAvailability(filteredData);
   updateTeamOptions(teamSelect);
   updateTargetOptions(targetSelect);
+  if (insightTeamSelect) {
+    syncInsightTeams(teamSelect, insightTeamSelect);
+  }
   updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
   updateSimilarity(targetSelect, similarityStatus);
 
   buildTopTeams(topYearSelect, topMetricSelect, topNInput, topStatus, pointsInput);
   buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, pointsInput, bubbleStatus);
+
+  buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+  buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+  buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
+
+  if (summaryElements) {
+    updateExecutiveSummary(
+      { yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect },
+      summaryElements
+    );
+  }
 }
 
 function setStatus(element, message, isError = false) {
@@ -1719,14 +2059,78 @@ function buildDriversChart(containerId, rows, valueKey, title, color) {
   Plotly.newPlot(container, [trace], layout, { displayModeBar: false, responsive: true });
 }
 
+function buildBenchmarkTable(containerId, benchmarks) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!benchmarks || benchmarks.length === 0) {
+    container.innerHTML = "<div class=\"muted\">Benchmark results unavailable.</div>";
+    return;
+  }
+  const rows = benchmarks.map(row => {
+    const mae = Number(row.mae);
+    const rmse = Number(row.rmse);
+    const r2 = Number(row.r2);
+    return `
+      <tr>
+        <td>${row.label === "process" ? "Process" : "Descriptive"}</td>
+        <td>${row.model.replace(/_/g, " ")}</td>
+        <td>${Number.isFinite(mae) ? mae.toFixed(2) : "n/a"}</td>
+        <td>${Number.isFinite(rmse) ? rmse.toFixed(2) : "n/a"}</td>
+        <td>${Number.isFinite(r2) ? r2.toFixed(2) : "n/a"}</td>
+      </tr>
+    `;
+  }).join("");
+  container.innerHTML = `
+    <table class="drivers-table">
+      <thead>
+        <tr>
+          <th>Profile</th>
+          <th>Model</th>
+          <th>MAE</th>
+          <th>RMSE</th>
+          <th>R²</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+function buildDriversMeaning(driversData) {
+  const meaningEl = document.getElementById("driversMeaning");
+  if (!meaningEl) return;
+  const bestProcess = driversData?.best_model_process?.name || "model";
+  const bestDesc = driversData?.best_model_descriptive?.name || "model";
+  meaningEl.innerHTML = `
+    <div class="section-note">
+      <strong>Model benchmark readout</strong>
+      <ul>
+        <li>Process model emphasizes underlying performance (less outcome leakage).</li>
+        <li>Descriptive model includes results-adjacent signals for context.</li>
+        <li>Best non-linear models: Process = ${bestProcess.replace(/_/g, " ")}, Descriptive = ${bestDesc.replace(/_/g, " ")}.</li>
+      </ul>
+    </div>
+    <div class="section-note">
+      <strong>Why process matters</strong>
+      <ul>
+        <li>Process drivers are more stable across seasons and less dependent on short-term variance.</li>
+        <li>Use descriptive drivers for narrative; use process drivers for sustainable decision-making.</li>
+      </ul>
+    </div>
+  `;
+}
+
 function buildDriversReport(driversData) {
   const reportEl = document.getElementById("driversReport");
   if (!reportEl) return;
   const corr = (driversData && driversData.correlations_process) || [];
   const rf = (driversData && driversData.rf_importance_process) || [];
+  const bestModel = driversData?.best_model_process?.importance || rf;
+  const descCorr = (driversData && driversData.correlations_descriptive) || [];
 
   const topCorr = corr.slice(0, 3).map(row => prettyMetricLabel(row.feature));
-  const topRf = rf.slice(0, 3).map(row => prettyMetricLabel(row.feature));
+  const topRf = bestModel.slice(0, 3).map(row => prettyMetricLabel(row.feature));
+  const topDesc = descCorr.slice(0, 3).map(row => prettyMetricLabel(row.feature));
 
   const extraProcess = [];
   ["possesion_threat", "ball_progression_6", "touches_in_penalty_area", "penalty_area_entries_runs_crosses"].forEach(key => {
@@ -1752,8 +2156,10 @@ function buildDriversReport(driversData) {
   ];
 
   const interpretation = [
-    "Focus on building threat (chance creation) and defensive control; those patterns align most consistently with points.",
-    "Use this as a quick diagnostic, then drill into match context."
+    "Process signals (chance creation + defensive control) are the most stable levers for points.",
+    topDesc.length > 0
+      ? `Descriptive context highlights: ${topDesc.join(", ")}.`
+      : "Use descriptive signals as narrative context, not the core driver list."
   ];
 
   reportEl.innerHTML = `
@@ -1779,8 +2185,9 @@ function buildDriversReport(driversData) {
 function buildDriversReportText(driversData) {
   const corr = (driversData && driversData.correlations_process) || [];
   const rf = (driversData && driversData.rf_importance_process) || [];
+  const bestModel = driversData?.best_model_process?.importance || rf;
   const topCorr = corr.slice(0, 3).map(row => prettyMetricLabel(row.feature));
-  const topRf = rf.slice(0, 3).map(row => prettyMetricLabel(row.feature));
+  const topRf = bestModel.slice(0, 3).map(row => prettyMetricLabel(row.feature));
 
   return [
     "Points Drivers (process model)",
@@ -1788,12 +2195,15 @@ function buildDriversReportText(driversData) {
     `What matters most: ${topRf.length > 0 ? topRf.join(", ") : "Unavailable"}`,
     `Consistent single-metric patterns: ${topCorr.length > 0 ? topCorr.join(", ") : "Unavailable"}`,
     "Be careful with: correlations are associations, not causes.",
-    "Coach interpretation: build threat + defensive control; use this as guidance."
+    "Coach interpretation: prioritize process signals for sustainable decisions."
   ].join("\\n");
 }
 
 async function initDriversSection() {
   const driversStatus = document.getElementById("driversStatus");
+  const benchmarkTable = document.getElementById("driversBenchmarkTable");
+  const pdpProcessImg = document.getElementById("driversPdpProcessImg");
+  const pdpDescImg = document.getElementById("driversPdpDescImg");
   const processImg = document.getElementById("driversTreeProcessImg");
   const descImg = document.getElementById("driversTreeDescImg");
   const copyBtn = document.getElementById("driversCopyBtn");
@@ -1825,20 +2235,50 @@ async function initDriversSection() {
     setTimeout(() => setStatus(driversStatus, ""), 3000);
   }
 
+  const benchmarks = [
+    ...(driversData.benchmarks_process || []).map(row => ({ ...row, label: "process" })),
+    ...(driversData.benchmarks_descriptive || []).map(row => ({ ...row, label: "descriptive" }))
+  ];
+  buildBenchmarkTable("driversBenchmarkTable", benchmarks);
+
   buildDriversChart(
-    "driversCorrChart",
+    "driversCorrChartProcess",
     driversData.correlations_process || [],
     "abs_spearman",
     "",
     ORL_COLORS.purple
   );
   buildDriversChart(
-    "driversRfChart",
-    driversData.rf_importance_process || [],
+    "driversModelChartProcess",
+    (driversData.best_model_process && driversData.best_model_process.importance) || driversData.rf_importance_process || [],
     "importance_mean",
     "",
     ORL_COLORS.gold
   );
+
+  buildDriversChart(
+    "driversCorrChartDesc",
+    driversData.correlations_descriptive || [],
+    "abs_spearman",
+    "",
+    ORL_COLORS.purple
+  );
+  buildDriversChart(
+    "driversModelChartDesc",
+    (driversData.best_model_descriptive && driversData.best_model_descriptive.importance) || driversData.rf_importance_descriptive || [],
+    "importance_mean",
+    "",
+    ORL_COLORS.gold
+  );
+
+  if (pdpProcessImg && driversData.best_model_process?.pdp_image) {
+    pdpProcessImg.src = `../outputs/${driversData.best_model_process.pdp_image}?v=${TEAM_BUILD_VERSION}`;
+  }
+  if (pdpDescImg && driversData.best_model_descriptive?.pdp_image) {
+    pdpDescImg.src = `../outputs/${driversData.best_model_descriptive.pdp_image}?v=${TEAM_BUILD_VERSION}`;
+  }
+
+  buildDriversMeaning(driversData);
   buildDriversReport(driversData);
   resizePlotsForTab("tab-drivers");
 
@@ -1880,6 +2320,16 @@ async function init() {
   const bubbleCompositeSelect = document.getElementById("bubbleCompositeSelect");
   const bubbleLabelSelect = document.getElementById("bubbleLabelSelect");
   const bubbleStatus = document.getElementById("bubbleStatus");
+  const processResultsStatus = document.getElementById("processResultsStatus");
+  const deservedActualStatus = document.getElementById("deservedActualStatus");
+  const styleMapStatus = document.getElementById("styleMapStatus");
+  const insightTeamSelect = document.getElementById("insightTeamSelect");
+  const processXSelect = document.getElementById("processXSelect");
+  const processYSelect = document.getElementById("processYSelect");
+  const deservedXSelect = document.getElementById("deservedXSelect");
+  const deservedYSelect = document.getElementById("deservedYSelect");
+  const styleXSelect = document.getElementById("styleXSelect");
+  const styleYSelect = document.getElementById("styleYSelect");
   const tableYearSelect = document.getElementById("tableYearSelect");
   const tableTeamSearch = document.getElementById("tableTeamSearch");
   const tablePointsInput = document.getElementById("tablePointsInput");
@@ -1903,6 +2353,14 @@ async function init() {
   const copyReportBtn = document.getElementById("copyReportBtn");
   const copyReportStatus = document.getElementById("copyReportStatus");
   const presetButtons = Array.from(document.querySelectorAll("[data-preset]"));
+  summaryElements = {
+    summarySeason: document.getElementById("summarySeason"),
+    summaryPool: document.getElementById("summaryPool"),
+    summarySelected: document.getElementById("summarySelected"),
+    summaryHeadline: document.getElementById("summaryHeadline"),
+    summaryCompareTable: document.getElementById("summaryCompareTable"),
+    summaryCompareStatus: document.getElementById("summaryCompareStatus")
+  };
   setupDownloadButtons();
 
   const urlState = readUrlState();
@@ -1921,7 +2379,7 @@ async function init() {
     `Data URL: ${dataUrl}`,
     `Drivers URL: ${driversUrl}`
   ].join("<br>");
-  setStatus(dataStatus, "Loading data...");
+  setStatus(dataStatus, "Loading analytics...");
 
   if (window.location.protocol === "file:") {
     setStatus(dataStatus, "This page appears to be opened from local disk (file://). Fetch will fail there. Use GitHub Pages or a local HTTP server.", true);
@@ -1988,6 +2446,12 @@ async function init() {
   buildBubbleAxisOptions(bubbleYSelect, "xg_diff");
   buildBubbleMetricOptions(bubbleCompositeSelect);
   bubbleLabelSelect.value = "top10";
+  buildInsightAxisOptions(processXSelect, metricOptions, "xg_diff");
+  buildInsightAxisOptions(processYSelect, metricOptions, "points");
+  buildInsightAxisOptions(deservedXSelect, zMetricOptions, "composite_team_score_z");
+  buildInsightAxisOptions(deservedYSelect, zMetricOptions, "points_z");
+  buildInsightAxisOptions(styleXSelect, metricOptions, "possession_pct");
+  buildInsightAxisOptions(styleYSelect, metricOptions, "shots_on_target");
   buildMultiSelectOptions(tableYearSelect, Array.from(new Set(rawData.map(row => row.year))).sort((a, b) => a - b), "All seasons", [Math.max(...rawData.map(row => row.year))]);
   buildTableSortOptions(tableSortSelect);
 
@@ -2010,7 +2474,7 @@ async function init() {
   applySingleSelect(tableSortSelect, urlState.tableSort);
   applySingleSelect(tableSortDirSelect, urlState.tableSortDir);
 
-  setStatus(dataStatus, "Data loaded.");
+  setStatus(dataStatus, "Ready.");
   setTimeout(() => {
     setStatus(dataStatus, "");
   }, 1500);
@@ -2069,30 +2533,84 @@ async function init() {
   };
 
   yearSelect.addEventListener("change", () => {
-    updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, processResultsStatus, deservedActualStatus, styleMapStatus, processXSelect, processYSelect, deservedXSelect, deservedYSelect, styleXSelect, styleYSelect, insightTeamSelect);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   pointsInput.addEventListener("change", () => {
-    updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, processResultsStatus, deservedActualStatus, styleMapStatus, processXSelect, processYSelect, deservedXSelect, deservedYSelect, styleXSelect, styleYSelect, insightTeamSelect);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   teamSelect.addEventListener("change", () => {
     updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
+    buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+    buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+    buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+  if (insightTeamSelect) {
+    insightTeamSelect.addEventListener("change", () => {
+      if (insightSyncing) return;
+      insightSyncing = true;
+      setSelectedValues(teamSelect, Array.from(insightTeamSelect.selectedOptions).map(option => option.value));
+      updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
+      buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+      buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+      buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+      insightSyncing = false;
+    });
+  }
   metricSelect.addEventListener("change", () => {
     updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
+    buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+    buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+    buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   if (radarModeSelect) {
     radarModeSelect.addEventListener("change", () => {
       updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);
+      buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+      buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+      buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
       updateReportNow();
       syncUrlFromControls(stateRefs);
+    });
+  }
+
+  if (processXSelect) {
+    processXSelect.addEventListener("change", () => {
+      buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+    });
+  }
+  if (processYSelect) {
+    processYSelect.addEventListener("change", () => {
+      buildProcessResultsChart(teamSelect, processResultsStatus, processXSelect, processYSelect, insightTeamSelect);
+    });
+  }
+  if (deservedXSelect) {
+    deservedXSelect.addEventListener("change", () => {
+      buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+    });
+  }
+  if (deservedYSelect) {
+    deservedYSelect.addEventListener("change", () => {
+      buildDeservedActualChart(teamSelect, deservedActualStatus, deservedXSelect, deservedYSelect, insightTeamSelect);
+    });
+  }
+  if (styleXSelect) {
+    styleXSelect.addEventListener("change", () => {
+      buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
+    });
+  }
+  if (styleYSelect) {
+    styleYSelect.addEventListener("change", () => {
+      buildStyleMapChart(teamSelect, styleMapStatus, styleXSelect, styleYSelect, insightTeamSelect);
     });
   }
   targetSelect.addEventListener("change", () => {
@@ -2244,7 +2762,7 @@ async function init() {
     });
   });
 
-  updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+  updateAll(yearSelect, pointsInput, teamSelect, metricSelect, radarModeSelect, targetSelect, radarStatus, similarityStatus, topYearSelect, topMetricSelect, topNInput, topStatus, bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, processResultsStatus, deservedActualStatus, styleMapStatus, processXSelect, processYSelect, deservedXSelect, deservedYSelect, styleXSelect, styleYSelect, insightTeamSelect);
   applyMultiSelect(teamSelect, urlState.teams);
   applySingleSelect(targetSelect, urlState.similarityTarget);
   updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus);

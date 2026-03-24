@@ -1,4 +1,4 @@
-const ST_BUILD_VERSION = "st-v33-radar-tooltip-coach-20250206";
+const ST_BUILD_VERSION = "st-v46-final-20250206";
 const dataUrl = `./data/player_st_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const teamDataUrl = `./data/team_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const ROLE_DEFAULT = "Advanced Forward";
@@ -95,6 +95,60 @@ const playerTeamFitMap = [
   { player: "passes_to_penalty_area_per_90", team: "penalty_area_entries_runs_crosses" },
   { player: "xa_per_90", team: "possesion_threat" },
   { player: "link_play_percentile", team: "ball_progression_6" }
+];
+
+const INTEL_CLUSTER_FEATURES = [
+  "overall_percentile",
+  "goal_threat_percentile",
+  "link_play_percentile",
+  "non_pkxg_p90",
+  "shots_per_90",
+  "touches_in_box_per_90",
+  "goal_conversion_pct",
+  "non_penalty_goals_p90",
+  "offensive_duels_per_90",
+  "offensive_duels_won_pct",
+  "key_passes_per_90",
+  "xa_per_90",
+  "passes_to_penalty_area_per_90",
+  "progressive_runs_per_90",
+  "accelerations_per_90"
+];
+
+const INTEL_DIMENSIONS = [
+  { key: "Finishing", metrics: ["goal_conversion_pct", "non_penalty_goals_p90", "shooting_impact"] },
+  { key: "Chance volume", metrics: ["non_pkxg_p90", "shots_per_90"] },
+  { key: "Box presence", metrics: ["touches_in_box_per_90"] },
+  { key: "Duel/Target", metrics: ["offensive_duels_per_90", "offensive_duels_won_pct"] },
+  { key: "Link play", metrics: ["key_passes_per_90", "xa_per_90", "passes_to_penalty_area_per_90", "link_play_percentile"] },
+  { key: "Direct running", metrics: ["progressive_runs_per_90", "accelerations_per_90", "dribble_impact"] }
+];
+
+const TEAM_FIT_DIMENSIONS = [
+  {
+    key: "Box presence",
+    pairs: [{ player: "touches_in_box_per_90", team: "touches_in_penalty_area" }]
+  },
+  {
+    key: "Finishing/Threat",
+    pairs: [
+      { player: "non_pkxg_p90", team: "xg" },
+      { player: "non_penalty_goals_p90", team: "goals" },
+      { player: "shots_per_90", team: "shots_on_target" }
+    ]
+  },
+  {
+    key: "Link play",
+    pairs: [
+      { player: "key_passes_per_90", team: "progressive_passes_accurate" },
+      { player: "passes_to_penalty_area_per_90", team: "penalty_area_entries_runs_crosses" },
+      { player: "xa_per_90", team: "possesion_threat" }
+    ]
+  },
+  {
+    key: "Progression",
+    pairs: [{ player: "link_play_percentile", team: "ball_progression_6" }]
+  }
 ];
 
 const ST_PRESETS = {
@@ -320,10 +374,33 @@ const radarPalette = [
   "#7f7f7f"
 ];
 
+const FINGERPRINT_DEFAULT_METRICS = [
+  "goal_conversion_pct",
+  "non_penalty_goals_p90",
+  "shooting_impact",
+  "non_pkxg_p90",
+  "shots_per_90",
+  "touches_in_box_per_90",
+  "offensive_duels_per_90",
+  "offensive_duels_won_pct",
+  "key_passes_per_90",
+  "xa_per_90",
+  "passes_to_penalty_area_per_90"
+];
+
 let rawData = [];
 let filteredData = [];
 let rowById = new Map();
 let teamData = [];
+let teamMetricStats = {};
+let clusterModel = null;
+let clusterLabels = new Map();
+let summaryElements = null;
+let intelElements = null;
+let insightControls = null;
+let insightSyncing = false;
+let quadrantControls = null;
+let quadrantSyncing = false;
 let metricStats = {};
 
 function toNumber(value) {
@@ -364,7 +441,7 @@ function formatPercentile(value) {
   return `${pct}${suffix} pct`;
 }
 
-function buildTeamFitList(playerRow, maxTeams = 3) {
+function buildTeamFitDetails(playerRow, maxTeams = 4) {
   if (!teamData || teamData.length === 0) {
     return null;
   }
@@ -379,19 +456,35 @@ function buildTeamFitList(playerRow, maxTeams = 3) {
 
   const candidates = [];
   pool.forEach(teamRow => {
-    const diffs = [];
-    playerTeamFitMap.forEach(pair => {
-      const playerVal = playerRow[`${pair.player}_z`];
-      const teamVal = teamRow[`${pair.team}_z`];
-      if (Number.isFinite(playerVal) && Number.isFinite(teamVal)) {
-        diffs.push(playerVal - teamVal);
+    const dimensionScores = [];
+    TEAM_FIT_DIMENSIONS.forEach(dim => {
+      const diffs = [];
+      dim.pairs.forEach(pair => {
+        const playerVal = metricToZ(playerRow, pair.player);
+        const teamVal = teamMetricToZ(teamRow, pair.team);
+        if (Number.isFinite(playerVal) && Number.isFinite(teamVal)) {
+          diffs.push(Math.abs(playerVal - teamVal));
+        }
+      });
+      if (diffs.length > 0) {
+        const avgDiff = diffs.reduce((sum, val) => sum + val, 0) / diffs.length;
+        dimensionScores.push({ key: dim.key, score: avgDiff });
       }
     });
-    if (diffs.length < 3) {
+
+    if (dimensionScores.length < 2) {
       return;
     }
-    const dist = Math.sqrt(diffs.reduce((sum, val) => sum + val * val, 0) / diffs.length);
-    candidates.push({ team: teamRow.team, dist });
+
+    const overall = dimensionScores.reduce((sum, entry) => sum + entry.score, 0) / dimensionScores.length;
+    dimensionScores.sort((a, b) => a.score - b.score);
+    const reasons = dimensionScores.slice(0, 2).map(entry => entry.key);
+    candidates.push({
+      team: teamRow.team,
+      dist: overall,
+      reasons,
+      dimsUsed: dimensionScores.length
+    });
   });
 
   if (candidates.length === 0) {
@@ -399,14 +492,29 @@ function buildTeamFitList(playerRow, maxTeams = 3) {
   }
 
   candidates.sort((a, b) => a.dist - b.dist);
-  const topTeams = [];
+  const results = [];
+  const seen = new Set();
   for (const entry of candidates) {
-    if (!topTeams.includes(entry.team)) {
-      topTeams.push(entry.team);
+    if (!seen.has(entry.team)) {
+      results.push(entry);
+      seen.add(entry.team);
     }
-    if (topTeams.length >= maxTeams) break;
+    if (results.length >= maxTeams) break;
   }
-  return topTeams.length > 0 ? topTeams : null;
+
+  if (results.length === 0) {
+    return null;
+  }
+
+  return {
+    teams: results.map(entry => entry.team),
+    details: results
+  };
+}
+
+function buildTeamFitList(playerRow, maxTeams = 3) {
+  const fit = buildTeamFitDetails(playerRow, maxTeams);
+  return fit ? fit.teams : null;
 }
 
 function getRadarModeValue(radarModeSelect) {
@@ -508,7 +616,10 @@ function setupTabs() {
       section.classList.toggle("active", section.id === targetId);
     });
     buttons.forEach(button => {
-      button.classList.toggle("active", button.getAttribute("data-tab-target") === targetId);
+      const isActive = button.getAttribute("data-tab-target") === targetId;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-selected", isActive ? "true" : "false");
+      button.setAttribute("tabindex", isActive ? "0" : "-1");
     });
     if (targetId) {
       const newUrl = `${window.location.pathname}${window.location.search}#${targetId}`;
@@ -520,11 +631,42 @@ function setupTabs() {
   const initialTarget = sections.some(section => section.id === initialHash)
     ? initialHash
     : buttons[0].getAttribute("data-tab-target");
+  buttons.forEach((button, index) => {
+    const targetId = button.getAttribute("data-tab-target");
+    const tabId = `tab-${targetId}`;
+    button.setAttribute("id", tabId);
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-controls", targetId);
+    button.setAttribute("tabindex", index === 0 ? "0" : "-1");
+    button.setAttribute("aria-selected", "false");
+  });
+  sections.forEach(section => {
+    section.setAttribute("role", "tabpanel");
+    const controller = buttons.find(button => button.getAttribute("data-tab-target") === section.id);
+    if (controller) {
+      section.setAttribute("aria-labelledby", controller.id);
+    }
+  });
   activate(initialTarget);
 
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       activate(button.getAttribute("data-tab-target"));
+    });
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") {
+        return;
+      }
+      event.preventDefault();
+      const currentIndex = buttons.indexOf(button);
+      if (currentIndex === -1) return;
+      const direction = event.key === "ArrowRight" ? 1 : -1;
+      const nextIndex = (currentIndex + direction + buttons.length) % buttons.length;
+      const nextButton = buttons[nextIndex];
+      if (nextButton) {
+        nextButton.focus();
+        activate(nextButton.getAttribute("data-tab-target"));
+      }
     });
   });
 }
@@ -574,7 +716,45 @@ function averageScore(values) {
   return valid.reduce((sum, val) => sum + val, 0) / valid.length;
 }
 
-function getPlayerRole(row) {
+function metricToZ(row, metric) {
+  if (!row) return null;
+  const zKey = `${metric}_z`;
+  if (Number.isFinite(row[zKey])) {
+    return row[zKey];
+  }
+  const raw = row[metric];
+  if (!Number.isFinite(raw)) {
+    return null;
+  }
+  if (percentileMetrics.has(metric) || percentLikeMetrics.has(metric)) {
+    const pct = Math.max(0, Math.min(100, raw));
+    return (pct / 100) * 4 - 2;
+  }
+  const stats = metricStats[metric];
+  if (!stats || !stats.std) {
+    return null;
+  }
+  return (raw - stats.mean) / stats.std;
+}
+
+function teamMetricToZ(row, metric) {
+  if (!row) return null;
+  const zKey = `${metric}_z`;
+  if (Number.isFinite(row[zKey])) {
+    return row[zKey];
+  }
+  const raw = row[metric];
+  if (!Number.isFinite(raw)) {
+    return null;
+  }
+  const stats = teamMetricStats[metric];
+  if (!stats || !stats.std) {
+    return null;
+  }
+  return (raw - stats.mean) / stats.std;
+}
+
+function getRoleScores(row) {
   // False 9: link play + creativity, less box reliance
   const linkPlay = averageScore([
     normalizeMetric(row, "link_play_percentile"),
@@ -642,26 +822,65 @@ function getPlayerRole(row) {
     normalizeMetric(row, "touches_in_box_per_90")
   ]);
 
-  const scores = [
-    { role: "False 9", score: false9 },
-    { role: "Target Man", score: targetMan },
-    { role: "Poacher", score: poacher },
-    { role: "Advanced Forward", score: advanced }
-  ];
+  return {
+    "False 9": false9,
+    "Target Man": targetMan,
+    "Poacher": poacher,
+    "Advanced Forward": advanced
+  };
+}
 
-  let bestRole = ROLE_DEFAULT;
-  let bestScore = -Infinity;
-  scores.forEach(entry => {
-    if (entry.score === null || Number.isNaN(entry.score)) {
-      return;
-    }
-    if (entry.score > bestScore) {
-      bestScore = entry.score;
-      bestRole = entry.role;
-    }
-  });
+function buildRoleProfile(row) {
+  const scores = getRoleScores(row);
+  const entries = Object.entries(scores)
+    .filter(([, score]) => Number.isFinite(score))
+    .map(([role, score]) => ({ role, score }));
 
-  return bestScore === -Infinity ? ROLE_DEFAULT : bestRole;
+  if (entries.length === 0) {
+    return {
+      primary: ROLE_DEFAULT,
+      secondary: null,
+      confidence: "Low",
+      probabilities: [{ role: ROLE_DEFAULT, probability: 1 }]
+    };
+  }
+
+  entries.sort((a, b) => b.score - a.score);
+  const minScore = Math.min(...entries.map(entry => entry.score));
+  const scaled = entries.map(entry => entry.score - minScore + 0.05);
+  const total = scaled.reduce((sum, value) => sum + value, 0);
+  const probabilities = entries.map((entry, idx) => ({
+    role: entry.role,
+    probability: total > 0 ? scaled[idx] / total : 0
+  }));
+
+  const primary = entries[0].role;
+  const secondary = entries[1]?.role || null;
+  const gap = entries.length > 1 ? entries[0].score - entries[1].score : entries[0].score;
+  let confidence = "Low";
+  if (gap >= 0.15) confidence = "High";
+  else if (gap >= 0.07) confidence = "Medium";
+
+  return { primary, secondary, confidence, probabilities };
+}
+
+function getPlayerRole(row) {
+  return buildRoleProfile(row).primary || ROLE_DEFAULT;
+}
+
+function getDataConfidence(row) {
+  const minutes = Number.isFinite(row.minutes_played) ? row.minutes_played : 0;
+  const minutesScore = minutes >= 1800 ? 1 : minutes >= 1200 ? 0.75 : minutes >= 600 ? 0.5 : 0.25;
+  const validCount = roleMetricKeys.filter(metric => Number.isFinite(row[metric])).length;
+  const completeness = roleMetricKeys.length > 0 ? validCount / roleMetricKeys.length : 0;
+  const combined = minutesScore * 0.6 + completeness * 0.4;
+  const tier = combined >= 0.75 ? "High" : combined >= 0.5 ? "Medium" : "Low";
+  return {
+    tier,
+    minutes,
+    completeness,
+    combined
+  };
 }
 
 function computeMetricRanks(rows, metric, radarModeSelect, lowerBetter) {
@@ -781,6 +1000,42 @@ function updateTargetOptions(targetSelect, secondarySelect) {
       secondarySelect.value = selected;
     }
   }
+}
+
+function syncSelectOptions(source, target) {
+  if (!source || !target) return;
+  target.innerHTML = source.innerHTML;
+}
+
+function syncInsightControls(mainControls, insight) {
+  if (insightSyncing) return;
+  if (!insight || !insight.playerSelect || !insight.metricSelect) {
+    return;
+  }
+  insightSyncing = true;
+  syncSelectOptions(mainControls.playerSelect, insight.playerSelect);
+  setSelectedValues(insight.playerSelect, getSelectedValues(mainControls.playerSelect));
+
+  syncSelectOptions(mainControls.metricSelect, insight.metricSelect);
+  setSelectedValues(insight.metricSelect, getSelectedValues(mainControls.metricSelect));
+
+  insightSyncing = false;
+}
+
+function syncQuadrantControls(mainSelect, quadrantSelect) {
+  if (quadrantSyncing) return;
+  if (!quadrantSelect) return;
+  quadrantSyncing = true;
+  const previous = getSelectedValues(quadrantSelect);
+  syncSelectOptions(mainSelect, quadrantSelect);
+  const available = new Set(Array.from(quadrantSelect.options).map(option => option.value));
+  const preserved = previous.filter(value => available.has(value));
+  if (preserved.length > 0) {
+    setSelectedValues(quadrantSelect, preserved);
+  } else {
+    setSelectedValues(quadrantSelect, getSelectedValues(mainSelect));
+  }
+  quadrantSyncing = false;
 }
 
 function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
@@ -968,7 +1223,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function buildTopSeasonOptions(topSeasonSelect) {
@@ -1009,6 +1264,39 @@ function buildBubbleMetricOptions(bubbleMetricSelect) {
 }
 
 function buildBubbleAxisOptions(selectEl, defaultMetric) {
+  selectEl.innerHTML = "";
+  metricOptions.forEach(metric => {
+    const option = document.createElement("option");
+    option.value = metric;
+    option.textContent = prettyMetricLabel(metric);
+    if (metricHelp[metric]) {
+      option.title = metricHelp[metric];
+    }
+    selectEl.appendChild(option);
+  });
+  selectEl.value = metricOptions.includes(defaultMetric)
+    ? defaultMetric
+    : metricOptions[0] || "";
+}
+
+function buildFingerprintMetricOptions(selectEl) {
+  if (!selectEl) return;
+  selectEl.innerHTML = "";
+  metricOptions.forEach(metric => {
+    const option = document.createElement("option");
+    option.value = metric;
+    option.textContent = prettyMetricLabel(metric);
+    if (metricHelp[metric]) {
+      option.title = metricHelp[metric];
+    }
+    selectEl.appendChild(option);
+  });
+  const defaults = FINGERPRINT_DEFAULT_METRICS.filter(metric => metricOptions.includes(metric));
+  setSelectedValues(selectEl, defaults);
+}
+
+function buildQuadrantAxisOptions(selectEl, defaultMetric) {
+  if (!selectEl) return;
   selectEl.innerHTML = "";
   metricOptions.forEach(metric => {
     const option = document.createElement("option");
@@ -1285,7 +1573,7 @@ function buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStat
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function getTableFilteredData(tableSeasonSelect, tableTeamSelect, tablePlayerSearch, tableMinutesInput) {
@@ -1617,6 +1905,9 @@ function updateReport(state, elements) {
   if (elements.reportTakeaways) {
     elements.reportTakeaways.innerHTML = snapshot.takeaways.map(item => `<li>${item}</li>`).join("");
   }
+  if (summaryElements) {
+    updateExecutiveSummary(state, summaryElements);
+  }
 }
 
 function buildReportText(state) {
@@ -1637,6 +1928,553 @@ function buildReportText(state) {
     snapshot.takeaways.forEach(item => lines.push(`- ${item}`));
   }
   return lines.join("\n");
+}
+
+function updateExecutiveSummary(state, elements) {
+  if (!elements) return;
+  const seasonText = state.seasonSelect.selectedOptions[0]?.textContent || "All";
+  const poolCount = filteredData.length;
+  const selectedCount = getSelectedValues(state.playerSelect).length;
+  const selectedRows = getSelectedValues(state.playerSelect).map(id => rowById.get(id)).filter(Boolean);
+  const targetRow = rowById.get(state.targetSelect.value);
+  let headline = "Select players to compare profiles.";
+  const selectedMetrics = getSelectedValues(state.metricSelect);
+  const metricPriority = [
+    "non_pkxg_p90",
+    "goal_conversion_pct",
+    "shots_per_90"
+  ];
+  const headlineMetrics = selectedMetrics.length > 0 ? selectedMetrics : metricPriority;
+  const headlineLeaders = headlineMetrics.slice(0, 3);
+  const comparisonRows = [];
+  if (selectedRows.length >= 2) {
+    const leaderLines = [];
+    headlineMetrics.forEach(metricKey => {
+      const top = getTopRowByMetric(selectedRows, metricKey);
+      if (!top) return;
+      const label = prettyMetricLabel(metricKey);
+      if (headlineLeaders.includes(metricKey)) {
+        leaderLines.push(`${label}: ${playerLabel(top.row)}`);
+      }
+      comparisonRows.push({
+        metric: label,
+        leader: playerLabel(top.row),
+        value: formatReportValue(metricKey, top.value)
+      });
+    });
+    if (leaderLines.length > 0) {
+      headline = `Leaders — ${leaderLines.join("; ")}`;
+    } else {
+      headline = "Comparing selected striker profiles across key metrics.";
+    }
+  } else if (selectedRows.length === 1) {
+    headline = `Profile focus: ${playerLabel(selectedRows[0])}`;
+  }
+
+  if (elements.summarySeason) {
+    elements.summarySeason.textContent = seasonText;
+  }
+  if (elements.summaryPool) {
+    elements.summaryPool.textContent = `${poolCount} players`;
+  }
+  if (elements.summarySelected) {
+    elements.summarySelected.textContent = `${selectedCount} selected`;
+  }
+  if (elements.summaryHeadline) {
+    elements.summaryHeadline.textContent = headline;
+  }
+  if (elements.summaryCompareTable) {
+    const tbody = elements.summaryCompareTable.querySelector("tbody");
+    if (tbody) {
+      tbody.innerHTML = comparisonRows
+        .map(row => `<tr><td>${row.metric}</td><td>${row.leader}</td><td>${row.value}</td></tr>`)
+        .join("");
+    }
+  }
+  if (elements.summaryCompareStatus) {
+    elements.summaryCompareStatus.textContent = selectedRows.length >= 2
+      ? ""
+      : "Select at least two players to populate comparisons.";
+  }
+}
+
+function buildBenchmarkChart(playerSelect, metricSelect, statusEl) {
+  let playerSource = playerSelect;
+  let metricSource = metricSelect;
+  if (insightControls && insightControls.playerSelect && insightControls.metricSelect) {
+    const insightPlayers = getSelectedValues(insightControls.playerSelect);
+    const insightMetrics = getSelectedValues(insightControls.metricSelect);
+    if (insightPlayers.length > 0) {
+      playerSource = insightControls.playerSelect;
+    }
+    if (insightMetrics.length > 0) {
+      metricSource = insightControls.metricSelect;
+    }
+  }
+
+  const selectedPlayers = getSelectedValues(playerSource);
+  const selectedMetrics = getSelectedValues(metricSource);
+  if (selectedPlayers.length === 0 || selectedMetrics.length === 0) {
+    Plotly.purge("benchmarkChart");
+    if (statusEl) statusEl.textContent = "Select players and metrics to view benchmarks.";
+    return;
+  }
+
+  const rankMaps = new Map();
+  selectedMetrics.forEach(metric => {
+    rankMaps.set(metric, computeMetricRanksRaw(filteredData, metric, false));
+  });
+
+  const traces = selectedPlayers.map((id, idx) => {
+    const row = rowById.get(id);
+    if (!row) return null;
+    const x = [];
+    const y = [];
+    selectedMetrics.forEach(metric => {
+      const rankInfo = rankMaps.get(metric);
+      const rankEntry = rankInfo ? rankInfo.map.get(id) : null;
+      if (!rankEntry) return;
+      x.push(rankEntry.percentile);
+      y.push(prettyMetricLabel(metric));
+    });
+    if (x.length === 0) return null;
+    const color = radarPalette[idx % radarPalette.length];
+    return {
+      type: "bar",
+      orientation: "h",
+      x,
+      y,
+      name: rowLabel(row),
+      marker: { color },
+      hovertemplate: "%{y}<br>%{x:.0f} percentile<extra></extra>"
+    };
+  }).filter(Boolean);
+
+  if (traces.length === 0) {
+    Plotly.purge("benchmarkChart");
+    if (statusEl) statusEl.textContent = "No benchmark data available.";
+    return;
+  }
+
+  Plotly.newPlot("benchmarkChart", traces, {
+    barmode: "group",
+    margin: { t: 30, l: 140, r: 30, b: 30 },
+    height: 420,
+    xaxis: { title: "Percentile", range: [0, 100], tickfont: { color: ORL_COLORS.text } },
+    yaxis: { tickfont: { color: ORL_COLORS.text } },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: true,
+    legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "left", x: 0 },
+    font: { color: ORL_COLORS.text }
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
+}
+
+function updateFingerprintOptions(fingerprintSelect, fallbackId) {
+  if (!fingerprintSelect) return;
+  const previous = fingerprintSelect.value;
+  fingerprintSelect.innerHTML = "";
+  filteredData.forEach(row => {
+    const option = document.createElement("option");
+    option.value = rowId(row);
+    option.textContent = rowLabel(row);
+    fingerprintSelect.appendChild(option);
+  });
+  const available = Array.from(fingerprintSelect.options).map(option => option.value);
+  if (available.includes(previous)) {
+    fingerprintSelect.value = previous;
+  } else if (fallbackId && available.includes(fallbackId)) {
+    fingerprintSelect.value = fallbackId;
+  } else if (available.length > 0) {
+    fingerprintSelect.value = available[0];
+  }
+}
+
+function updateIntelOptions(intelSelect, fallbackId) {
+  if (!intelSelect) return;
+  const previous = intelSelect.value;
+  intelSelect.innerHTML = "";
+  filteredData.forEach(row => {
+    const option = document.createElement("option");
+    option.value = rowId(row);
+    option.textContent = rowLabel(row);
+    intelSelect.appendChild(option);
+  });
+  const available = Array.from(intelSelect.options).map(option => option.value);
+  if (available.includes(previous)) {
+    intelSelect.value = previous;
+  } else if (fallbackId && available.includes(fallbackId)) {
+    intelSelect.value = fallbackId;
+  } else if (available.length > 0) {
+    intelSelect.value = available[0];
+  }
+}
+
+function buildFingerprintCard(playerSelect, targetSelect, fingerprintSelect, metricSelect, statusEl) {
+  const container = document.getElementById("fingerprintChart");
+  if (!container) return;
+  const selectedIds = getSelectedValues(playerSelect);
+  const fingerprintId = fingerprintSelect?.value;
+  const selectedMetrics = metricSelect ? getSelectedValues(metricSelect) : [];
+  let row = null;
+  if (fingerprintId) {
+    row = rowById.get(fingerprintId);
+  } else if (targetSelect && targetSelect.value) {
+    row = rowById.get(targetSelect.value);
+  }
+  if (!row && selectedIds.length > 0) {
+    row = rowById.get(selectedIds[0]);
+  }
+  if (!row) {
+    Plotly.purge(container);
+    if (statusEl) statusEl.textContent = "Select a player to view the archetype fingerprint.";
+    return;
+  }
+  const metricsToUse = selectedMetrics.length > 0
+    ? selectedMetrics
+    : FINGERPRINT_DEFAULT_METRICS.filter(metric => metricOptions.includes(metric));
+
+  if (metricsToUse.length === 0) {
+    Plotly.purge(container);
+    if (statusEl) statusEl.textContent = "Select at least one metric to build the fingerprint.";
+    return;
+  }
+
+  const labels = metricsToUse.map(prettyMetricLabel);
+  const values = metricsToUse.map(metric => row[`${metric}_z`]);
+
+  const cleanValues = values.map(value => Number.isFinite(value) ? value : 0);
+
+  Plotly.newPlot(container, [{
+    type: "bar",
+    orientation: "h",
+    y: labels,
+    x: cleanValues,
+    marker: {
+      color: cleanValues,
+      colorscale: [
+        [0, "#d7c4f5"],
+        [0.5, ORL_COLORS.gold],
+        [1, ORL_COLORS.purple]
+      ],
+      cmin: -2,
+      cmax: 2,
+      colorbar: {
+        title: "Z-score",
+        tickvals: [-2, -1, 0, 1, 2],
+        ticks: "outside"
+      }
+    },
+    hovertemplate: "%{y}<br>Z-score: %{x:.2f}<extra></extra>"
+  }], {
+    margin: { t: 20, l: 180, r: 30, b: 30 },
+    height: Math.max(260, 40 * labels.length),
+    xaxis: { range: [-2, 2], zeroline: true, zerolinecolor: ORL_COLORS.grid },
+    yaxis: { automargin: true },
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: false,
+    font: { color: ORL_COLORS.text }
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
+}
+
+function getClusterVector(row, features) {
+  const vec = [];
+  let valid = 0;
+  features.forEach(metric => {
+    const z = metricToZ(row, metric);
+    if (Number.isFinite(z)) {
+      vec.push(z);
+      valid += 1;
+    } else {
+      vec.push(0);
+    }
+  });
+  return { vec, valid };
+}
+
+function distanceVec(a, b) {
+  let sum = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    const diff = a[i] - b[i];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
+}
+
+function buildClusterLabels(rows, k) {
+  const labels = new Map();
+  for (let clusterIdx = 0; clusterIdx < k; clusterIdx += 1) {
+    const clusterRows = rows.filter(row => row._cluster === clusterIdx);
+    if (clusterRows.length === 0) {
+      labels.set(clusterIdx, "Balanced profile");
+      continue;
+    }
+    const dimensionScores = INTEL_DIMENSIONS.map(dim => {
+      const vals = clusterRows
+        .map(row => averageScore(dim.metrics.map(metric => normalizeMetric(row, metric))))
+        .filter(val => Number.isFinite(val));
+      const avg = vals.length > 0 ? vals.reduce((sum, val) => sum + val, 0) / vals.length : 0;
+      return { key: dim.key, score: avg };
+    });
+    dimensionScores.sort((a, b) => b.score - a.score);
+    const primary = dimensionScores[0]?.key || "Balanced";
+    const secondary = dimensionScores[1]?.key || "Profile";
+    labels.set(clusterIdx, `${primary} + ${secondary}`);
+  }
+  return labels;
+}
+
+function buildClusterModel(rows) {
+  clusterLabels = new Map();
+  const features = INTEL_CLUSTER_FEATURES.filter(metric => rows.some(row => metric in row));
+  if (features.length < 3) {
+    return null;
+  }
+  const vectors = rows.map(row => ({ row, ...getClusterVector(row, features) }));
+  const minValid = Math.max(3, Math.floor(features.length * 0.5));
+  const training = vectors.filter(item => item.valid >= minValid);
+  if (training.length < 6) {
+    return null;
+  }
+
+  const k = Math.min(4, training.length);
+  const sorted = training.slice().sort((a, b) => a.vec[0] - b.vec[0]);
+  const centroids = Array.from({ length: k }, (_, idx) => {
+    const pick = sorted[Math.floor((idx / Math.max(1, k - 1)) * (sorted.length - 1))];
+    return pick ? pick.vec.slice() : sorted[0].vec.slice();
+  });
+
+  let assignments = new Array(training.length).fill(-1);
+  for (let iter = 0; iter < 30; iter += 1) {
+    let changed = false;
+    training.forEach((item, idx) => {
+      let best = 0;
+      let bestDist = Infinity;
+      centroids.forEach((centroid, cIdx) => {
+        const dist = distanceVec(item.vec, centroid);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = cIdx;
+        }
+      });
+      if (assignments[idx] !== best) {
+        assignments[idx] = best;
+        changed = true;
+      }
+    });
+
+    const sums = Array.from({ length: k }, () => new Array(features.length).fill(0));
+    const counts = new Array(k).fill(0);
+    training.forEach((item, idx) => {
+      const clusterIdx = assignments[idx];
+      counts[clusterIdx] += 1;
+      item.vec.forEach((val, dimIdx) => {
+        sums[clusterIdx][dimIdx] += val;
+      });
+    });
+
+    centroids.forEach((centroid, cIdx) => {
+      if (counts[cIdx] === 0) return;
+      centroids[cIdx] = centroid.map((_, dimIdx) => sums[cIdx][dimIdx] / counts[cIdx]);
+    });
+
+    if (!changed) break;
+  }
+
+  vectors.forEach(item => {
+    let best = 0;
+    let bestDist = Infinity;
+    centroids.forEach((centroid, cIdx) => {
+      const dist = distanceVec(item.vec, centroid);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = cIdx;
+      }
+    });
+    item.row._cluster = best;
+    item.row._clusterVec = item.vec;
+    item.row._clusterValid = item.valid;
+  });
+
+  clusterLabels = buildClusterLabels(rows, k);
+
+  return { k, features, centroids };
+}
+
+function getNearestComps(targetRow, pool, maxCount = 4) {
+  if (!targetRow || !Array.isArray(targetRow._clusterVec)) {
+    return [];
+  }
+  const targetVec = targetRow._clusterVec;
+  const candidates = pool
+    .filter(row => rowId(row) !== rowId(targetRow))
+    .filter(row => Array.isArray(row._clusterVec))
+    .map(row => ({ row, dist: distanceVec(targetVec, row._clusterVec) }));
+
+  candidates.sort((a, b) => a.dist - b.dist);
+  return candidates.slice(0, maxCount).map(entry => entry.row);
+}
+
+function updateRoleFitIntelligence(intelSelect, elements, targetFallbackId) {
+  if (!intelSelect || !elements) return;
+  const { roleSummary, roleChart, dataConfidenceEl, confidenceEl, clusterLabelEl, compsListEl, fitSummaryEl, fitListEl } = elements;
+
+  const selectedId = intelSelect.value || targetFallbackId;
+  const row = rowById.get(selectedId);
+
+  if (!row) {
+    if (roleSummary) roleSummary.textContent = "Select a player to view role intelligence.";
+    if (dataConfidenceEl) dataConfidenceEl.textContent = "";
+    if (confidenceEl) confidenceEl.textContent = "";
+    if (clusterLabelEl) clusterLabelEl.textContent = "Cluster unavailable.";
+    if (compsListEl) compsListEl.innerHTML = "";
+    if (fitSummaryEl) fitSummaryEl.textContent = "Team-fit data unavailable.";
+    if (fitListEl) fitListEl.innerHTML = "";
+    if (roleChart) {
+      Plotly.purge(roleChart);
+    }
+    return;
+  }
+
+  const roleProfile = buildRoleProfile(row);
+  const roleProbs = roleProfile.probabilities.slice().sort((a, b) => b.probability - a.probability);
+  const primaryPct = roleProbs[0] ? Math.round(roleProbs[0].probability * 100) : 0;
+  const secondaryPct = roleProbs[1] ? Math.round(roleProbs[1].probability * 100) : 0;
+  const secondaryText = roleProfile.secondary ? `${roleProfile.secondary} (${secondaryPct}%)` : "n/a";
+
+  if (roleSummary) {
+    roleSummary.innerHTML = [
+      `<strong>Primary:</strong> ${roleProfile.primary} (${primaryPct}%)`,
+      `<strong>Secondary:</strong> ${secondaryText}`,
+      `<strong>Role confidence:</strong> ${roleProfile.confidence}`
+    ].join("<br>");
+  }
+
+  if (roleChart) {
+    const roles = roleProbs.map(item => item.role);
+    const values = roleProbs.map(item => item.probability * 100);
+    Plotly.newPlot(roleChart, [{
+      type: "bar",
+      orientation: "h",
+      x: values,
+      y: roles,
+      marker: { color: ORL_COLORS.purple },
+      hovertemplate: "%{y}<br>%{x:.0f}% match<extra></extra>"
+    }], {
+      margin: { t: 20, l: 120, r: 30, b: 30 },
+      xaxis: { range: [0, 100], title: "Role fit (%)", tickfont: { color: ORL_COLORS.text } },
+      yaxis: { automargin: true, tickfont: { color: ORL_COLORS.text } },
+      paper_bgcolor: "#ffffff",
+      plot_bgcolor: "#ffffff",
+      showlegend: false,
+      height: 240,
+      font: { color: ORL_COLORS.text }
+    }, { displayModeBar: false, responsive: true });
+  }
+
+  const dataConfidence = getDataConfidence(row);
+  if (confidenceEl) {
+    confidenceEl.textContent = `Role confidence: ${roleProfile.confidence} · Data confidence: ${dataConfidence.tier}`;
+  }
+  if (dataConfidenceEl) {
+    const completenessPct = Math.round(dataConfidence.completeness * 100);
+    dataConfidenceEl.textContent = `${dataConfidence.tier} confidence · ${Math.round(dataConfidence.minutes)} mins · ${completenessPct}% profile completeness.`;
+  }
+
+  if (clusterLabelEl) {
+    const label = clusterLabels.get(row._cluster) || "Balanced profile";
+    clusterLabelEl.textContent = `Cluster: ${label} (style similarity, not quality).`;
+  }
+
+  if (compsListEl) {
+    const comps = getNearestComps(row, filteredData, 4);
+    compsListEl.innerHTML = comps.length > 0
+      ? comps.map(comp => `<li>${rowLabel(comp)}</li>`).join("")
+      : "<li>n/a</li>";
+  }
+
+  const fitDetails = buildTeamFitDetails(row, 4);
+  if (fitSummaryEl) {
+    if (!fitDetails) {
+      fitSummaryEl.textContent = "Fit unavailable: not enough overlapping team metrics.";
+    } else {
+      fitSummaryEl.textContent = "Best stylistic matches based on attacking/style alignment.";
+    }
+  }
+  if (fitListEl) {
+    if (!fitDetails) {
+      fitListEl.innerHTML = "<li>n/a</li>";
+    } else {
+      fitListEl.innerHTML = fitDetails.details
+        .map(entry => `<li>${entry.team} — ${entry.reasons.join(" + ")}</li>`)
+        .join("");
+    }
+  }
+}
+
+function buildQuadrantChart(playerSelect, statusEl, xSelect, ySelect, selectionSelect) {
+  const xMetric = xSelect?.value || "non_pkxg_p90";
+  const yMetric = ySelect?.value || "goal_conversion_pct";
+  const validRows = filteredData.filter(row => Number.isFinite(row[xMetric]) && Number.isFinite(row[yMetric]));
+  if (validRows.length === 0) {
+    Plotly.purge("quadrantChart");
+    if (statusEl) statusEl.textContent = "No data available for quadrant view.";
+    return;
+  }
+
+  const avgX = validRows.reduce((sum, row) => sum + row[xMetric], 0) / validRows.length;
+  const avgY = validRows.reduce((sum, row) => sum + row[yMetric], 0) / validRows.length;
+
+  const selectionSource = selectionSelect || playerSelect;
+  const selectedIds = new Set(getSelectedValues(selectionSource));
+  const xLabel = prettyMetricLabel(xMetric);
+  const yLabel = prettyMetricLabel(yMetric);
+  const allTrace = {
+    type: "scatter",
+    mode: "markers",
+    x: validRows.map(row => row[xMetric]),
+    y: validRows.map(row => row[yMetric]),
+    text: validRows.map(row => rowLabel(row)),
+    marker: { color: "rgba(150,150,150,0.35)", size: 6 },
+    hovertemplate: `%{text}<br>${xLabel}: %{x:.2f}<br>${yLabel}: %{y:.2f}<extra></extra>`,
+    name: "All STs"
+  };
+
+  const selectedRows = validRows.filter(row => selectedIds.has(rowId(row)));
+  const selectedTrace = {
+    type: "scatter",
+    mode: "markers+text",
+    x: selectedRows.map(row => row[xMetric]),
+    y: selectedRows.map(row => row[yMetric]),
+    text: selectedRows.map(row => playerLabel(row)),
+    textposition: "top center",
+    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    name: "Selected"
+  };
+
+  Plotly.newPlot("quadrantChart", [allTrace, selectedTrace], {
+    margin: { t: 30, l: 50, r: 30, b: 40 },
+    height: 420,
+    xaxis: { title: xLabel, zeroline: false },
+    yaxis: { title: yLabel, zeroline: false },
+    shapes: [
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...validRows.map(r => r[yMetric])), y1: Math.max(...validRows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
+      { type: "line", x0: Math.min(...validRows.map(r => r[xMetric])), x1: Math.max(...validRows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+    ],
+    annotations: [
+      { x: avgX, y: avgY, text: `Avg ${xLabel} / Avg ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+    ],
+    paper_bgcolor: "#ffffff",
+    plot_bgcolor: "#ffffff",
+    showlegend: false
+  }, { displayModeBar: false, responsive: true });
+
+  if (statusEl) statusEl.textContent = "";
 }
 
 function handleTableExport(tableSeasonSelect, tableTeamSelect, tablePlayerSearch, tableMinutesInput, tableRowsSelect, tableSortSelect, tableSortDirSelect, exportStatus) {
@@ -1816,7 +2654,7 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
-  }, { displayModeBar: false });
+  }, { displayModeBar: false, responsive: true });
 }
 
 function distance(aRow, bRow) {
@@ -1964,17 +2802,45 @@ function updateSimilarityCustom(targetSelect, similarityMetricSelect, similarity
   });
 }
 
-function updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus) {
+function updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, benchmarkStatus, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect, fingerprintSelect, fingerprintMetricSelect, fingerprintStatus) {
   filteredData = getFilteredData(seasonSelect, minutesInput);
   rowById = new Map(filteredData.map(row => [rowId(row), row]));
   updatePlayerOptions(playerSelect);
   updateTargetOptions(targetSelect, targetSelectCustom);
+  updateFingerprintOptions(fingerprintSelect, targetSelect?.value);
+  if (intelElements && intelElements.playerSelect) {
+    updateIntelOptions(intelElements.playerSelect, targetSelect?.value);
+  }
   updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
   updateSimilarity(targetSelect, similarityStatus);
   updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
 
   buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStatus, minutesInput);
   buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, minutesInput, bubbleStatus);
+  buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+  buildFingerprintCard(playerSelect, targetSelect, fingerprintSelect, fingerprintMetricSelect, fingerprintStatus);
+  buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+  if (intelElements && intelElements.playerSelect) {
+    updateRoleFitIntelligence(intelElements.playerSelect, intelElements, targetSelect?.value);
+  }
+
+  if (summaryElements) {
+    updateExecutiveSummary(
+      { seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect },
+      summaryElements
+    );
+  }
+
+  if (insightControls) {
+    syncInsightControls(
+      { playerSelect, metricSelect, targetSelect },
+      insightControls
+    );
+  }
+
+  if (quadrantControls) {
+    syncQuadrantControls(playerSelect, quadrantControls.playerSelect);
+  }
 }
 
 function setStatus(element, message, isError = false) {
@@ -2007,6 +2873,25 @@ async function init() {
   const bubbleCompositeSelect = document.getElementById("bubbleCompositeSelect");
   const bubbleLabelSelect = document.getElementById("bubbleLabelSelect");
   const bubbleStatus = document.getElementById("bubbleStatus");
+  const benchmarkStatus = document.getElementById("benchmarkStatus");
+  const quadrantStatus = document.getElementById("quadrantStatus");
+  const quadrantXSelect = document.getElementById("quadrantXSelect");
+  const quadrantYSelect = document.getElementById("quadrantYSelect");
+  const quadrantPlayerSelect = document.getElementById("quadrantPlayerSelect");
+  const fingerprintPlayerSelect = document.getElementById("fingerprintPlayerSelect");
+  const fingerprintMetricSelect = document.getElementById("fingerprintMetricSelect");
+  const fingerprintStatus = document.getElementById("fingerprintStatus");
+  const intelPlayerSelect = document.getElementById("intelPlayerSelect");
+  const intelConfidence = document.getElementById("intelConfidence");
+  const intelRoleSummary = document.getElementById("intelRoleSummary");
+  const roleProbChart = document.getElementById("roleProbChart");
+  const intelDataConfidence = document.getElementById("intelDataConfidence");
+  const intelClusterLabel = document.getElementById("intelClusterLabel");
+  const intelCompsList = document.getElementById("intelCompsList");
+  const intelFitSummary = document.getElementById("intelFitSummary");
+  const intelFitList = document.getElementById("intelFitList");
+  const insightPlayerSelect = document.getElementById("insightPlayerSelect");
+  const insightMetricSelect = document.getElementById("insightMetricSelect");
   const tableSeasonSelect = document.getElementById("tableSeasonSelect");
   const tableTeamSelect = document.getElementById("tableTeamSelect");
   const tablePlayerSearch = document.getElementById("tablePlayerSearch");
@@ -2031,6 +2916,30 @@ async function init() {
   const copyReportBtn = document.getElementById("copyReportBtn");
   const copyReportStatus = document.getElementById("copyReportStatus");
   const presetButtons = Array.from(document.querySelectorAll("[data-preset]"));
+  summaryElements = {
+    summarySeason: document.getElementById("summarySeason"),
+    summaryPool: document.getElementById("summaryPool"),
+    summarySelected: document.getElementById("summarySelected"),
+    summaryHeadline: document.getElementById("summaryHeadline"),
+    summaryCompareTable: document.getElementById("summaryCompareTable"),
+    summaryCompareStatus: document.getElementById("summaryCompareStatus")
+  };
+  intelElements = intelPlayerSelect ? {
+    playerSelect: intelPlayerSelect,
+    confidenceEl: intelConfidence,
+    roleSummary: intelRoleSummary,
+    roleChart: roleProbChart,
+    dataConfidenceEl: intelDataConfidence,
+    clusterLabelEl: intelClusterLabel,
+    compsListEl: intelCompsList,
+    fitSummaryEl: intelFitSummary,
+    fitListEl: intelFitList
+  } : null;
+  insightControls = insightPlayerSelect && insightMetricSelect ? {
+    playerSelect: insightPlayerSelect,
+    metricSelect: insightMetricSelect
+  } : null;
+  quadrantControls = quadrantPlayerSelect ? { playerSelect: quadrantPlayerSelect } : null;
   setupDownloadButtons();
 
   const urlState = readUrlState();
@@ -2045,7 +2954,7 @@ async function init() {
     `Data URL: ${dataUrl}`,
     `Team fit URL: ${teamDataUrl}`
   ].join("<br>");
-  setStatus(dataStatus, "Loading data...");
+  setStatus(dataStatus, "Loading analytics...");
 
   if (window.location.protocol === "file:") {
     setStatus(dataStatus, "This page appears to be opened from local disk (file://). Fetch will fail there. Use GitHub Pages or a local HTTP server.", true);
@@ -2101,12 +3010,19 @@ async function init() {
         row[key] = toNumber(row[key]);
       });
     });
+    teamMetricStats = buildMetricStats(teamData, teamNumericKeys);
   }
 
-  metricStats = buildMetricStats(rawData, roleMetricKeys);
+  const metricStatsKeys = Array.from(new Set([
+    ...roleMetricKeys,
+    ...INTEL_CLUSTER_FEATURES,
+    ...metricOptions
+  ]));
+  metricStats = buildMetricStats(rawData, metricStatsKeys);
   rawData.forEach(row => {
     row.role = getPlayerRole(row);
   });
+  clusterModel = buildClusterModel(rawData);
 
   buildSeasonOptions(seasonSelect);
   buildMetricOptions(metricSelect);
@@ -2117,7 +3033,12 @@ async function init() {
   buildBubbleAxisOptions(bubbleXSelect, "non_pkxg_p90");
   buildBubbleAxisOptions(bubbleYSelect, "goal_conversion_pct");
   buildBubbleMetricOptions(bubbleCompositeSelect);
+  buildQuadrantAxisOptions(quadrantXSelect, "non_pkxg_p90");
+  buildQuadrantAxisOptions(quadrantYSelect, "goal_conversion_pct");
   bubbleLabelSelect.value = "top10";
+  updateFingerprintOptions(fingerprintPlayerSelect, targetSelect?.value);
+  updateIntelOptions(intelPlayerSelect, targetSelect?.value);
+  buildFingerprintMetricOptions(fingerprintMetricSelect);
   buildTableSeasonOptions(tableSeasonSelect);
   buildTeamOptions(tableTeamSelect);
   buildTableSortOptions(tableSortSelect);
@@ -2153,7 +3074,7 @@ async function init() {
     applyMultiSelect(similarityMetricSelect, urlState.similarityMetrics);
   }
 
-  setStatus(dataStatus, "Data loaded.");
+  setStatus(dataStatus, "Ready.");
   setTimeout(() => {
     setStatus(dataStatus, "");
   }, 1500);
@@ -2213,28 +3134,50 @@ async function init() {
   };
 
   seasonSelect.addEventListener("change", () => {
-    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, benchmarkStatus, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   minutesInput.addEventListener("change", () => {
-    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+    updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, benchmarkStatus, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+  if (quadrantPlayerSelect) {
+    quadrantPlayerSelect.addEventListener("change", () => {
+      if (quadrantSyncing) return;
+      quadrantSyncing = true;
+      setSelectedValues(playerSelect, getSelectedValues(quadrantPlayerSelect));
+      updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+      buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+      buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+      quadrantSyncing = false;
+    });
+  }
   playerSelect.addEventListener("change", () => {
     updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+    buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+    buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+    buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   metricSelect.addEventListener("change", () => {
     updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+    buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+    buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
   if (radarModeSelect) {
     radarModeSelect.addEventListener("change", () => {
       updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+      buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+      buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
       updateReportNow();
       syncUrlFromControls(stateRefs);
     });
@@ -2245,15 +3188,86 @@ async function init() {
     }
     updateSimilarity(targetSelect, similarityStatus);
     updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+    buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+    if (intelElements && intelElements.playerSelect) {
+      updateRoleFitIntelligence(intelElements.playerSelect, intelElements, targetSelect.value);
+    }
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+
+  if (fingerprintPlayerSelect) {
+    fingerprintPlayerSelect.addEventListener("change", () => {
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+    });
+  }
+
+  if (fingerprintMetricSelect) {
+    fingerprintMetricSelect.addEventListener("change", () => {
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+    });
+  }
+
+  if (intelPlayerSelect) {
+    intelPlayerSelect.addEventListener("change", () => {
+      updateRoleFitIntelligence(intelPlayerSelect, intelElements, targetSelect?.value);
+    });
+  }
+
+  if (insightControls) {
+    if (insightControls.playerSelect) {
+      insightControls.playerSelect.addEventListener("change", () => {
+        if (insightSyncing) return;
+        insightSyncing = true;
+        setSelectedValues(playerSelect, getSelectedValues(insightControls.playerSelect));
+        updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+        buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+        updateReportNow();
+        syncUrlFromControls(stateRefs);
+        insightSyncing = false;
+      });
+    }
+
+    if (insightControls.metricSelect) {
+      insightControls.metricSelect.addEventListener("change", () => {
+        if (insightSyncing) return;
+        insightSyncing = true;
+        setSelectedValues(metricSelect, getSelectedValues(insightControls.metricSelect));
+        updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+        buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        updateReportNow();
+        syncUrlFromControls(stateRefs);
+        insightSyncing = false;
+      });
+    }
+
+    if (insightControls.targetSelect) {
+      insightControls.targetSelect.addEventListener("change", () => {
+        if (insightSyncing) return;
+        insightSyncing = true;
+        targetSelect.value = insightControls.targetSelect.value;
+        if (targetSelectCustom) {
+          targetSelectCustom.value = targetSelect.value;
+        }
+        updateSimilarity(targetSelect, similarityStatus);
+        updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+        buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
+        updateReportNow();
+        syncUrlFromControls(stateRefs);
+        insightSyncing = false;
+      });
+    }
+  }
 
   if (targetSelectCustom) {
     targetSelectCustom.addEventListener("change", () => {
       targetSelect.value = targetSelectCustom.value;
       updateSimilarity(targetSelect, similarityStatus);
       updateSimilarityCustom(targetSelect, similarityMetricSelect, similarityCustomStatus);
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintStatus);
       updateReportNow();
       syncUrlFromControls(stateRefs);
     });
@@ -2325,6 +3339,17 @@ async function init() {
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+
+  if (quadrantXSelect) {
+    quadrantXSelect.addEventListener("change", () => {
+      buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+    });
+  }
+  if (quadrantYSelect) {
+    quadrantYSelect.addEventListener("change", () => {
+      buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+    });
+  }
 
   const updateTable = () =>
     buildPlayerTable(tableSeasonSelect, tableTeamSelect, tablePlayerSearch, tableMinutesInput, tableRowsSelect, tableSortSelect, tableSortDirSelect, tableStatus);
@@ -2432,11 +3457,15 @@ async function init() {
     });
   });
 
-  updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus);
+  updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, benchmarkStatus, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
   applyMultiSelect(playerSelect, urlState.players);
   applySingleSelect(targetSelect, urlState.similarityTarget);
   updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
   updateSimilarity(targetSelect, similarityStatus);
+  if (intelElements && intelElements.playerSelect) {
+    updateIntelOptions(intelElements.playerSelect, targetSelect?.value);
+    updateRoleFitIntelligence(intelElements.playerSelect, intelElements, targetSelect?.value);
+  }
   updateTable();
   updateReportNow();
   syncUrlFromControls(stateRefs);
