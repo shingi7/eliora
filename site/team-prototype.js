@@ -1,4 +1,4 @@
-const TEAM_BUILD_VERSION = "team-v29-final-20250206";
+const TEAM_BUILD_VERSION = "team-v34-radar-percentile-scale-20250206";
 const dataUrl = `./data/team_comparison_features.json?v=${TEAM_BUILD_VERSION}`;
 const driversUrl = `./data/team_points_drivers.json?v=${TEAM_BUILD_VERSION}`;
 
@@ -736,9 +736,8 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
         if (!stats || stats.range === 0) return 4;
         return ((rawVal - stats.min) / stats.range) * 8;
       }
-      if (!Number.isFinite(zVal)) return null;
-      const clamped = Math.max(-4, Math.min(4, zVal));
-      return clamped + 4;
+      if (!rankEntry) return null;
+      return (rankEntry.percentile / 100) * 8;
     });
 
     if (rVals.some(value => value === null)) {

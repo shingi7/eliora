@@ -1,4 +1,4 @@
-const ST_BUILD_VERSION = "st-v47-benchmark-fix-20250206";
+const ST_BUILD_VERSION = "st-v52-radar-percentile-scale-20250206";
 const dataUrl = `./data/player_st_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const teamDataUrl = `./data/team_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const ROLE_DEFAULT = "Advanced Forward";
@@ -402,6 +402,7 @@ let insightSyncing = false;
 let quadrantControls = null;
 let quadrantSyncing = false;
 let metricStats = {};
+let playerSearchTerm = "";
 
 function toNumber(value) {
   const num = Number(value);
@@ -951,6 +952,7 @@ function getFilteredData(seasonSelect, minutesInput) {
 function updatePlayerOptions(playerSelect) {
   const previous = getSelectedValues(playerSelect);
   playerSelect.innerHTML = "";
+  const searchTerm = playerSearchTerm.trim().toLowerCase();
 
   const sorted = [...filteredData].sort((a, b) => {
     const nameCmp = (a.player || "").localeCompare(b.player || "", undefined, { sensitivity: "base" });
@@ -962,8 +964,16 @@ function updatePlayerOptions(playerSelect) {
   sorted.forEach(row => {
     const option = document.createElement("option");
     const id = rowId(row);
+    const label = `${row.player} — ${row.team} — ${row.season}`;
+    const matchesSearch = searchTerm.length === 0
+      ? true
+      : label.toLowerCase().includes(searchTerm);
+    const wasSelected = previous.includes(id);
+    if (!matchesSearch && !wasSelected) {
+      return;
+    }
     option.value = id;
-    option.textContent = `${row.player} — ${row.team} — ${row.season}`;
+    option.textContent = label;
     playerSelect.appendChild(option);
   });
 
@@ -1046,6 +1056,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
   if (selectedPlayers.length === 0 || selectedMetrics.length === 0) {
     Plotly.purge("radar");
     radarStatus.textContent = "Select at least one player and one metric.";
+    updateRadarDetails([]);
     return;
   }
 
@@ -1059,6 +1070,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
   if (entries.length === 0) {
     Plotly.purge("radar");
     radarStatus.textContent = "No data available for the selected players/metrics.";
+    updateRadarDetails([]);
     return;
   }
 
@@ -1152,9 +1164,8 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
         if (!stats || stats.range === 0) return 4;
         return ((rawVal - stats.min) / stats.range) * 8;
       }
-      if (!Number.isFinite(zVal)) return null;
-      const clamped = Math.max(-4, Math.min(4, zVal));
-      return clamped + 4;
+      if (!rankEntry) return null;
+      return (rankEntry.percentile / 100) * 8;
     });
 
     if (rVals.some(value => value === null)) {
@@ -1163,18 +1174,12 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
 
     const meanRadius = rVals.reduce((sum, val) => sum + val, 0) / rVals.length;
 
-    const legendLabel = [
-      `<b>${rowLabel(entry.row)}</b>`,
-      `Min: ${minutesText} — Overall: ${overallText}`,
-      `Fit: ${fitText}`
-    ].join("<br>");
-
     return {
       type: "barpolar",
       r: rVals,
       theta: thetaValues,
       base: 0,
-      name: legendLabel,
+      name: playerLabel(entry.row),
       marker: {
         color,
         opacity: entries.length > 1 ? 0.55 : 0.85,
@@ -1196,6 +1201,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
   if (traces.length === 0) {
     Plotly.purge("radar");
     radarStatus.textContent = "No data available for the selected players/metrics.";
+    updateRadarDetails([]);
     return;
   }
 
@@ -1212,18 +1218,21 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
         tickmode: "array",
         tickvals: thetaValues,
         ticktext: thetaLabels,
+        showticklabels: true,
+        ticks: "",
         tickfont: { color: ORL_COLORS.text }
       }
     },
     barmode: "overlay",
-    showlegend: true,
-    legend: { tracegroupgap: 12 },
-    margin: { t: 40, b: 40, l: 70, r: 40 },
-    height: 600,
+    showlegend: false,
+    margin: { t: 30, b: 40, l: 90, r: 90 },
+    height: 560,
     paper_bgcolor: "#ffffff",
     plot_bgcolor: "#ffffff",
     font: { color: ORL_COLORS.text }
   }, { displayModeBar: false, responsive: true });
+
+  updateRadarDetails(entries.map((entry, idx) => ({ row: entry.row, color: radarPalette[idx % radarPalette.length] })));
 }
 
 function buildTopSeasonOptions(topSeasonSelect) {
@@ -1341,7 +1350,7 @@ function applyPreset(presetKey, controls) {
   if (!preset) {
     return;
   }
-  const { metricSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, playerSelect, radarModeSelect, radarStatus, bubbleSeasonSelect, bubbleLabelSelect, minutesInput, bubbleStatus } = controls;
+  const { metricSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, playerSelect, radarModeSelect, radarStatus, bubbleSeasonSelect, bubbleLabelSelect, minutesInput, bubbleStatus, presetRoleSelect } = controls;
   const validRadar = Array.from(new Set(preset.radar.filter(metric => metricOptions.includes(metric))));
   const validComposite = Array.from(new Set(preset.bubbleComposite.filter(metric => metricOptions.includes(metric))));
 
@@ -1356,6 +1365,9 @@ function applyPreset(presetKey, controls) {
   }
   if (validComposite.length > 0) {
     setSelectedValues(bubbleCompositeSelect, validComposite);
+  }
+  if (presetRoleSelect) {
+    presetRoleSelect.value = presetKey;
   }
 
   updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
@@ -1661,6 +1673,13 @@ function downloadCsv(filename, rows, columns) {
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
+}
+
+function updateStoredList(listKey, selectedIds) {
+  const stored = JSON.parse(localStorage.getItem(listKey) || "[]");
+  const combined = Array.from(new Set(stored.concat(selectedIds)));
+  localStorage.setItem(listKey, JSON.stringify(combined));
+  return combined;
 }
 
 function formatDateStamp() {
@@ -2070,6 +2089,51 @@ function buildBenchmarkChart(playerSelect, metricSelect, statusEl) {
   }, { displayModeBar: false, responsive: true });
 
   if (statusEl) statusEl.textContent = "";
+}
+
+function updateRadarDetails(entries) {
+  const leftEl = document.getElementById("radarDetailsLeft");
+  const rightEl = document.getElementById("radarDetailsRight");
+  if (!leftEl || !rightEl) return;
+
+  if (!entries || entries.length === 0) {
+    leftEl.innerHTML = "";
+    rightEl.innerHTML = "";
+    return;
+  }
+
+  const mid = Math.ceil(entries.length / 2);
+  const leftRows = entries.slice(0, mid);
+  const rightRows = entries.slice(mid);
+
+  const renderSide = (el, title, list) => {
+    if (!el) return;
+    if (list.length === 0) {
+      el.innerHTML = "";
+      return;
+    }
+    const items = list.map(entry => {
+      const row = entry.row || entry;
+      const color = entry.color || ORL_COLORS.purple;
+      const swatch = `<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${color};margin-right:6px;"></span>`;
+      const minutesText = Number.isFinite(row.minutes_played) ? Math.round(row.minutes_played) : "n/a";
+      const overallText = formatPercentile(row.overall_percentile);
+      const fitTeams = buildTeamFitList(row, 4);
+      const fitText = fitTeams ? fitTeams.join(", ") : "n/a";
+      return `
+        <li>
+          ${swatch}<strong>${row.player}</strong> (${row.role || ROLE_DEFAULT})<br>
+          ${row.team} — ${row.season}<br>
+          <span class="label-strong">Min</span>: ${minutesText} · <span class="label-strong">Overall</span>: ${overallText}<br>
+          <span class="label-strong">Fit</span>: ${fitText}
+        </li>
+      `;
+    }).join("");
+    el.innerHTML = `<h4>${title}</h4><ul>${items}</ul>`;
+  };
+
+  renderSide(leftEl, "Selected players", leftRows);
+  renderSide(rightEl, "Selected players", rightRows);
 }
 
 function updateFingerprintOptions(fingerprintSelect, fallbackId) {
@@ -2851,7 +2915,9 @@ function setStatus(element, message, isError = false) {
 async function init() {
   const seasonSelect = document.getElementById("seasonSelect");
   const minutesInput = document.getElementById("minutesInput");
+  const presetRoleSelect = document.getElementById("presetRoleSelect");
   const playerSelect = document.getElementById("playerSelect");
+  const playerSearch = document.getElementById("playerSearch");
   const metricSelect = document.getElementById("metricSelect");
   const radarModeSelect = document.getElementById("radarModeSelect");
   const targetSelect = document.getElementById("targetSelect");
@@ -2904,6 +2970,9 @@ async function init() {
   const copySummaryStatus = document.getElementById("copySummaryStatus");
   const exportTableBtn = document.getElementById("exportTableBtn");
   const exportTableStatus = document.getElementById("exportTableStatus");
+  const addLonglistBtn = document.getElementById("addLonglistBtn");
+  const addShortlistBtn = document.getElementById("addShortlistBtn");
+  const listStatus = document.getElementById("listStatus");
   const reportSeason = document.getElementById("reportSeason");
   const reportMinutes = document.getElementById("reportMinutes");
   const reportPlayers = document.getElementById("reportPlayers");
@@ -3130,7 +3199,8 @@ async function init() {
     bubbleSeasonSelect,
     bubbleLabelSelect,
     minutesInput,
-    bubbleStatus
+    bubbleStatus,
+    presetRoleSelect
   };
 
   seasonSelect.addEventListener("change", () => {
@@ -3143,6 +3213,24 @@ async function init() {
     updateReportNow();
     syncUrlFromControls(stateRefs);
   });
+  if (playerSearch) {
+    playerSearch.addEventListener("input", () => {
+      playerSearchTerm = playerSearch.value || "";
+      updatePlayerOptions(playerSelect);
+      updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
+      buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
+      buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
+      buildQuadrantChart(playerSelect, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect);
+      updateReportNow();
+      syncUrlFromControls(stateRefs);
+      if (insightControls) {
+        syncInsightControls({ playerSelect, metricSelect }, insightControls);
+      }
+      if (quadrantControls) {
+        syncQuadrantControls(playerSelect, quadrantControls.playerSelect);
+      }
+    });
+  }
   if (quadrantPlayerSelect) {
     quadrantPlayerSelect.addEventListener("change", () => {
       if (quadrantSyncing) return;
@@ -3166,6 +3254,9 @@ async function init() {
     syncUrlFromControls(stateRefs);
   });
   metricSelect.addEventListener("change", () => {
+    if (presetRoleSelect) {
+      presetRoleSelect.value = "custom";
+    }
     updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus);
     buildBenchmarkChart(playerSelect, metricSelect, benchmarkStatus);
     buildFingerprintCard(playerSelect, targetSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
@@ -3448,6 +3539,30 @@ async function init() {
     );
   }
 
+  const handleListAdd = (listKey, label) => {
+    const selectedIds = getSelectedValues(playerSelect);
+    if (selectedIds.length === 0) {
+      if (listStatus) {
+        listStatus.textContent = "Select at least one player to add.";
+      }
+      return;
+    }
+    const combined = updateStoredList(listKey, selectedIds);
+    if (listStatus) {
+      listStatus.textContent = `Added ${selectedIds.length} to ${label}. Total: ${combined.length}.`;
+      setTimeout(() => {
+        listStatus.textContent = "";
+      }, 2000);
+    }
+  };
+
+  if (addLonglistBtn) {
+    addLonglistBtn.addEventListener("click", () => handleListAdd("st_longlist", "longlist"));
+  }
+  if (addShortlistBtn) {
+    addShortlistBtn.addEventListener("click", () => handleListAdd("st_shortlist", "shortlist"));
+  }
+
   presetButtons.forEach(button => {
     button.addEventListener("click", () => {
       const presetKey = button.getAttribute("data-preset");
@@ -3456,6 +3571,17 @@ async function init() {
       syncUrlFromControls(stateRefs);
     });
   });
+
+  if (presetRoleSelect) {
+    presetRoleSelect.addEventListener("change", () => {
+      const presetKey = presetRoleSelect.value;
+      if (presetKey && presetKey !== "custom") {
+        applyPreset(presetKey, presetControls);
+        updateReportNow();
+        syncUrlFromControls(stateRefs);
+      }
+    });
+  }
 
   updateAll(seasonSelect, minutesInput, playerSelect, metricSelect, radarModeSelect, targetSelect, targetSelectCustom, similarityMetricSelect, radarStatus, similarityStatus, similarityCustomStatus, topSeasonSelect, topMetricSelect, topNInput, topStatus, bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubbleCompositeSelect, bubbleLabelSelect, bubbleStatus, benchmarkStatus, quadrantStatus, quadrantXSelect, quadrantYSelect, quadrantPlayerSelect, fingerprintPlayerSelect, fingerprintMetricSelect, fingerprintStatus);
   applyMultiSelect(playerSelect, urlState.players);

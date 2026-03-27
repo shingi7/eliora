@@ -75,6 +75,10 @@
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         align-items: start;
       }
+      .stacked-field {
+        display: grid;
+        gap: 12px;
+      }
       label {
         display: block;
         font-weight: 600;
@@ -96,6 +100,23 @@
         outline: none;
         border-color: var(--purple-500);
         box-shadow: 0 0 0 3px rgba(106, 47, 191, 0.2);
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid var(--border-soft);
+        border-radius: 8px;
+        font-size: 14px;
+        background: #fff;
+        color: var(--text-main);
+      }
+      input[type="text"]:focus {
+        outline: none;
+        border-color: var(--purple-500);
+        box-shadow: 0 0 0 3px rgba(106, 47, 191, 0.2);
+      }
+      .player-search {
+        margin-bottom: 6px;
       }
       button {
         padding: 7px 12px;
@@ -235,6 +256,62 @@
       .hero-chart {
         min-height: 520px;
       }
+      .radar-layout {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: minmax(220px, 1fr) minmax(520px, 3fr) minmax(220px, 1fr);
+        align-items: start;
+        overflow: visible;
+      }
+      #radar,
+      #radar .svg-container,
+      #radar .main-svg,
+      #radar .polarlayer {
+        overflow: visible !important;
+      }
+      .radar-details {
+        font-size: 13px;
+        color: var(--text-muted);
+        position: relative;
+        z-index: 1;
+      }
+      .radar-details h4 {
+        margin: 0 0 8px 0;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--purple-700);
+      }
+      .radar-details ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+      .radar-details li {
+        background: rgba(239, 231, 251, 0.88);
+        border: 1px solid var(--border-soft);
+        border-radius: 10px;
+        padding: 8px 10px;
+      }
+      .radar-details strong {
+        color: var(--purple-900);
+        font-weight: 700;
+      }
+      .label-strong {
+        color: var(--purple-900);
+        font-weight: 700;
+      }
+      #radar .angularaxis text,
+      #radar .angularaxis .tick text {
+        paint-order: stroke;
+        stroke: rgba(239, 231, 251, 0.98) !important;
+        stroke-width: 8px;
+        stroke-linejoin: round;
+        font-weight: 600;
+        filter: drop-shadow(0 0 2px rgba(239, 231, 251, 0.9));
+      }
       .action-row {
         display: flex;
         flex-wrap: wrap;
@@ -276,6 +353,9 @@
         }
         .hero-chart {
           min-height: 440px;
+        }
+        .radar-layout {
+          grid-template-columns: 1fr;
         }
       }
       @media (max-width: 720px) {
@@ -356,7 +436,7 @@
       </div>
 
       <div class="tab-bar" id="tabBar" role="tablist">
-        <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
+        <button type="button" data-tab-target="tab-overview" class="active">Player search</button>
         <button type="button" data-tab-target="tab-top">Top Performers</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
         <button type="button" data-tab-target="tab-insights">Insights</button>
@@ -371,19 +451,34 @@
           <h2>Filters</h2>
           <div class="grid">
             <div>
-              <label for="seasonSelect">Season</label>
-              <select id="seasonSelect"></select>
-            </div>
-            <div>
-              <label for="minutesInput">Minimum minutes</label>
-              <input id="minutesInput" type="number" min="0" step="50" value="1200">
+              <div class="stacked-field">
+                <div>
+                  <label for="seasonSelect">Season</label>
+                  <select id="seasonSelect"></select>
+                </div>
+                <div>
+                  <label for="minutesInput">Minimum minutes</label>
+                  <input id="minutesInput" type="number" min="0" step="50" value="1200">
+                </div>
+                <div>
+                  <label for="presetRoleSelect">Preset roles</label>
+                  <select id="presetRoleSelect">
+                    <option value="custom" selected>Custom</option>
+                    <option value="false9">False 9</option>
+                    <option value="advanced">Advanced Forward</option>
+                    <option value="target">Target Man</option>
+                    <option value="poacher">Poacher</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div>
               <label for="playerSelect">Players (multi-select)</label>
+              <input id="playerSearch" class="player-search" type="text" placeholder="Search players">
               <select id="playerSelect" multiple size="8"></select>
             </div>
           <div>
-            <label for="metricSelect">Metrics (multi-select)</label>
+            <label for="metricSelect">Custom metrics (multi-select)</label>
             <select id="metricSelect" multiple size="8"></select>
           </div>
         </div>
@@ -397,19 +492,26 @@
           <div class="section-note">
             <div class="action-row">
               <button id="copySummaryBtn" type="button">Copy current view summary</button>
+              <button id="addLonglistBtn" type="button" class="secondary">Add to longlist</button>
+              <button id="addShortlistBtn" type="button" class="secondary">Add to shortlist</button>
             </div>
             <span id="copySummaryStatus" class="muted"></span>
+            <span id="listStatus" class="muted"></span>
           </div>
         </section>
 
         <section class="card">
           <h2>Radar Comparison</h2>
-          <p class="muted section-note">Compare selected players across chosen metrics. Z-scores show relative to the league average.</p>
+          <p class="muted section-note">Compare selected players across chosen metrics. Percentiles show where each player sits in the current pool.</p>
           <div class="section-note action-row">
             <button type="button" data-download-target="radar" data-download-name="st_radar">Download chart image</button>
             <span id="radarDownloadStatus" class="muted"></span>
           </div>
-          <div id="radar" class="chart hero-chart"></div>
+          <div class="radar-layout">
+            <div id="radarDetailsLeft" class="radar-details"></div>
+          <div id="radar" class="chart hero-chart" style="position: relative; z-index: 2;"></div>
+            <div id="radarDetailsRight" class="radar-details"></div>
+          </div>
           <div id="radarStatus" class="status"></div>
         </section>
       </div>
@@ -793,6 +895,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js?v=st-v47-benchmark-fix-20250206"></script>
+    <script src="./player-st.js?v=st-v52-radar-percentile-scale-20250206"></script>
   </body>
 </html>

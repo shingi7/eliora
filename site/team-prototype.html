@@ -156,6 +156,22 @@
         width: 100%;
         min-height: 360px;
       }
+      #radar .angularaxis .tick text {
+        paint-order: stroke;
+        stroke: rgba(239, 231, 251, 0.98) !important;
+        stroke-width: 8px;
+        stroke-linejoin: round;
+        font-weight: 600;
+        filter: drop-shadow(0 0 2px rgba(239, 231, 251, 0.9));
+      }
+      #radar .angularaxis text {
+        paint-order: stroke;
+        stroke: rgba(239, 231, 251, 0.98) !important;
+        stroke-width: 8px;
+        stroke-linejoin: round;
+        font-weight: 600;
+        filter: drop-shadow(0 0 2px rgba(239, 231, 251, 0.9));
+      }
       .chart.tight {
         min-height: 300px;
       }
@@ -389,7 +405,7 @@
       </div>
 
       <div class="tab-bar" id="tabBar" role="tablist">
-        <button type="button" data-tab-target="tab-overview" class="active">Overview</button>
+        <button type="button" data-tab-target="tab-overview" class="active">Team search</button>
         <button type="button" data-tab-target="tab-top">Top Teams</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
         <button type="button" data-tab-target="tab-insights">Insights</button>
@@ -437,7 +453,7 @@
 
         <section class="card">
           <h2>Team Radar Comparison</h2>
-          <p class="muted section-note">Compare selected teams across chosen metrics. Z-scores show relative to the league average.</p>
+          <p class="muted section-note">Compare selected teams across chosen metrics. Percentiles show where each team sits in the current pool.</p>
           <div class="section-note action-row">
             <button type="button" data-download-target="radar" data-download-name="team_radar">Download chart image</button>
             <span id="radarDownloadStatus" class="muted"></span>
@@ -799,6 +815,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./team-prototype.js?v=team-v29-final-20250206"></script>
+    <script src="./team-prototype.js?v=team-v34-radar-percentile-scale-20250206"></script>
   </body>
 </html>
