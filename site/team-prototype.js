@@ -1,4 +1,4 @@
-const TEAM_BUILD_VERSION = "team-v34-radar-percentile-scale-20250206";
+const TEAM_BUILD_VERSION = "team-v35-deep-dive-move-20250206";
 const dataUrl = `./data/team_comparison_features.json?v=${TEAM_BUILD_VERSION}`;
 const driversUrl = `./data/team_points_drivers.json?v=${TEAM_BUILD_VERSION}`;
 

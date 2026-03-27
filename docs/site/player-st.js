@@ -1,4 +1,4 @@
-const ST_BUILD_VERSION = "st-v52-radar-percentile-scale-20250206";
+const ST_BUILD_VERSION = "st-v54-remove-quick-presets-20250206";
 const dataUrl = `./data/player_st_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const teamDataUrl = `./data/team_comparison_features.json?v=${ST_BUILD_VERSION}`;
 const ROLE_DEFAULT = "Advanced Forward";

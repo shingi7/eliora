@@ -400,46 +400,11 @@
         <div id="dataDebug" class="status"></div>
       </details>
 
-      <div class="summary-strip">
-        <div class="summary-item">
-          <span class="summary-label">Season filter</span>
-          <span id="summarySeason" class="summary-value">—</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Player pool</span>
-          <span id="summaryPool" class="summary-value">—</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Selected players</span>
-          <span id="summarySelected" class="summary-value">—</span>
-        </div>
-        <div class="summary-item summary-headline">
-          <span class="summary-label">Headline takeaway</span>
-          <span id="summaryHeadline" class="summary-value">—</span>
-        </div>
-        <div class="summary-item summary-compare">
-          <span class="summary-label">Headline comparison</span>
-          <div class="table-wrap">
-            <table id="summaryCompareTable">
-              <thead>
-                <tr>
-                  <th>Metric</th>
-                  <th>Leader</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <div id="summaryCompareStatus" class="muted"></div>
-        </div>
-      </div>
-
       <div class="tab-bar" id="tabBar" role="tablist">
         <button type="button" data-tab-target="tab-overview" class="active">Player search</button>
         <button type="button" data-tab-target="tab-top">Top Performers</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
-        <button type="button" data-tab-target="tab-insights">Insights</button>
+        <button type="button" data-tab-target="tab-insights">Deep dive</button>
         <button type="button" data-tab-target="tab-intelligence">Role & Fit</button>
         <button type="button" data-tab-target="tab-similarity">Similarity</button>
         <button type="button" data-tab-target="tab-table">Table</button>
@@ -482,13 +447,6 @@
             <select id="metricSelect" multiple size="8"></select>
           </div>
         </div>
-          <div class="section-note">
-            <span class="muted">Quick Presets:</span>
-            <button type="button" data-preset="false9">False 9</button>
-            <button type="button" data-preset="advanced">Advanced Forward</button>
-            <button type="button" data-preset="target">Target Man</button>
-            <button type="button" data-preset="poacher">Poacher</button>
-          </div>
           <div class="section-note">
             <div class="action-row">
               <button id="copySummaryBtn" type="button">Copy current view summary</button>
@@ -579,8 +537,43 @@
       </section>
 
       <section class="card tab-section" id="tab-insights">
-        <h2>Benchmark & Profile Insights</h2>
+        <h2>Deep Dive Insights</h2>
         <p class="muted section-note">Executive-friendly views that summarize the same selected players and metrics.</p>
+
+        <div class="summary-strip" style="margin-bottom: 16px;">
+          <div class="summary-item">
+            <span class="summary-label">Season filter</span>
+            <span id="summarySeason" class="summary-value">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Player pool</span>
+            <span id="summaryPool" class="summary-value">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Selected players</span>
+            <span id="summarySelected" class="summary-value">—</span>
+          </div>
+          <div class="summary-item summary-headline">
+            <span class="summary-label">Headline takeaway</span>
+            <span id="summaryHeadline" class="summary-value">—</span>
+          </div>
+          <div class="summary-item summary-compare">
+            <span class="summary-label">Headline comparison</span>
+            <div class="table-wrap">
+              <table id="summaryCompareTable">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Leader</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div id="summaryCompareStatus" class="muted"></div>
+          </div>
+        </div>
 
         <div class="card" style="margin-bottom: 16px;">
           <h3>Insight Controls</h3>
@@ -895,6 +888,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./player-st.js?v=st-v52-radar-percentile-scale-20250206"></script>
+    <script src="./player-st.js?v=st-v54-remove-quick-presets-20250206"></script>
   </body>
 </html>

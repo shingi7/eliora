@@ -369,46 +369,11 @@
         <div id="dataDebug" class="status"></div>
       </details>
 
-      <div class="summary-strip">
-        <div class="summary-item">
-          <span class="summary-label">Season filter</span>
-          <span id="summarySeason" class="summary-value">—</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Team pool</span>
-          <span id="summaryPool" class="summary-value">—</span>
-        </div>
-        <div class="summary-item">
-          <span class="summary-label">Selected teams</span>
-          <span id="summarySelected" class="summary-value">—</span>
-        </div>
-        <div class="summary-item summary-headline">
-          <span class="summary-label">Headline takeaway</span>
-          <span id="summaryHeadline" class="summary-value">—</span>
-        </div>
-        <div class="summary-item summary-compare">
-          <span class="summary-label">Headline comparison</span>
-          <div class="table-wrap">
-            <table id="summaryCompareTable">
-              <thead>
-                <tr>
-                  <th>Metric</th>
-                  <th>Leader</th>
-                  <th>Value</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <div id="summaryCompareStatus" class="muted"></div>
-        </div>
-      </div>
-
       <div class="tab-bar" id="tabBar" role="tablist">
         <button type="button" data-tab-target="tab-overview" class="active">Team search</button>
         <button type="button" data-tab-target="tab-top">Top Teams</button>
         <button type="button" data-tab-target="tab-bubble">Bubble</button>
-        <button type="button" data-tab-target="tab-insights">Insights</button>
+        <button type="button" data-tab-target="tab-insights">Deep dive</button>
         <button type="button" data-tab-target="tab-similarity">Similarity</button>
         <button type="button" data-tab-target="tab-table">Table</button>
         <button type="button" data-tab-target="tab-report">Current View Report</button>
@@ -526,8 +491,43 @@
       </section>
 
       <section class="card tab-section" id="tab-insights">
-        <h2>Process & Style Insights</h2>
+        <h2>Deep Dive Insights</h2>
         <p class="muted section-note">Executive-friendly views that surface process vs results and team style identity.</p>
+
+        <div class="summary-strip" style="margin-bottom: 16px;">
+          <div class="summary-item">
+            <span class="summary-label">Season filter</span>
+            <span id="summarySeason" class="summary-value">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Team pool</span>
+            <span id="summaryPool" class="summary-value">—</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Selected teams</span>
+            <span id="summarySelected" class="summary-value">—</span>
+          </div>
+          <div class="summary-item summary-headline">
+            <span class="summary-label">Headline takeaway</span>
+            <span id="summaryHeadline" class="summary-value">—</span>
+          </div>
+          <div class="summary-item summary-compare">
+            <span class="summary-label">Headline comparison</span>
+            <div class="table-wrap">
+              <table id="summaryCompareTable">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Leader</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div id="summaryCompareStatus" class="muted"></div>
+          </div>
+        </div>
 
         <div class="card" style="margin-bottom: 16px;">
           <h3>Insight Controls</h3>
@@ -815,6 +815,6 @@
     </div>
 
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <script src="./team-prototype.js?v=team-v34-radar-percentile-scale-20250206"></script>
+    <script src="./team-prototype.js?v=team-v35-deep-dive-move-20250206"></script>
   </body>
 </html>
