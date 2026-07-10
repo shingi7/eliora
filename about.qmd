@@ -137,7 +137,7 @@ EliOra Tech Solutions
 </div>
 <div class="about-card">
 <h3>The Fellowship</h3>
-<p>Born in 2025 from the minds of digital pioneers, we are more than a company—we are a brotherhood of AI alchemists. Scientists who speak in equations, engineers who dream in algorithms, and visionaries who see tomorrow's possibilities in today's data. From scrappy startups to Fortune 500 giants, we transform businesses into legends.</p>
+<p>Born in 2026 from the minds of digital pioneers, we are more than a company—we are a brotherhood of AI alchemists. Scientists who speak in equations, engineers who dream in algorithms, and visionaries who see tomorrow's possibilities in today's data. From scrappy startups to Fortune 500 giants, we transform businesses into legends.</p>
 </div>
 <div class="about-card">
 <h3>Our Innovation</h3>
@@ -174,12 +174,12 @@ EliOra Tech Solutions
 </div>
 <div class="founder-content">
 <h3>Shingai Nindi</h3>
-<p class="founder-title">Senior Data Engineer and Co-Founder</p>
-<p>Shingai Nindi is the Senior Data Engineer and Co-Founder of Eliora Tech Solutions, where he brings a rare blend of technical depth and visionary problem-solving to software engineering, data infrastructure, and AI integration. With a B.Sc. in Computer Science and an M.Sc. in Data Science & Analytics from Georgetown University, graduating summa cum laude, Shingai has built a reputation for transforming raw data into actionable intelligence. His work spans industries—sports, healthcare, construction tech, and financial systems—each showcasing his ability to engineer scalable solutions that drive measurable impact.</p>
+<p class="founder-title">Lead Data Engineer and Co-Founder</p>
+<p>Shingai Nindi is the Lead Data Engineer and Co-Founder of Eliora Tech Solutions, where he brings a rare blend of technical depth and visionary problem-solving to software engineering, data infrastructure, and AI integration. With a B.Sc. in Computer Science and an M.Sc. in Data Science & Analytics from Georgetown University, graduating summa cum laude, Shingai has built a reputation for transforming raw data into actionable intelligence. His work spans industries—sports, healthcare, construction tech, and financial systems—each showcasing his ability to engineer scalable solutions that drive measurable impact.</p>
 
 <p>In sports analytics, Shingai has delivered cutting-edge insights that shaped strategy and performance at the NCAA Division I level. While serving Georgetown Women's Soccer, he built automated ETL pipelines for tens of thousands of match events, applied machine learning models to evaluate player impact, and crafted interactive dashboards that informed real-time coaching decisions—contributing directly to a Big East Coaching Staff of the Year award. His expertise extends beyond the field into natural language processing, where he has analyzed thousands of clinical notes to uncover sentiment and risk factors in healthcare, as well as into cryptocurrency and blockchain projects, where he has engineered infrastructure for financial intelligence and security.</p>
 
-<p>As a senior engineer, Shingai has spearheaded the deployment of secure, cloud-native systems on AWS, integrating APIs, webhooks, and machine learning pipelines into robust production environments. His portfolio includes building containerized applications on ECS Fargate, configuring multi-domain infrastructures with CloudFront and Route 53, and integrating financial APIs like Plaid with enterprise-grade security. Whether optimizing sports performance, designing intelligent healthcare systems, or bridging data with emerging technologies, Shingai's work reflects a passion for innovation and a commitment to solutions that are not only technically sound but transformative for organizations and communities alike.</p>
+<p>As lead data engineer, Shingai has spearheaded the deployment of secure, cloud-native systems on AWS, integrating APIs, webhooks, and machine learning pipelines into robust production environments. His portfolio includes building containerized applications on ECS Fargate, configuring multi-domain infrastructures with CloudFront and Route 53, and integrating financial APIs like Plaid with enterprise-grade security. Whether optimizing sports performance, designing intelligent healthcare systems, or bridging data with emerging technologies, Shingai's work reflects a passion for innovation and a commitment to solutions that are not only technically sound but transformative for organizations and communities alike.</p>
 </div>
 </div>
 </div>
