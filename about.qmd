@@ -21,12 +21,16 @@ format:
 /* Founders Section */
 .founders-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
   margin-top: 2rem;
 }
 
 .founder-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) 1fr;
+  align-items: start;
+  gap: 2rem;
   background: rgba(26, 26, 26, 0.8);
   border-radius: 12px;
   padding: 2rem;
@@ -41,7 +45,7 @@ format:
 
 .founder-image {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .founder-headshot {
@@ -57,38 +61,43 @@ format:
   color: #4db6e8;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  text-align: center;
+  text-align: left;
 }
 
 .founder-title {
   color: #cccccc;
   font-size: 1.1rem;
   font-weight: 600;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  text-align: left;
+  margin-bottom: 1rem;
   font-style: italic;
 }
 
 .founder-content p {
   margin-bottom: 1rem;
   line-height: 1.7;
-  text-align: justify;
+  text-align: left;
 }
 
 /* Responsive adjustments for founders */
-@media (max-width: 768px) {
-  .founders-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
+@media (max-width: 900px) {
   .founder-card {
+    grid-template-columns: 1fr;
     padding: 1.5rem;
   }
   
+  .founder-image {
+    margin-bottom: 1rem;
+  }
+
   .founder-headshot {
     width: 150px;
     height: 150px;
+  }
+
+  .founder-content h3,
+  .founder-title {
+    text-align: center;
   }
 }
 </style>
@@ -179,5 +188,5 @@ EliOra Tech Solutions
 </main>
 
 <footer>
-© 2025 EliOra Tech Solutions. All rights reserved.
+© 2026 EliOra Tech Solutions. All rights reserved.
 </footer>

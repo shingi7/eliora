@@ -52,5 +52,5 @@ EliOra Tech Solutions
 </main>
 
 <footer>
-© 2025 EliOra Tech Solutions. All rights reserved.
+© 2026 EliOra Tech Solutions. All rights reserved.
 </footer>

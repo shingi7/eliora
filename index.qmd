@@ -107,5 +107,5 @@ EliOra Tech Solutions
 </main>
 
 <footer>
-© 2025 EliOra Tech Solutions LLC. All rights reserved.
+© 2026 EliOra Tech Solutions LLC. All rights reserved.
 </footer>
