@@ -393,6 +393,10 @@ footer {
 }
 
 /* Founders Section */
+.founders-section {
+  max-width: 1320px;
+}
+
 .founders-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -402,7 +406,7 @@ footer {
 
 .founder-card {
   display: grid;
-  grid-template-columns: minmax(180px, 240px) 1fr;
+  grid-template-columns: minmax(170px, 220px) 1fr;
   align-items: start;
   gap: 2rem;
   background: rgba(26, 26, 26, 0.8);
@@ -449,7 +453,8 @@ footer {
 
 .founder-content p {
   margin-bottom: 1rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.62;
   text-align: left;
 }
 
@@ -536,4 +541,3 @@ footer {
   .form-status.error {
     color: #ff6b6b;
   }
-
