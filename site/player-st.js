@@ -346,32 +346,32 @@ const numericMetricKeys = new Set(
     .concat(metricOptions)
 );
 
-const ORL_COLORS = {
-  purple: "#6a2fbf",
-  purpleDeep: "#2b0a57",
-  purpleMid: "#4b1e8a",
-  lavender: "#c7a8f2",
-  lavenderLight: "#efe7fb",
-  gold: "#d1a20f",
-  grid: "#e2d6f4",
-  text: "#2b0a57"
+const ELIORA_COLORS = {
+  cyan: "#61e5ff",
+  ink: "#05080d",
+  blue: "#172433",
+  grid: "#26394a",
+  raised: "#111c28",
+  lime: "#c8ff68",
+  text: "#f4f7f8",
+  surface: "#0b121b"
 };
 
 const radarPalette = [
   // Orlando-first core
-  ORL_COLORS.purple,
-  ORL_COLORS.gold,
-  ORL_COLORS.purpleMid,
-  ORL_COLORS.lavender,
+  ELIORA_COLORS.cyan,
+  ELIORA_COLORS.lime,
+  ELIORA_COLORS.blue,
+  ELIORA_COLORS.grid,
   // then higher-contrast extensions
-  "#1f77b4",
-  "#ff7f0e",
-  "#2ca02c",
-  "#d62728",
-  "#17becf",
-  "#8c564b",
-  "#9467bd",
-  "#7f7f7f"
+  "#6f92ff",
+  "#ff8a80",
+  "#55d6be",
+  "#ff8a80",
+  "#61e5ff",
+  "#a8b5c2",
+  "#6f92ff",
+  "#748494"
 ];
 
 const FINGERPRINT_DEFAULT_METRICS = [
@@ -1183,7 +1183,7 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
       marker: {
         color,
         opacity: entries.length > 1 ? 0.55 : 0.85,
-        line: { width: 1, color: ORL_COLORS.purpleDeep }
+        line: { width: 1, color: ELIORA_COLORS.ink }
       },
       width: angleStep * 0.9,
       customdata,
@@ -1210,8 +1210,8 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
       radialaxis: {
         visible: true,
         showticklabels: false,
-        gridcolor: ORL_COLORS.grid,
-        linecolor: ORL_COLORS.grid,
+        gridcolor: ELIORA_COLORS.grid,
+        linecolor: ELIORA_COLORS.grid,
         range: radialRange
       },
       angularaxis: {
@@ -1220,16 +1220,16 @@ function updateRadar(playerSelect, metricSelect, radarModeSelect, radarStatus) {
         ticktext: thetaLabels,
         showticklabels: true,
         ticks: "",
-        tickfont: { color: ORL_COLORS.text }
+        tickfont: { color: ELIORA_COLORS.text }
       }
     },
     barmode: "overlay",
     showlegend: false,
     margin: { t: 30, b: 40, l: 90, r: 90 },
     height: 560,
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 
   updateRadarDetails(entries.map((entry, idx) => ({ row: entry.row, color: radarPalette[idx % radarPalette.length] })));
@@ -1574,7 +1574,7 @@ function buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStat
     y: values,
     hovertext: yLabels,
     hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>",
-    marker: { color: ORL_COLORS.purple }
+    marker: { color: ELIORA_COLORS.cyan }
   };
 
   Plotly.newPlot("topPerformersChart", [trace], {
@@ -1582,9 +1582,9 @@ function buildTopPerformers(topSeasonSelect, topMetricSelect, topNInput, topStat
     xaxis: { tickangle: -30, automargin: true, tickfont: { size: 10 } },
     yaxis: { title: prettyMetricLabel(selectedMetric), automargin: true },
     showlegend: false,
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 }
 
@@ -2079,13 +2079,13 @@ function buildBenchmarkChart(playerSelect, metricSelect, statusEl) {
     barmode: "group",
     margin: { t: 30, l: 140, r: 30, b: 30 },
     height: 420,
-    xaxis: { title: "Percentile", range: [0, 100], tickfont: { color: ORL_COLORS.text } },
-    yaxis: { tickfont: { color: ORL_COLORS.text } },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    xaxis: { title: "Percentile", range: [0, 100], tickfont: { color: ELIORA_COLORS.text } },
+    yaxis: { tickfont: { color: ELIORA_COLORS.text } },
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: true,
     legend: { orientation: "h", yanchor: "bottom", y: 1.02, xanchor: "left", x: 0 },
-    font: { color: ORL_COLORS.text }
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 
   if (statusEl) statusEl.textContent = "";
@@ -2114,7 +2114,7 @@ function updateRadarDetails(entries) {
     }
     const items = list.map(entry => {
       const row = entry.row || entry;
-      const color = entry.color || ORL_COLORS.purple;
+      const color = entry.color || ELIORA_COLORS.cyan;
       const swatch = `<span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${color};margin-right:6px;"></span>`;
       const minutesText = Number.isFinite(row.minutes_played) ? Math.round(row.minutes_played) : "n/a";
       const overallText = formatPercentile(row.overall_percentile);
@@ -2219,9 +2219,9 @@ function buildFingerprintCard(playerSelect, targetSelect, fingerprintSelect, met
     marker: {
       color: cleanValues,
       colorscale: [
-        [0, "#d7c4f5"],
-        [0.5, ORL_COLORS.gold],
-        [1, ORL_COLORS.purple]
+        [0, "#26394a"],
+        [0.5, ELIORA_COLORS.lime],
+        [1, ELIORA_COLORS.cyan]
       ],
       cmin: -2,
       cmax: 2,
@@ -2235,12 +2235,12 @@ function buildFingerprintCard(playerSelect, targetSelect, fingerprintSelect, met
   }], {
     margin: { t: 20, l: 180, r: 30, b: 30 },
     height: Math.max(260, 40 * labels.length),
-    xaxis: { range: [-2, 2], zeroline: true, zerolinecolor: ORL_COLORS.grid },
+    xaxis: { range: [-2, 2], zeroline: true, zerolinecolor: ELIORA_COLORS.grid },
     yaxis: { automargin: true },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: false,
-    font: { color: ORL_COLORS.text }
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 
   if (statusEl) statusEl.textContent = "";
@@ -2427,17 +2427,17 @@ function updateRoleFitIntelligence(intelSelect, elements, targetFallbackId) {
       orientation: "h",
       x: values,
       y: roles,
-      marker: { color: ORL_COLORS.purple },
+      marker: { color: ELIORA_COLORS.cyan },
       hovertemplate: "%{y}<br>%{x:.0f}% match<extra></extra>"
     }], {
       margin: { t: 20, l: 120, r: 30, b: 30 },
-      xaxis: { range: [0, 100], title: "Role fit (%)", tickfont: { color: ORL_COLORS.text } },
-      yaxis: { automargin: true, tickfont: { color: ORL_COLORS.text } },
-      paper_bgcolor: "#ffffff",
-      plot_bgcolor: "#ffffff",
+      xaxis: { range: [0, 100], title: "Role fit (%)", tickfont: { color: ELIORA_COLORS.text } },
+      yaxis: { automargin: true, tickfont: { color: ELIORA_COLORS.text } },
+      paper_bgcolor: ELIORA_COLORS.surface,
+      plot_bgcolor: ELIORA_COLORS.surface,
       showlegend: false,
       height: 240,
-      font: { color: ORL_COLORS.text }
+      font: { color: ELIORA_COLORS.text }
     }, { displayModeBar: false, responsive: true });
   }
 
@@ -2517,7 +2517,7 @@ function buildQuadrantChart(playerSelect, statusEl, xSelect, ySelect, selectionS
     y: selectedRows.map(row => row[yMetric]),
     text: selectedRows.map(row => playerLabel(row)),
     textposition: "top center",
-    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    marker: { color: ELIORA_COLORS.cyan, size: 10, line: { width: 1, color: ELIORA_COLORS.ink } },
     name: "Selected"
   };
 
@@ -2527,14 +2527,14 @@ function buildQuadrantChart(playerSelect, statusEl, xSelect, ySelect, selectionS
     xaxis: { title: xLabel, zeroline: false },
     yaxis: { title: yLabel, zeroline: false },
     shapes: [
-      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...validRows.map(r => r[yMetric])), y1: Math.max(...validRows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
-      { type: "line", x0: Math.min(...validRows.map(r => r[xMetric])), x1: Math.max(...validRows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...validRows.map(r => r[yMetric])), y1: Math.max(...validRows.map(r => r[yMetric])), line: { color: ELIORA_COLORS.grid, dash: "dash" } },
+      { type: "line", x0: Math.min(...validRows.map(r => r[xMetric])), x1: Math.max(...validRows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ELIORA_COLORS.grid, dash: "dash" } }
     ],
     annotations: [
-      { x: avgX, y: avgY, text: `Avg ${xLabel} / Avg ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+      { x: avgX, y: avgY, text: `Avg ${xLabel} / Avg ${yLabel}`, showarrow: false, font: { size: 11, color: ELIORA_COLORS.text } }
     ],
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: false
   }, { displayModeBar: false, responsive: true });
 
@@ -2677,7 +2677,7 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
         sizemode: "area",
         opacity: 0.75,
         color: radarPalette[idx % radarPalette.length],
-        line: { color: ORL_COLORS.purpleDeep, width: 0.5 }
+        line: { color: ELIORA_COLORS.ink, width: 0.5 }
       },
       hovertemplate:
         "Player: %{customdata[0]}<br>" +
@@ -2715,9 +2715,9 @@ function buildBubbleChart(bubbleSeasonSelect, bubbleXSelect, bubbleYSelect, bubb
     yaxis: { title: prettyMetricLabel(yMetric) },
     showlegend: showLegend,
     legend: { orientation: "h" },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 }
 

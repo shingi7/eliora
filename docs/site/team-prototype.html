@@ -3,22 +3,29 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Prototype</title>
+    <title>Team Comparison Prototype | EliOra Tech Solutions</title>
+    <meta name="description" content="EliOra internal R&D prototype for team style comparison, seasonal exploration, and explainable points drivers.">
+    <meta name="theme-color" content="#05080d">
+    <link rel="canonical" href="https://elioratechsolutions.com/site/team-prototype.html">
+    <link rel="icon" href="../assets/favicon.png" type="image/png">
+    <meta property="og:title" content="Team Comparison Prototype | EliOra">
+    <meta property="og:description" content="Inspectable team comparison using preserved football analytics logic and local data.">
+    <meta property="og:type" content="website"><meta property="og:url" content="https://elioratechsolutions.com/site/team-prototype.html"><meta property="og:image" content="https://elioratechsolutions.com/assets/social-preview.png">
     <style>
       :root {
         color-scheme: light;
-        --purple-950: #1f0a3d;
-        --purple-900: #2b0a57;
-        --purple-700: #4b1e8a;
-        --purple-500: #6a2fbf;
-        --purple-300: #c7a8f2;
-        --lavender-100: #f5f0fb;
-        --lavender-200: #efe7fb;
-        --gold-500: #d1a20f;
-        --text-main: #1a1b22;
-        --text-muted: #5c5b6b;
-        --border-soft: #e2d6f4;
-        --shadow-soft: 0 6px 18px rgba(31, 10, 61, 0.08);
+        --lab-ink: #05080d;
+        --lab-blue-ink: #0b121b;
+        --lab-blue: #172433;
+        --lab-cyan: #61e5ff;
+        --lab-line: #6f92ff;
+        --lab-surface: #0b121b;
+        --lab-raised: #111c28;
+        --lab-lime: #c8ff68;
+        --text-main: #f4f7f8;
+        --text-muted: #a8b5c2;
+        --border-soft: #26394a;
+        --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.28);
       }
       * {
         box-sizing: border-box;
@@ -28,22 +35,22 @@
         padding: 24px;
         font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         color: var(--text-main);
-        background: var(--lavender-100);
+        background: var(--lab-surface);
       }
       :focus-visible {
-        outline: 2px solid var(--gold-500);
+        outline: 2px solid var(--lab-lime);
         outline-offset: 2px;
       }
       h1 {
         margin: 0 0 6px 0;
         font-size: 30px;
-        color: var(--purple-900);
+        color: var(--lab-blue-ink);
         letter-spacing: 0.2px;
       }
       h2 {
         margin: 0 0 12px 0;
         font-size: 20px;
-        color: var(--purple-900);
+        color: var(--lab-blue-ink);
       }
       p {
         margin: 0 0 16px 0;
@@ -59,10 +66,10 @@
         min-height: 18px;
       }
       .status.error {
-        color: #b4231f;
+        color: #ff8a80;
       }
       .card {
-        background: #fff;
+        background: #0b121b;
         border: 1px solid var(--border-soft);
         border-radius: 12px;
         padding: 18px;
@@ -70,11 +77,11 @@
         box-shadow: var(--shadow-soft);
       }
       .subcard {
-        background: #fff;
+        background: #0b121b;
         border: 1px solid var(--border-soft);
         border-radius: 12px;
         padding: 14px;
-        box-shadow: 0 2px 8px rgba(31, 10, 61, 0.06);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
       }
       .grid {
         display: grid;
@@ -105,20 +112,20 @@
         text-align: left;
       }
       .drivers-table th {
-        background: var(--lavender-200);
-        color: var(--purple-900);
+        background: var(--lab-raised);
+        color: var(--lab-blue-ink);
         font-weight: 600;
       }
       h3 {
         margin: 0 0 8px 0;
         font-size: 16px;
-        color: var(--purple-900);
+        color: var(--lab-blue-ink);
       }
       label {
         display: block;
         font-weight: 600;
         margin-bottom: 6px;
-        color: var(--purple-900);
+        color: var(--lab-blue-ink);
       }
       select,
       input[type="number"],
@@ -128,29 +135,29 @@
         border: 1px solid var(--border-soft);
         border-radius: 8px;
         font-size: 14px;
-        background: #fff;
+        background: #0b121b;
         color: var(--text-main);
       }
       select:focus,
       input[type="number"]:focus,
       input[type="text"]:focus {
         outline: none;
-        border-color: var(--purple-500);
-        box-shadow: 0 0 0 3px rgba(106, 47, 191, 0.2);
+        border-color: var(--lab-cyan);
+        box-shadow: 0 0 0 3px rgba(97, 229, 255, 0.2);
       }
       button {
         padding: 7px 12px;
-        border: 1px solid var(--purple-500);
+        border: 1px solid var(--lab-cyan);
         border-radius: 8px;
-        background: #fff;
-        color: var(--purple-700);
+        background: #0b121b;
+        color: var(--lab-blue);
         font-size: 13px;
         cursor: pointer;
         transition: all 0.15s ease;
       }
       button:hover {
-        background: var(--purple-500);
-        color: #fff;
+        background: var(--lab-cyan);
+        color: #0b121b;
       }
       .chart {
         width: 100%;
@@ -158,19 +165,19 @@
       }
       #radar .angularaxis .tick text {
         paint-order: stroke;
-        stroke: rgba(239, 231, 251, 0.98) !important;
+        stroke: rgba(17, 28, 40, 0.98) !important;
         stroke-width: 8px;
         stroke-linejoin: round;
         font-weight: 600;
-        filter: drop-shadow(0 0 2px rgba(239, 231, 251, 0.9));
+        filter: drop-shadow(0 0 2px rgba(17, 28, 40, 0.9));
       }
       #radar .angularaxis text {
         paint-order: stroke;
-        stroke: rgba(239, 231, 251, 0.98) !important;
+        stroke: rgba(17, 28, 40, 0.98) !important;
         stroke-width: 8px;
         stroke-linejoin: round;
         font-weight: 600;
-        filter: drop-shadow(0 0 2px rgba(239, 231, 251, 0.9));
+        filter: drop-shadow(0 0 2px rgba(17, 28, 40, 0.9));
       }
       .chart.tight {
         min-height: 300px;
@@ -191,11 +198,11 @@
         text-align: left;
       }
       thead th {
-        background: var(--lavender-200);
-        color: var(--purple-900);
+        background: var(--lab-raised);
+        color: var(--lab-blue-ink);
       }
       tbody tr:hover {
-        background: rgba(106, 47, 191, 0.06);
+        background: rgba(97, 229, 255, 0.06);
       }
       details {
         margin-top: 8px;
@@ -203,7 +210,7 @@
       summary {
         cursor: pointer;
         font-size: 13px;
-        color: var(--purple-700);
+        color: var(--lab-blue);
       }
       .table-wrap {
         overflow-x: auto;
@@ -218,32 +225,32 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 12px;
         padding: 14px;
-        background: #fff;
+        background: #0b121b;
         border: 1px solid var(--border-soft);
         border-radius: 14px;
-        box-shadow: 0 10px 24px rgba(35, 10, 70, 0.08);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
       }
       .summary-item {
         padding: 10px 12px;
         border-radius: 12px;
-        background: var(--lavender-200);
+        background: var(--lab-raised);
       }
       .summary-label {
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 0.04em;
-        color: var(--purple-700);
+        color: var(--lab-blue);
         margin-bottom: 4px;
         display: block;
       }
       .summary-value {
         font-size: 15px;
         font-weight: 600;
-        color: var(--purple-900);
+        color: var(--lab-blue-ink);
       }
       .summary-headline {
         grid-column: 1 / -1;
-        background: #fff;
+        background: #0b121b;
         border: 1px dashed var(--border-soft);
       }
       .summary-headline .summary-value {
@@ -252,7 +259,7 @@
       }
       .summary-compare {
         grid-column: 1 / -1;
-        background: #fff;
+        background: #0b121b;
         border: 1px solid var(--border-soft);
       }
       .summary-compare table {
@@ -269,7 +276,7 @@
         object-fit: contain;
         border: 1px solid var(--border-soft);
         border-radius: 8px;
-        background: #fff;
+        background: #0b121b;
       }
       .tab-bar {
         display: flex;
@@ -278,19 +285,19 @@
         margin: 16px 0 20px;
         padding: 10px;
         border-radius: 14px;
-        background: #fff;
+        background: #0b121b;
         border: 1px solid var(--border-soft);
-        box-shadow: 0 8px 16px rgba(35, 10, 70, 0.06);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
       }
       .tab-bar button {
-        background: var(--lavender-200);
+        background: var(--lab-raised);
         border-color: transparent;
         font-weight: 600;
       }
       .tab-bar button.active {
-        background: var(--purple-900);
-        color: #fff;
-        border-color: var(--gold-500);
+        background: var(--lab-blue-ink);
+        color: #0b121b;
+        border-color: var(--lab-lime);
       }
       .tab-section {
         display: none;
@@ -308,14 +315,14 @@
         align-items: center;
       }
       .action-row button {
-        background: var(--purple-500);
-        color: #fff;
-        border-color: var(--purple-500);
+        background: var(--lab-cyan);
+        color: #0b121b;
+        border-color: var(--lab-cyan);
       }
       .action-row button.secondary {
-        background: #fff;
-        color: var(--purple-700);
-        border-color: var(--purple-300);
+        background: #0b121b;
+        color: var(--lab-blue);
+        border-color: var(--lab-line);
       }
       .site-footer {
         margin-top: 24px;
@@ -362,11 +369,21 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="lab-shell.css">
   </head>
   <body>
-    <div class="page">
+    <a class="lab-skip" href="#main-content">Skip to content</a>
+    <header class="lab-header" data-lab-header><div class="lab-nav-shell">
+      <a class="lab-brand" href="../index.html"><img src="../assets/optimized/logo-mark.png" alt=""><span>EliOra<small>Tech Solutions</small></span></a>
+      <a class="lab-back" href="../work.html"><span aria-hidden="true">←</span> Work / Lab</a>
+      <nav class="lab-nav" id="lab-primary-nav" aria-label="Primary navigation"><ul><li><a href="../index.html">Home</a></li><li><a href="../services.html">Services</a></li><li><a href="../work.html" aria-current="page">Work</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul></nav>
+      <a class="lab-cta" href="../contact.html">Start a project <span aria-hidden="true">↗</span></a><button class="lab-menu-toggle" type="button" data-lab-menu-toggle aria-expanded="false" aria-controls="lab-primary-nav">Menu</button>
+    </div></header>
+    <main class="page" id="main-content">
+      <p class="lab-eyebrow">Football Decision Intelligence Lab</p>
       <h1>Team Prototype</h1>
-      <p>Prototype view of team metrics using the first-build export.</p>
+      <p>Explore team styles, seasonal context, underlying performance, and explainable points drivers using a local first-build export.</p>
+      <p class="notice">EliOra internal R&amp;D · Not client work · Analytics logic and DOM IDs preserved for prototype continuity.</p>
 
       <div id="dataStatus" class="status" role="status" aria-live="polite">Loading data...</div>
       <div id="buildVersion" class="status muted">Build version: </div>
@@ -819,9 +836,12 @@
           </div>
         </div>
       </section>
-      <footer class="site-footer">© 2026 EliOra Tech Solutions. All rights reserved.</footer>
-    </div>
+      <div class="lab-note" style="margin-top:1rem"><strong>What this proves:</strong> a domain-specific team surface can connect comparison, exploration, and model evidence without hiding the underlying metrics or assumptions.</div>
+    </main>
 
+    <footer class="lab-footer"><div class="lab-footer-inner"><div><strong>EliOra Tech Solutions</strong><p>Football Decision Intelligence Lab · internal R&amp;D</p><p>© <span data-current-year>2026</span> EliOra Tech Solutions.</p></div><div class="lab-footer-links"><a href="../work.html">← Back to Work</a><a href="executive-demo.html">Executive overview</a><a href="player-st.html">ST player prototype</a><a href="../contact.html" class="lab-button">Start a project ↗</a></div></div></footer>
+
+    <script src="lab-shell.js" defer></script>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="./team-prototype.js?v=team-v35-deep-dive-move-20260710"></script>
   </body>
