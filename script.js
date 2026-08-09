@@ -1,75 +1,134 @@
-//
-// Custom JavaScript for Eliora Tech Solutions website
-//
-// This script initialises the animated neural network background using
-// Vanta.js and reveals sections on scroll via the Intersection Observer API.
+(() => {
+  "use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialise Vanta NET effect on the full‑screen background container.
-  if (typeof VANTA !== 'undefined' && VANTA.NET) {
-    VANTA.NET({
-      el: '#vanta-bg',
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      // Use a darker blue for the network lines to reduce visual interference
-      color: 0x2a7bc9,
-      backgroundColor: 0x0a0a0a,
-      // Slightly reduce point density and spacing for a calmer effect
-      points: 8.0,
-      maxDistance: 20.0,
-      spacing: 20.0
+  const root = document.documentElement;
+  root.classList.add("js");
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function setActivePage() {
+    const page = document.querySelector("[data-page]")?.dataset.page;
+    if (!page) return;
+    document.querySelectorAll("[data-nav]").forEach((link) => {
+      if (link.dataset.nav === page) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
   }
 
-  // Reveal sections on scroll
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        obs.unobserve(entry.target);
+  function setupHeader() {
+    const header = document.querySelector("[data-site-header]");
+    const toggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector(".primary-nav");
+    const firstLink = nav?.querySelector("a");
+    if (!header || !toggle || !nav) return;
+
+    const setScrolled = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+    setScrolled();
+    window.addEventListener("scroll", setScrolled, { passive: true });
+
+    const closeMenu = (returnFocus = false) => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      if (returnFocus) toggle.focus();
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isOpen));
+      nav.classList.toggle("is-open", !isOpen);
+      if (!isOpen) firstLink?.focus();
+    });
+
+    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu()));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") closeMenu(true);
+    });
+    document.addEventListener("click", (event) => {
+      if (toggle.getAttribute("aria-expanded") === "true" && !nav.contains(event.target) && !toggle.contains(event.target)) closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) closeMenu();
+    }, { passive: true });
+  }
+
+  function setupReveals() {
+    const targets = [...document.querySelectorAll(".site-page > section")];
+    if (!targets.length) return;
+    targets.forEach((target) => target.classList.add("reveal-ready"));
+    if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
+      targets.forEach((target) => target.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver((entries, instance) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        instance.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .08 });
+    targets.forEach((target) => observer.observe(target));
+  }
+
+  function setupSignalInstrument() {
+    const instrument = document.querySelector("[data-signal-instrument]");
+    if (!instrument || prefersReducedMotion.matches || !window.matchMedia("(pointer: fine)").matches) return;
+    instrument.addEventListener("pointermove", (event) => {
+      const bounds = instrument.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+      instrument.style.setProperty("--pointer-x", `${x}%`);
+      instrument.style.setProperty("--pointer-y", `${y}%`);
+    }, { passive: true });
+    instrument.addEventListener("pointerleave", () => {
+      instrument.style.removeProperty("--pointer-x");
+      instrument.style.removeProperty("--pointer-y");
+    }, { passive: true });
+  }
+
+  function setupContactForm() {
+    const form = document.querySelector("#contact-form");
+    if (!form || typeof window.fetch !== "function") return;
+    const button = form.querySelector("button[type='submit']");
+    const status = form.querySelector("#form-status");
+    if (!button || !status) return;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const originalLabel = button.innerHTML;
+      button.disabled = true;
+      form.setAttribute("aria-busy", "true");
+      status.className = "form-status";
+      status.textContent = "Sending…";
+      try {
+        const response = await fetch(form.action, {
+          method: form.method || "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+        if (!response.ok) throw new Error("Submission failed");
+        form.reset();
+        status.classList.add("success");
+        status.textContent = "Thanks—your message has been sent. We’ll be in touch.";
+      } catch (error) {
+        status.classList.add("error");
+        status.textContent = "Something went wrong. Please try again or submit the form directly.";
+      } finally {
+        button.disabled = false;
+        button.innerHTML = originalLabel;
+        form.removeAttribute("aria-busy");
       }
     });
-  }, { threshold: 0.1 });
+  }
 
-  document.querySelectorAll('.section').forEach(section => {
-    observer.observe(section);
-  });
-});
+  function setCurrentYear() {
+    const year = String(new Date().getFullYear());
+    document.querySelectorAll("[data-current-year]").forEach((element) => { element.textContent = year; });
+  }
 
-// ---- Contact form (Formspree) ----
-(function () {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  const status = document.getElementById('form-status');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    status.textContent = 'Sending…';
-    status.className = 'form-status';
-
-    try {
-      const r = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (r.ok) {
-        form.reset();
-        status.textContent = 'Thanks! We’ll reach out within 1 business day.';
-        status.classList.add('success');
-      } else {
-        const data = await r.json().catch(() => ({}));
-        status.textContent = (data.errors && data.errors.length)
-          ? data.errors.map(e => e.message).join(', ')
-          : 'Oops! There was a problem submitting your form.';
-        status.classList.add('error');
-      }
-    } catch {
-      status.textContent = 'Network error. Please try again.';
-      status.classList.add('error');
-    }
-  });
+  setActivePage();
+  setupHeader();
+  setupReveals();
+  setupSignalInstrument();
+  setupContactForm();
+  setCurrentYear();
 })();
