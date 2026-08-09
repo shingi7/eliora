@@ -1,56 +1,14 @@
 ---
-title: "Contact – EliOra Tech Solutions"
+title: ""
+pagetitle: "Start a project"
+description: "Tell EliOra about the manual report, disconnected data, or decision workflow you want to improve."
 format: html
 ---
 
-<!--
-  Contact page for EliOra Tech Solutions.
-  Provides contact information and a simple form for prospective
-  clients to get in touch.  Reuses the navigation bar and animated
-  background from the other pages.
--->
+```{=html}
+<main class="site-page page-contact" id="main-content" data-page="contact">
+<section class="page-hero section-grid" aria-labelledby="contact-title"><div><p class="eyebrow">Start a project</p><h1 id="contact-title">Tell us what slows<br><em>your team down.</em></h1></div><p class="page-hero-lead">Describe the manual report, disconnected data, or decision workflow you want to improve. We will start with the problem, not a prepackaged product.</p></section>
 
-<div id="vanta-bg"></div>
-
-<nav class="navbar">
-<div class="brand">
-<img src="logo.png" alt="EliOra Tech Solutions Logo" class="navbar-logo">
-EliOra Tech Solutions
-</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</nav>
-
-<main>
-
-<section class="section hero-section visible" style="min-height:40vh;">
-<h1>Begin Your Digital Odyssey</h1>
-<p>The first step toward digital supremacy starts with a single message. Whether you're nurturing the seeds of an AI dream or ready to unleash a full-scale technological revolution, our team of digital architects awaits your call to adventure.</p>
-</section>
-
-<section class="section">
-<div class="contact-card">
-<form id="contact-form" action="https://formspree.io/f/mwpqavvz" method="POST">
-  <input type="text"   name="name"    placeholder="Your Name"   required />
-  <input type="email"  name="email"   placeholder="Your Email"  required />
-  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-
-  <!-- Helpful extras -->
-  <input type="hidden" name="subject" value="New message from Eliora Tech Solutions" />
-  <input type="text"   name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-  <button type="submit">Send Message</button>
-  <p id="form-status" class="form-status" aria-live="polite"></p>
-</form>
-</div>
-</section>
-
+<section class="contact-layout section-grid"><div class="contact-context"><p class="section-kicker">A useful first message</p><h2>Bring the workflow<br><em>as it is.</em></h2><p>You do not need a polished brief. Tell us what repeats, where the handoffs happen, and what a clearer next move would make possible.</p><div class="contact-route"><span>01</span><span>Describe the friction</span><i aria-hidden="true"></i><span>02</span><span>Find the signal</span></div></div><div class="contact-form-wrap"><form id="contact-form" action="https://formspree.io/f/mwpqavvz" method="POST"><div class="form-field"><label for="name">Name <span aria-hidden="true">*</span></label><input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-hint"><p id="name-hint" class="field-hint">Required.</p></div><div class="form-field"><label for="email">Work email <span aria-hidden="true">*</span></label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-hint"><p id="email-hint" class="field-hint">Required. We use it only to respond to your inquiry.</p></div><div class="form-field"><label for="organization">Organization <span class="optional">Optional</span></label><input id="organization" name="organization" type="text" autocomplete="organization"></div><div class="form-field"><label for="message">What are you trying to improve? <span aria-hidden="true">*</span></label><textarea id="message" name="message" rows="6" required aria-describedby="message-hint"></textarea><p id="message-hint" class="field-hint">Required. A few sentences is enough.</p></div><input type="hidden" name="subject" value="New project inquiry from EliOra Tech Solutions"><div class="honeypot" aria-hidden="true"><label for="_gotcha">Leave this field empty</label><input id="_gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off"></div><div class="form-submit"><button class="button button-primary" type="submit">Send inquiry <span aria-hidden="true">↗</span></button><p id="form-status" class="form-status" role="status" aria-live="polite"></p></div><p class="privacy-note">We use the information you send only to respond to your inquiry.</p></form></div></section>
 </main>
-
-<footer>
-© 2026 EliOra Tech Solutions. All rights reserved.
-</footer>
+```

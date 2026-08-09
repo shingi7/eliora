@@ -1,193 +1,22 @@
 ---
-title: "About – EliOra Tech Solutions"
-format: 
-  html:
-    css: styles.css
+title: ""
+pagetitle: "About EliOra"
+description: "EliOra makes advanced data and AI systems useful, governable, and durable."
+format: html
 ---
 
-<!--
-  About page for Eliora Tech Solutions.
-  This page introduces visitors to our vision, our multidisciplinary team,
-  and the mission that drives us.  It reuses the same animated background
-  and navigation bar as the home page and presents the content in a grid
-  of cards.
--->
+```{=html}
+<main class="site-page page-about" id="main-content" data-page="about">
+<section class="page-hero section-grid" aria-labelledby="about-title"><div><p class="eyebrow">About EliOra</p><h1 id="about-title">Technical depth.<br><em>Business clarity.</em></h1></div><p class="page-hero-lead">EliOra exists to make advanced data and AI systems useful, governable, and durable.</p></section>
 
-<!-- Animated neural network background -->
-<div id="vanta-bg"></div>
+<section class="about-thesis section-grid"><p class="section-kicker">The practice</p><div><p class="statement">The best system is the one that helps a team see what matters, trust how it got there, and know what to do next.</p><p>We work across reporting automation, data engineering, analytics, applied AI, and governance. The common thread is not a particular tool. It is the discipline of making complex information usable in the flow of work.</p></div></section>
 
-<!-- Inline CSS for founders section to ensure it works on GitHub Pages -->
-<style>
-/* Founders Section */
-.founders-section {
-  max-width: 1320px;
-}
+<section class="founders-section section-grid" aria-labelledby="founders-title"><div class="section-heading"><p class="section-kicker">The founders</p><h2 id="founders-title">Two disciplines.<br><em>One standard.</em></h2></div><div class="founder-profile-list">
+<article class="founder-profile"><div class="founder-portrait"><img src="assets/optimized/tev-headshot.png" alt="Portrait of Tevin Engle, Co-Founder and Chief Compliance Officer" width="532" height="640" loading="lazy" decoding="async"></div><div class="founder-bio"><p class="project-category">Co-Founder / Chief Compliance Officer</p><h3>Tevin Engle</h3><p>Tevin Engle is Co-Founder and Chief Compliance Officer of EliOra Tech Solutions, where he leads the company's compliance, regulatory strategy, and AI governance initiatives. He specializes in healthcare compliance, CMS regulations, Medicaid programs, and data analytics, helping ensure EliOra's AI solutions are secure, compliant, and built for highly regulated industries.</p><p>Tevin holds a B.S. in Healthcare Compliance and Regulations from Arizona State University. His experience includes leadership roles at CVS Health, UnitedHealth Group, and the Arizona Health Care Cost Containment System (AHCCCS), where he has led Medicaid compliance initiatives, strengthened program integrity, and used advanced analytics to identify risk and improve operational outcomes.</p><p>At EliOra, Tevin provides strategic oversight of compliance and governance, helping organizations adopt artificial intelligence with confidence while meeting evolving regulatory standards.</p></div></article>
+<article class="founder-profile founder-profile-reverse"><div class="founder-portrait"><img src="assets/optimized/shingi-headshot.png" alt="Portrait of Shingai Nindi, Co-Founder and Lead Data Engineer" width="640" height="556" loading="lazy" decoding="async"></div><div class="founder-bio"><p class="project-category">Co-Founder / Lead Data Engineer</p><h3>Shingai Nindi</h3><p>Shingai Nindi is Co-Founder and Lead Data Engineer of EliOra Tech Solutions, where he leads the design and development of the company's AI, data engineering, and cloud infrastructure. He specializes in building secure, scalable data platforms that transform complex information into actionable business intelligence.</p><p>Shingai holds a B.S. in Computer Science and an M.S. in Data Science &amp; Analytics from Georgetown University, graduating summa cum laude. His experience spans healthcare, financial technology, sports analytics, and enterprise software, where he has developed cloud-native architectures, machine learning pipelines, and advanced analytics solutions.</p><p>At EliOra, Shingai oversees data and AI infrastructure, ensuring solutions are built with scalability, security, and performance at their core.</p></div></article>
+</div></section>
 
-.founders-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.founder-card {
-  display: grid;
-  grid-template-columns: minmax(170px, 220px) 1fr;
-  align-items: start;
-  gap: 2rem;
-  background: rgba(26, 26, 26, 0.8);
-  border-radius: 12px;
-  padding: 2rem;
-  border: 1px solid rgba(77, 182, 232, 0.2);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.founder-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(77, 182, 232, 0.4);
-}
-
-.founder-image {
-  text-align: center;
-  margin-bottom: 0;
-}
-
-.founder-headshot {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #4db6e8;
-  box-shadow: 0 0 20px rgba(77, 182, 232, 0.3);
-}
-
-.founder-content h3 {
-  color: #4db6e8;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  text-align: left;
-}
-
-.founder-title {
-  color: #cccccc;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: left;
-  margin-bottom: 1rem;
-  font-style: italic;
-}
-
-.founder-content p {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  line-height: 1.62;
-  text-align: left;
-}
-
-/* Responsive adjustments for founders */
-@media (max-width: 900px) {
-  .founder-card {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-  }
-
-  .founder-image {
-    margin-bottom: 1rem;
-  }
-
-  .founder-headshot {
-    width: 150px;
-    height: 150px;
-  }
-
-  .founder-content h3,
-  .founder-title {
-    text-align: center;
-  }
-}
-</style>
-
-<nav class="navbar">
-<div class="brand">
-<img src="logo.png" alt="EliOra Tech Solutions Logo" class="navbar-logo">
-EliOra Tech Solutions
-</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</nav>
-
-<main>
-
-<section class="section hero-section visible" style="min-height:40vh;">
-<div class="about-logo-container">
-<img src="logo.png" alt="EliOra Tech Solutions Logo" class="about-logo">
-</div>
-<h1>The Architects of Tomorrow</h1>
-<p>Dive into the heart of digital revolution where visionaries, engineers, and dreamers unite to forge the impossible. We are the storytellers of AI's greatest adventures, and every line of code we write is a chapter in humanity's next evolutionary leap.</p>
-</section>
-
-<section class="section">
-<div class="about-grid">
-<div class="about-card">
-<h3>Who Are We?</h3>
-<p>Eliora Tech. Solutions is a data science consulting and software development company focused on delivering AI-powered solutions to enterprises and small-to-medium businesses. <strong>Our mission</strong> is to help businesses better harness their data and the latest AI technology to improve efficiency, reduce costs, and drive growth. We provide both services and products, offering consulting insight to address client immediate needs, while in parallel developing a tailored software product. We are here to help provide data analysis results within seconds, not days.</p>
-</div>
-<div class="about-card">
-<h3>Our Quest</h3>
-<p>We stand at the frontier where silicon dreams meet human ambition, crafting a future where AI doesn't replace humanity but elevates it to godlike heights. Every algorithm we birth, every neural network we nurture, brings us closer to solving mysteries that have puzzled civilizations for millennia.</p>
-</div>
-<div class="about-card">
-<h3>The Fellowship</h3>
-<p>Born in 2026 from the minds of digital pioneers, we are more than a company—we are a brotherhood of AI alchemists. Scientists who speak in equations, engineers who dream in algorithms, and visionaries who see tomorrow's possibilities in today's data. From scrappy startups to Fortune 500 giants, we transform businesses into legends.</p>
-</div>
-<div class="about-card">
-<h3>Our Innovation</h3>
-<p>We engineer neural networks that think at lightspeed and design algorithms that evolve faster than imagination. Our cutting-edge technology transforms raw data into crystal-clear insights, automated decisions into competitive advantages, and business challenges into triumphant victories. Each solution is precision-built with tomorrow's technology, delivered by visionary engineers who never compromise on excellence.</p>
-</div>
-</div>
-</section>
-
-<section class="section founders-section">
-<h2>Meet Our Co-Founders</h2>
-<div class="founders-grid">
-<div class="founder-card">
-<div class="founder-image">
-<img src="tev_headshot.png" alt="Tevin Engle" class="founder-headshot">
-</div>
-<div class="founder-content">
-<h3>Tevin Engle</h3>
-<p class="founder-title">Co-Founder and Chief Compliance Officer</p>
-<p>Tevin Engle is Co-Founder and Chief Compliance Officer of Eliora Tech Solutions, where he leads the company's compliance, regulatory strategy, and AI governance initiatives. He specializes in healthcare compliance, CMS regulations, Medicaid programs, and data analytics, ensuring Eliora's AI solutions are secure, compliant, and built for highly regulated industries.</p>
-
-<p>Tevin holds a B.S. in Healthcare Compliance and Regulations from Arizona State University and has built his career at the intersection of healthcare, compliance, and data-driven innovation. His experience includes leadership roles at CVS Health, UnitedHealth Group, and the Arizona Health Care Cost Containment System (AHCCCS), where he has led Medicaid compliance initiatives, strengthened program integrity, and leveraged advanced analytics to identify risk and improve operational outcomes.</p>
-
-<p>At Eliora Tech, Tevin provides strategic oversight of compliance and governance, helping organizations adopt artificial intelligence with confidence while meeting evolving regulatory standards. His leadership ensures Eliora's solutions are built on a foundation of ethics, transparency, and long-term trust.</p>
-</div>
-</div>
-
-<div class="founder-card">
-<div class="founder-image">
-<img src="shingi_headshot.png" alt="Shingai Nindi" class="founder-headshot">
-</div>
-<div class="founder-content">
-<h3>Shingai Nindi</h3>
-<p class="founder-title">Co-Founder and Lead Data Engineer</p>
-<p>Shingai Nindi is Co-Founder and Lead Data Engineer of Eliora Tech Solutions, where he leads the design and development of the company's AI, data engineering, and cloud infrastructure. He specializes in building secure, scalable data platforms that transform complex information into actionable business intelligence.</p>
-
-<p>Shingai holds a B.S. in Computer Science and an M.S. in Data Science & Analytics from Georgetown University, graduating summa cum laude. His experience spans healthcare, financial technology, sports analytics, and enterprise software, where he has developed cloud-native architectures, machine learning pipelines, and advanced analytics solutions that drive operational efficiency and strategic decision-making.</p>
-
-<p>At Eliora Tech, Shingai oversees the company's data and AI infrastructure, ensuring solutions are built with scalability, security, and performance at their core. His technical leadership enables organizations to leverage artificial intelligence and modern data platforms to solve complex business challenges, accelerate innovation, and create long-term value.</p>
-</div>
-</div>
-</div>
-</section>
-
+<section class="principles-section section-grid" aria-labelledby="principles-title"><div><p class="section-kicker">Operating principles</p><h2 id="principles-title">The work should<br><em>hold up.</em></h2></div><ul class="principles-list"><li>Clarity over spectacle</li><li>Secure and governable by design</li><li>Useful before impressive</li><li>Built to be maintained</li></ul></section>
+<section class="final-cta" aria-labelledby="about-cta-title"><p class="eyebrow">Start with the real constraint</p><h2 id="about-cta-title">What would become<br><em>lighter?</em></h2><a class="button button-primary" href="contact.html">Start a project <span aria-hidden="true">↗</span></a></section>
 </main>
-
-<footer>
-© 2026 EliOra Tech Solutions. All rights reserved.
-</footer>
+```
