@@ -35,7 +35,7 @@ website:
 format:
   html:
     theme: none
-    css: styles.css
+    css: styles-v2.css
     toc: false
     page-layout: custom
     canonical-url: true
