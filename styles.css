@@ -419,3 +419,88 @@
     em, .section-kicker, .eyebrow, .project-category, .module-index, .flow-number { color: Highlight; }
   }
 }
+
+@layer pages {
+  .work-lab-hero { align-items: end; min-height: 500px; padding-block: calc(var(--header-height) + 3rem) 3.25rem; border-bottom: 1px solid var(--line-soft); }
+  .work-lab-hero > div { min-width: 0; }
+  .work-lab-hero > div:first-child { grid-column: 1 / span 7; }
+  .work-lab-hero > div:last-child { grid-column: 9 / -1; }
+  .work-lab-hero h1 { max-width: 12ch; font-size: clamp(3.5rem, 5.6vw, 5.8rem); }
+  .work-mobile-break { display: none; }
+  .work-lab-hero h1 em, .research-strip h2 em, .work-lab-intro h2 em, .lab-project-copy h3 em, .football-lab-section h2 em, .method-section h2 em, .final-cta h2 em { color: var(--cyan); font-style: normal; }
+  .work-lab-hero .page-hero-lead { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  .work-jump { margin-top: 1.6rem; }
+  .work-lab-legend { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; color: var(--dim); font-family: var(--mono); font-size: .66rem; }
+  .work-lab-legend span { padding: .35rem .55rem; border: 1px solid var(--line); }
+  .work-project-index { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin-top: 1.25rem; }
+  .work-project-index > span { width: 100%; color: var(--dim); font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
+  .work-project-index a { padding: .38rem .55rem; border: 1px solid var(--line); color: var(--text); font-family: var(--mono); font-size: .64rem; text-decoration: none; }
+  .work-project-index a:hover, .work-project-index a:focus-visible { border-color: var(--cyan); color: var(--cyan); }
+  .research-strip { display: grid; grid-template-columns: minmax(250px, .75fr) minmax(0, 1.25fr); gap: 3rem; width: min(var(--max), calc(100% - (var(--gutter) * 2))); margin: 0 auto; padding: 2.5rem 0; border-bottom: 1px solid var(--line-soft); }
+  .research-strip-heading h2 { margin-top: .5rem; font-size: clamp(1.5rem, 3vw, 2.4rem); letter-spacing: -.05em; }
+  .research-strip-heading > p:last-child { max-width: 38ch; margin-top: 1rem; font-size: .84rem; }
+  .research-facts { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); }
+  .research-facts a { display: grid; grid-template-columns: 4.2rem 1fr; gap: .2rem .8rem; padding: 1rem .8rem; border-bottom: 1px solid var(--line-soft); transition: background .2s ease; }
+  .research-facts a:nth-child(odd) { border-right: 1px solid var(--line-soft); }
+  .research-facts a:hover { background: rgba(97, 229, 255, .05); }
+  .research-facts strong { grid-row: span 2; color: var(--cyan); font-size: 2.2rem; letter-spacing: -.07em; line-height: 1; }
+  .research-facts span { color: var(--text); font-size: .82rem; font-weight: 650; line-height: 1.25; }
+  .research-facts small { color: var(--dim); font-family: var(--mono); font-size: .58rem; line-height: 1.25; }
+  .work-lab-intro { padding-block: 4.25rem; border-bottom: 1px solid var(--line-soft); }
+  .work-lab-intro h2 { font-size: clamp(2.35rem, 4.2vw, 4.4rem); }
+  .work-lab-projects { padding-block: 3.5rem 4.5rem; }
+  .work-section-head { width: min(var(--max), calc(100% - (var(--gutter) * 2))); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .work-section-head > * { min-width: 0; }
+  .work-section-head h2 { margin-top: .6rem; font-size: clamp(2.7rem, 4.5vw, 4.9rem); }
+  .work-section-head > p { align-self: end; padding-bottom: .35rem; font-size: .9rem; }
+  .business-project { min-height: 320px; margin-top: 2rem; }
+  .business-project .lab-project-visual { min-height: 320px; }
+  .business-project .lab-project-copy { padding: clamp(1.75rem, 3.5vw, 3.5rem); }
+  .business-project .lab-project-copy h3 { font-size: clamp(1.55rem, 2.35vw, 2.35rem); }
+  .work-lab-projects .lab-project-visual .preview-title, .football-lab-section .lab-project-visual .preview-title { font-size: clamp(2rem, 3.7vw, 4.1rem); }
+  .business-preview { background: linear-gradient(135deg, #0b1825, #101c27); }
+  .business-project-lime .business-preview { background: linear-gradient(135deg, #111e1a, #17251d); }
+  .business-project-blue .business-preview { background: linear-gradient(135deg, #0d1527, #172037); }
+  .business-project-coral .business-preview { background: linear-gradient(135deg, #251818, #1e2028); }
+  .preview-control-room::after { position: absolute; right: 14%; bottom: 13%; width: 48%; height: 34%; border: 1px solid rgba(97,229,255,.55); background: linear-gradient(90deg, transparent 0 18%, rgba(97,229,255,.22) 18% 20%, transparent 20% 48%, rgba(200,255,104,.3) 48% 50%, transparent 50%); content: ""; }
+  .preview-forecast::after { position: absolute; right: 12%; bottom: 19%; width: 52%; height: 34%; border-bottom: 2px solid var(--lime); border-left: 1px solid var(--line); content: ""; clip-path: polygon(0 72%, 16% 56%, 29% 65%, 44% 25%, 60% 42%, 76% 13%, 100% 22%, 100% 100%, 0 100%); background: rgba(200,255,104,.12); }
+  .preview-pipeline::after { position: absolute; right: 14%; bottom: 14%; width: 46%; height: 46%; border: 1px solid rgba(111,146,255,.55); border-radius: 50%; box-shadow: 0 0 0 18px rgba(111,146,255,.08), 0 0 0 36px rgba(111,146,255,.06); content: ""; }
+  .preview-support::after { position: absolute; right: 15%; bottom: 14%; width: 48%; height: 43%; border: 1px solid rgba(255,138,128,.5); content: ""; background: repeating-linear-gradient(0deg, transparent 0 17px, rgba(255,138,128,.16) 18px 19px); }
+  .football-lab-section { padding-block: 4.5rem 5rem; border-top: 1px solid var(--line-soft); }
+  .football-project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; width: min(var(--max), calc(100% - (var(--gutter) * 2))); margin: 2.5rem auto 0; background: var(--line); }
+  .football-project-grid .lab-project { width: auto; min-height: 0; margin: 0; display: block; background: var(--ink); }
+  .football-project-grid .lab-project-visual { min-height: 220px; border: 0; }
+  .football-project-grid .lab-project-copy { padding: 1.5rem; }
+  .football-project-grid .lab-project-copy h3 { margin-top: .9rem; font-size: 1.3rem; }
+  .football-project-grid .lab-project-copy > p { font-size: .86rem; }
+  .football-project-grid .capability-tags { margin-top: 1rem; }
+  .football-project-grid .button { margin-top: 1.2rem; }
+  .page-work .method-section { padding-block: 4.5rem; }
+  @media (max-width: 760px) {
+    .work-lab-hero { min-height: 0; padding-block: calc(var(--header-height) + 2.5rem) 3rem; }
+    .work-lab-hero > div:first-child { grid-column: 1 / -1; }
+    .work-lab-hero > div:last-child { grid-column: 1 / -1; margin-top: 1.5rem; }
+    .work-lab-hero h1 { max-width: 100%; font-size: clamp(3rem, 11vw, 4.4rem); overflow-wrap: anywhere; }
+    .work-lab-hero h1 em { display: block; max-width: 100%; overflow-wrap: anywhere; }
+    .work-lab-hero .page-hero-lead { max-width: 30ch; font-size: 1rem; overflow-wrap: anywhere; }
+    .work-mobile-break { display: inline; }
+    .work-lab-legend { display: grid; grid-template-columns: 1fr; }
+    .work-lab-legend span { width: fit-content; max-width: 100%; min-width: 0; overflow-wrap: anywhere; }
+    .work-project-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .work-project-index > span { grid-column: 1 / -1; }
+    .work-project-index a { min-width: 0; }
+    .work-section-head { grid-template-columns: 1fr; gap: 1rem; }
+    .work-section-head h2 { font-size: clamp(2.4rem, 11vw, 3.8rem); }
+    .work-section-head > p { padding-bottom: 0; }
+    .business-project, .business-project .lab-project-visual { min-height: 0; }
+    .business-project .lab-project-visual { min-height: 235px; }
+    .business-project .lab-project-copy { padding: 1.75rem 0 2.25rem; }
+    .work-lab-projects .lab-project-visual .preview-title, .football-lab-section .lab-project-visual .preview-title { font-size: clamp(2rem, 10vw, 3.2rem); }
+    .research-strip { grid-template-columns: 1fr; gap: 2rem; width: calc(100% - (var(--gutter) * 2)); }
+    .football-project-grid { grid-template-columns: 1fr; width: calc(100% - (var(--gutter) * 2)); }
+  }
+  @media (max-width: 470px) {
+    .research-facts { grid-template-columns: 1fr; }
+    .research-facts a:nth-child(odd) { border-right: 0; }
+  }
+}

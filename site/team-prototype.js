@@ -228,32 +228,32 @@ const tableColumns = [
   { key: "match_tempo", label: "Match Tempo", type: "num" }
 ];
 
-const ORL_COLORS = {
-  purple: "#6a2fbf",
-  purpleDeep: "#2b0a57",
-  purpleMid: "#4b1e8a",
-  lavender: "#c7a8f2",
-  lavenderLight: "#efe7fb",
-  gold: "#d1a20f",
-  grid: "#e2d6f4",
-  text: "#2b0a57"
+const ELIORA_COLORS = {
+  cyan: "#61e5ff",
+  ink: "#05080d",
+  blue: "#172433",
+  grid: "#26394a",
+  raised: "#111c28",
+  lime: "#c8ff68",
+  text: "#f4f7f8",
+  surface: "#0b121b"
 };
 
 const radarPalette = [
   // Orlando-first core
-  ORL_COLORS.purple,
-  ORL_COLORS.gold,
-  ORL_COLORS.purpleMid,
-  ORL_COLORS.lavender,
+  ELIORA_COLORS.cyan,
+  ELIORA_COLORS.lime,
+  ELIORA_COLORS.blue,
+  ELIORA_COLORS.grid,
   // then higher-contrast extensions
-  "#1f77b4",
-  "#ff7f0e",
-  "#2ca02c",
-  "#d62728",
-  "#17becf",
-  "#8c564b",
-  "#9467bd",
-  "#7f7f7f"
+  "#6f92ff",
+  "#ff8a80",
+  "#55d6be",
+  "#ff8a80",
+  "#61e5ff",
+  "#a8b5c2",
+  "#6f92ff",
+  "#748494"
 ];
 
 let rawData = [];
@@ -753,7 +753,7 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
       marker: {
         color,
         opacity: entries.length > 1 ? 0.55 : 0.85,
-        line: { width: 1, color: ORL_COLORS.purpleDeep }
+        line: { width: 1, color: ELIORA_COLORS.ink }
       },
       width: angleStep * 0.9,
       customdata,
@@ -786,24 +786,24 @@ function updateRadar(teamSelect, metricSelect, radarModeSelect, radarStatus) {
       radialaxis: {
         visible: true,
         showticklabels: false,
-        gridcolor: ORL_COLORS.grid,
-        linecolor: ORL_COLORS.grid,
+        gridcolor: ELIORA_COLORS.grid,
+        linecolor: ELIORA_COLORS.grid,
         range: radialRange
       },
       angularaxis: {
         tickmode: "array",
         tickvals: thetaValues,
         ticktext: thetaLabels,
-        tickfont: { color: ORL_COLORS.text }
+        tickfont: { color: ELIORA_COLORS.text }
       }
     },
     barmode: "overlay",
     showlegend: true,
     margin: { t: 40, b: 40, l: 40, r: 40 },
     height: 600,
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 }
 
@@ -942,7 +942,7 @@ function buildTopTeams(topYearSelect, topMetricSelect, topNInput, topStatus, poi
     y: values,
     hovertext: labels,
     hovertemplate: "%{hovertext}<br>" + prettyMetricLabel(selectedMetric) + ": %{y:.3f}<extra></extra>",
-    marker: { color: ORL_COLORS.purple }
+    marker: { color: ELIORA_COLORS.cyan }
   };
 
   Plotly.newPlot("topTeamsChart", [trace], {
@@ -950,9 +950,9 @@ function buildTopTeams(topYearSelect, topMetricSelect, topNInput, topStatus, poi
     xaxis: { tickangle: -30, automargin: true, tickfont: { size: 10 } },
     yaxis: { title: prettyMetricLabel(selectedMetric), automargin: true },
     showlegend: false,
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 }
 
@@ -1075,7 +1075,7 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
         sizemode: "area",
         opacity: 0.75,
         color: radarPalette[idx % radarPalette.length],
-        line: { color: ORL_COLORS.purpleDeep, width: 0.5 }
+        line: { color: ELIORA_COLORS.ink, width: 0.5 }
       },
       hovertemplate:
         "Team: %{customdata[0]}<br>" +
@@ -1111,9 +1111,9 @@ function buildBubbleChart(bubbleYearSelect, bubbleXSelect, bubbleYSelect, bubble
     yaxis: { title: prettyMetricLabel(yMetric) },
     showlegend: showLegend,
     legend: { orientation: "h" },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   }, { displayModeBar: false, responsive: true });
 }
 
@@ -1842,7 +1842,7 @@ function buildProcessResultsChart(teamSelect, statusEl, xSelect, ySelect, select
     y: selectedRows.map(row => row[yMetric]),
     text: selectedRows.map(row => row.team),
     textposition: "top center",
-    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    marker: { color: ELIORA_COLORS.cyan, size: 10, line: { width: 1, color: ELIORA_COLORS.ink } },
     name: "Selected"
   };
 
@@ -1852,15 +1852,15 @@ function buildProcessResultsChart(teamSelect, statusEl, xSelect, ySelect, select
     xaxis: { title: xLabel, zeroline: false },
     yaxis: { title: yLabel, zeroline: false },
     shapes: [
-      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
-      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ELIORA_COLORS.grid, dash: "dash" } },
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ELIORA_COLORS.grid, dash: "dash" } }
     ],
     annotations: [
-      { x: avgX * 1.1, y: avgY * 1.1, text: `High ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } },
-      { x: avgX * 0.6, y: avgY * 1.1, text: `Low ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+      { x: avgX * 1.1, y: avgY * 1.1, text: `High ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ELIORA_COLORS.text } },
+      { x: avgX * 0.6, y: avgY * 1.1, text: `Low ${xLabel} / High ${yLabel}`, showarrow: false, font: { size: 11, color: ELIORA_COLORS.text } }
     ],
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: false
   }, { displayModeBar: false, responsive: true });
 
@@ -1897,7 +1897,7 @@ function buildDeservedActualChart(teamSelect, statusEl, xSelect, ySelect, select
     y: selectedRows.map(row => row[yMetric]),
     text: selectedRows.map(row => row.team),
     textposition: "top center",
-    marker: { color: ORL_COLORS.purple, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    marker: { color: ELIORA_COLORS.cyan, size: 10, line: { width: 1, color: ELIORA_COLORS.ink } },
     name: "Selected"
   };
 
@@ -1907,14 +1907,14 @@ function buildDeservedActualChart(teamSelect, statusEl, xSelect, ySelect, select
     xaxis: { title: xLabel, zeroline: false },
     yaxis: { title: yLabel, zeroline: false },
     shapes: [
-      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: Math.min(...rows.map(r => r[xMetric])), y1: Math.max(...rows.map(r => r[xMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } }
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: Math.min(...rows.map(r => r[xMetric])), y1: Math.max(...rows.map(r => r[xMetric])), line: { color: ELIORA_COLORS.grid, dash: "dash" } }
     ],
     annotations: [
-      { x: 1.6, y: 2.0, text: `Higher ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } },
-      { x: -1.6, y: -2.0, text: `Lower ${yLabel}`, showarrow: false, font: { size: 11, color: ORL_COLORS.text } }
+      { x: 1.6, y: 2.0, text: `Higher ${yLabel}`, showarrow: false, font: { size: 11, color: ELIORA_COLORS.text } },
+      { x: -1.6, y: -2.0, text: `Lower ${yLabel}`, showarrow: false, font: { size: 11, color: ELIORA_COLORS.text } }
     ],
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: false
   }, { displayModeBar: false, responsive: true });
 
@@ -1955,7 +1955,7 @@ function buildStyleMapChart(teamSelect, statusEl, xSelect, ySelect, selectionSel
     y: selectedRows.map(row => row[yMetric]),
     text: selectedRows.map(row => row.team),
     textposition: "top center",
-    marker: { color: ORL_COLORS.gold, size: 10, line: { width: 1, color: ORL_COLORS.purpleDeep } },
+    marker: { color: ELIORA_COLORS.lime, size: 10, line: { width: 1, color: ELIORA_COLORS.ink } },
     name: "Selected"
   };
 
@@ -1965,11 +1965,11 @@ function buildStyleMapChart(teamSelect, statusEl, xSelect, ySelect, selectionSel
     xaxis: { title: xLabel, zeroline: false },
     yaxis: { title: yLabel, zeroline: false },
     shapes: [
-      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ORL_COLORS.lavender, dash: "dash" } },
-      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ORL_COLORS.lavender, dash: "dash" } }
+      { type: "line", x0: avgX, x1: avgX, y0: Math.min(...rows.map(r => r[yMetric])), y1: Math.max(...rows.map(r => r[yMetric])), line: { color: ELIORA_COLORS.grid, dash: "dash" } },
+      { type: "line", x0: Math.min(...rows.map(r => r[xMetric])), x1: Math.max(...rows.map(r => r[xMetric])), y0: avgY, y1: avgY, line: { color: ELIORA_COLORS.grid, dash: "dash" } }
     ],
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
     showlegend: false
   }, { displayModeBar: false, responsive: true });
 
@@ -2044,16 +2044,16 @@ function buildDriversChart(containerId, rows, valueKey, title, color) {
     x: values,
     y: labels,
     orientation: "h",
-    marker: { color: color || ORL_COLORS.purple }
+    marker: { color: color || ELIORA_COLORS.cyan }
   };
   const layout = {
     title: title || "",
     margin: { l: 180, r: 20, t: 20, b: 40 },
     xaxis: { title: valueKey === "abs_spearman" ? "|Spearman|" : "Model reliance (higher = stronger)" },
     yaxis: { automargin: true },
-    paper_bgcolor: "#ffffff",
-    plot_bgcolor: "#ffffff",
-    font: { color: ORL_COLORS.text }
+    paper_bgcolor: ELIORA_COLORS.surface,
+    plot_bgcolor: ELIORA_COLORS.surface,
+    font: { color: ELIORA_COLORS.text }
   };
   Plotly.newPlot(container, [trace], layout, { displayModeBar: false, responsive: true });
 }
@@ -2245,14 +2245,14 @@ async function initDriversSection() {
     driversData.correlations_process || [],
     "abs_spearman",
     "",
-    ORL_COLORS.purple
+    ELIORA_COLORS.cyan
   );
   buildDriversChart(
     "driversModelChartProcess",
     (driversData.best_model_process && driversData.best_model_process.importance) || driversData.rf_importance_process || [],
     "importance_mean",
     "",
-    ORL_COLORS.gold
+    ELIORA_COLORS.lime
   );
 
   buildDriversChart(
@@ -2260,14 +2260,14 @@ async function initDriversSection() {
     driversData.correlations_descriptive || [],
     "abs_spearman",
     "",
-    ORL_COLORS.purple
+    ELIORA_COLORS.cyan
   );
   buildDriversChart(
     "driversModelChartDesc",
     (driversData.best_model_descriptive && driversData.best_model_descriptive.importance) || driversData.rf_importance_descriptive || [],
     "importance_mean",
     "",
-    ORL_COLORS.gold
+    ELIORA_COLORS.lime
   );
 
   if (pdpProcessImg && driversData.best_model_process?.pdp_image) {

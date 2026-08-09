@@ -15,14 +15,10 @@ project:
     - assets/favicon.png
     - assets/favicon.ico
     - assets/social-preview.png
-    - site/player-st.html
-    - site/player-st.js
-    - site/data/player_st_comparison_features.json
-    - site/executive-demo.html
-    - site/team-prototype.html
-    - site/team-prototype.js
-    - site/data/team_comparison_features.json
-    - site/data/team_points_drivers.json
+    - site/*.html
+    - site/*.js
+    - site/*.css
+    - site/data/*.json
 
 website:
   title: "EliOra Tech Solutions"

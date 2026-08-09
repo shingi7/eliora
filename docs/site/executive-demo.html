@@ -1,316 +1,36 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Executive Demo — Football Decision Intelligence</title>
-    <style>
-      :root {
-        --purple-900: #2b0a57;
-        --purple-700: #3e1572;
-        --purple-500: #6a2fbf;
-        --purple-300: #b48af0;
-        --lavender-100: #f3ecff;
-        --lavender-200: #efe7fb;
-        --gold-500: #d1a20f;
-        --text-main: #1e1630;
-        --text-muted: #5b4f75;
-        --border-soft: #e3d7f5;
-        --shadow: 0 12px 30px rgba(35, 10, 70, 0.12);
-      }
-      * {
-        box-sizing: border-box;
-      }
-      :focus-visible {
-        outline: 2px solid var(--gold-500);
-        outline-offset: 2px;
-      }
-      body {
-        margin: 0;
-        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-        color: var(--text-main);
-        background: linear-gradient(180deg, var(--lavender-100) 0%, #ffffff 45%, #ffffff 100%);
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 40px 24px 80px;
-      }
-      .hero {
-        background: #fff;
-        border: 1px solid var(--border-soft);
-        border-radius: 20px;
-        padding: 48px;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
-      }
-      .hero::after {
-        content: "";
-        position: absolute;
-        top: -40px;
-        right: -40px;
-        width: 180px;
-        height: 180px;
-        background: radial-gradient(circle at 30% 30%, rgba(209,162,15,0.45), rgba(106,47,191,0.25), transparent 70%);
-        opacity: 0.7;
-      }
-      .hero h1 {
-        margin: 0 0 12px;
-        font-size: 40px;
-        color: var(--purple-900);
-      }
-      .hero p {
-        margin: 0 0 24px;
-        color: var(--text-muted);
-        font-size: 17px;
-        line-height: 1.5;
-      }
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .btn {
-        padding: 12px 18px;
-        border-radius: 10px;
-        border: 1px solid var(--purple-500);
-        font-weight: 600;
-        transition: all 0.2s ease;
-      }
-      .btn-primary {
-        background: var(--purple-500);
-        color: #fff;
-      }
-      .btn-primary:hover {
-        background: var(--purple-700);
-      }
-      .btn-secondary {
-        background: #fff;
-        color: var(--purple-700);
-      }
-      .btn-secondary:hover {
-        background: var(--lavender-200);
-      }
-      .section {
-        margin-top: 40px;
-      }
-      .section h2 {
-        color: var(--purple-900);
-        margin-bottom: 12px;
-      }
-      .section p {
-        margin-top: 0;
-        color: var(--text-muted);
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
-      }
-      .card {
-        background: #fff;
-        border: 1px solid var(--border-soft);
-        border-radius: 16px;
-        padding: 18px;
-        box-shadow: 0 8px 20px rgba(35, 10, 70, 0.08);
-      }
-      .card h3 {
-        margin-top: 0;
-        color: var(--purple-700);
-      }
-      .list {
-        padding-left: 18px;
-        margin: 8px 0 0;
-        color: var(--text-muted);
-      }
-      .pill {
-        display: inline-block;
-        font-size: 12px;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        color: var(--purple-700);
-        background: var(--lavender-200);
-        padding: 4px 10px;
-        border-radius: 999px;
-      }
-      .two-col {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-      }
-      .callout {
-        border-left: 4px solid var(--gold-500);
-        padding-left: 16px;
-      }
-      footer {
-        margin-top: 48px;
-        padding: 24px;
-        background: var(--purple-900);
-        color: #fff;
-        border-radius: 16px;
-      }
-      footer .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-        margin-top: 12px;
-      }
-      footer .footer-meta {
-        margin-top: 6px;
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 14px;
-      }
-      footer a {
-        color: #fff;
-        text-decoration: underline;
-      }
-      @media (max-width: 720px) {
-        .hero {
-          padding: 32px 24px;
-        }
-        .hero h1 {
-          font-size: 32px;
-        }
-        .container {
-          padding: 32px 18px 64px;
-        }
-        .hero-actions {
-          flex-direction: column;
-          align-items: stretch;
-        }
-      }
-      @media (max-width: 520px) {
-        .hero h1 {
-          font-size: 28px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <section class="hero">
-        <span class="pill">Executive Demo</span>
-        <h1>Decision intelligence for elite football operations</h1>
-        <p>
-          We turns player and team performance data into recruitment, tactical, and performance insights —
-          designed for fast, confident decisions in high‑stakes environments.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/site/player-st.html">Open ST Player Prototype</a>
-          <a class="btn btn-secondary" href="/site/team-prototype.html">Open Team Prototype</a>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Three pillars of value</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Recruitment intelligence</h3>
-            <p class="callout">Identify striker profiles and best‑fit clubs with transparent, explainable metrics.</p>
-          </div>
-          <div class="card">
-            <h3>Tactical & style clarity</h3>
-            <p class="callout">Reveal how a team plays, where strengths cluster, and which profiles match their style.</p>
-          </div>
-          <div class="card">
-            <h3>Explainable model support</h3>
-            <p class="callout">Move from gut‑feel to evidence‑backed decisions with interpretable drivers of points.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>What you can see today</h2>
-        <div class="two-col">
-          <div class="card">
-            <h3>ST Prototype</h3>
-            <ul class="list">
-              <li>Radar comparisons across curated striker metrics</li>
-              <li>Top‑performer ranking and holistic bubble exploration</li>
-              <li>Role‑based similarity with coach‑friendly summaries</li>
-              <li>Exportable tables and presentation‑ready reports</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Team Prototype</h3>
-            <ul class="list">
-              <li>Team style radar and top‑team metric ranking</li>
-              <li>Bubble exploration for process vs results profiles</li>
-              <li>Similarity for comparable team styles</li>
-              <li>Points drivers with correlations + model evidence</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Why this matters commercially</h2>
-        <div class="card">
-          <p>
-            Clubs face an overload of metrics and opinions. We reduces noise by translating complex data into
-            clear, decision‑grade insights — faster identification of fit, stronger recruitment alignment, and
-            better tactical clarity for performance planning.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>What’s validated vs what’s next</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Already working now</h3>
-            <ul class="list">
-              <li>Interactive player + team profiles</li>
-              <li>Similarity + fit logic based on real metrics</li>
-              <li>Explainable points drivers</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>In development next</h3>
-            <ul class="list">
-              <li>Deeper role‑based models by position</li>
-              <li>Automated scouting shortlists</li>
-              <li>Integrated club‑specific KPI weighting</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>How to read the demo</h2>
-        <div class="grid">
-          <div class="card">
-            <h3>Radar</h3>
-            <p class="muted">Profile comparison across multiple attributes at once.</p>
-          </div>
-          <div class="card">
-            <h3>Bubble</h3>
-            <p class="muted">Process vs outcome exploration with composite score sizing.</p>
-          </div>
-          <div class="card">
-            <h3>Similarity</h3>
-            <p class="muted">Shows which players/teams match a selected profile.</p>
-          </div>
-          <div class="card">
-            <h3>Points Drivers</h3>
-            <p class="muted">Explains which team traits align most with points.</p>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <strong>EliOra Tech Solutions</strong>
-        <div class="footer-meta">© 2026 EliOra Tech Solutions. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="/site/player-st.html">ST Player Prototype</a>
-          <a href="/site/team-prototype.html">Team Prototype</a>
-        </div>
-      </footer>
-    </div>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Executive Decision Intelligence | EliOra Tech Solutions</title>
+  <meta name="description" content="EliOra internal football decision intelligence overview: recruitment, tactical clarity, and explainable model support.">
+  <meta name="theme-color" content="#05080d"><link rel="canonical" href="https://elioratechsolutions.com/site/executive-demo.html"><link rel="icon" href="../assets/favicon.png" type="image/png">
+  <meta property="og:title" content="Executive Decision Intelligence | EliOra"><meta property="og:description" content="An internal EliOra football intelligence overview linking executive, player, and team prototypes."><meta property="og:type" content="website"><meta property="og:url" content="https://elioratechsolutions.com/site/executive-demo.html"><meta property="og:image" content="https://elioratechsolutions.com/assets/social-preview.png">
+  <link rel="stylesheet" href="lab-shell.css"><link rel="stylesheet" href="business-demo.css"><script src="lab-shell.js" defer></script>
+  <style>
+    .football-overview { padding-top: 4.5rem; }
+    .overview-hero { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(260px,.75fr); gap: 2rem; align-items: end; padding: 2rem 0 4rem; border-bottom: 1px solid var(--lab-line); }
+    .overview-hero h1 { max-width: 13ch; margin: 0; font-size: clamp(2.8rem, 7vw, 6rem); line-height: .93; letter-spacing: -.075em; }
+    .overview-hero h1 em { color: var(--lab-cyan); font-style: normal; }
+    .overview-hero p:not(.lab-eyebrow) { max-width: 42rem; color: var(--lab-muted); font-size: 1.1rem; }
+    .overview-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.5rem; }
+    .overview-section { padding: 4rem 0 0; }
+    .overview-section h2 { margin: 0 0 .7rem; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: -.055em; }
+    .overview-section > p { max-width: 62ch; color: var(--lab-muted); }
+    .overview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1.6rem; background: var(--lab-line); }
+    .overview-card { min-height: 190px; padding: 1.35rem; background: var(--lab-surface); }
+    .overview-card h3 { margin: 0 0 .7rem; color: var(--lab-cyan); font-size: 1rem; }
+    .overview-card p, .overview-card li { color: var(--lab-muted); font-size: .84rem; }
+    .overview-card ul { padding-left: 1.1rem; margin: .7rem 0 0; }
+    .overview-callout { margin-top: 1.6rem; padding: 1.4rem; border-left: 2px solid var(--lab-lime); color: var(--lab-text); background: rgba(200,255,104,.05); }
+    @media (max-width: 760px) { .overview-hero { grid-template-columns: 1fr; } .overview-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body><a class="lab-skip" href="#main-content">Skip to content</a><header class="lab-header" data-lab-header><div class="lab-nav-shell"><a class="lab-brand" href="../index.html"><img src="../assets/optimized/logo-mark.png" alt=""><span>EliOra<small>Tech Solutions</small></span></a><a class="lab-back" href="../work.html"><span aria-hidden="true">←</span> Work / Lab</a><nav class="lab-nav" id="lab-primary-nav" aria-label="Primary navigation"><ul><li><a href="../index.html">Home</a></li><li><a href="../services.html">Services</a></li><li><a href="../work.html" aria-current="page">Work</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul></nav><a class="lab-cta" href="../contact.html">Start a project <span aria-hidden="true">↗</span></a><button class="lab-menu-toggle" type="button" data-lab-menu-toggle aria-expanded="false" aria-controls="lab-primary-nav">Menu</button></div></header>
+<main class="lab-main football-overview" id="main-content"><div class="lab-container"><section class="overview-hero"><div><p class="lab-eyebrow">Football Decision Intelligence Lab</p><h1>Decision intelligence for <em>elite football operations.</em></h1><p>We turn player and team performance data into recruitment, tactical, and performance insights—designed for fast, confident decisions in high-stakes environments.</p><div class="business-meta"><span class="demo-badge">EliOra internal R&amp;D · Not client work</span></div><div class="overview-actions"><a class="lab-button" href="player-st.html">Open ST Player Prototype ↗</a><a class="lab-button secondary" href="team-prototype.html">Open Team Prototype ↗</a></div></div><div class="lab-note"><strong>How to read this lab</strong><br>Start with the overview, then inspect the player and team surfaces. The charts preserve their original data contracts while the shell, palette, and decision framing are EliOra-specific.</div></section>
+<section class="overview-section" aria-labelledby="pillars-title"><h2 id="pillars-title">Three pillars of value</h2><p>The prototypes keep the evidence close to the decision: compare the profile, understand the style, and inspect the drivers.</p><div class="overview-grid"><article class="overview-card"><h3>Recruitment intelligence</h3><p>Identify striker profiles and best-fit clubs with transparent, explainable metrics.</p></article><article class="overview-card"><h3>Tactical &amp; style clarity</h3><p>Reveal how a team plays, where strengths cluster, and which profiles match its style.</p></article><article class="overview-card"><h3>Explainable model support</h3><p>Move from gut feel to evidence-backed decisions with interpretable drivers of points.</p></article></div></section>
+<section class="overview-section" aria-labelledby="today-title"><h2 id="today-title">What you can see today</h2><div class="overview-grid"><article class="overview-card"><h3>ST Player Prototype</h3><ul><li>Radar comparisons across curated striker metrics</li><li>Top-performer ranking and bubble exploration</li><li>Role-based similarity and coach-friendly summaries</li><li>Exportable tables and current-view reports</li></ul></article><article class="overview-card"><h3>Team Prototype</h3><ul><li>Team style radar and top-team metric ranking</li><li>Bubble exploration for process vs results profiles</li><li>Similarity for comparable team styles</li><li>Points drivers with correlations and model evidence</li></ul></article><article class="overview-card"><h3>Shared working pattern</h3><ul><li>Decision-first tabs and inspectable controls</li><li>Real data files, preserved for prototype analysis</li><li>Responsive interface for review away from a desk</li></ul></article></div></section>
+<section class="overview-section" aria-labelledby="commercial-title"><h2 id="commercial-title">Why this matters commercially</h2><div class="overview-callout">Clubs face an overload of metrics and opinions. We reduce noise by translating complex data into clear, decision-grade insights—faster identification of fit, stronger recruitment alignment, and better tactical clarity for performance planning.</div></section>
+<section class="overview-section" aria-labelledby="validated-title"><h2 id="validated-title">What’s validated vs what’s next</h2><div class="overview-grid"><article class="overview-card"><h3>Working in this prototype</h3><ul><li>Interactive player and team profiles</li><li>Similarity and fit logic based on real metrics</li><li>Explainable points drivers</li></ul></article><article class="overview-card"><h3>Next research direction</h3><ul><li>Deeper role-based models by position</li><li>Automated scouting shortlists</li><li>Club-specific KPI weighting</li></ul></article><article class="overview-card"><h3>Boundary</h3><p>This is internal research and product thinking, not a client case study or a claim about production deployment.</p></article></div></section>
+</div></main><footer class="lab-footer"><div class="lab-footer-inner"><div><strong>EliOra Tech Solutions</strong><p>Football Decision Intelligence Lab · internal R&amp;D</p><p>© <span data-current-year>2026</span> EliOra Tech Solutions.</p></div><div class="lab-footer-links"><a href="../work.html">← Back to Work</a><a href="player-st.html">ST Player</a><a href="team-prototype.html">Team</a><a href="../contact.html" class="lab-button">Start a project ↗</a></div></div></footer>
+</body></html>
