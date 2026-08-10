@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title }} · EliOra Outreach</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; form-action 'self'">
+  <style>
+    :root { --ink:#05080d; --surface:#0b121b; --text:#f4f7f8; --muted:#a8b5c2; --cyan:#61e5ff; --lime:#c8ff68; --border:#263746 }
+    * { box-sizing:border-box } body { margin:0; background:var(--ink); color:var(--text); font:15px/1.55 system-ui,sans-serif }
+    a { color:var(--cyan) } header { padding:24px 5vw; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; gap:20px; align-items:center }
+    nav { display:flex; flex-wrap:wrap; gap:14px } main { max-width:1440px; margin:0 auto; padding:42px 5vw }
+    h1,h2,h3 { line-height:1.1 } .eyebrow, th { color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:11px }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px }
+    .card { background:var(--surface); border:1px solid var(--border); padding:20px; border-radius:10px }
+    .metric { font-size:32px; color:var(--cyan); font-weight:700 } table { width:100%; border-collapse:collapse; background:var(--surface) }
+    .score-hero { font-size:28px; color:var(--cyan); margin:8px 0 18px }
+    th,td { padding:13px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; overflow-wrap:anywhere }
+    pre, .wrapped { white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word; max-width:100%; }
+    li { overflow-wrap:anywhere }
+    button { background:var(--lime); border:0; border-radius:6px; padding:10px 15px; font-weight:700; cursor:pointer }
+    .danger { background:#ffab9d } .muted { color:var(--muted) } .status { color:var(--lime) } code { color:var(--lime) }
+    @media(max-width:700px) { header { display:block } nav { margin-top:16px } table { display:block; overflow:auto } }
+  </style>
+</head>
+<body>
+  <header><div><div class="eyebrow">Local operations</div><strong>EliOra Outreach</strong></div>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/leads">Leads</a><a href="/drafts">Drafts</a><a href="/messages">Messages</a><a href="/suppressions">Suppressions</a><a href="/runs">Runs</a><a href="/settings">Settings</a></nav>
+  </header>
+  <main>{{ content|safe }}</main>
+  <footer class="muted" style="padding:24px 5vw;border-top:1px solid var(--border)">Bound to localhost. No tracking, no auto-replies, and no credentials rendered. <span class="muted">CSRF session active.</span></footer>
+</body>
+</html>
