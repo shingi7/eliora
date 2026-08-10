@@ -23,6 +23,7 @@ LAB = [
 ]
 BUSINESS = set(LAB[:4])
 LEGACY = ("#1f0a3d", "#2b0a57", "#4b1e8a", "#6a2fbf", "#c7a8f2", "#d1a20f", "ORL_COLORS", "--purple-", "--lavender-", "--gold-")
+PRIVATE_ARTIFACT_NAMES = ("outreach.sqlite", "outreach.sqlite3", "token.json", "credentials.json", "client_secret", "api_key", "gmail-token")
 
 
 class Parser(HTMLParser):
@@ -111,6 +112,9 @@ def check_page(path: Path, lab: bool = False) -> list[str]:
 
 def main() -> int:
     errors: list[str] = []
+    for path in DOCS.rglob("*"):
+        if path.is_file() and any(token in path.name.lower() for token in PRIVATE_ARTIFACT_NAMES):
+            errors.append(f"public docs contains private outreach artifact name: {path}")
     cname = DOCS / "CNAME"
     if not cname.exists() or cname.read_text(encoding="utf-8").strip() != "elioratechsolutions.com":
         errors.append("docs/CNAME is missing or incorrect")

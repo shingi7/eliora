@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eliora-outreach"
+version = "0.1.0"
+description = "A local-first, evidence-led outreach operations tool for EliOra Tech Solutions."
+requires-python = ">=3.11"
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "dnspython>=2.6",
+  "email-validator>=2.1",
+  "fastapi>=0.115",
+  "filelock>=3.15",
+  "httpx>=0.27",
+  "itsdangerous>=2.2",
+  "keyring>=25.3",
+  "jinja2>=3.1",
+  "openai>=1.50",
+  "platformdirs>=4.2",
+  "pydantic>=2.7",
+  "pydantic-settings>=2.3",
+  "python-multipart>=0.0.9",
+  "python-dateutil>=2.9",
+  "pyyaml>=6.0",
+  "rich>=13.7",
+  "sqlalchemy>=2.0",
+  "tenacity>=8.3",
+  "tldextract>=5.1",
+  "typer>=0.12",
+  "uvicorn>=0.30",
+]
+
+[project.optional-dependencies]
+gmail = [
+  "google-api-python-client>=2.140",
+  "google-auth>=2.30",
+  "google-auth-httplib2>=0.2",
+  "google-auth-oauthlib>=1.2",
+]
+dev = [
+  "freezegun>=1.5",
+  "httpx>=0.27",
+  "mypy>=1.10",
+  "pytest>=8.2",
+  "pytest-asyncio>=0.23",
+  "respx>=0.21",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+eliora-outreach = "eliora_outreach.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "E501", "UP017"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+warn_unused_ignores = true
+ignore_missing_imports = true

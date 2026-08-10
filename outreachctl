@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PYTHON_BIN="${ELIORA_OUTREACH_PYTHON:-$ROOT/outreach/.venv/bin/python}"
+if [ ! -x "$PYTHON_BIN" ]; then
+  echo "EliOra outreach environment is missing. Create it with:" >&2
+  echo "  python3 -m venv outreach/.venv" >&2
+  echo "  outreach/.venv/bin/python -m pip install -e 'outreach[dev]'" >&2
+  exit 1
+fi
+exec "$PYTHON_BIN" -m eliora_outreach "$@"

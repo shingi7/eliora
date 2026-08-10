@@ -1,0 +1,88 @@
+config_version: 4
+company:
+  legal_name: EliOra Tech Solutions LLC
+  website: https://elioratechsolutions.com
+  relevant_site_urls: []
+sender:
+  display_name: EliOra Tech Solutions
+  title: Lead Data Engineer
+  email: ""
+  reply_to: ""
+  owner_bcc: ""
+  postal_address: ""
+  disclosure: Business outreach from EliOra Tech Solutions.
+  opt_out: 'Not relevant? Reply "no thanks" and I will not contact you again.'
+  meeting_link: ""
+schedule:
+  timezone: America/New_York
+  research_time: "09:00"
+  send_start: "07:00"
+  send_end: "19:00"
+  fallback_timezone: America/New_York
+  followup_business_days: [5, 12]
+limits:
+  recommended_daily_initials: 5
+  recommended_daily_followups: 1
+  hard_daily_followups: 3
+  hard_daily_prospect_messages: 10
+  hard_daily_recipients: 20
+  openai_calls: 25
+  web_search_calls: 8
+  pages_fetched: 100
+  companies_researched: 12
+  drafts_generated: 12
+  random_delay_minutes: [4, 16]
+targeting:
+  allowed_countries: [United States, USA, US]
+  min_score_auto_send: 82
+  min_pain_confidence: 0.80
+  min_research_confidence: 0.82
+  fresh_signal_days: 120
+  cooldown_days: 180
+  vertical_weights:
+    healthcare: 35
+    financial_services: 25
+    operational_business: 30
+    sports: 10
+  exclusions: []
+research:
+  mode: production
+  provider: openai_responses
+  geography: US
+  max_queries: 8
+  max_candidates: 30
+  max_deep_research: 12
+  max_qualified: 5
+  max_web_search_calls: 20
+  max_analysis_calls: 30
+  max_http_requests: 80
+  max_pages_per_domain: 8
+  max_run_seconds: 600
+  company_cooldown_days: 30
+  page_cache_days: 10
+  signal_strong_days: 90
+  signal_max_days: 180
+  search_context_size: medium
+providers:
+  openai_model: gpt-5.4-mini
+  mail_provider: namecheap_private_email
+  mail_reply_sync: true
+  smtp_host: mail.privateemail.com
+  smtp_port: 465
+  smtp_security: ssl
+  imap_host: mail.privateemail.com
+  imap_port: 993
+  imap_security: ssl
+  mail_timeout_seconds: 30
+  mailbox_username: null
+  permission_basis_required: true
+  permission_policy_acknowledged: false
+  permission_policy_version: "2026-08"
+  research_user_agent: EliOra-Outreach-Research/1.0 (+https://elioratechsolutions.com)
+live:
+  enabled: false
+  policy_acknowledged: false
+  owner_test_sent: false
+  dry_run_completed: false
+  production_research_completed: false
+  activated_at: null

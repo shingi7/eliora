@@ -30,6 +30,26 @@ Thumbs.db
 # Log files
 *.log
 
+# EliOra outreach private/local files
+.env
+.env.*
+!.env.example
+credentials.json
+client_secret*.json
+token.json
+token*.json
+*.sqlite
+*.sqlite3
+outreach/var/
+outreach/logs/
+outreach/exports/
+outreach/.venv/
+.venv-outreach/
+outreach/.mypy_cache/
+outreach/.pytest_cache/
+outreach/.ruff_cache/
+outreach/src/*.egg-info/
+
 /.quarto/
 
 **/*.quarto_ipynb
